@@ -32,12 +32,6 @@ message(STATUS "Enable testing: ${ENABLE_UNIT_TESTS}")
 
 find_package(Eigen3 REQUIRED)
 
-include_directories(
-  ${PROJECT_SOURCE_DIR}/include/
-  )
-
-link_directories()
-
 add_subdirectory(src)
 
 if(ENABLE_UNIT_TESTS)
