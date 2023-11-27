@@ -1,4 +1,4 @@
-#ifndef NAIVECGL_SHAPE_HALF_EDGE_MESH_H
+﻿#ifndef NAIVECGL_SHAPE_HALF_EDGE_MESH_H
 #define NAIVECGL_SHAPE_HALF_EDGE_MESH_H
 
 #include <Eigen/Eigen>
@@ -6,17 +6,15 @@
 #include <tuple>
 #include <vector>
 
+#include "TriangleSoup.hpp"
+
 namespace naivecgl {
 namespace shape {
 
-#if 0
-// typedef double FloatType;
-// typedef size_t IndexType;
-// class __declspec(dllexport) HalfEdgeMesh {
-#else
+/// @brief Manifold mesh described by half-edges.
+/// @tparam FloatType
+/// @tparam IndexType
 template <typename FloatType, typename IndexType> class HalfEdgeMesh {
-#endif
-
 public:
   struct Vertex {
     Eigen::Vector3<FloatType> m_coord; // Vertex coordinates.
@@ -41,62 +39,81 @@ public:
   HalfEdgeMesh() : m_vertexIndex(0), m_halfEdgeIndex(0), m_faceIndex(0) {}
 
   /// @brief Construct a half-edge mesh from triangle soup.
-  /// @param vertices Vertices.
-  /// @param triangles Triangles.
-  HalfEdgeMesh(const std::vector<Eigen::Vector3<FloatType>> &vertices,
-               const std::vector<Eigen::Vector3<IndexType>> &triangles)
+  HalfEdgeMesh(const TriangleSoup<FloatType, IndexType> &triangleSoup)
       : m_vertexIndex(0), m_halfEdgeIndex(0), m_faceIndex(0) {
     /// Insert vertices.
-    for (const Eigen::Vector3<FloatType> &vertex : vertices) {
+    for (const Eigen::Vector3<FloatType> &vertex : triangleSoup.vertices()) {
       addVertex({vertex, 0});
     }
 
     /// Insert faces and their edges.
     /// Twins of the half-edges are not set yet.
-    for (const Eigen::Vector3<IndexType> &triangle : triangles) {
+    for (const Eigen::Vector3<IndexType> &triangle : triangleSoup.triangles()) {
       IndexType index0 = addHalfEdge({triangle(0), 0, 0, 0, 0});
       IndexType index1 = addHalfEdge({triangle(1), 0, 0, 0, 0});
       IndexType index2 = addHalfEdge({triangle(2), 0, 0, 0, 0});
 
-      m_halfEdges[index0].m_next = index1;
-      m_halfEdges[index1].m_next = index2;
-      m_halfEdges[index2].m_next = index0;
+      HalfEdge &edge0 = m_halfEdges[index0];
+      HalfEdge &edge1 = m_halfEdges[index1];
+      HalfEdge &edge2 = m_halfEdges[index2];
 
-      m_halfEdges[index0].m_prev = index2;
-      m_halfEdges[index1].m_prev = index0;
-      m_halfEdges[index2].m_prev = index1;
+      edge0.m_next = index1;
+      edge1.m_next = index2;
+      edge2.m_next = index0;
+
+      edge0.m_prev = index2;
+      edge1.m_prev = index0;
+      edge2.m_prev = index1;
+
+      /// TODO: Boundary check.
+      m_vertices[edge0.m_origin].m_edge = index0;
+      m_vertices[edge1.m_origin].m_edge = index1;
+      m_vertices[edge2.m_origin].m_edge = index2;
 
       IndexType faceIndex = addFace({index0, {0., 0., 0.}});
 
-      m_halfEdges[index0].m_face = faceIndex;
-      m_halfEdges[index1].m_face = faceIndex;
-      m_halfEdges[index2].m_face = faceIndex;
+      /// Store face index in the boundary edges.
+      edge0.m_face = faceIndex;
+      edge1.m_face = faceIndex;
+      edge2.m_face = faceIndex;
     }
 
-    /// Make edge twins.
+    /// Construct edge-twins.
+    /// Use an ordered map to find "duplicate" edges.
+    /// Better solution?
     std::map<std::tuple<IndexType, IndexType>, IndexType> edgeMap{};
 
     for (auto it = m_halfEdges.cbegin(); it != m_halfEdges.cend(); ++it) {
       IndexType thisV = it->second.m_origin;
       IndexType nextV = m_halfEdges[it->second.m_next].m_origin;
-      std::tuple<IndexType, IndexType> tup{std::min(thisV, nextV),
-                                           std::max(thisV, nextV)};
 
+      /// The key is the index of the start and end vertex indices: (a, b),
+      /// which a <= b.
+      if (thisV > nextV)
+        std::swap(thisV, nextV);
+
+      std::tuple<IndexType, IndexType> tup{thisV, nextV};
       auto key = edgeMap.find(tup);
 
+      /// If the edge is not in the `edgeMap`, just insert the pair.
       if (key == edgeMap.cend()) {
         edgeMap.insert(std::make_pair(tup, it->first));
         continue;
       }
 
-      IndexType twinIndex = edgeMap[key->first];
-
+      /// Find the "duplicate" edges, make them twins.
+      IndexType twinIndex = key->second;
       m_halfEdges[twinIndex].m_twin = it->first;
       m_halfEdges[it->first].m_twin = twinIndex;
     }
   }
 
   ~HalfEdgeMesh() {}
+
+public:
+  size_t nbVertices() const { return m_faces.size(); }
+
+  size_t nbFaces() const { return m_faces.size(); }
 
 private:
   /// @brief
@@ -127,10 +144,13 @@ private:
   /// @brief Current face index.
   IndexType m_faceIndex;
 
+  /// @brief Vertices.
   std::map<IndexType, Vertex> m_vertices{};
 
+  /// @brief Faces.
   std::map<IndexType, Face> m_faces{};
 
+  /// @brief Half-edges.
   std::map<IndexType, HalfEdge> m_halfEdges{};
 };
 
