@@ -1,6 +1,0 @@
-#ifndef NAIVECGL_ENCLOSING_DIST_H
-#define NAIVECGL_ENCLOSING_DIST_H
-
-
-
-#endif

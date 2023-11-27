@@ -10,12 +10,14 @@ add_library(
   ${NAIVECGL_SRC}
   )
 
-target_link_libraries(
-  ${PROJECT_NAME}
-  )
-
 target_include_directories(
   ${PROJECT_NAME}
-  PUBLIC
+  PRIVATE
   ${PROJECT_SOURCE_DIR}/include/naivecgl/
+  )
+
+target_link_libraries(
+  ${PROJECT_NAME}
+  PRIVATE
+  Eigen3::Eigen
   )

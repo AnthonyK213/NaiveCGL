@@ -27,10 +27,16 @@ if(EXISTS "${LOC_PATH}")
   build subdirectory. Feel free to remove CMakeCache.txt and CMakeFiles.")
 endif()
 
-option(ENABLE_UNIT_TESTS "Enable unit tests" OFF)
+option(ENABLE_UNIT_TESTS "Enable unit tests" ON)
 message(STATUS "Enable testing: ${ENABLE_UNIT_TESTS}")
 
 find_package(Eigen3 REQUIRED)
+message(${EIGEN3_INCLUDE_DIRS})
+
+include_directories(
+  ${PROJECT_BINARY_DIR}
+  ${EIGEN3_INCLUDE_DIRS}
+  )
 
 add_subdirectory(src)
 

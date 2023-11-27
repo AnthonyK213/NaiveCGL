@@ -1,7 +1,0 @@
-#ifndef NAIVECGL_CONVEX_HULL_2D
-#define NAIVECGL_CONVEX_HULL_2D
-
-
-
-#endif
-
