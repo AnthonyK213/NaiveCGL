@@ -115,6 +115,10 @@ public:
 
   size_t nbFaces() const { return m_faces.size(); }
 
+  const Vertex &vertex(IndexType id) const { return m_vertices.at(id); }
+
+  const Face &face(IndexType id) const { return m_faces.at(id); }
+
 private:
   /// @brief
   IndexType addVertex(const Vertex &vertex) {

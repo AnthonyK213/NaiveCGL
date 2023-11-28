@@ -15,9 +15,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 
 ### Require out-of-source builds
 file(TO_CMAKE_PATH "${PROJECT_BINARY_DIR}/CMakeLists.txt" LOC_PATH)
@@ -33,12 +30,9 @@ message(STATUS "Enable testing: ${ENABLE_UNIT_TESTS}")
 find_package(Eigen3 REQUIRED)
 message(${EIGEN3_INCLUDE_DIRS})
 
-include_directories(
-  ${PROJECT_BINARY_DIR}
-  ${EIGEN3_INCLUDE_DIRS}
-  )
+include_directories(${EIGEN3_INCLUDE_DIRS})
 
-add_subdirectory(src)
+# add_subdirectory(src)
 
 if(ENABLE_UNIT_TESTS)
   enable_testing()
