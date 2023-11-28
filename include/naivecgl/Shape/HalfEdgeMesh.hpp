@@ -49,9 +49,10 @@ public:
     /// Insert faces and their edges.
     /// Twins of the half-edges are not set yet.
     for (const Eigen::Vector3<IndexType> &triangle : triangleSoup.triangles()) {
-      IndexType index0 = addHalfEdge({triangle(0), 0, 0, 0, 0});
-      IndexType index1 = addHalfEdge({triangle(1), 0, 0, 0, 0});
-      IndexType index2 = addHalfEdge({triangle(2), 0, 0, 0, 0});
+      /// Vertex key starts from 1!
+      IndexType index0 = addHalfEdge({triangle(0) + 1, 0, 0, 0, 0});
+      IndexType index1 = addHalfEdge({triangle(1) + 1, 0, 0, 0, 0});
+      IndexType index2 = addHalfEdge({triangle(2) + 1, 0, 0, 0, 0});
 
       HalfEdge &edge0 = m_halfEdges[index0];
       HalfEdge &edge1 = m_halfEdges[index1];
@@ -111,13 +112,19 @@ public:
   ~HalfEdgeMesh() {}
 
 public:
-  size_t nbVertices() const { return m_faces.size(); }
+  size_t nbVertices() const { return m_vertices.size(); }
 
   size_t nbFaces() const { return m_faces.size(); }
 
   const Vertex &vertex(IndexType id) const { return m_vertices.at(id); }
+  
+  const HalfEdge &halfEdge(IndexType id) const { return m_halfEdges.at(id); }
 
   const Face &face(IndexType id) const { return m_faces.at(id); }
+  
+  const std::map<IndexType, Vertex> &vertices() const { return m_vertices; }
+
+  const std::map<IndexType, Face> &faces() const { return m_faces; }
 
 private:
   /// @brief
