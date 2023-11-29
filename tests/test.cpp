@@ -4,7 +4,12 @@
 #include <gtest/gtest.h>
 
 using Soup = naivecgl::shape::TriangleSoup<double, int>;
+
+#ifdef HALF_EDGE_MESH_TEMPLATE
 using Mesh = naivecgl::shape::HalfEdgeMesh<double, int>;
+#else
+using Mesh = naivecgl::shape::HalfEdgeMesh;
+#endif
 
 TEST(HalfEdgeMesh, CreateHalfEdgeMeshFromTriangleSoup) {
   std::vector<Eigen::Vector3d> vertices = {
