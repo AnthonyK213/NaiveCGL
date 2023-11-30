@@ -8,8 +8,6 @@
 
 #include "TriangleSoup.hpp"
 
-#define HALF_EDGE_MESH_TEMPLATE
-
 namespace naivecgl {
 namespace shape {
 
@@ -17,16 +15,7 @@ namespace shape {
 /// @tparam FloatType
 /// @tparam IndexType
 
-#ifdef HALF_EDGE_MESH_TEMPLATE
-template <typename FloatType, typename IndexType>
-class HalfEdgeMesh
-#else
-using FloatType = double;
-using IndexType = int;
-class __declspec(dllexport) HalfEdgeMesh
-#endif
-
-{
+template <typename FloatType, typename IndexType> class HalfEdgeMesh {
 public:
   class Vertex;
   class HalfEdge;
