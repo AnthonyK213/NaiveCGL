@@ -67,7 +67,9 @@ public:
   public:
     const Eigen::Vector3<FloatType> &coordinates() const { return m_coord; }
 
-    Eigen::Vector3<FloatType> &changedCoordinates() { return m_coord; }
+    Eigen::Vector3<FloatType> &coordinatesMut() { return m_coord; }
+
+    IndexType id() const { return m_id; }
 
   private:
     Eigen::Vector3<FloatType> m_coord; // Vertex coordinates.
@@ -115,6 +117,17 @@ public:
 
     ~HalfEdge() {}
 
+  public:
+    const Vertex *origin() const { return m_origin; }
+
+    const HalfEdge *twin() const { return m_twin; }
+
+    const Face *face() const { return m_face; }
+
+    const HalfEdge *next() const { return m_next; }
+
+    IndexType id() const { return m_id; }
+
   private:
     Vertex *m_origin; // Start vertex of the half-edge.
     HalfEdge *m_twin; // The twin half-edge.
@@ -151,6 +164,49 @@ public:
     }
 
     ~Face() {}
+
+  public:
+    class EdgeIterator {
+    public:
+      EdgeIterator(const Face *face) {
+        m_owner = face;
+        m_current = face->m_outerEdge;
+        m_firstTime = true;
+      }
+
+      bool more() const {
+        if (m_current == nullptr) {
+          return false;
+        }
+
+        if (m_firstTime) {
+          m_firstTime = false;
+          return true;
+        }
+
+        if (m_current == m_owner->m_outerEdge) {
+          return false;
+        }
+
+        return true;
+      }
+
+      void next() { m_current = m_current->next(); }
+
+      const HalfEdge *current() const { return m_current; }
+
+    private:
+      const Face *m_owner;
+      const HalfEdge *m_current;
+      mutable bool m_firstTime;
+    };
+
+  public:
+    EdgeIterator edgeIter() const { return EdgeIterator(this); }
+
+    Eigen::Vector3<FloatType> normal() const { return m_normal; }
+
+    IndexType id() const { return m_id; }
 
   private:
     HalfEdge *m_outerEdge; // A half-edge on the outer boundary.
