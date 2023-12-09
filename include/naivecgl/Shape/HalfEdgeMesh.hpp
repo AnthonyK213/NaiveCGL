@@ -1,12 +1,9 @@
 ﻿#ifndef NAIVECGL_SHAPE_HALF_EDGE_MESH_H
 #define NAIVECGL_SHAPE_HALF_EDGE_MESH_H
 
-#include <Eigen/Eigen>
-#include <map>
-#include <tuple>
-#include <vector>
-
 #include "TriangleSoup.hpp"
+
+#include <tuple>
 
 namespace naivecgl {
 namespace shape {
