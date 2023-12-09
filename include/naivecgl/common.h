@@ -1,9 +1,11 @@
 #ifndef NAIVECGL_COMMON_H
 #define NAIVECGL_COMMON_H
 
+#ifdef _WIN32
+#include <Eigen/Eigen>
+#else
 #include <eigen3/Eigen/Eigen>
 
-#ifdef __linux__
 namespace Eigen {
 template <typename T> using Vector3 = Matrix<T, 3, 1>;
 }

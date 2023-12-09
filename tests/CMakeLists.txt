@@ -43,7 +43,7 @@ add_executable(
 target_include_directories(
   ${PROJECT_NAME}Test
   PRIVATE
-  ${PROJECT_SOURCE_DIR}/include/naivecgl/
+  ${PROJECT_SOURCE_DIR}/include/
   )
 
 target_link_libraries(

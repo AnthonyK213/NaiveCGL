@@ -1,7 +1,7 @@
 #ifndef NAIVECGL_SHAPE_TRIANGLE_SOUP_H
 #define NAIVECGL_SHAPE_TRIANGLE_SOUP_H
 
-#include <naivecgl/common.h>
+#include "../common.h"
 
 namespace naivecgl {
 namespace shape {

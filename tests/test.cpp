@@ -1,5 +1,5 @@
-﻿#include <Shape/HalfEdgeMesh.hpp>
-#include <Shape/TriangleSoup.hpp>
+﻿#include <naivecgl/Shape/HalfEdgeMesh.hpp>
+#include <naivecgl/Shape/TriangleSoup.hpp>
 
 #include <gtest/gtest.h>
 

@@ -32,8 +32,6 @@ message(${EIGEN3_INCLUDE_DIRS})
 
 include_directories(${EIGEN3_INCLUDE_DIRS})
 
-# add_subdirectory(src)
-
 if(ENABLE_UNIT_TESTS)
   enable_testing()
   add_subdirectory(tests)
