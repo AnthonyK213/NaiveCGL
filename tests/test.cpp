@@ -1,6 +1,4 @@
-﻿#include <naivecgl/Shape/HalfEdgeMesh.hpp>
-#include <naivecgl/Shape/TriangleSoup.hpp>
-#include <naivecgl/Tessellation/Sphere.h>
+﻿#include <naivecgl/Tessellation/Sphere.h>
 
 #include <gtest/gtest.h>
 

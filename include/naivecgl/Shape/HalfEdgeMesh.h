@@ -1,7 +1,7 @@
 ﻿#ifndef _NaiveCGL_Shape_HalfEdgeMesh_Header
 #define _NaiveCGL_Shape_HalfEdgeMesh_Header
 
-#include "TriangleSoup.hpp"
+#include "TriangleSoup.h"
 
 #include <tuple>
 

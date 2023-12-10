@@ -1,8 +1,8 @@
 #ifndef _NaiveCGL_Common_mesh_Header
 #define _NaiveCGL_Common_mesh_Header
 
-#include <naivecgl/Shape/HalfEdgeMesh.hpp>
-#include <naivecgl/Shape/TriangleSoup.hpp>
+#include <naivecgl/Shape/HalfEdgeMesh.h>
+#include <naivecgl/Shape/TriangleSoup.h>
 
 using Naive_Poly3D = naivecgl::shape::TriangleSoup<Naive_Real, Naive_Integer>;
 using Naive_Mesh3D = naivecgl::shape::TriangleSoup<Naive_Real, Naive_Integer>;

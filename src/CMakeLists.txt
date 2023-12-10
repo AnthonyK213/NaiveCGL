@@ -21,3 +21,51 @@ target_link_libraries(
   PRIVATE
   Eigen3::Eigen
   )
+
+install(
+  TARGETS ${PROJECT_NAME}
+  EXPORT ${PROJECT_NAME}Targets
+  PUBLIC_HEADER DESTINATION include
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin
+  )
+
+install(
+  DIRECTORY ${PROJECT_SOURCE_DIR}/include/
+  DESTINATION include
+  COMPONENT header_files
+  FILES_MATCHING PATTERN "*.h"
+  )
+
+install(
+  EXPORT ${PROJECT_NAME}Targets
+  FILE ${PROJECT_NAME}Targets.cmake
+  DESTINATION lib/cmake/mylib
+  )
+
+set(INCLUDE_DIRS include)
+set(LIBRARIES ${PROJECT_NAME})
+set(LIB_DIR lib)
+
+include(CMakePackageConfigHelpers)
+
+write_basic_package_version_file(
+  ${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+  VERSION 0.0.1
+  COMPATIBILITY SameMajorVersion
+  )
+
+configure_package_config_file(
+  ${PROJECT_SOURCE_DIR}/${PROJECT_NAME}Config.cmake.in
+  ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+  INSTALL_DESTINATION lib/cmake/mylib
+  PATH_VARS INCLUDE_DIRS LIBRARIES LIB_DIR
+  INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}
+  )
+
+install(
+  FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake ${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+  DESTINATION lib/cmake/mylib
+  )
+
