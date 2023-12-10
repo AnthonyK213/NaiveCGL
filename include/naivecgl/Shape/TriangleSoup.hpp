@@ -1,14 +1,14 @@
-#ifndef NAIVECGL_SHAPE_TRIANGLE_SOUP_H
-#define NAIVECGL_SHAPE_TRIANGLE_SOUP_H
+#ifndef _NaiveCGL_Shape_TriangleSoup_Header
+#define _NaiveCGL_Shape_TriangleSoup_Header
 
-#include "../common.h"
+#include "../_common.h"
 
 namespace naivecgl {
 namespace shape {
 
 template <typename FloatType, typename IndexType> class TriangleSoup {
-  using VertexList = std::vector<Eigen::Vector3<FloatType>>;
-  using TriangleList = std::vector<Eigen::Vector3<IndexType>>;
+  using VertexList = std::vector<Naive_Vector3<FloatType>>;
+  using TriangleList = std::vector<Naive_Vector3<IndexType>>;
 
 public:
   TriangleSoup() {}

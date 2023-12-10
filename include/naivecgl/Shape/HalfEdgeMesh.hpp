@@ -1,5 +1,5 @@
-﻿#ifndef NAIVECGL_SHAPE_HALF_EDGE_MESH_H
-#define NAIVECGL_SHAPE_HALF_EDGE_MESH_H
+﻿#ifndef _NaiveCGL_Shape_HalfEdgeMesh_Header
+#define _NaiveCGL_Shape_HalfEdgeMesh_Header
 
 #include "TriangleSoup.hpp"
 
@@ -24,7 +24,7 @@ public:
   public:
     Vertex() {}
 
-    Vertex(const Eigen::Vector3<FloatType> &coord)
+    Vertex(const Naive_Vector3<FloatType> &coord)
         : m_coord(coord), m_edge(nullptr), m_id(0) {}
 
     Vertex(FloatType x, FloatType y, FloatType z)
@@ -51,14 +51,14 @@ public:
     ~Vertex() {}
 
   public:
-    const Eigen::Vector3<FloatType> &coordinates() const { return m_coord; }
+    const Naive_Vector3<FloatType> &coordinates() const { return m_coord; }
 
-    Eigen::Vector3<FloatType> &coordinatesMut() { return m_coord; }
+    Naive_Vector3<FloatType> &coordinatesMut() { return m_coord; }
 
     IndexType id() const { return m_id; }
 
   private:
-    Eigen::Vector3<FloatType> m_coord; // Vertex coordinates.
+    Naive_Vector3<FloatType> m_coord; // Vertex coordinates.
     HalfEdge *m_edge;                  // An half-edge starts with the vertex.
     IndexType m_id;                    // The ID(key) in the vertex map.
   };
@@ -190,14 +190,14 @@ public:
   public:
     EdgeIterator edgeIter() const { return EdgeIterator(this); }
 
-    Eigen::Vector3<FloatType> normal() const { return m_normal; }
+    Naive_Vector3<FloatType> normal() const { return m_normal; }
 
     IndexType id() const { return m_id; }
 
   private:
     HalfEdge *m_outerEdge; // A half-edge on the outer boundary.
     // std::vector<IndexType> m_innerEdges;
-    Eigen::Vector3<FloatType> m_normal; // Face normal.
+    Naive_Vector3<FloatType> m_normal; // Face normal.
     IndexType m_id;                     // The ID(key) in the face map.
   };
 
@@ -208,13 +208,13 @@ public:
   HalfEdgeMesh(const TriangleSoup<FloatType, IndexType> &triangleSoup)
       : m_vertexIndex(0), m_halfEdgeIndex(0), m_faceIndex(0) {
     /// Insert vertices.
-    for (const Eigen::Vector3<FloatType> &vertex : triangleSoup.vertices()) {
+    for (const Naive_Vector3<FloatType> &vertex : triangleSoup.vertices()) {
       addVertex({vertex});
     }
 
     /// Insert faces and their edges.
     /// Twins of the half-edges are not set yet.
-    for (const Eigen::Vector3<IndexType> &triangle : triangleSoup.triangles()) {
+    for (const Naive_Vector3<IndexType> &triangle : triangleSoup.triangles()) {
       /// Vertex key starts from 1!
       HalfEdge &edge0 = addHalfEdge({&m_vertices[triangle(0) + 1]});
       HalfEdge &edge1 = addHalfEdge({&m_vertices[triangle(1) + 1]});

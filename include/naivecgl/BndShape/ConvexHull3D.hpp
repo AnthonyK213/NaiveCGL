@@ -1,5 +1,5 @@
-﻿#ifndef NAIVECGL_BNDSHAPE_CONVEX_HULL_3D_H
-#define NAIVECGL_BNDSHAPE_CONVEX_HULL_3D_H
+﻿#ifndef _NaiveCGL_BndShape_ConvexHull3D_Header
+#define _NaiveCGL_BndShape_ConvexHull3D_Header
 
 
 

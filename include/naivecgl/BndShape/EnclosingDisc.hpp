@@ -1,5 +1,5 @@
-﻿#ifndef NAIVECGL_BNDSHAPE_ENCLOSING_DIST_H
-#define NAIVECGL_BNDSHAPE_ENCLOSING_DIST_H
+﻿#ifndef _NaiveCGL_BndShape_EnclosingDisc_Header
+#define _NaiveCGL_BndShape_EnclosingDisc_Header
 
 
 

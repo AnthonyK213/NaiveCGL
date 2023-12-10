@@ -1,5 +1,5 @@
-﻿#ifndef NAIVECGL_BNDSHAPE_ORIENTED_BOUNDING_BOX_H
-#define NAIVECGL_BNDSHAPE_ORIENTED_BOUNDING_BOX_H
+﻿#ifndef _NaiveCGL_BndShape_OrientedBoundingBox_Header
+#define _NaiveCGL_BndShape_OrientedBoundingBox_Header
 
 
 
