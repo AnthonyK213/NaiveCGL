@@ -41,12 +41,12 @@ install(
 install(
   EXPORT ${PROJECT_NAME}Targets
   FILE ${PROJECT_NAME}Targets.cmake
-  DESTINATION lib/cmake/mylib
+  DESTINATION lib/cmake/naivecgl
   )
 
-set(INCLUDE_DIRS include)
+set(INCLUDE_DIR include)
 set(LIBRARIES ${PROJECT_NAME})
-set(LIB_DIR lib)
+set(LIBRARY_DIR lib)
 
 include(CMakePackageConfigHelpers)
 
@@ -59,13 +59,14 @@ write_basic_package_version_file(
 configure_package_config_file(
   ${PROJECT_SOURCE_DIR}/${PROJECT_NAME}Config.cmake.in
   ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
-  INSTALL_DESTINATION lib/cmake/mylib
-  PATH_VARS INCLUDE_DIRS LIBRARIES LIB_DIR
+  INSTALL_DESTINATION lib/cmake/naivecgl
+  PATH_VARS INCLUDE_DIR LIBRARIES LIBRARY_DIR
   INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}
   )
 
 install(
-  FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake ${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
-  DESTINATION lib/cmake/mylib
+  FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
+        ${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
+  DESTINATION lib/cmake/naivecgl
   )
 
