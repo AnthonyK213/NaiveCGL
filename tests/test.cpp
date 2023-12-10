@@ -1,10 +1,8 @@
 ﻿#include <naivecgl/Shape/HalfEdgeMesh.hpp>
 #include <naivecgl/Shape/TriangleSoup.hpp>
+#include <naivecgl/Tessellation/Sphere.h>
 
 #include <gtest/gtest.h>
-
-using Soup = naivecgl::shape::TriangleSoup<double, int>;
-using Mesh = naivecgl::shape::HalfEdgeMesh<double, int>;
 
 TEST(HalfEdgeMesh, CreateHalfEdgeMeshFromTriangleSoup) {
   std::vector<Naive_Vector3d> vertices = {
@@ -17,11 +15,21 @@ TEST(HalfEdgeMesh, CreateHalfEdgeMeshFromTriangleSoup) {
       {5, 1, 2}, {5, 2, 3}, {5, 3, 4}, {5, 4, 1},
   };
 
-  Soup soup(std::move(vertices), std::move(triangles));
+  Naive_Poly3D soup(std::move(vertices), std::move(triangles));
 
   ASSERT_TRUE(soup.isValid());
 
-  Mesh mesh(soup);
+  Naive_Mesh3D mesh(soup);
+}
+
+TEST(Sphere, CreateOctasphere) {
+  Naive_H_Poly3D sphere = naivecgl::tessellation::octasphere({3, 4, 5}, 10);
+
+  ASSERT_EQ(15, sphere->vertices().size());
+  ASSERT_EQ(16, sphere->triangles().size());
+
+  ASSERT_EQ(15, sphere->vertices().capacity());
+  ASSERT_EQ(16, sphere->triangles().capacity());
 }
 
 int main(int argc, char **argv) {

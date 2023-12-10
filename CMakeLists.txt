@@ -30,7 +30,12 @@ message(STATUS "Enable testing: ${ENABLE_UNIT_TESTS}")
 find_package(Eigen3 REQUIRED)
 message(${EIGEN3_INCLUDE_DIRS})
 
-include_directories(${EIGEN3_INCLUDE_DIRS})
+include_directories(
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/
+  ${EIGEN3_INCLUDE_DIRS}
+  )
+
+add_subdirectory(src)
 
 if(ENABLE_UNIT_TESTS)
   enable_testing()

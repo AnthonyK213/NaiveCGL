@@ -50,7 +50,7 @@ target_link_libraries(
   ${PROJECT_NAME}Test
   PRIVATE
   gtest
-  # ${PROJECT_NAME}
+  ${PROJECT_NAME}
   )
 
 include(GoogleTest)

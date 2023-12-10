@@ -11,7 +11,6 @@ namespace shape {
 /// @brief Manifold mesh described by half-edges.
 /// @tparam FloatType
 /// @tparam IndexType
-
 template <typename FloatType, typename IndexType> class HalfEdgeMesh {
 public:
   class Vertex;
