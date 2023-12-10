@@ -21,7 +21,7 @@ Naive_H_Poly3D octasphere(const Naive_Vector3d &center, const Naive_Real radius,
   aPoints.reserve(d + 1);
 
   Naive_Real aHalf = radius * std::sqrt(0.5);
-  Naive_Vector3d aPntA{0.0, 0.0, aHalf};
+  Naive_Vector3d aPntA{0.0, 0.0, radius};
   Naive_Vector3d aPntB{aHalf, aHalf, 0.0};
   Naive_Vector3d aPntC{-aHalf, aHalf, 0.0};
 
