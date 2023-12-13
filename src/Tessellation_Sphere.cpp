@@ -2,8 +2,7 @@
 
 #include <naivecgl/Tessellation/Sphere.h>
 
-namespace naivecgl {
-namespace tessellation {
+Naive_Namespace_Begin(tessellation);
 
 const Naive_Real SQRT_3 = std::sqrt(3.0);
 const Naive_Real SQRT_1_3 = std::sqrt(1.0 / 3.0);
@@ -133,14 +132,14 @@ static Naive_Integer _tetra_index(const Naive_Integer d, const Naive_Integer n,
 #undef C
 
 void uvsphere(const Naive_Vector3d &center, const Naive_Real radius,
-              Naive_Poly3D &poly) {}
+              Naive_Poly &poly) {}
 
-Naive_H_Poly3D tetrasphere(const Naive_Vector3d &center,
+Naive_H_Poly tetrasphere(const Naive_Vector3d &center,
                            const Naive_Real radius, const Naive_Integer level) {
   if (radius < 0 || level < 0)
     return nullptr;
 
-  std::vector<std::vector<_Vertex_>> aVertices{};
+  Naive_List<Naive_List<_Vertex_>> aVertices{};
   Naive_Integer d = level + 1;
 
   aVertices.reserve(d + 1);
@@ -148,7 +147,7 @@ Naive_H_Poly3D tetrasphere(const Naive_Vector3d &center,
   Naive_Integer aVertIndex = 0;
 
   for (Naive_Integer n = 0; n <= d; ++n) {
-    std::vector<_Vertex_> aVerts{};
+    Naive_List<_Vertex_> aVerts{};
 
     if (n == 0) {
       aVerts.resize(d + 1);
@@ -185,7 +184,7 @@ Naive_H_Poly3D tetrasphere(const Naive_Vector3d &center,
     aVertices.push_back(std::move(aVerts));
   }
 
-  std::vector<Naive_Vector3i> aTriangles{};
+  Naive_List<Naive_Triangle> aTriangles{};
   aTriangles.reserve(4 * d * d);
 
   for (Naive_Integer n = 0; n < d; ++n) {
@@ -203,7 +202,7 @@ Naive_H_Poly3D tetrasphere(const Naive_Vector3d &center,
     }
   }
 
-  std::vector<Naive_Vector3d> aPoints{};
+  Naive_List<Naive_Vector3d> aPoints{};
   aPoints.reserve(aVertIndex); // 2 * d * d + 2
 
   for (const auto &verts : aVertices) {
@@ -216,16 +215,16 @@ Naive_H_Poly3D tetrasphere(const Naive_Vector3d &center,
     }
   }
 
-  return std::make_shared<Naive_Poly3D>(std::move(aPoints),
+  return std::make_shared<Naive_Poly>(std::move(aPoints),
                                         std::move(aTriangles));
 }
 
-Naive_H_Poly3D octasphere(const Naive_Vector3d &center, const Naive_Real radius,
+Naive_H_Poly octasphere(const Naive_Vector3d &center, const Naive_Real radius,
                           const Naive_Integer level) {
   if (radius < 0 || level < 0)
     return nullptr;
 
-  std::vector<std::vector<Naive_Vector3d>> aPoints{};
+  Naive_List<Naive_List<Naive_Vector3d>> aPoints{};
   Naive_Integer d = level + 1;
 
   aPoints.reserve(d + 1);
@@ -236,7 +235,7 @@ Naive_H_Poly3D octasphere(const Naive_Vector3d &center, const Naive_Real radius,
   Naive_Vector3d aPntC{-aHalf, aHalf, 0.0};
 
   for (Naive_Integer n = 0; n <= d; ++n) {
-    std::vector<Naive_Vector3d> aPnts{};
+    Naive_List<Naive_Vector3d> aPnts{};
     aPnts.reserve(n + 1);
 
     Naive_Real a = Naive_Real(d - n) / d;
@@ -255,7 +254,7 @@ Naive_H_Poly3D octasphere(const Naive_Vector3d &center, const Naive_Real radius,
     aPoints.push_back(std::move(aPnts));
   }
 
-  std::vector<Naive_Vector3i> aTriangles{};
+  Naive_List<Naive_Triangle> aTriangles{};
   aTriangles.reserve(d * d);
 
   for (Naive_Integer n = 1; n <= d; ++n) {
@@ -270,7 +269,7 @@ Naive_H_Poly3D octasphere(const Naive_Vector3d &center, const Naive_Real radius,
     }
   }
 
-  std::vector<Naive_Vector3d> aFlatPoints{};
+  Naive_List<Naive_Vector3d> aFlatPoints{};
   aFlatPoints.reserve(((d + 1) * (d + 2)) >> 1);
 
   for (Naive_Integer n = 0; n <= d; ++n) {
@@ -279,14 +278,13 @@ Naive_H_Poly3D octasphere(const Naive_Vector3d &center, const Naive_Real radius,
     }
   }
 
-  return std::make_shared<Naive_Poly3D>(std::move(aFlatPoints),
+  return std::make_shared<Naive_Poly>(std::move(aFlatPoints),
                                         std::move(aTriangles));
 }
 
-Naive_H_Poly3D icoshpere(const Naive_Vector3d &center, const Naive_Real radius,
+Naive_H_Poly icoshpere(const Naive_Vector3d &center, const Naive_Real radius,
                          const Naive_Integer level) {
   return nullptr;
 }
 
-} // namespace tessellation
-} // namespace naivecgl
+Naive_Namespace_End(tessellation);

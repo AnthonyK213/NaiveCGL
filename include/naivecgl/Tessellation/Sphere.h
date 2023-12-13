@@ -1,24 +1,23 @@
 #ifndef _NaiveCGL_Tessellation_Sphere_Header
 #define _NaiveCGL_Tessellation_Sphere_Header
 
-#include <naivecgl/Common/mesh.h>
+#include <naivecgl/Common/geometry.h>
 
-namespace naivecgl {
-namespace tessellation {
+Naive_Namespace_Begin(tessellation);
 
 /// @brief
 /// @param center
 /// @param radius
 /// @param poly
 Naive_Export void uvsphere(const Naive_Vector3d &center,
-                           const Naive_Real radius, Naive_Poly3D &poly);
+                           const Naive_Real radius, Naive_Poly &poly);
 
 /// @brief 
 /// @param center 
 /// @param radius 
 /// @param level 
 /// @return 
-Naive_Export Naive_H_Poly3D tetrasphere(const Naive_Vector3d &center,
+Naive_Export Naive_H_Poly tetrasphere(const Naive_Vector3d &center,
                                         const Naive_Real radius,
                                         const Naive_Integer level = 6);
 
@@ -27,7 +26,7 @@ Naive_Export Naive_H_Poly3D tetrasphere(const Naive_Vector3d &center,
 /// @param radius
 /// @param level 
 /// @return 
-Naive_Export Naive_H_Poly3D octasphere(const Naive_Vector3d &center,
+Naive_Export Naive_H_Poly octasphere(const Naive_Vector3d &center,
                                        const Naive_Real radius,
                                        const Naive_Integer level = 6);
 
@@ -36,11 +35,10 @@ Naive_Export Naive_H_Poly3D octasphere(const Naive_Vector3d &center,
 /// @param radius
 /// @param level 
 /// @return 
-Naive_Export Naive_H_Poly3D icoshpere(const Naive_Vector3d &center,
+Naive_Export Naive_H_Poly icoshpere(const Naive_Vector3d &center,
                                        const Naive_Real radius,
                                        const Naive_Integer level = 6);
 
-} // namespace tessellation
-} // namespace naivecgl
+Naive_Namespace_End(tessellation);
 
 #endif
