@@ -1,4 +1,5 @@
-﻿#include <naivecgl/Tessellation/Sphere.h>
+﻿#include <naivecgl/BndShape/ConvexHull.h>
+#include <naivecgl/Tessellation/Sphere.h>
 
 #include <gtest/gtest.h>
 
@@ -28,6 +29,17 @@ TEST(Sphere, CreateOctasphere) {
 
   ASSERT_EQ(36, sphere->vertices().capacity());
   ASSERT_EQ(49, sphere->triangles().capacity());
+}
+
+TEST(ConvexHull2D, GetHull) {
+  Naive_List<Naive_Point2d> points{
+      {0, 2}, {1, 3}, {2, 2}, {2, 0}, {3, 1}, {3, 4}, {4, 2}, {4, 3},
+  };
+
+  auto result = naivecgl::bndshape::convexHull2D(points);
+  Naive_List<Naive_Integer> answer{0, 3, 4, 6, 7, 5, 1};
+
+  ASSERT_EQ(answer, result);
 }
 
 int main(int argc, char **argv) {
