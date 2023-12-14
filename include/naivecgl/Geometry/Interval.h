@@ -57,7 +57,7 @@ public:
 
   /// @brief
   /// @return
-  Naive_Real max() const;
+  Naive_Real max_() const;
 
   /// @brief
   /// @return
@@ -65,7 +65,7 @@ public:
 
   /// @brief
   /// @return
-  Naive_Real min() const;
+  Naive_Real min_() const;
 
   /// @brief
   /// @return

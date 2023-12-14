@@ -24,11 +24,11 @@ Naive_Bool Interval::isValid() const {
 
 Naive_Real Interval::length() const { return m_t1 - m_t0; }
 
-Naive_Real Interval::max() const { return std::max(m_t0, m_t1); }
+Naive_Real Interval::max_() const { return (std::max)(m_t0, m_t1); }
 
 Naive_Real Interval::mid() const { return (m_t0 + m_t1) / 2.0; }
 
-Naive_Real Interval::min() const { return std::min(m_t0, m_t1); }
+Naive_Real Interval::min_() const { return (std::min)(m_t0, m_t1); }
 
 Naive_Real Interval::t0() const { return m_t0; }
 
@@ -36,8 +36,8 @@ Naive_Real Interval::t1() const { return m_t1; }
 
 Interval Interval::fromIntersection(const Interval &a, const Interval &b) {
   if (a.isValid() && b.isValid()) {
-    Naive_Real min_ = std::max(a.min(), b.min());
-    Naive_Real max_ = std::min(a.max(), b.max());
+    Naive_Real min_ = (std::max)(a.min_(), b.min_());
+    Naive_Real max_ = (std::min)(a.max_(), b.max_());
 
     if (min_ <= max_) {
       return Interval(min_, max_);
@@ -49,8 +49,8 @@ Interval Interval::fromIntersection(const Interval &a, const Interval &b) {
 
 Interval Interval::fromUnion(const Interval &a, const Interval &b) {
   if (a.isValid() && b.isValid()) {
-    Naive_Real min_ = std::min(a.min(), b.min());
-    Naive_Real max_ = std::max(a.max(), b.max());
+    Naive_Real min_ = (std::min)(a.min_(), b.min_());
+    Naive_Real max_ = (std::max)(a.max_(), b.max_());
 
     return Interval(min_, max_);
   }
