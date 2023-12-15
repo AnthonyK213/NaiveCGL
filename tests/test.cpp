@@ -36,7 +36,11 @@ TEST(ConvexHull2D, GetHull) {
       {0, 2}, {1, 3}, {2, 2}, {2, 0}, {3, 1}, {3, 4}, {4, 2}, {4, 3},
   };
 
-  auto result = naivecgl::bndshape::convexHull2D(points);
+  Naive_List<Naive_Integer> result{};
+  Naive_Code code = naivecgl::bndshape::convexHull2D(points, result);
+
+  ASSERT_EQ(Naive_Ok, code);
+
   Naive_List<Naive_Integer> answer{0, 3, 4, 6, 7, 5, 1};
 
   ASSERT_EQ(answer, result);

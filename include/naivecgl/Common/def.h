@@ -7,10 +7,14 @@
 #include <eigen3/Eigen/Eigen>
 #endif
 
+#include <cstdint>
+
 #include <map>
 #include <memory>
 #include <unordered_map>
 #include <vector>
+
+#include <naivecgl/Interface/NaiveCGL_c_types.h>
 
 #ifndef Naive_Export
 #ifdef _WIN32
@@ -20,8 +24,12 @@
 #endif
 #endif
 
-#define Naive_Namespace_Begin(ns) namespace naivecgl { namespace ns {
-#define Naive_Namespace_End(ns) }}
+#define Naive_Namespace_Begin(ns)                                              \
+  namespace naivecgl {                                                         \
+  namespace ns {
+#define Naive_Namespace_End(ns)                                                \
+  }                                                                            \
+  }
 
 template <typename T> using Naive_H = std::shared_ptr<T>;
 template <typename T> using Naive_List = std::vector<T>;
@@ -34,7 +42,7 @@ template <typename T> using Naive_Vector3 = Eigen::Matrix<T, 3, 1>;
 
 using Naive_Bool = bool;
 using Naive_Real = double;
-using Naive_Integer = int;
+using Naive_Integer = int32_t;
 
 using Naive_Matrix3d = Naive_Matrix3<Naive_Real>;
 

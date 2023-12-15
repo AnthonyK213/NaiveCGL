@@ -5,8 +5,8 @@
 
 Naive_Namespace_Begin(bndshape);
 
-Naive_Export Naive_List<Naive_Integer>
-convexHull2D(const Naive_List<Naive_Point2d> &points);
+Naive_Export Naive_Code convexHull2D(const Naive_List<Naive_Point2d> &points,
+                                     Naive_List<Naive_Integer> &convexIndices);
 
 Naive_Export Naive_H_Mesh convexHull3D(const Naive_List<Naive_Point3d> &points);
 
