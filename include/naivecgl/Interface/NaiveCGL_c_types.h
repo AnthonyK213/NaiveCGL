@@ -13,4 +13,16 @@ typedef enum {
   Naive_Fail,
 } Naive_Code;
 
+typedef struct {
+  double x, y;
+} Naive_Point2d_T;
+
+typedef struct {
+  double x, y, z;
+} Naive_Point3d_T;
+
+typedef struct {
+  int32_t n0, n1, n2;
+} Naive_Triangle_T;
+
 #endif

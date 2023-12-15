@@ -8,7 +8,7 @@ const Naive_Real SQRT_3 = std::sqrt(3.0);
 const Naive_Real SQRT_1_3 = std::sqrt(1.0 / 3.0);
 
 struct _Vertex_ {
-  Naive_Vector3d m_point;
+  Naive_Point3d m_point;
   Naive_Integer m_index;
 };
 
@@ -131,11 +131,11 @@ static Naive_Integer _tetra_index(const Naive_Integer d, const Naive_Integer n,
 #undef S
 #undef C
 
-void uvsphere(const Naive_Vector3d &center, const Naive_Real radius,
+void uvsphere(const Naive_Point3d &center, const Naive_Real radius,
               Naive_Poly &poly) {}
 
-Naive_H_Poly tetrasphere(const Naive_Vector3d &center,
-                           const Naive_Real radius, const Naive_Integer level) {
+Naive_H_Poly tetrasphere(const Naive_Point3d &center, const Naive_Real radius,
+                         const Naive_Integer level) {
   if (radius < 0 || level < 0)
     return nullptr;
 
@@ -202,12 +202,12 @@ Naive_H_Poly tetrasphere(const Naive_Vector3d &center,
     }
   }
 
-  Naive_List<Naive_Vector3d> aPoints{};
+  Naive_List<Naive_Point3d> aPoints{};
   aPoints.reserve(aVertIndex); // 2 * d * d + 2
 
   for (const auto &verts : aVertices) {
     for (const auto &vert : verts) {
-      Naive_Vector3d point = vert.m_point;
+      Naive_Point3d point = vert.m_point;
       point.normalize();
       point *= radius;
       point += center;
@@ -216,26 +216,26 @@ Naive_H_Poly tetrasphere(const Naive_Vector3d &center,
   }
 
   return std::make_shared<Naive_Poly>(std::move(aPoints),
-                                        std::move(aTriangles));
+                                      std::move(aTriangles));
 }
 
-Naive_H_Poly octasphere(const Naive_Vector3d &center, const Naive_Real radius,
-                          const Naive_Integer level) {
+Naive_H_Poly octasphere(const Naive_Point3d &center, const Naive_Real radius,
+                        const Naive_Integer level) {
   if (radius < 0 || level < 0)
     return nullptr;
 
-  Naive_List<Naive_List<Naive_Vector3d>> aPoints{};
+  Naive_List<Naive_List<Naive_Point3d>> aPoints{};
   Naive_Integer d = level + 1;
 
   aPoints.reserve(d + 1);
 
   Naive_Real aHalf = radius * std::sqrt(0.5);
-  Naive_Vector3d aPntA{0.0, 0.0, radius};
-  Naive_Vector3d aPntB{aHalf, aHalf, 0.0};
-  Naive_Vector3d aPntC{-aHalf, aHalf, 0.0};
+  Naive_Point3d aPntA{0.0, 0.0, radius};
+  Naive_Point3d aPntB{aHalf, aHalf, 0.0};
+  Naive_Point3d aPntC{-aHalf, aHalf, 0.0};
 
   for (Naive_Integer n = 0; n <= d; ++n) {
-    Naive_List<Naive_Vector3d> aPnts{};
+    Naive_List<Naive_Point3d> aPnts{};
     aPnts.reserve(n + 1);
 
     Naive_Real a = Naive_Real(d - n) / d;
@@ -269,7 +269,7 @@ Naive_H_Poly octasphere(const Naive_Vector3d &center, const Naive_Real radius,
     }
   }
 
-  Naive_List<Naive_Vector3d> aFlatPoints{};
+  Naive_List<Naive_Point3d> aFlatPoints{};
   aFlatPoints.reserve(((d + 1) * (d + 2)) >> 1);
 
   for (Naive_Integer n = 0; n <= d; ++n) {
@@ -279,11 +279,11 @@ Naive_H_Poly octasphere(const Naive_Vector3d &center, const Naive_Real radius,
   }
 
   return std::make_shared<Naive_Poly>(std::move(aFlatPoints),
-                                        std::move(aTriangles));
+                                      std::move(aTriangles));
 }
 
-Naive_H_Poly icoshpere(const Naive_Vector3d &center, const Naive_Real radius,
-                         const Naive_Integer level) {
+Naive_H_Poly icoshpere(const Naive_Point3d &center, const Naive_Real radius,
+                       const Naive_Integer level) {
   return nullptr;
 }
 

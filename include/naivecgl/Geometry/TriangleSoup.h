@@ -12,7 +12,13 @@ class Naive_Export TriangleSoup {
 public:
   TriangleSoup();
 
+  TriangleSoup(TriangleSoup &&other) noexcept;
+
+  TriangleSoup(const VertexList &vertices, const TriangleList &triangles);
+
   TriangleSoup(VertexList &&vertices, TriangleList &&triangles);
+
+  TriangleSoup &operator=(TriangleSoup &&other) noexcept;
 
   ~TriangleSoup();
 

@@ -3,10 +3,12 @@
 
 #ifndef __cplusplus
 #define Naive_CAPI
+typedef void Naive_Mesh;
+typedef void Naive_Poly;
 #else
-#ifdef _WIN32
 #include <naivecgl/BndShape/ConvexHull.h>
 #include <naivecgl/Tessellation/Sphere.h>
+#ifdef _WIN32
 #define Naive_CAPI extern "C" __declspec(dllexport)
 #else
 #define Naive_CAPI extern "C"
@@ -15,9 +17,25 @@
 
 #include "NaiveCGL_c_types.h"
 
+/// Naive_Poly {{{
+
+Naive_CAPI int32_t Naive_Poly_NbVertices(const Naive_Poly *handle);
+
+Naive_CAPI void Naive_Poly_Vertices(const Naive_Poly *handle,
+                                    Naive_Point3d_T *vertices);
+
+Naive_CAPI int32_t Naive_Poly_NbTriangles(const Naive_Poly *handle);
+
+Naive_CAPI void Naive_Poly_Triangles(const Naive_Poly *handle,
+                                     Naive_Triangle_T *triangles);
+
+Naive_CAPI void Naive_Poly_Release(Naive_Poly *handle);
+
+/// }}}
+
 /// BndShape {{{
 
-Naive_CAPI Naive_Code Naive_BndShape_ConvexHull2D(const double *points,
+Naive_CAPI Naive_Code Naive_BndShape_ConvexHull2D(const Naive_Point2d_T *points,
                                                   int32_t *count,
                                                   int32_t **convexIndices);
 
@@ -25,15 +43,21 @@ Naive_CAPI Naive_Code Naive_BndShape_ConvexHull2D(const double *points,
 
 /// Tessellation {{{
 
+Naive_CAPI Naive_Poly *
+Naive_Tessellation_Tetrasphere(const Naive_Point3d_T *center, double radius,
+                               int32_t level);
+
 /// }}}
 
 /// Release {{{
 
-Naive_CAPI void Naive_Release_OpaqueArray(void *array);
+Naive_CAPI void Naive_Release_Int32Array(int32_t *array);
+
+Naive_CAPI void Naive_Release_DoubleArray(double *array);
 
 /// }}}
 
-#undef Naive_CAI
+#undef Naive_CAPI
 
 #endif
 

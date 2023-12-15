@@ -4,9 +4,27 @@ Naive_Namespace_Begin(geometry);
 
 TriangleSoup::TriangleSoup() {}
 
+TriangleSoup::TriangleSoup(TriangleSoup &&other) noexcept {
+  m_vertices = std::move(other.m_vertices);
+  m_triangles = std::move(other.m_triangles);
+}
+
+TriangleSoup::TriangleSoup(const VertexList &vertices,
+                           const TriangleList &triangles) {
+  m_vertices = vertices;
+  m_triangles = triangles;
+}
+
 TriangleSoup::TriangleSoup(VertexList &&vertices, TriangleList &&triangles) {
   m_vertices = std::move(vertices);
   m_triangles = std::move(triangles);
+}
+
+TriangleSoup &TriangleSoup::operator=(TriangleSoup &&other) noexcept {
+  m_vertices = std::move(other.m_vertices);
+  m_triangles = std::move(other.m_triangles);
+
+  return *this;
 }
 
 TriangleSoup::~TriangleSoup() {}
