@@ -1,4 +1,4 @@
-#include <naivecgl/BndShape/EnclosingDisc.h>
+﻿#include <naivecgl/BndShape/EnclosingDisc.h>
 
 Naive_Namespace_Begin(bndshape);
 

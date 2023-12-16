@@ -1,4 +1,4 @@
-#include <naivecgl/Math/Util.h>
+﻿#include <naivecgl/Math/Util.h>
 
 Naive_Namespace_Begin(math);
 

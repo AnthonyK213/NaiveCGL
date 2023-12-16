@@ -1,4 +1,4 @@
-#include <naivecgl/Geometry/HalfEdgeMesh.h>
+﻿#include <naivecgl/Geometry/HalfEdgeMesh.h>
 
 #include <tuple>
 

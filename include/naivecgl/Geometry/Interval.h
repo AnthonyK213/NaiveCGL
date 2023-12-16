@@ -1,4 +1,4 @@
-#ifndef _NaiveCGL_Geometry_Interval_Header
+﻿#ifndef _NaiveCGL_Geometry_Interval_Header
 #define _NaiveCGL_Geometry_Interval_Header
 
 #include "def.h"

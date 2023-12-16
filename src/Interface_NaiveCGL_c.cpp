@@ -1,4 +1,4 @@
-#include <naivecgl/Interface/NaiveCGL_c.h>
+﻿#include <naivecgl/Interface/NaiveCGL_c.h>
 #include <naivecgl/Math/Constants.h>
 
 /// Naive_Poly {{{

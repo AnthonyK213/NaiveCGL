@@ -1,4 +1,4 @@
-#include <naivecgl/Geometry/Interval.h>
+﻿#include <naivecgl/Geometry/Interval.h>
 #include <naivecgl/Math/Util.h>
 
 Naive_Namespace_Begin(geometry);

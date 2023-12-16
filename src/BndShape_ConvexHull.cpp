@@ -1,4 +1,4 @@
-#include <naivecgl/BndShape/ConvexHull.h>
+﻿#include <naivecgl/BndShape/ConvexHull.h>
 
 Naive_Namespace_Begin(bndshape);
 
@@ -25,7 +25,7 @@ public:
   ~_QuickHull2D_() {}
 
 public:
-  void preform() {
+  void perform() {
     if (status() != Naive_Ok)
       return;
 
@@ -144,7 +144,7 @@ private:
 Naive_Code convexHull2D(const Naive_List<Naive_Point2d> &points,
                         Naive_List<Naive_Integer> &convexIndices) {
   _QuickHull2D_ hull{points};
-  hull.preform();
+  hull.perform();
 
   if (hull.status() == Naive_Ok)
     convexIndices = hull.convexIndices();

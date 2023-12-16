@@ -1,4 +1,4 @@
-#ifndef _NaiveCGL_Common_def_Header
+﻿#ifndef _NaiveCGL_Common_def_Header
 #define _NaiveCGL_Common_def_Header
 
 #ifdef _WIN32

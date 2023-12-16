@@ -1,4 +1,4 @@
-#ifndef _NaiveCGL_Geometry_Line_Header
+﻿#ifndef _NaiveCGL_Geometry_Line_Header
 #define _NaiveCGL_Geometry_Line_Header
 
 #include "def.h"

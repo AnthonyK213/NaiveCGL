@@ -1,4 +1,4 @@
-/// Reference: https://www.mdpi.com/2076-3417/10/2/655
+﻿/// Reference: https://www.mdpi.com/2076-3417/10/2/655
 
 #include <naivecgl/Tessellation/Sphere.h>
 

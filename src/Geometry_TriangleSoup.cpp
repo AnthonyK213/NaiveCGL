@@ -1,4 +1,4 @@
-#include <naivecgl/Geometry/TriangleSoup.h>
+﻿#include <naivecgl/Geometry/TriangleSoup.h>
 
 Naive_Namespace_Begin(geometry);
 

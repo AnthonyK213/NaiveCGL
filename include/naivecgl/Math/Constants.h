@@ -1,4 +1,4 @@
-#ifndef _NaiveCGL_Math_Constants_Header
+﻿#ifndef _NaiveCGL_Math_Constants_Header
 #define _NaiveCGL_Math_Constants_Header
 
 #include <naivecgl/Common/def.h>

@@ -1,4 +1,4 @@
-#ifndef _NaiveCGL_Geometry_geometry_Header
+﻿#ifndef _NaiveCGL_Geometry_geometry_Header
 #define _NaiveCGL_Geometry_geometry_Header
 
 #include <naivecgl/Geometry/Circle.h>

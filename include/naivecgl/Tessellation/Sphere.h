@@ -1,4 +1,4 @@
-#ifndef _NaiveCGL_Tessellation_Sphere_Header
+﻿#ifndef _NaiveCGL_Tessellation_Sphere_Header
 #define _NaiveCGL_Tessellation_Sphere_Header
 
 #include <naivecgl/Common/geometry.h>

@@ -1,4 +1,4 @@
-#ifndef _NaiveCGL_Geometry_Rectangle_Header
+﻿#ifndef _NaiveCGL_Geometry_Rectangle_Header
 #define _NaiveCGL_Geometry_Rectangle_Header
 
 #include "def.h"

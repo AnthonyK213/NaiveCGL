@@ -1,4 +1,4 @@
-#ifndef _NaiveCGL_Interface_NaiveCGL_c_types_Header
+﻿#ifndef _NaiveCGL_Interface_NaiveCGL_c_types_Header
 #define _NaiveCGL_Interface_NaiveCGL_c_types_Header
 
 #ifndef __cplusplus
