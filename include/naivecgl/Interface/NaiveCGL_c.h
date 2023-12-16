@@ -1,10 +1,10 @@
 #ifndef _NaiveCGL_Interface_NaiveCGL_c_Header
 #define _NaiveCGL_Interface_NaiveCGL_c_Header
 
+#include "NaiveCGL_c_types.h"
+
 #ifndef __cplusplus
 #define Naive_CAPI
-typedef void Naive_Mesh;
-typedef void Naive_Poly;
 #else
 #include <naivecgl/BndShape/ConvexHull.h>
 #include <naivecgl/Tessellation/Sphere.h>
@@ -14,8 +14,6 @@ typedef void Naive_Poly;
 #define Naive_CAPI extern "C"
 #endif
 #endif
-
-#include "NaiveCGL_c_types.h"
 
 /// Naive_Poly {{{
 

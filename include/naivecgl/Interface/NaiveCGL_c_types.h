@@ -4,6 +4,8 @@
 #ifndef __cplusplus
 #include "stdbool.h"
 #include "stdint.h"
+typedef void Naive_Mesh;
+typedef void Naive_Poly;
 #else
 #include <cstdint>
 #endif

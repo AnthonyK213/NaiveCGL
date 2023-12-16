@@ -147,7 +147,7 @@ Naive_Code convexHull2D(const Naive_List<Naive_Point2d> &points,
   hull.preform();
 
   if (hull.status() == Naive_Ok)
-    convexIndices = std::move(hull.convexIndices());
+    convexIndices = hull.convexIndices();
 
   return hull.status();
 }
