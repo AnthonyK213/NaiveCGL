@@ -1,5 +1,5 @@
-﻿#ifndef _NaiveCGL_Tessellation_Sphere_Header
-#define _NaiveCGL_Tessellation_Sphere_Header
+﻿#ifndef _NaiveCGL_Tessellation_Sphere_HeaderFile
+#define _NaiveCGL_Tessellation_Sphere_HeaderFile
 
 #include <naivecgl/Common/geometry.h>
 

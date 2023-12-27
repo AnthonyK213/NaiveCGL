@@ -1,5 +1,5 @@
-﻿#ifndef _NaiveCGL_BndShape_EnclosingDisc_Header
-#define _NaiveCGL_BndShape_EnclosingDisc_Header
+﻿#ifndef _NaiveCGL_BndShape_EnclosingDisc_HeaderFile
+#define _NaiveCGL_BndShape_EnclosingDisc_HeaderFile
 
 #include <naivecgl/Common/geometry.h>
 

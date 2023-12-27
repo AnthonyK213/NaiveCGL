@@ -1,5 +1,5 @@
-﻿#ifndef _NaiveCGL_BndShape_ConvexHull_Header
-#define _NaiveCGL_BndShape_ConvexHull_Header
+﻿#ifndef _NaiveCGL_BndShape_ConvexHull_HeaderFile
+#define _NaiveCGL_BndShape_ConvexHull_HeaderFile
 
 #include <naivecgl/Common/geometry.h>
 

@@ -1,5 +1,5 @@
-﻿#ifndef _NaiveCGL_BndShape_OrientedBoundingBox_Header
-#define _NaiveCGL_BndShape_OrientedBoundingBox_Header
+﻿#ifndef _NaiveCGL_BndShape_OrientedBoundingBox_HeaderFile
+#define _NaiveCGL_BndShape_OrientedBoundingBox_HeaderFile
 
 #include <naivecgl/Common/geometry.h>
 

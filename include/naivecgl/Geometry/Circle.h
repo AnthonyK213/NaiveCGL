@@ -1,5 +1,5 @@
-﻿#ifndef _NaiveCGL_Geometry_Circle_Header
-#define _NaiveCGL_Geometry_Circle_Header
+﻿#ifndef _NaiveCGL_Geometry_Circle_HeaderFile
+#define _NaiveCGL_Geometry_Circle_HeaderFile
 
 #include "Plane.h"
 

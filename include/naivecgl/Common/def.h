@@ -1,11 +1,7 @@
-﻿#ifndef _NaiveCGL_Common_def_Header
-#define _NaiveCGL_Common_def_Header
+﻿#ifndef _NaiveCGL_Common_def_HeaderFile
+#define _NaiveCGL_Common_def_HeaderFile
 
-#ifdef _WIN32
 #include <Eigen/Eigen>
-#else
-#include <eigen3/Eigen/Eigen>
-#endif
 
 #include <cstdint>
 

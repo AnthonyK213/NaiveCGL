@@ -1,5 +1,5 @@
-﻿#ifndef _NaiveCGL_Math_Util_Header
-#define _NaiveCGL_Math_Util_Header
+﻿#ifndef _NaiveCGL_Math_Util_HeaderFile
+#define _NaiveCGL_Math_Util_HeaderFile
 
 #include "Constants.h"
 

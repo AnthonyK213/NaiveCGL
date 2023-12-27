@@ -1,5 +1,5 @@
-﻿#ifndef _NaiveCGL_Geometry_Plane_Header
-#define _NaiveCGL_Geometry_Plane_Header
+﻿#ifndef _NaiveCGL_Geometry_Plane_HeaderFile
+#define _NaiveCGL_Geometry_Plane_HeaderFile
 
 #include "def.h"
 

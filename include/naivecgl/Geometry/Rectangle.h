@@ -1,5 +1,5 @@
-﻿#ifndef _NaiveCGL_Geometry_Rectangle_Header
-#define _NaiveCGL_Geometry_Rectangle_Header
+﻿#ifndef _NaiveCGL_Geometry_Rectangle_HeaderFile
+#define _NaiveCGL_Geometry_Rectangle_HeaderFile
 
 #include "def.h"
 

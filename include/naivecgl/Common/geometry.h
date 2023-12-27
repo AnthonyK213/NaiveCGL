@@ -1,5 +1,5 @@
-﻿#ifndef _NaiveCGL_Geometry_geometry_Header
-#define _NaiveCGL_Geometry_geometry_Header
+﻿#ifndef _NaiveCGL_Geometry_geometry_HeaderFile
+#define _NaiveCGL_Geometry_geometry_HeaderFile
 
 #include <naivecgl/Geometry/Circle.h>
 #include <naivecgl/Geometry/Interval.h>
