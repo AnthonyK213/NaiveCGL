@@ -31,10 +31,6 @@ Naive_Real Interval::Mid() const { return (myT0 + myT1) / 2.0; }
 
 Naive_Real Interval::Min() const { return (std::min)(myT0, myT1); }
 
-Naive_Real Interval::T0() const { return myT0; }
-
-Naive_Real Interval::T1() const { return myT1; }
-
 Interval Interval::FromIntersection(const Interval &theA,
                                     const Interval &theB) {
   if (theA.IsValid() && theB.IsValid()) {

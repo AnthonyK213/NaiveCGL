@@ -42,7 +42,7 @@ Naive_BndShape_ConvexHull2D(const Naive_Point2d_T *thePoints, int32_t *theCount,
 /// Tessellation {{{
 
 Naive_CAPI Naive_Poly *
-Naive_Tessellation_Tetrasphere(const Naive_Point3d_T *theCenter,
+Naive_Tessellation_TetraSphere(const Naive_Point3d_T *theCenter,
                                double theRadius, int32_t theLevel);
 
 /// }}}

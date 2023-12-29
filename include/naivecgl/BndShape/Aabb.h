@@ -7,9 +7,17 @@ Naive_Namespace_Begin(bndshape);
 
 class Aabb final {
 public:
-  Aabb();
-  
-  Aabb(const Naive_Point3d &theMin, const Naive_Point3d &theMax);
+  Naive_Export Aabb();
+
+  Naive_Export Aabb(const Naive_Point3d &theMin, const Naive_Point3d &theMax);
+
+private:
+  Naive_Real myXMin;
+  Naive_Real myYMin;
+  Naive_Real myZMin;
+  Naive_Real myXMax;
+  Naive_Real myYMax;
+  Naive_Real myZMax;
 };
 
 Naive_Namespace_End(bndshape);

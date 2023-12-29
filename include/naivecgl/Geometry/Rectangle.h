@@ -5,7 +5,7 @@
 
 Naive_Namespace_Begin(geometry);
 
-class Naive_Export Rectangle final {
+class Rectangle final {
 public:
 private:
   Plane myPlane;

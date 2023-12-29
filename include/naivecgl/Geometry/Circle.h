@@ -5,8 +5,12 @@
 
 Naive_Namespace_Begin(geometry);
 
-class Naive_Export Circle final {
+class Circle final {
 public:
+  Naive_Export Circle();
+
+  Naive_Export Circle(const Plane &thePlane, const Naive_Real theRadius);
+
 private:
   Plane myPlane;
   Naive_Real myRadius;

@@ -84,7 +84,7 @@ Naive_Code Naive_BndShape_ConvexHull2D(const Naive_Point2d_T *thePoints,
 
 /// Tessellation {{{
 
-Naive_Poly *Naive_Tessellation_Tetrasphere(const Naive_Point3d_T *theCenter,
+Naive_Poly *Naive_Tessellation_TetraSphere(const Naive_Point3d_T *theCenter,
                                            double theRadius, int32_t theLevel) {
   if (!theCenter || theRadius <= naivecgl::math::ZeroTolerance || theLevel < 0)
     return nullptr;

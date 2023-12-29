@@ -5,7 +5,7 @@
 
 Naive_Namespace_Begin(geometry);
 
-class Naive_Export Plane final {
+class Plane final {
 public:
 private:
   Naive_Point3d myOrigin;

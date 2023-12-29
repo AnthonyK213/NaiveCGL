@@ -5,25 +5,27 @@
 
 Naive_Namespace_Begin(geometry);
 
-class Naive_Export TriangleSoup {
+class TriangleSoup {
   using VertexList = Naive_List<Naive_Vector3d>;
   using TriangleList = Naive_List<Naive_Triangle>;
 
 public:
-  TriangleSoup();
+  Naive_Export TriangleSoup();
 
-  TriangleSoup(TriangleSoup &&theOther) noexcept;
+  Naive_Export TriangleSoup(TriangleSoup &&theOther) noexcept;
 
-  TriangleSoup(const VertexList &theVertices, const TriangleList &theTriangles);
+  Naive_Export TriangleSoup(const VertexList &theVertices,
+                            const TriangleList &theTriangles);
 
-  TriangleSoup(VertexList &&theVertices, TriangleList &&theTriangles);
+  Naive_Export TriangleSoup(VertexList &&theVertices,
+                            TriangleList &&theTriangles);
 
-  TriangleSoup &operator=(TriangleSoup &&theOther) noexcept;
+  Naive_Export TriangleSoup &operator=(TriangleSoup &&theOther) noexcept;
 
-  ~TriangleSoup();
+  Naive_Export ~TriangleSoup();
 
 public:
-  Naive_Bool IsValid();
+  Naive_Export Naive_Bool IsValid();
 
   const VertexList &Vertices() const { return myVertices; }
 

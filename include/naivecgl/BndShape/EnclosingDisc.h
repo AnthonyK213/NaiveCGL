@@ -6,7 +6,7 @@
 Naive_Namespace_Begin(bndshape);
 
 Naive_Export Naive_Bool
-enclosingDisc(const Naive_List<Naive_Point2d> &thePoints,
+EnclosingDisc(const Naive_List<Naive_Point2d> &thePoints,
               Naive_Point2d &theOrigin, Naive_Real &theRadius);
 
 Naive_Namespace_End(bndshape);
