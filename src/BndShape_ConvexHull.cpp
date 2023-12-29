@@ -2,27 +2,26 @@
 
 Naive_Namespace_Begin(bndshape);
 
-class _QuickHull2D_ {
+class QuickHull2D_ {
   using Ptr = const Naive_Point2d *;
   using Ptrs = Naive_List<Ptr>;
 
 public:
-  _QuickHull2D_(const Naive_List<Naive_Point2d> &points)
-      : m_status(Naive_Fail) {
-    if (points.empty())
+  QuickHull2D_(const Naive_List<Naive_Point2d> &thePoints) : myStatus(Naive_Fail) {
+    if (thePoints.empty())
       return;
 
-    m_points.reserve(points.size());
-    m_hull.reserve(points.size());
+    myPoints.reserve(thePoints.size());
+    myHull.reserve(thePoints.size());
 
-    for (const Naive_Point2d &point : points) {
-      m_points.push_back(&point);
+    for (const Naive_Point2d &aPoint : thePoints) {
+      myPoints.push_back(&aPoint);
     }
 
-    m_status = Naive_Ok;
+    myStatus = Naive_Ok;
   }
 
-  ~_QuickHull2D_() {}
+  ~QuickHull2D_() {}
 
 public:
   void perform() {
@@ -35,28 +34,28 @@ public:
     if (status() != Naive_Ok)
       return;
 
-    Ptrs A = rightOf(m_points, a, b, fA);
-    Ptrs B = rightOf(m_points, b, a, fB);
+    Ptrs A = rightOf(myPoints, a, b, fA);
+    Ptrs B = rightOf(myPoints, b, a, fB);
 
-    m_hull.push_back(a);
-    half(A, a, b, fA, m_hull);
-    m_hull.push_back(b);
-    half(B, b, a, fB, m_hull);
+    myHull.push_back(a);
+    half(A, a, b, fA, myHull);
+    myHull.push_back(b);
+    half(B, b, a, fB, myHull);
   }
 
-  Naive_Code status() const { return m_status; }
+  Naive_Code status() const { return myStatus; }
 
   Naive_List<Naive_Integer> convexIndices() const {
     Naive_List<Naive_Integer> result{};
 
-    if (m_hull.empty())
+    if (myHull.empty())
       return result;
 
-    result.reserve(m_hull.size());
+    result.reserve(myHull.size());
 
-    Ptr first = m_points[0];
+    Ptr first = myPoints[0];
 
-    for (const Ptr &p : m_hull) {
+    for (const Ptr &p : myHull) {
       result.push_back(std::distance(first, p));
     }
 
@@ -68,7 +67,7 @@ private:
     Naive_Real xMin = std::numeric_limits<Naive_Real>::infinity();
     Naive_Real xMax = -xMin;
 
-    for (const Ptr &p : m_points) {
+    for (const Ptr &p : myPoints) {
       if (p->x() < xMin) {
         xMin = p->x();
         a = p;
@@ -133,26 +132,26 @@ private:
     half(B, f, b, fB, buf);
   }
 
-  void setStatus(Naive_Code theStatus) { m_status = theStatus; }
+  void setStatus(Naive_Code theStatus) { myStatus = theStatus; }
 
 private:
-  Ptrs m_points{};
-  Ptrs m_hull{};
-  Naive_Code m_status;
+  Ptrs myPoints{};
+  Ptrs myHull{};
+  Naive_Code myStatus;
 };
 
-Naive_Code convexHull2D(const Naive_List<Naive_Point2d> &points,
-                        Naive_List<Naive_Integer> &convexIndices) {
-  _QuickHull2D_ hull{points};
-  hull.perform();
+Naive_Code ConvexHull2D(const Naive_List<Naive_Point2d> &thePoints,
+                        Naive_List<Naive_Integer> &theConvexIndices) {
+  QuickHull2D_ aHull{thePoints};
+  aHull.perform();
 
-  if (hull.status() == Naive_Ok)
-    convexIndices = hull.convexIndices();
+  if (aHull.status() == Naive_Ok)
+    theConvexIndices = aHull.convexIndices();
 
-  return hull.status();
+  return aHull.status();
 }
 
-Naive_H_Mesh convexHull3D(const Naive_List<Naive_Point3d> &points) {
+Naive_H_Mesh ConvexHull3D(const Naive_List<Naive_Point3d> &thePoints) {
   throw std::runtime_error("Not implemented yet");
 }
 

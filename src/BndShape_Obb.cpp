@@ -1,4 +1,4 @@
-﻿#include <naivecgl/BndShape/OrientedBoundingBox.h>
+﻿#include <naivecgl/BndShape/Obb.h>
 
 Naive_Namespace_Begin(bndshape);
 

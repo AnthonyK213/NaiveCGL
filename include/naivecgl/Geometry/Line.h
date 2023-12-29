@@ -7,10 +7,9 @@ Naive_Namespace_Begin(geometry);
 
 class Naive_Export Line final {
 public:
-
 private:
-  Naive_Point3d m_from;
-  Naive_Point3d m_to;
+  Naive_Point3d myFrom;
+  Naive_Point3d myTo;
 };
 
 Naive_Namespace_End(geometry);

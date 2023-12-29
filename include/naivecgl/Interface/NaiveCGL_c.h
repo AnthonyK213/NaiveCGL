@@ -17,41 +17,41 @@
 
 /// Naive_Poly {{{
 
-Naive_CAPI int32_t Naive_Poly_NbVertices(const Naive_Poly *handle);
+Naive_CAPI int32_t Naive_Poly_NbVertices(const Naive_Poly *theHandle);
 
-Naive_CAPI void Naive_Poly_Vertices(const Naive_Poly *handle,
-                                    Naive_Point3d_T *vertices);
+Naive_CAPI void Naive_Poly_Vertices(const Naive_Poly *theHandle,
+                                    Naive_Point3d_T *theVertices);
 
-Naive_CAPI int32_t Naive_Poly_NbTriangles(const Naive_Poly *handle);
+Naive_CAPI int32_t Naive_Poly_NbTriangles(const Naive_Poly *theHandle);
 
-Naive_CAPI void Naive_Poly_Triangles(const Naive_Poly *handle,
-                                     Naive_Triangle_T *triangles);
+Naive_CAPI void Naive_Poly_Triangles(const Naive_Poly *theHandle,
+                                     Naive_Triangle_T *theTriangles);
 
-Naive_CAPI void Naive_Poly_Release(Naive_Poly *handle);
+Naive_CAPI void Naive_Poly_Release(Naive_Poly *theHandle);
 
 /// }}}
 
 /// BndShape {{{
 
-Naive_CAPI Naive_Code Naive_BndShape_ConvexHull2D(const Naive_Point2d_T *points,
-                                                  int32_t *count,
-                                                  int32_t **convexIndices);
+Naive_CAPI Naive_Code
+Naive_BndShape_ConvexHull2D(const Naive_Point2d_T *thePoints, int32_t *theCount,
+                            int32_t **theConvexIndices);
 
 /// }}}
 
 /// Tessellation {{{
 
 Naive_CAPI Naive_Poly *
-Naive_Tessellation_Tetrasphere(const Naive_Point3d_T *center, double radius,
-                               int32_t level);
+Naive_Tessellation_Tetrasphere(const Naive_Point3d_T *theCenter,
+                               double theRadius, int32_t theLevel);
 
 /// }}}
 
 /// Release {{{
 
-Naive_CAPI void Naive_Release_Int32Array(int32_t *array);
+Naive_CAPI void Naive_Release_Int32Array(int32_t *theArray);
 
-Naive_CAPI void Naive_Release_DoubleArray(double *array);
+Naive_CAPI void Naive_Release_DoubleArray(double *theArray);
 
 /// }}}
 

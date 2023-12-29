@@ -2,38 +2,39 @@
 
 Naive_Namespace_Begin(math);
 
-Naive_Bool epsilonEquals(Naive_Real x, Naive_Real y, Naive_Real epsilon) {
-  if (std::isnan(x) || std::isnan(y))
+Naive_Bool EpsilonEquals(Naive_Real theX, Naive_Real theY,
+                         Naive_Real theEpsilon) {
+  if (std::isnan(theX) || std::isnan(theY))
     return false;
 
-  if (x == std::numeric_limits<double>::infinity())
-    return y == std::numeric_limits<double>::infinity();
+  if (theX == std::numeric_limits<double>::infinity())
+    return theY == std::numeric_limits<double>::infinity();
 
-  if (x == -std::numeric_limits<double>::infinity())
-    return y == -std::numeric_limits<double>::infinity();
+  if (theX == -std::numeric_limits<double>::infinity())
+    return theY == -std::numeric_limits<double>::infinity();
 
-  if (std::abs(x) < epsilon && std::abs(y) < epsilon)
-    return std::abs(x - y) < epsilon;
+  if (std::abs(theX) < theEpsilon && std::abs(theY) < theEpsilon)
+    return std::abs(theX - theY) < theEpsilon;
 
-  if (x >= y - epsilon)
-    return x <= y + epsilon;
-
-  return false;
-}
-
-Naive_Bool isValidDouble(Naive_Real x) {
-  if (x != UnsetValue && !std::isinf(x))
-    return !std::isnan(x);
+  if (theX >= theY - theEpsilon)
+    return theX <= theY + theEpsilon;
 
   return false;
 }
 
-constexpr Naive_Real toDegrees(Naive_Real radians) {
-  return radians * 180.0 / PI;
+Naive_Bool IsValidDouble(Naive_Real theX) {
+  if (theX != UnsetValue && !std::isinf(theX))
+    return !std::isnan(theX);
+
+  return false;
 }
 
-constexpr Naive_Real toRadians(Naive_Real degrees) {
-  return degrees * PI / 180.0;
+constexpr Naive_Real ToDegrees(Naive_Real theRadians) {
+  return theRadians * 180.0 / PI;
+}
+
+constexpr Naive_Real ToRadians(Naive_Real theDegrees) {
+  return theDegrees * PI / 180.0;
 }
 
 Naive_Namespace_End(math);

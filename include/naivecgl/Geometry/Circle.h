@@ -8,8 +8,8 @@ Naive_Namespace_Begin(geometry);
 class Naive_Export Circle final {
 public:
 private:
-  Plane m_plane;
-  Naive_Real m_radius;
+  Plane myPlane;
+  Naive_Real myRadius;
 };
 
 Naive_Namespace_End(geometry);

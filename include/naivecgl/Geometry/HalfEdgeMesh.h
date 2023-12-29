@@ -8,180 +8,182 @@ Naive_Namespace_Begin(geometry);
 /// @brief Manifold mesh described by half-edges.
 class Naive_Export HalfEdgeMesh {
 public:
-  class Vertex;
-  class HalfEdge;
-  class Face;
+  class Vertex_;
+  class HalfEdge_;
+  class Face_;
 
-  class Naive_Export Vertex {
+  class Naive_Export Vertex_ {
     friend class HalfEdgeMesh;
 
   public:
-    Vertex();
+    Vertex_();
 
-    Vertex(const Naive_Vector3d &coord);
+    Vertex_(const Naive_Vector3d &theCoord);
 
-    Vertex(Naive_Real x, Naive_Real y, Naive_Real z);
+    Vertex_(Naive_Real theX, Naive_Real theY, Naive_Real theZ);
 
-    Vertex(const Vertex &other) = delete;
+    Vertex_(const Vertex_ &theOther) = delete;
 
-    Vertex(Vertex &&other) noexcept;
+    Vertex_(Vertex_ &&theOther) noexcept;
 
-    Vertex &operator=(const Vertex &other) = delete;
+    Vertex_ &operator=(const Vertex_ &theOther) = delete;
 
-    Vertex &operator=(Vertex &&other) noexcept;
+    Vertex_ &operator=(Vertex_ &&theOther) noexcept;
 
-    ~Vertex();
+    ~Vertex_();
 
   public:
-    const Naive_Vector3d &coordinates() const { return m_coord; }
+    const Naive_Vector3d &Coord() const { return myCoord; }
 
-    Naive_Vector3d &coordinatesMut() { return m_coord; }
+    Naive_Vector3d &ChangeCoord() { return myCoord; }
 
-    Naive_Integer id() const { return m_id; }
+    Naive_Integer Id() const { return myId; }
 
   private:
-    Naive_Vector3d m_coord; // Vertex coordinates.
-    HalfEdge *m_edge;       // An half-edge starts with the vertex.
-    Naive_Integer m_id;     // The ID(key) in the vertex map.
+    Naive_Vector3d myCoord; // Vertex coordinates.
+    HalfEdge_ *myEdge;      // An half-edge starts with the vertex.
+    Naive_Integer myId;     // The ID(key) in the vertex map.
   };
 
-  class Naive_Export HalfEdge {
+  class Naive_Export HalfEdge_ {
     friend class HalfEdgeMesh;
 
   public:
-    HalfEdge();
+    HalfEdge_();
 
-    HalfEdge(Vertex *origin);
+    HalfEdge_(Vertex_ *theOrigin);
 
-    HalfEdge(const HalfEdge &other) = delete;
+    HalfEdge_(const HalfEdge_ &theOther) = delete;
 
-    HalfEdge(HalfEdge &&other) noexcept;
+    HalfEdge_(HalfEdge_ &&theOther) noexcept;
 
-    HalfEdge &operator=(const HalfEdge &other) = delete;
+    HalfEdge_ &operator=(const HalfEdge_ &theOther) = delete;
 
-    HalfEdge &operator=(HalfEdge &&other) noexcept;
+    HalfEdge_ &operator=(HalfEdge_ &&theOther) noexcept;
 
-    ~HalfEdge();
+    ~HalfEdge_();
 
   public:
-    const Vertex *origin() const { return m_origin; }
+    const Vertex_ *Origin() const { return myOrigin; }
 
-    const HalfEdge *twin() const { return m_twin; }
+    const HalfEdge_ *Twin() const { return myTwin; }
 
-    const Face *face() const { return m_face; }
+    const Face_ *Face() const { return myFace; }
 
-    const HalfEdge *next() const { return m_next; }
+    const HalfEdge_ *Next() const { return myNext; }
 
-    Naive_Integer id() const { return m_id; }
+    Naive_Integer Id() const { return myId; }
 
   private:
-    Vertex *m_origin;   // Start vertex of the half-edge.
-    HalfEdge *m_twin;   // The twin half-edge.
-    Face *m_face;       // The face the half-edge bounds.
-    HalfEdge *m_next;   // Previous edge on the boundary of m_incidentFace.
-    Naive_Integer m_id; // The ID(key) in the half-edge map.
+    Vertex_ *myOrigin;  // Start vertex of the half-edge.
+    HalfEdge_ *myTwin;  // The twin half-edge.
+    Face_ *myFace;      // The face the half-edge bounds.
+    HalfEdge_ *myNext;  // Previous edge on the boundary of myIncidentFace.
+    Naive_Integer myId; // The ID(key) in the half-edge map.
   };
 
-  class Naive_Export Face {
+  class Naive_Export Face_ {
     friend class HalfEdgeMesh;
 
   public:
-    Face();
+    Face_();
 
-    Face(HalfEdge *outerEdge);
+    Face_(HalfEdge_ *theOuterEdge);
 
-    Face(const Face &other) = delete;
+    Face_(const Face_ &theOther) = delete;
 
-    Face(Face &&other) noexcept;
+    Face_(Face_ &&theOther) noexcept;
 
-    Face &operator=(const Face &other) = delete;
+    Face_ &operator=(const Face_ &theOther) = delete;
 
-    Face &operator=(Face &&other) noexcept;
+    Face_ &operator=(Face_ &&theOther) noexcept;
 
-    ~Face();
+    ~Face_();
 
   public:
     class Naive_Export EdgeIterator {
     public:
-      EdgeIterator(const Face *face);
+      EdgeIterator(const Face_ *theFace);
 
-      Naive_Bool more() const;
+      Naive_Bool More() const;
 
-      void next() { m_current = m_current->next(); }
+      void Next() { myCurrent = myCurrent->Next(); }
 
-      const HalfEdge *current() const { return m_current; }
+      const HalfEdge_ *Current() const { return myCurrent; }
 
     private:
-      const Face *m_owner;
-      const HalfEdge *m_current;
-      mutable Naive_Bool m_firstTime;
+      const Face_ *myOwner;
+      const HalfEdge_ *myCurrent;
+      mutable Naive_Bool myFirstTime;
     };
 
   public:
-    EdgeIterator edgeIter() const { return EdgeIterator(this); }
+    EdgeIterator EdgeIter() const { return EdgeIterator(this); }
 
-    Naive_Vector3d normal() const { return m_normal; }
+    Naive_Vector3d Normal() const { return myNormal; }
 
-    Naive_Integer id() const { return m_id; }
+    Naive_Integer Id() const { return myId; }
 
   private:
-    HalfEdge *m_outerEdge;   // A half-edge on the outer boundary.
-    Naive_Vector3d m_normal; // Face normal.
-    Naive_Integer m_id;      // The ID(key) in the face map.
+    HalfEdge_ *myOuterEdge;  // A half-edge on the outer boundary.
+    Naive_Vector3d myNormal; // Face normal.
+    Naive_Integer myId;      // The ID(key) in the face map.
   };
 
 public:
   HalfEdgeMesh();
 
   /// @brief Construct a half-edge mesh from a trangle soup.
-  HalfEdgeMesh(const TriangleSoup &triangleSoup);
+  HalfEdgeMesh(const TriangleSoup &theTriangleSoup);
 
-  HalfEdgeMesh(const HalfEdgeMesh &other) = delete;
+  HalfEdgeMesh(const HalfEdgeMesh &theOther) = delete;
 
-  HalfEdgeMesh(HalfEdgeMesh &&other) noexcept = default;
+  HalfEdgeMesh(HalfEdgeMesh &&theOther) noexcept = default;
 
-  HalfEdgeMesh &operator=(const HalfEdgeMesh &other) = delete;
+  HalfEdgeMesh &operator=(const HalfEdgeMesh &theOther) = delete;
 
-  HalfEdgeMesh &operator=(HalfEdgeMesh &&other) noexcept = default;
+  HalfEdgeMesh &operator=(HalfEdgeMesh &&theOther) noexcept = default;
 
   ~HalfEdgeMesh();
 
 public:
-  size_t nbVertices() const { return m_vertices.size(); }
+  size_t NbVertices() const { return myVertices.size(); }
 
-  size_t nbFaces() const { return m_faces.size(); }
+  size_t NbFaces() const { return myFaces.size(); }
 
-  const Vertex &vertex(Naive_Integer id) const { return m_vertices.at(id); }
-
-  const HalfEdge &halfEdge(Naive_Integer id) const {
-    return m_halfEdges.at(id);
+  const Vertex_ &Vertex(Naive_Integer theId) const {
+    return myVertices.at(theId);
   }
 
-  const Face &face(Naive_Integer id) const { return m_faces.at(id); }
-
-  const Naive_Map<Naive_Integer, Vertex> &vertices() const {
-    return m_vertices;
+  const HalfEdge_ &HalfEdge(Naive_Integer theId) const {
+    return myHalfEdges.at(theId);
   }
 
-  const Naive_Map<Naive_Integer, Face> &faces() const { return m_faces; }
+  const Face_ &Face(Naive_Integer theId) const { return myFaces.at(theId); }
+
+  const Naive_Map<Naive_Integer, Vertex_> &Vertices() const {
+    return myVertices;
+  }
+
+  const Naive_Map<Naive_Integer, Face_> &Faces() const { return myFaces; }
 
 private:
-  Vertex &addVertex(Vertex &&vertex);
+  Vertex_ &addVertex(Vertex_ &&theVertex);
 
-  HalfEdge &addHalfEdge(HalfEdge &&halfEdge);
+  HalfEdge_ &addHalfEdge(HalfEdge_ &&theHalfEdge);
 
-  Face &addFace(Face &&face);
+  Face_ &addFace(Face_ &&theFace);
 
-  /// @brief Construct edge-twins among `m_halfEdges`.
+  /// @brief Construct edge-twins among `myHalfEdges`.
   void makeTwins();
 
 private:
-  Naive_Integer m_vertexIndex;                      // Current vertex index.
-  Naive_Integer m_halfEdgeIndex;                    // Current half-edge index.
-  Naive_Integer m_faceIndex;                        // Current face index.
-  Naive_Map<Naive_Integer, Vertex> m_vertices{};    // Vertices.
-  Naive_Map<Naive_Integer, Face> m_faces{};         // Faces.
-  Naive_Map<Naive_Integer, HalfEdge> m_halfEdges{}; // Half-edges.
+  Naive_Integer myVertexIndex;                       // Current vertex index.
+  Naive_Integer myHalfEdgeIndex;                     // Current half-edge index.
+  Naive_Integer myFaceIndex;                         // Current face index.
+  Naive_Map<Naive_Integer, Vertex_> myVertices{};    // Vertices.
+  Naive_Map<Naive_Integer, Face_> myFaces{};         // Faces.
+  Naive_Map<Naive_Integer, HalfEdge_> myHalfEdges{}; // Half-edges.
 };
 
 Naive_Namespace_End(geometry);

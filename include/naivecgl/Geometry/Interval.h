@@ -7,188 +7,129 @@ Naive_Namespace_Begin(geometry);
 
 class Naive_Export Interval final {
 public:
-  /// @brief
-  /// @param t0
-  /// @param t1
-  Interval(Naive_Real t0, Naive_Real t1);
+  Interval(Naive_Real theT0, Naive_Real theT1);
 
-  /// @brief
-  /// @param interval
-  Interval(const Interval &interval) = default;
+  Interval(const Interval &theOther) = default;
 
-  /// @brief
-  /// @param interval
-  Interval(Interval &&interval) noexcept = default;
+  Interval(Interval &&theOther) noexcept = default;
 
-  /// @brief
-  /// @param interval
-  /// @return
-  Interval &operator=(const Interval &interval) = default;
+  Interval &operator=(const Interval &theOther) = default;
 
-  /// @brief
-  /// @param interval
-  /// @return
-  Interval &operator=(Interval &&interval) noexcept = default;
+  Interval &operator=(Interval &&theOther) noexcept = default;
 
 public:
   /// @brief
   /// @return
-  static const Interval &unset() noexcept;
+  static const Interval &Unset() noexcept;
 
   /// @brief
   /// @return
-  Naive_Bool isDecreasing() const;
+  Naive_Bool IsDecreasing() const;
 
   /// @brief
   /// @return
-  Naive_Bool isIncreasing() const;
+  Naive_Bool IsIncreasing() const;
 
   /// @brief
   /// @return
-  Naive_Bool isSingleton() const;
+  Naive_Bool IsSingleton() const;
 
   /// @brief
   /// @return
-  Naive_Bool isValid() const;
+  Naive_Bool IsValid() const;
 
   /// @brief
   /// @return
-  Naive_Real length() const;
+  Naive_Real Length() const;
 
   /// @brief
   /// @return
-  Naive_Real max_() const;
+  Naive_Real Max() const;
 
   /// @brief
   /// @return
-  Naive_Real mid() const;
+  Naive_Real Mid() const;
 
   /// @brief
   /// @return
-  Naive_Real min_() const;
+  Naive_Real Min() const;
 
   /// @brief
   /// @return
-  Naive_Real t0() const;
+  Naive_Real T0() const;
 
   /// @brief
   /// @return
-  Naive_Real t1() const;
+  Naive_Real T1() const;
 
 public:
-  /// @brief
-  /// @param a
-  /// @param b
-  /// @return
-  static Interval fromIntersection(const Interval &a, const Interval &b);
+  static Interval FromIntersection(const Interval &theA, const Interval &theB);
 
-  /// @brief
-  /// @param a
-  /// @param b
-  /// @return
-  static Interval fromUnion(const Interval &a, const Interval &b);
+  static Interval FromUnion(const Interval &theA, const Interval &theB);
 
-  /// @brief
-  /// @param other
-  /// @return
-  int32_t compareTo(const Interval &other) const;
+  int32_t CompareTo(const Interval &theOther) const;
 
-  /// @brief
-  /// @param other
-  /// @param epsilon
-  /// @return
-  Naive_Bool epsilonEquals(const Interval &other, Naive_Real epsilon) const;
+  Naive_Bool EpsilonEquals(const Interval &theOther,
+                           Naive_Real theEpsilon) const;
 
-  /// @brief
-  /// @param other
-  /// @return
-  Naive_Bool equals(const Interval &other) const;
+  Naive_Bool Equals(const Interval &theOther) const;
 
-  /// @brief
-  /// @param value
-  void grow(Naive_Real value);
+  void Grow(Naive_Real theValue);
 
-  /// @brief
-  /// @param interval
-  /// @return
-  Naive_Bool includesInterval(const Interval &interval) const;
+  Naive_Bool IncludesInterval(const Interval &theInterval) const;
 
-  /// @brief
-  /// @param interval
-  /// @param strict
-  /// @return
-  Naive_Bool includesInterval(const Interval &interval,
-                              Naive_Bool strict) const;
+  Naive_Bool IncludesInterval(const Interval &theInterval,
+                              Naive_Bool theStrict) const;
 
-  /// @brief
-  /// @param t
-  /// @return
-  Naive_Bool includesParameter(Naive_Real t) const;
+  Naive_Bool IncludesParameter(Naive_Real theT) const;
 
-  /// @brief
-  /// @param t
-  /// @param strict
-  /// @return
-  Naive_Bool includesParameter(Naive_Real t, Naive_Bool strict) const;
+  Naive_Bool IncludesParameter(Naive_Real theT, Naive_Bool theStrict) const;
 
-  /// @brief
-  void makeIncreasing();
+  void MakeIncreasing();
 
-  /// @brief
-  /// @param intervalParameter
-  /// @return
-  Interval normalizedIntervalAt(const Interval &intervalParameter) const;
+  Interval NormalizedIntervalAt(const Interval &theIntervalParameter) const;
 
-  /// @brief
-  /// @param intervalParameter
-  /// @return
-  Naive_Real normalizedParameterAt(Naive_Real intervalParameter) const;
+  Naive_Real NormalizedParameterAt(Naive_Real theIntervalParameter) const;
 
-  /// @brief
-  /// @param normalizedParameter
-  /// @return
-  Naive_Real parameterAt(Naive_Real normalizedParameter) const;
+  Naive_Real ParameterAt(Naive_Real theNormalizedParameter) const;
 
-  /// @brief
-  /// @param normalizedInterval
-  /// @return
-  Interval parameterIntervalAt(const Interval &normalizedInterval) const;
+  Interval ParameterIntervalAt(const Interval &theNormalizedInterval) const;
 
   /// @brief Changes interval to [-T1, -T0].
-  void reverse();
+  void Reverse();
 
   /// @brief Exchanges T0 and T1.
-  void swap();
+  void Swap();
 
 public:
-  Naive_Bool operator!=(const Interval &other) const;
+  Naive_Bool operator!=(const Interval &theOther) const;
 
-  Naive_Bool operator<(const Interval &other) const;
+  Naive_Bool operator<(const Interval &theOther) const;
 
-  Naive_Bool operator<=(const Interval &other) const;
+  Naive_Bool operator<=(const Interval &theOther) const;
 
-  Naive_Bool operator==(const Interval &other) const;
+  Naive_Bool operator==(const Interval &theOther) const;
 
-  Naive_Bool operator>(const Interval &other) const;
+  Naive_Bool operator>(const Interval &theOther) const;
 
-  Naive_Bool operator>=(const Interval &other) const;
+  Naive_Bool operator>=(const Interval &theOther) const;
 
-  const Interval operator-(Naive_Real number) const;
+  const Interval operator-(Naive_Real theNumber) const;
 
-  const Interval operator+(Naive_Real number) const;
+  const Interval operator+(Naive_Real theNumber) const;
 
-  Interval &operator-=(Naive_Real number);
+  Interval &operator-=(Naive_Real theNumber);
 
-  Interval &operator+=(Naive_Real number);
+  Interval &operator+=(Naive_Real theNumber);
 
 private:
-  Naive_Real m_t0;
-  Naive_Real m_t1;
+  Naive_Real myT0;
+  Naive_Real myT1;
 };
 
-const Interval operator-(Naive_Real number, const Interval &interval);
+const Interval operator-(Naive_Real theNumber, const Interval &theInterval);
 
-const Interval operator+(Naive_Real number, const Interval &interval);
+const Interval operator+(Naive_Real theNumber, const Interval &theInterval);
 
 Naive_Namespace_End(geometry);
 

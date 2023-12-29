@@ -3,235 +3,239 @@
 
 Naive_Namespace_Begin(geometry);
 
-Interval::Interval(Naive_Real t0, Naive_Real t1) : m_t0(t0), m_t1(t1) {}
+Interval::Interval(Naive_Real theT0, Naive_Real theT1)
+    : myT0(theT0), myT1(theT1) {}
 
-const Interval &Interval::unset() noexcept {
+const Interval &Interval::Unset() noexcept {
   static Interval Interval_Unset{naivecgl::math::UnsetValue,
                                  naivecgl::math::UnsetValue};
   return Interval_Unset;
 }
 
-Naive_Bool Interval::isDecreasing() const { return m_t0 > m_t1; }
+Naive_Bool Interval::IsDecreasing() const { return myT0 > myT1; }
 
-Naive_Bool Interval::isIncreasing() const { return m_t0 < m_t1; }
+Naive_Bool Interval::IsIncreasing() const { return myT0 < myT1; }
 
-Naive_Bool Interval::isSingleton() const { return isValid() && m_t0 == m_t1; }
+Naive_Bool Interval::IsSingleton() const { return IsValid() && myT0 == myT1; }
 
-Naive_Bool Interval::isValid() const {
-  return naivecgl::math::isValidDouble(m_t0) &&
-         naivecgl::math::isValidDouble(m_t1);
+Naive_Bool Interval::IsValid() const {
+  return naivecgl::math::IsValidDouble(myT0) &&
+         naivecgl::math::IsValidDouble(myT1);
 }
 
-Naive_Real Interval::length() const { return m_t1 - m_t0; }
+Naive_Real Interval::Length() const { return myT1 - myT0; }
 
-Naive_Real Interval::max_() const { return (std::max)(m_t0, m_t1); }
+Naive_Real Interval::Max() const { return (std::max)(myT0, myT1); }
 
-Naive_Real Interval::mid() const { return (m_t0 + m_t1) / 2.0; }
+Naive_Real Interval::Mid() const { return (myT0 + myT1) / 2.0; }
 
-Naive_Real Interval::min_() const { return (std::min)(m_t0, m_t1); }
+Naive_Real Interval::Min() const { return (std::min)(myT0, myT1); }
 
-Naive_Real Interval::t0() const { return m_t0; }
+Naive_Real Interval::T0() const { return myT0; }
 
-Naive_Real Interval::t1() const { return m_t1; }
+Naive_Real Interval::T1() const { return myT1; }
 
-Interval Interval::fromIntersection(const Interval &a, const Interval &b) {
-  if (a.isValid() && b.isValid()) {
-    Naive_Real min_ = (std::max)(a.min_(), b.min_());
-    Naive_Real max_ = (std::min)(a.max_(), b.max_());
+Interval Interval::FromIntersection(const Interval &theA,
+                                    const Interval &theB) {
+  if (theA.IsValid() && theB.IsValid()) {
+    Naive_Real aMin = (std::max)(theA.Min(), theB.Min());
+    Naive_Real aMax = (std::min)(theA.Max(), theB.Max());
 
-    if (min_ <= max_) {
-      return Interval(min_, max_);
+    if (aMin <= aMax) {
+      return Interval(aMin, aMax);
     }
   }
 
-  return Interval::unset();
+  return Interval::Unset();
 }
 
-Interval Interval::fromUnion(const Interval &a, const Interval &b) {
-  if (a.isValid() && b.isValid()) {
-    Naive_Real min_ = (std::min)(a.min_(), b.min_());
-    Naive_Real max_ = (std::max)(a.max_(), b.max_());
+Interval Interval::FromUnion(const Interval &theA, const Interval &theB) {
+  if (theA.IsValid() && theB.IsValid()) {
+    Naive_Real aMin = (std::min)(theA.Min(), theB.Min());
+    Naive_Real aMax = (std::max)(theA.Max(), theB.Max());
 
-    return Interval(min_, max_);
+    return Interval(aMin, aMax);
   }
 
-  return Interval::unset();
+  return Interval::Unset();
 }
 
-int32_t Interval::compareTo(const Interval &other) const {
-  if (m_t0 < other.m_t0) {
+int32_t Interval::CompareTo(const Interval &theOther) const {
+  if (myT0 < theOther.myT0) {
     return -1;
   }
 
-  if (m_t0 > other.m_t0) {
+  if (myT0 > theOther.myT0) {
     return 1;
   }
 
-  if (m_t1 < other.m_t1) {
+  if (myT1 < theOther.myT1) {
     return -1;
   }
 
-  if (m_t1 > other.m_t1) {
+  if (myT1 > theOther.myT1) {
     return 1;
   }
 
   return 0;
 }
 
-Naive_Bool Interval::epsilonEquals(const Interval &other,
-                                   Naive_Real epsilon) const {
-  return naivecgl::math::epsilonEquals(m_t0, other.m_t0, epsilon) &&
-         naivecgl::math::epsilonEquals(m_t1, other.m_t1, epsilon);
+Naive_Bool Interval::EpsilonEquals(const Interval &theOther,
+                                   Naive_Real theEpsilon) const {
+  return naivecgl::math::EpsilonEquals(myT0, theOther.myT0, theEpsilon) &&
+         naivecgl::math::EpsilonEquals(myT1, theOther.myT1, theEpsilon);
 }
 
-Naive_Bool Interval::equals(const Interval &other) const {
-  return *this == other;
+Naive_Bool Interval::Equals(const Interval &theOther) const {
+  return *this == theOther;
 }
 
-void Interval::grow(Naive_Real value) {
-  if (isDecreasing()) {
-    swap();
+void Interval::Grow(Naive_Real theValue) {
+  if (IsDecreasing()) {
+    Swap();
   }
 
-  if (m_t0 > value) {
-    m_t0 = value;
+  if (myT0 > theValue) {
+    myT0 = theValue;
   }
 
-  if (m_t1 < value) {
-    m_t1 = value;
+  if (myT1 < theValue) {
+    myT1 = theValue;
   }
 }
 
-Naive_Bool Interval::includesInterval(const Interval &interval) const {
-  return includesInterval(interval, false);
+Naive_Bool Interval::IncludesInterval(const Interval &theInterval) const {
+  return IncludesInterval(theInterval, false);
 }
 
-Naive_Bool Interval::includesInterval(const Interval &interval,
-                                      Naive_Bool strict) const {
-  return includesParameter(interval.m_t0, strict) &&
-         includesParameter(interval.m_t1, strict);
+Naive_Bool Interval::IncludesInterval(const Interval &theInterval,
+                                      Naive_Bool theStrict) const {
+  return IncludesParameter(theInterval.myT0, theStrict) &&
+         IncludesParameter(theInterval.myT1, theStrict);
 }
 
-Naive_Bool Interval::includesParameter(Naive_Real t) const {
-  return includesParameter(t, false);
+Naive_Bool Interval::IncludesParameter(Naive_Real theT) const {
+  return IncludesParameter(theT, false);
 }
 
-Naive_Bool Interval::includesParameter(Naive_Real t, Naive_Bool strict) const {
-  if (!naivecgl::math::isValidDouble(t)) {
+Naive_Bool Interval::IncludesParameter(Naive_Real theT,
+                                       Naive_Bool theStrict) const {
+  if (!naivecgl::math::IsValidDouble(theT)) {
     return false;
   }
-  if (strict) {
-    return (m_t0 <= m_t1 && m_t0 < t && t < m_t1) ||
-           (m_t1 <= m_t0 && m_t1 < t && t < m_t0);
+  if (theStrict) {
+    return (myT0 <= myT1 && myT0 < theT && theT < myT1) ||
+           (myT1 <= myT0 && myT1 < theT && theT < myT0);
   } else {
-    return (m_t0 <= m_t1 && m_t0 <= t && t <= m_t1) ||
-           (m_t1 <= m_t0 && m_t1 <= t && t <= m_t0);
+    return (myT0 <= myT1 && myT0 <= theT && theT <= myT1) ||
+           (myT1 <= myT0 && myT1 <= theT && theT <= myT0);
   }
 }
 
-void Interval::makeIncreasing() {
-  if (isDecreasing()) {
-    swap();
+void Interval::MakeIncreasing() {
+  if (IsDecreasing()) {
+    Swap();
   }
 }
 
 Interval
-Interval::normalizedIntervalAt(const Interval &intervalParameter) const {
-  Naive_Real t = normalizedParameterAt(intervalParameter.m_t0);
-  Naive_Real t2 = normalizedParameterAt(intervalParameter.m_t1);
+Interval::NormalizedIntervalAt(const Interval &theIntervalParameter) const {
+  Naive_Real t = NormalizedParameterAt(theIntervalParameter.myT0);
+  Naive_Real t2 = NormalizedParameterAt(theIntervalParameter.myT1);
   return Interval(t, t2);
 }
 
-Naive_Real Interval::normalizedParameterAt(Naive_Real intervalParameter) const {
-  if (naivecgl::math::isValidDouble(intervalParameter)) {
-    if (m_t0 != m_t1) {
-      return (intervalParameter == m_t1)
+Naive_Real
+Interval::NormalizedParameterAt(Naive_Real theIntervalParameter) const {
+  if (naivecgl::math::IsValidDouble(theIntervalParameter)) {
+    if (myT0 != myT1) {
+      return (theIntervalParameter == myT1)
                  ? 1.0
-                 : ((intervalParameter - m_t0) / length());
+                 : ((theIntervalParameter - myT0) / Length());
     }
 
-    return m_t0;
+    return myT0;
   }
 
   return naivecgl::math::UnsetValue;
 }
 
-Naive_Real Interval::parameterAt(Naive_Real normalizedParameter) const {
-  if (!naivecgl::math::isValidDouble(normalizedParameter)) {
+Naive_Real Interval::ParameterAt(Naive_Real theNormalizedParameter) const {
+  if (!naivecgl::math::IsValidDouble(theNormalizedParameter)) {
     return naivecgl::math::UnsetValue;
   }
 
-  return (1.0 - normalizedParameter) * m_t0 + normalizedParameter * m_t1;
+  return (1.0 - theNormalizedParameter) * myT0 + theNormalizedParameter * myT1;
 }
 
 Interval
-Interval::parameterIntervalAt(const Interval &normalizedInterval) const {
-  Naive_Real t = parameterAt(normalizedInterval.m_t0);
-  Naive_Real t2 = parameterAt(normalizedInterval.m_t1);
+Interval::ParameterIntervalAt(const Interval &theNormalizedInterval) const {
+  Naive_Real t = ParameterAt(theNormalizedInterval.myT0);
+  Naive_Real t2 = ParameterAt(theNormalizedInterval.myT1);
 
   return Interval(t, t2);
 }
 
-void Interval::reverse() {
-  Naive_Real temp = m_t0;
-  m_t0 = -m_t1;
-  m_t1 = -temp;
+void Interval::Reverse() {
+  Naive_Real temp = myT0;
+  myT0 = -myT1;
+  myT1 = -temp;
 }
 
-void Interval::swap() { std::swap(m_t0, m_t1); }
+void Interval::Swap() { std::swap(myT0, myT1); }
 
-Naive_Bool Interval::operator!=(const Interval &other) const {
-  return compareTo(other) != 0;
+Naive_Bool Interval::operator!=(const Interval &theOther) const {
+  return CompareTo(theOther) != 0;
 }
 
-Naive_Bool Interval::operator<(const Interval &other) const {
-  return compareTo(other) < 0;
+Naive_Bool Interval::operator<(const Interval &theOther) const {
+  return CompareTo(theOther) < 0;
 }
 
-Naive_Bool Interval::operator<=(const Interval &other) const {
-  return compareTo(other) <= 0;
+Naive_Bool Interval::operator<=(const Interval &theOther) const {
+  return CompareTo(theOther) <= 0;
 }
 
-Naive_Bool Interval::operator==(const Interval &other) const {
-  return compareTo(other) == 0;
+Naive_Bool Interval::operator==(const Interval &theOther) const {
+  return CompareTo(theOther) == 0;
 }
 
-Naive_Bool Interval::operator>(const Interval &other) const {
-  return compareTo(other) > 0;
+Naive_Bool Interval::operator>(const Interval &theOther) const {
+  return CompareTo(theOther) > 0;
 }
 
-Naive_Bool Interval::operator>=(const Interval &other) const {
-  return compareTo(other) >= 0;
+Naive_Bool Interval::operator>=(const Interval &theOther) const {
+  return CompareTo(theOther) >= 0;
 }
 
-const Interval Interval::operator-(Naive_Real number) const {
-  return Interval(m_t0 - number, m_t1 - number);
+const Interval Interval::operator-(Naive_Real theNumber) const {
+  return Interval(myT0 - theNumber, myT1 - theNumber);
 }
 
-const Interval Interval::operator+(Naive_Real number) const {
-  return Interval(m_t0 + number, m_t1 + number);
+const Interval Interval::operator+(Naive_Real theNumber) const {
+  return Interval(myT0 + theNumber, myT1 + theNumber);
 }
 
-Interval &Interval::operator-=(Naive_Real number) {
-  m_t0 -= number;
-  m_t1 -= number;
+Interval &Interval::operator-=(Naive_Real theNumber) {
+  myT0 -= theNumber;
+  myT1 -= theNumber;
 
   return *this;
 }
 
-Interval &Interval::operator+=(Naive_Real number) {
-  m_t0 += number;
-  m_t1 += number;
+Interval &Interval::operator+=(Naive_Real theNumber) {
+  myT0 += theNumber;
+  myT1 += theNumber;
 
   return *this;
 }
 
-const Interval operator-(Naive_Real number, const Interval &interval) {
-  return Interval(number - interval.t0(), number - interval.t1());
+const Interval operator-(Naive_Real theNumber, const Interval &interval) {
+  return Interval(theNumber - interval.T0(), theNumber - interval.T1());
 }
 
-const Interval operator+(Naive_Real number, const Interval &interval) {
-  return Interval(number + interval.t0(), number + interval.t1());
+const Interval operator+(Naive_Real theNumber, const Interval &interval) {
+  return Interval(theNumber + interval.T0(), theNumber + interval.T1());
 }
 
 Naive_Namespace_End(geometry);

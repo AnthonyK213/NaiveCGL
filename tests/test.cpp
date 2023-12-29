@@ -16,19 +16,19 @@ TEST(HalfEdgeMesh, CreateHalfEdgeMeshFromTriangleSoup) {
 
   Naive_Poly soup(std::move(vertices), std::move(triangles));
 
-  ASSERT_TRUE(soup.isValid());
+  ASSERT_TRUE(soup.IsValid());
 
   Naive_Mesh mesh(soup);
 }
 
 TEST(Sphere, CreateOctasphere) {
-  Naive_H_Poly sphere = naivecgl::tessellation::octasphere({3, 4, 5}, 10);
+  Naive_H_Poly sphere = naivecgl::tessellation::OctaSphere({3, 4, 5}, 10);
 
-  ASSERT_EQ(36, sphere->vertices().size());
-  ASSERT_EQ(49, sphere->triangles().size());
+  ASSERT_EQ(36, sphere->Vertices().size());
+  ASSERT_EQ(49, sphere->Triangles().size());
 
-  ASSERT_EQ(36, sphere->vertices().capacity());
-  ASSERT_EQ(49, sphere->triangles().capacity());
+  ASSERT_EQ(36, sphere->Vertices().capacity());
+  ASSERT_EQ(49, sphere->Triangles().capacity());
 }
 
 TEST(ConvexHull2D, GetHull) {
@@ -37,7 +37,7 @@ TEST(ConvexHull2D, GetHull) {
   };
 
   Naive_List<Naive_Integer> result{};
-  Naive_Code code = naivecgl::bndshape::convexHull2D(points, result);
+  Naive_Code code = naivecgl::bndshape::ConvexHull2D(points, result);
 
   ASSERT_EQ(Naive_Ok, code);
 

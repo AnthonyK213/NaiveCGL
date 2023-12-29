@@ -7,11 +7,10 @@ Naive_Namespace_Begin(geometry);
 
 class Naive_Export Rectangle final {
 public:
-
 private:
-  Plane m_plane;
-  Interval m_x;
-  Interval m_y;
+  Plane myPlane;
+  Interval myX;
+  Interval myY;
 };
 
 Naive_Namespace_End(geometry);

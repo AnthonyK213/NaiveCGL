@@ -4,37 +4,38 @@ Naive_Namespace_Begin(geometry);
 
 TriangleSoup::TriangleSoup() {}
 
-TriangleSoup::TriangleSoup(TriangleSoup &&other) noexcept {
-  m_vertices = std::move(other.m_vertices);
-  m_triangles = std::move(other.m_triangles);
+TriangleSoup::TriangleSoup(TriangleSoup &&theOther) noexcept {
+  myVertices = std::move(theOther.myVertices);
+  myTriangles = std::move(theOther.myTriangles);
 }
 
-TriangleSoup::TriangleSoup(const VertexList &vertices,
-                           const TriangleList &triangles) {
-  m_vertices = vertices;
-  m_triangles = triangles;
+TriangleSoup::TriangleSoup(const VertexList &theVertices,
+                           const TriangleList &theTriangles) {
+  myVertices = theVertices;
+  myTriangles = theTriangles;
 }
 
-TriangleSoup::TriangleSoup(VertexList &&vertices, TriangleList &&triangles) {
-  m_vertices = std::move(vertices);
-  m_triangles = std::move(triangles);
+TriangleSoup::TriangleSoup(VertexList &&theVertices,
+                           TriangleList &&theTriangles) {
+  myVertices = std::move(theVertices);
+  myTriangles = std::move(theTriangles);
 }
 
-TriangleSoup &TriangleSoup::operator=(TriangleSoup &&other) noexcept {
-  m_vertices = std::move(other.m_vertices);
-  m_triangles = std::move(other.m_triangles);
+TriangleSoup &TriangleSoup::operator=(TriangleSoup &&theOther) noexcept {
+  myVertices = std::move(theOther.myVertices);
+  myTriangles = std::move(theOther.myTriangles);
 
   return *this;
 }
 
 TriangleSoup::~TriangleSoup() {}
 
-Naive_Bool TriangleSoup::isValid() {
-  size_t nbVertices = m_vertices.size();
+Naive_Bool TriangleSoup::IsValid() {
+  size_t nbVertices = myVertices.size();
 
-  for (const auto &triangle : m_triangles) {
+  for (const auto &aTriangle : myTriangles) {
     for (int i = 0; i < 3; ++i) {
-      if (triangle(i) < 0 || triangle(i) >= nbVertices)
+      if (aTriangle(i) < 0 || aTriangle(i) >= nbVertices)
         return false;
     }
   }

@@ -12,26 +12,26 @@ class Naive_Export TriangleSoup {
 public:
   TriangleSoup();
 
-  TriangleSoup(TriangleSoup &&other) noexcept;
+  TriangleSoup(TriangleSoup &&theOther) noexcept;
 
-  TriangleSoup(const VertexList &vertices, const TriangleList &triangles);
+  TriangleSoup(const VertexList &theVertices, const TriangleList &theTriangles);
 
-  TriangleSoup(VertexList &&vertices, TriangleList &&triangles);
+  TriangleSoup(VertexList &&theVertices, TriangleList &&theTriangles);
 
-  TriangleSoup &operator=(TriangleSoup &&other) noexcept;
+  TriangleSoup &operator=(TriangleSoup &&theOther) noexcept;
 
   ~TriangleSoup();
 
 public:
-  Naive_Bool isValid();
+  Naive_Bool IsValid();
 
-  const VertexList &vertices() const { return m_vertices; }
+  const VertexList &Vertices() const { return myVertices; }
 
-  const TriangleList &triangles() const { return m_triangles; }
+  const TriangleList &Triangles() const { return myTriangles; }
 
 private:
-  VertexList m_vertices{};
-  TriangleList m_triangles{};
+  VertexList myVertices{};
+  TriangleList myTriangles{};
 };
 
 Naive_Namespace_End(geometry);

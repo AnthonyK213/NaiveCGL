@@ -5,14 +5,14 @@
 
 Naive_Namespace_Begin(math);
 
-Naive_Export Naive_Bool epsilonEquals(Naive_Real x, Naive_Real y,
-                                      Naive_Real epsilon);
+Naive_Export Naive_Bool EpsilonEquals(Naive_Real theX, Naive_Real theY,
+                                      Naive_Real theEpsilon);
 
-Naive_Export Naive_Bool isValidDouble(Naive_Real x);
+Naive_Export Naive_Bool IsValidDouble(Naive_Real theX);
 
-Naive_Export constexpr Naive_Real toDegrees(Naive_Real radians);
+Naive_Export constexpr Naive_Real ToDegrees(Naive_Real theRadians);
 
-Naive_Export constexpr Naive_Real toRadians(Naive_Real degrees);
+Naive_Export constexpr Naive_Real ToRadians(Naive_Real theDegrees);
 
 Naive_Namespace_End(math);
 

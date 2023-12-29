@@ -7,12 +7,11 @@ Naive_Namespace_Begin(geometry);
 
 class Naive_Export Plane final {
 public:
-
 private:
-  Naive_Point3d m_origin;
-  Naive_Vector3d m_xAxis;
-  Naive_Vector3d m_yAxis;
-  Naive_Vector3d m_zAxis;
+  Naive_Point3d myOrigin;
+  Naive_Vector3d myXAxis;
+  Naive_Vector3d myYAxis;
+  Naive_Vector3d myZAxis;
 };
 
 Naive_Namespace_End(geometry);

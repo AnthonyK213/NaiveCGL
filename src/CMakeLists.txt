@@ -1,8 +1,4 @@
-file(
-  GLOB
-  NAIVECGL_SRC
-  *.cpp
-  )
+aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} NAIVECGL_SRC)
 
 add_library(
   ${PROJECT_NAME}

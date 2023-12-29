@@ -7,147 +7,153 @@ Naive_Namespace_Begin(tessellation);
 const Naive_Real SQRT_3 = std::sqrt(3.0);
 const Naive_Real SQRT_1_3 = std::sqrt(1.0 / 3.0);
 
-struct _Vertex_ {
-  Naive_Point3d m_point;
-  Naive_Integer m_index;
+struct Vertex_ {
+  Naive_Point3d myPoint;
+  Naive_Integer myIndex;
 };
 
-static Naive_Integer _triangle_index_(Naive_Integer n, Naive_Integer k) {
-  return k + ((n * (n + 1)) >> 1);
+static Naive_Integer triangle_index_(Naive_Integer theN, Naive_Integer theK) {
+  return theK + ((theN * (theN + 1)) >> 1);
 }
 
 #define S ::std::sin
 #define C ::std::cos
 
-static Naive_Real _tetra_tau_(const Naive_Real u, const Naive_Real v,
-                              const Naive_Real w) {
+static Naive_Real tetra_tau_(const Naive_Real theU, const Naive_Real theV,
+                             const Naive_Real theW) {
+  Naive_Real u = theU * 0.5, v = theV * 0.5, w = theW * 0.5;
+
   // clang-format off
 
   Naive_Matrix3d aMat{};
-  aMat << SQRT_3 * S(u * 0.5),  -C(u * 0.5),          -C(u * 0.5),
-          -C(v * 0.5),          SQRT_3 * S(v * 0.5),  -C(v * 0.5),
-          -C(w * 0.5),          -C(w * 0.5),          SQRT_3 * S(w * 0.5);
+  aMat << SQRT_3 * S(u),  -C(u),          -C(u),
+          -C(v),          SQRT_3 * S(v),  -C(v),
+          -C(w),          -C(w),          SQRT_3 * S(w);
 
   // clang-format on
 
   return aMat.determinant();
 }
 
-static Naive_Real _tetra_xi_(const Naive_Real u, const Naive_Real v,
-                             const Naive_Real w) {
+static Naive_Real tetra_xi_(const Naive_Real theU, const Naive_Real theV,
+                            const Naive_Real theW) {
+  Naive_Real u = theU * 0.5, v = theV * 0.5, w = theW * 0.5;
+
   // clang-format off
 
   Naive_Matrix3d aMat{};
-  aMat << S(u * 0.5),  C(u * 0.5),            C(u * 0.5),
-          S(v * 0.5),  -SQRT_3 * S(v * 0.5),  C(v * 0.5),
-          S(w * 0.5),  C(w * 0.5),            -SQRT_3 * S(w * 0.5);
+  aMat << S(u),  C(u),            C(u),
+          S(v),  -SQRT_3 * S(v),  C(v),
+          S(w),  C(w),            -SQRT_3 * S(w);
 
   // clang-format on
 
   return aMat.determinant();
 }
 
-static void _tetra_t1(const Naive_Integer d, const Naive_Integer n,
-                      const Naive_Integer k, const Naive_Integer i,
-                      _Vertex_ &vertex) {
-  Naive_Real l1 = Naive_Real(d - n - k) / d;
-  Naive_Real l2 = Naive_Real(n) / d;
-  Naive_Real l3 = Naive_Real(k) / d;
+static void _tetra_t1(const Naive_Integer theD, const Naive_Integer theN,
+                      const Naive_Integer theK, const Naive_Integer theI,
+                      Vertex_ &theVertex) {
+  Naive_Real l1 = Naive_Real(theD - theN - theK) / theD;
+  Naive_Real l2 = Naive_Real(theN) / theD;
+  Naive_Real l3 = Naive_Real(theK) / theD;
 
-  Naive_Real t = _tetra_tau_(l1, l2, l3);
+  Naive_Real t = tetra_tau_(l1, l2, l3);
 
-  Naive_Real u = _tetra_xi_(l1, l2, l3) / t;
-  Naive_Real v = -_tetra_xi_(l3, l2, l1) / t;
-  Naive_Real w = -_tetra_xi_(l2, l1, l3) / t;
+  Naive_Real u = tetra_xi_(l1, l2, l3) / t;
+  Naive_Real v = -tetra_xi_(l3, l2, l1) / t;
+  Naive_Real w = -tetra_xi_(l2, l1, l3) / t;
 
-  vertex.m_point = {u, v, w};
-  vertex.m_index = i;
+  theVertex.myPoint = {u, v, w};
+  theVertex.myIndex = theI;
 }
 
-static void _tetra_t2(const Naive_Integer d, const Naive_Integer n,
-                      const Naive_Integer k, const Naive_Integer i,
-                      _Vertex_ &vertex) {
-  Naive_Real l2 = Naive_Real(n + k - 2 * d) / d;
-  Naive_Real l1 = Naive_Real(d - n) / d;
-  Naive_Real l4 = Naive_Real(2 * d - k) / d;
+static void _tetra_t2(const Naive_Integer theD, const Naive_Integer theN,
+                      const Naive_Integer theK, const Naive_Integer theI,
+                      Vertex_ &theVertex) {
+  Naive_Real l2 = Naive_Real(theN + theK - 2 * theD) / theD;
+  Naive_Real l1 = Naive_Real(theD - theN) / theD;
+  Naive_Real l4 = Naive_Real(2 * theD - theK) / theD;
 
-  Naive_Real t = _tetra_tau_(l1, l2, l4);
+  Naive_Real t = tetra_tau_(l1, l2, l4);
 
-  Naive_Real u = -_tetra_xi_(l2, l1, l4) / t;
-  Naive_Real v = -_tetra_xi_(l4, l2, l1) / t;
-  Naive_Real w = _tetra_xi_(l1, l2, l4) / t;
+  Naive_Real u = -tetra_xi_(l2, l1, l4) / t;
+  Naive_Real v = -tetra_xi_(l4, l2, l1) / t;
+  Naive_Real w = tetra_xi_(l1, l2, l4) / t;
 
-  vertex.m_point = {u, v, w};
-  vertex.m_index = i;
+  theVertex.myPoint = {u, v, w};
+  theVertex.myIndex = theI;
 }
 
-static void _tetra_t3(const Naive_Integer d, const Naive_Integer n,
-                      const Naive_Integer k, const Naive_Integer i,
-                      _Vertex_ &vertex) {
-  Naive_Real l1 = Naive_Real(k - d) / d;
-  Naive_Real l3 = Naive_Real(2 * d - n - k) / d;
-  Naive_Real l4 = Naive_Real(n) / d;
+static void _tetra_t3(const Naive_Integer theD, const Naive_Integer theN,
+                      const Naive_Integer theK, const Naive_Integer theI,
+                      Vertex_ &theVertex) {
+  Naive_Real l1 = Naive_Real(theK - theD) / theD;
+  Naive_Real l3 = Naive_Real(2 * theD - theN - theK) / theD;
+  Naive_Real l4 = Naive_Real(theN) / theD;
 
-  Naive_Real t = _tetra_tau_(l1, l3, l4);
+  Naive_Real t = tetra_tau_(l1, l3, l4);
 
-  Naive_Real u = -_tetra_xi_(l3, l1, l4) / t;
-  Naive_Real v = _tetra_xi_(l1, l3, l4) / t;
-  Naive_Real w = -_tetra_xi_(l4, l3, l1) / t;
+  Naive_Real u = -tetra_xi_(l3, l1, l4) / t;
+  Naive_Real v = tetra_xi_(l1, l3, l4) / t;
+  Naive_Real w = -tetra_xi_(l4, l3, l1) / t;
 
-  vertex.m_point = {u, v, w};
-  vertex.m_index = i;
+  theVertex.myPoint = {u, v, w};
+  theVertex.myIndex = theI;
 }
 
-static void _tetra_t4(const Naive_Integer d, const Naive_Integer n,
-                      const Naive_Integer k, const Naive_Integer i,
-                      _Vertex_ &vertex) {
-  Naive_Real l4 = Naive_Real(n + k - d) / d;
-  Naive_Real l3 = Naive_Real(d - n) / d;
-  Naive_Real l2 = Naive_Real(d - k) / d;
+static void _tetra_t4(const Naive_Integer theD, const Naive_Integer theN,
+                      const Naive_Integer theK, const Naive_Integer theI,
+                      Vertex_ &theVertex) {
+  Naive_Real l4 = Naive_Real(theN + theK - theD) / theD;
+  Naive_Real l3 = Naive_Real(theD - theN) / theD;
+  Naive_Real l2 = Naive_Real(theD - theK) / theD;
 
-  Naive_Real t = _tetra_tau_(l2, l3, l4);
+  Naive_Real t = tetra_tau_(l2, l3, l4);
 
-  Naive_Real u = _tetra_xi_(l4, l3, l2) / t;
-  Naive_Real v = _tetra_xi_(l2, l3, l4) / t;
-  Naive_Real w = _tetra_xi_(l3, l2, l4) / t;
+  Naive_Real u = tetra_xi_(l4, l3, l2) / t;
+  Naive_Real v = tetra_xi_(l2, l3, l4) / t;
+  Naive_Real w = tetra_xi_(l3, l2, l4) / t;
 
-  vertex.m_point = {u, v, w};
-  vertex.m_index = i;
+  theVertex.myPoint = {u, v, w};
+  theVertex.myIndex = theI;
 }
 
-static Naive_Integer _tetra_index(const Naive_Integer d, const Naive_Integer n,
-                                  const Naive_Integer k) {
-  if ((n == 0 || n == d) && k > d) {
-    return 2 * d - k;
+static Naive_Integer _tetra_index(const Naive_Integer theD,
+                                  const Naive_Integer theN,
+                                  const Naive_Integer theK) {
+  if ((theN == 0 || theN == theD) && theK > theD) {
+    return 2 * theD - theK;
   }
 
-  if (k == 2 * d) {
+  if (theK == 2 * theD) {
     return 0;
   }
 
-  return k;
+  return theK;
 }
 
 #undef S
 #undef C
 
-void uvsphere(const Naive_Point3d &center, const Naive_Real radius,
+void UVSphere(const Naive_Point3d &theCenter, const Naive_Real theRadius,
               Naive_Poly &poly) {}
 
-Naive_H_Poly tetrasphere(const Naive_Point3d &center, const Naive_Real radius,
-                         const Naive_Integer level) {
-  if (radius < 0 || level < 0)
+Naive_H_Poly TetraSphere(const Naive_Point3d &theCenter,
+                         const Naive_Real theRadius,
+                         const Naive_Integer theLevel) {
+  if (theRadius < 0 || theLevel < 0)
     return nullptr;
 
-  Naive_List<Naive_List<_Vertex_>> aVertices{};
-  Naive_Integer d = level + 1;
+  Naive_List<Naive_List<Vertex_>> aVertices{};
+  Naive_Integer d = theLevel + 1;
 
   aVertices.reserve(d + 1);
 
   Naive_Integer aVertIndex = 0;
 
   for (Naive_Integer n = 0; n <= d; ++n) {
-    Naive_List<_Vertex_> aVerts{};
+    Naive_List<Vertex_> aVerts{};
 
     if (n == 0) {
       aVerts.resize(d + 1);
@@ -190,14 +196,14 @@ Naive_H_Poly tetrasphere(const Naive_Point3d &center, const Naive_Real radius,
   for (Naive_Integer n = 0; n < d; ++n) {
     for (Naive_Integer k = 0; k < 2 * d; ++k) {
       aTriangles.push_back({
-          aVertices[n][_tetra_index(d, n, k)].m_index,
-          aVertices[n + 1][_tetra_index(d, n + 1, k)].m_index,
-          aVertices[n][_tetra_index(d, n, k + 1)].m_index,
+          aVertices[n][_tetra_index(d, n, k)].myIndex,
+          aVertices[n + 1][_tetra_index(d, n + 1, k)].myIndex,
+          aVertices[n][_tetra_index(d, n, k + 1)].myIndex,
       });
       aTriangles.push_back({
-          aVertices[n + 1][_tetra_index(d, n + 1, k)].m_index,
-          aVertices[n + 1][_tetra_index(d, n + 1, k + 1)].m_index,
-          aVertices[n][_tetra_index(d, n, k + 1)].m_index,
+          aVertices[n + 1][_tetra_index(d, n + 1, k)].myIndex,
+          aVertices[n + 1][_tetra_index(d, n + 1, k + 1)].myIndex,
+          aVertices[n][_tetra_index(d, n, k + 1)].myIndex,
       });
     }
   }
@@ -207,10 +213,10 @@ Naive_H_Poly tetrasphere(const Naive_Point3d &center, const Naive_Real radius,
 
   for (const auto &verts : aVertices) {
     for (const auto &vert : verts) {
-      Naive_Point3d point = vert.m_point;
+      Naive_Point3d point = vert.myPoint;
       point.normalize();
-      point *= radius;
-      point += center;
+      point *= theRadius;
+      point += theCenter;
       aPoints.push_back(point);
     }
   }
@@ -219,18 +225,19 @@ Naive_H_Poly tetrasphere(const Naive_Point3d &center, const Naive_Real radius,
                                       std::move(aTriangles));
 }
 
-Naive_H_Poly octasphere(const Naive_Point3d &center, const Naive_Real radius,
-                        const Naive_Integer level) {
-  if (radius < 0 || level < 0)
+Naive_H_Poly OctaSphere(const Naive_Point3d &theCenter,
+                        const Naive_Real theRadius,
+                        const Naive_Integer theLevel) {
+  if (theRadius < 0 || theLevel < 0)
     return nullptr;
 
   Naive_List<Naive_List<Naive_Point3d>> aPoints{};
-  Naive_Integer d = level + 1;
+  Naive_Integer d = theLevel + 1;
 
   aPoints.reserve(d + 1);
 
-  Naive_Real aHalf = radius * std::sqrt(0.5);
-  Naive_Point3d aPntA{0.0, 0.0, radius};
+  Naive_Real aHalf = theRadius * std::sqrt(0.5);
+  Naive_Point3d aPntA{0.0, 0.0, theRadius};
   Naive_Point3d aPntB{aHalf, aHalf, 0.0};
   Naive_Point3d aPntC{-aHalf, aHalf, 0.0};
 
@@ -247,8 +254,8 @@ Naive_H_Poly octasphere(const Naive_Point3d &center, const Naive_Real radius,
       aPnts.push_back(a * aPntA + b * aPntB + c * aPntC);
 
       aPnts[k].normalize();
-      aPnts[k] *= radius;
-      aPnts[k] += center;
+      aPnts[k] *= theRadius;
+      aPnts[k] += theCenter;
     }
 
     aPoints.push_back(std::move(aPnts));
@@ -258,14 +265,14 @@ Naive_H_Poly octasphere(const Naive_Point3d &center, const Naive_Real radius,
   aTriangles.reserve(d * d);
 
   for (Naive_Integer n = 1; n <= d; ++n) {
-    aTriangles.push_back({_triangle_index_(n, 0), _triangle_index_(n, 1),
-                          _triangle_index_(n - 1, 0)});
+    aTriangles.push_back({triangle_index_(n, 0), triangle_index_(n, 1),
+                          triangle_index_(n - 1, 0)});
 
     for (Naive_Integer k = 1; k < n; ++k) {
-      aTriangles.push_back({_triangle_index_(n, k), _triangle_index_(n - 1, k),
-                            _triangle_index_(n - 1, k - 1)});
-      aTriangles.push_back({_triangle_index_(n, k), _triangle_index_(n, k + 1),
-                            _triangle_index_(n - 1, k)});
+      aTriangles.push_back({triangle_index_(n, k), triangle_index_(n - 1, k),
+                            triangle_index_(n - 1, k - 1)});
+      aTriangles.push_back({triangle_index_(n, k), triangle_index_(n, k + 1),
+                            triangle_index_(n - 1, k)});
     }
   }
 
@@ -282,8 +289,9 @@ Naive_H_Poly octasphere(const Naive_Point3d &center, const Naive_Real radius,
                                       std::move(aTriangles));
 }
 
-Naive_H_Poly icoshpere(const Naive_Point3d &center, const Naive_Real radius,
-                       const Naive_Integer level) {
+Naive_H_Poly IcoShpere(const Naive_Point3d &theCenter,
+                       const Naive_Real theRadius,
+                       const Naive_Integer theLevel) {
   return nullptr;
 }
 
