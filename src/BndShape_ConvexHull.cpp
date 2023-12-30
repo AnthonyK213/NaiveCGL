@@ -24,14 +24,14 @@ public:
   ~QuickHull2D_() {}
 
 public:
-  void perform() {
-    if (status() != Naive_Ok)
+  void Perform() {
+    if (Status() != Naive_Ok)
       return;
 
     Ptr a, b, fA, fB;
     setStatus(extremX(a, b));
 
-    if (status() != Naive_Ok)
+    if (Status() != Naive_Ok)
       return;
 
     Ptrs A = rightOf(myPoints, a, b, fA);
@@ -43,9 +43,9 @@ public:
     half(B, b, a, fB, myHull);
   }
 
-  Naive_Code status() const { return myStatus; }
+  Naive_Code Status() const { return myStatus; }
 
-  Naive_List<Naive_Integer> convexIndices() const {
+  Naive_List<Naive_Integer> ConvexIndices() const {
     Naive_List<Naive_Integer> result{};
 
     if (myHull.empty())
@@ -143,12 +143,12 @@ private:
 Naive_Code ConvexHull2D(const Naive_List<Naive_Point2d> &thePoints,
                         Naive_List<Naive_Integer> &theConvexIndices) {
   QuickHull2D_ aHull{thePoints};
-  aHull.perform();
+  aHull.Perform();
 
-  if (aHull.status() == Naive_Ok)
-    theConvexIndices = aHull.convexIndices();
+  if (aHull.Status() == Naive_Ok)
+    theConvexIndices = aHull.ConvexIndices();
 
-  return aHull.status();
+  return aHull.Status();
 }
 
 Naive_H_Mesh ConvexHull3D(const Naive_List<Naive_Point3d> &thePoints) {

@@ -103,7 +103,7 @@ public:
   public:
     class EdgeIterator {
     public:
-      EdgeIterator(const Face *theFace);
+      Naive_Export EdgeIterator(const Face *theFace);
 
       Naive_Export Naive_Bool More() const;
 
