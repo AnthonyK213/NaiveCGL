@@ -16,19 +16,19 @@ static Naive_Integer triangle_index_(Naive_Integer theN, Naive_Integer theK) {
   return theK + ((theN * (theN + 1)) >> 1);
 }
 
-#define S ::std::sin
-#define C ::std::cos
-
 static Naive_Real tetra_tau_(const Naive_Real theU, const Naive_Real theV,
                              const Naive_Real theW) {
   Naive_Real u = theU * 0.5, v = theV * 0.5, w = theW * 0.5;
+  Naive_Real Su = std::sin(u), Cu = std::cos(u);
+  Naive_Real Sv = std::sin(v), Cv = std::cos(v);
+  Naive_Real Sw = std::sin(w), Cw = std::cos(w);
 
   // clang-format off
 
   Naive_Matrix3d aMat{};
-  aMat << SQRT_3 * S(u),  -C(u),          -C(u),
-          -C(v),          SQRT_3 * S(v),  -C(v),
-          -C(w),          -C(w),          SQRT_3 * S(w);
+  aMat << SQRT_3 * Su,  -Cu,          -Cu,
+          -Cv,          SQRT_3 * Sv,  -Cv,
+          -Cw,          -Cw,          SQRT_3 * Sw;
 
   // clang-format on
 
@@ -38,13 +38,16 @@ static Naive_Real tetra_tau_(const Naive_Real theU, const Naive_Real theV,
 static Naive_Real tetra_xi_(const Naive_Real theU, const Naive_Real theV,
                             const Naive_Real theW) {
   Naive_Real u = theU * 0.5, v = theV * 0.5, w = theW * 0.5;
+  Naive_Real Su = std::sin(u), Cu = std::cos(u);
+  Naive_Real Sv = std::sin(v), Cv = std::cos(v);
+  Naive_Real Sw = std::sin(w), Cw = std::cos(w);
 
   // clang-format off
 
   Naive_Matrix3d aMat{};
-  aMat << S(u),  C(u),            C(u),
-          S(v),  -SQRT_3 * S(v),  C(v),
-          S(w),  C(w),            -SQRT_3 * S(w);
+  aMat << Su,  Cu,            Cu,
+          Sv,  -SQRT_3 * Sv,  Cv,
+          Sw,  Cw,            -SQRT_3 * Sw;
 
   // clang-format on
 
@@ -133,9 +136,6 @@ static Naive_Integer _tetra_index(const Naive_Integer theD,
   return theK;
 }
 
-#undef S
-#undef C
-
 void UVSphere(const Naive_Point3d &theCenter, const Naive_Real theRadius,
               Naive_Poly &poly) {}
 
@@ -158,21 +158,19 @@ Naive_H_Poly TetraSphere(const Naive_Point3d &theCenter,
     if (n == 0) {
       aVerts.resize(d + 1);
 
-      for (Naive_Integer k = 0; k <= d; ++k) {
+      for (Naive_Integer k = 0; k <= d; ++k, ++aVertIndex) {
         _tetra_t1(d, n, k, aVertIndex, aVerts[k]);
-        aVertIndex++;
       }
     } else if (n == d) {
       aVerts.resize(d + 1);
 
-      for (Naive_Integer k = 0; k <= d; ++k) {
+      for (Naive_Integer k = 0; k <= d; ++k, ++aVertIndex) {
         _tetra_t4(d, n, k, aVertIndex, aVerts[k]);
-        aVertIndex++;
       }
     } else {
       aVerts.resize(2 * d);
 
-      for (Naive_Integer k = 0; k < 2 * d; ++k) {
+      for (Naive_Integer k = 0; k < 2 * d; ++k, ++aVertIndex) {
         if (k <= d - n) {
           _tetra_t1(d, n, k, aVertIndex, aVerts[k]);
         } else if (k <= d) {
@@ -182,8 +180,6 @@ Naive_H_Poly TetraSphere(const Naive_Point3d &theCenter,
         } else {
           _tetra_t2(d, n, k, aVertIndex, aVerts[k]);
         }
-
-        aVertIndex++;
       }
     }
 
@@ -193,17 +189,25 @@ Naive_H_Poly TetraSphere(const Naive_Point3d &theCenter,
   Naive_List<Naive_Triangle> aTriangles{};
   aTriangles.reserve(4 * d * d);
 
+  Naive_Integer i00, i10, i01, i11;
+
   for (Naive_Integer n = 0; n < d; ++n) {
     for (Naive_Integer k = 0; k < 2 * d; ++k) {
+      i00 = _tetra_index(d, n, k);
+      i10 = _tetra_index(d, n + 1, k);
+      i01 = _tetra_index(d, n, k + 1);
+      i11 = _tetra_index(d, n + 1, k + 1);
+
       aTriangles.push_back({
-          aVertices[n][_tetra_index(d, n, k)].myIndex,
-          aVertices[n + 1][_tetra_index(d, n + 1, k)].myIndex,
-          aVertices[n][_tetra_index(d, n, k + 1)].myIndex,
+          aVertices[n][i00].myIndex,
+          aVertices[n + 1][i10].myIndex,
+          aVertices[n][i01].myIndex,
       });
+
       aTriangles.push_back({
-          aVertices[n + 1][_tetra_index(d, n + 1, k)].myIndex,
-          aVertices[n + 1][_tetra_index(d, n + 1, k + 1)].myIndex,
-          aVertices[n][_tetra_index(d, n, k + 1)].myIndex,
+          aVertices[n + 1][i10].myIndex,
+          aVertices[n + 1][i11].myIndex,
+          aVertices[n][i01].myIndex,
       });
     }
   }
