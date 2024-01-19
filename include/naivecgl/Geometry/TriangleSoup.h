@@ -3,29 +3,29 @@
 
 #include "def.h"
 
-Naive_Namespace_Begin(geometry);
+Naive_NAMESPACE_BEGIN(geometry);
 
 class TriangleSoup {
   using VertexList = Naive_List<Naive_Vector3d>;
   using TriangleList = Naive_List<Naive_Triangle>;
 
 public:
-  Naive_Export TriangleSoup();
+  Naive_EXPORT TriangleSoup();
 
-  Naive_Export TriangleSoup(TriangleSoup &&theOther) noexcept;
+  Naive_EXPORT TriangleSoup(TriangleSoup &&theOther) noexcept;
 
-  Naive_Export TriangleSoup(const VertexList &theVertices,
+  Naive_EXPORT TriangleSoup(const VertexList &theVertices,
                             const TriangleList &theTriangles);
 
-  Naive_Export TriangleSoup(VertexList &&theVertices,
+  Naive_EXPORT TriangleSoup(VertexList &&theVertices,
                             TriangleList &&theTriangles);
 
-  Naive_Export TriangleSoup &operator=(TriangleSoup &&theOther) noexcept;
+  Naive_EXPORT TriangleSoup &operator=(TriangleSoup &&theOther) noexcept;
 
-  Naive_Export ~TriangleSoup();
+  Naive_EXPORT ~TriangleSoup();
 
 public:
-  Naive_Export Naive_Bool IsValid();
+  Naive_EXPORT Naive_Bool IsValid();
 
   const VertexList &Vertices() const { return myVertices; }
 
@@ -36,6 +36,6 @@ private:
   TriangleList myTriangles{};
 };
 
-Naive_Namespace_End(geometry);
+Naive_NAMESPACE_END(geometry);
 
 #endif

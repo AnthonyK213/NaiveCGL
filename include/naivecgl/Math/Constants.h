@@ -5,7 +5,7 @@
 
 #include <cmath>
 
-Naive_Namespace_Begin(math);
+Naive_NAMESPACE_BEGIN(math);
 
 static constexpr Naive_Real PI = 3.14159265358979323846;
 
@@ -33,6 +33,6 @@ static constexpr float UnsetSingle = -1.234321e+38f;
 
 static constexpr Naive_Integer UnsetIntIndex = INT_MIN + 1;
 
-Naive_Namespace_End(math);
+Naive_NAMESPACE_END(math);
 
 #endif

@@ -1,6 +1,6 @@
 ﻿#include <naivecgl/BndShape/ConvexHull.h>
 
-Naive_Namespace_Begin(bndshape);
+Naive_NAMESPACE_BEGIN(bndshape);
 
 class QuickHull2D_ {
   using Ptr = const Naive_Point2d *;
@@ -155,4 +155,4 @@ Naive_H_Mesh ConvexHull3D(const Naive_List<Naive_Point3d> &thePoints) {
   throw std::runtime_error("Not implemented yet");
 }
 
-Naive_Namespace_End(bndshape);
+Naive_NAMESPACE_END(bndshape);

@@ -3,7 +3,7 @@
 
 #include "def.h"
 
-Naive_Namespace_Begin(geometry);
+Naive_NAMESPACE_BEGIN(geometry);
 
 class Plane final {
 public:
@@ -14,6 +14,6 @@ private:
   Naive_Vector3d myZAxis;
 };
 
-Naive_Namespace_End(geometry);
+Naive_NAMESPACE_END(geometry);
 
 #endif

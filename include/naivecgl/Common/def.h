@@ -12,18 +12,18 @@
 
 #include <naivecgl/Interface/NaiveCGL_c_types.h>
 
-#ifndef Naive_Export
+#ifndef Naive_EXPORT
 #ifdef _WIN32
-#define Naive_Export __declspec(dllexport)
+#define Naive_EXPORT __declspec(dllexport)
 #else
-#define Naive_Export
+#define Naive_EXPORT
 #endif
 #endif
 
-#define Naive_Namespace_Begin(ns)                                              \
+#define Naive_NAMESPACE_BEGIN(ns)                                              \
   namespace naivecgl {                                                         \
   namespace ns {
-#define Naive_Namespace_End(ns)                                                \
+#define Naive_NAMESPACE_END(ns)                                                \
   }                                                                            \
   }
 

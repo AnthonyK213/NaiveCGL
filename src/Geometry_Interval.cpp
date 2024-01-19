@@ -1,7 +1,7 @@
 ﻿#include <naivecgl/Geometry/Interval.h>
 #include <naivecgl/Math/Util.h>
 
-Naive_Namespace_Begin(geometry);
+Naive_NAMESPACE_BEGIN(geometry);
 
 Interval::Interval(Naive_Real theT0, Naive_Real theT1)
     : myT0(theT0), myT1(theT1) {}
@@ -234,4 +234,4 @@ const Interval operator+(Naive_Real theNumber, const Interval &interval) {
   return Interval(theNumber + interval.T0(), theNumber + interval.T1());
 }
 
-Naive_Namespace_End(geometry);
+Naive_NAMESPACE_END(geometry);

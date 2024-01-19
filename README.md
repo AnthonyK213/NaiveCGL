@@ -11,10 +11,4 @@ A young and simple (sometimes naive) computational geometry library.
   - Install the latest release of [vcpkg](https://github.com/microsoft/vcpkg)
   - Set environment variable
     - `VCPKG_ROOT`
-- Configure with cmake
-  ``` sh
-  cd NaiveCGL
-  mkdir build
-  cd build
-  cmake ..
-  ```
+- Configure & Build

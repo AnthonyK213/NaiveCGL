@@ -3,7 +3,7 @@
 
 #include "TriangleSoup.h"
 
-Naive_Namespace_Begin(geometry);
+Naive_NAMESPACE_BEGIN(geometry);
 
 /// @brief Manifold mesh described by half-edges.
 class HalfEdgeMesh {
@@ -16,21 +16,21 @@ public:
     friend class HalfEdgeMesh;
 
   public:
-    Naive_Export Vertex();
+    Naive_EXPORT Vertex();
 
-    Naive_Export Vertex(const Naive_Vector3d &theCoord);
+    Naive_EXPORT Vertex(const Naive_Vector3d &theCoord);
 
-    Naive_Export Vertex(Naive_Real theX, Naive_Real theY, Naive_Real theZ);
+    Naive_EXPORT Vertex(Naive_Real theX, Naive_Real theY, Naive_Real theZ);
 
     Vertex(const Vertex &theOther) = delete;
 
-    Naive_Export Vertex(Vertex &&theOther) noexcept;
+    Naive_EXPORT Vertex(Vertex &&theOther) noexcept;
 
     Vertex &operator=(const Vertex &theOther) = delete;
 
-    Naive_Export Vertex &operator=(Vertex &&theOther) noexcept;
+    Naive_EXPORT Vertex &operator=(Vertex &&theOther) noexcept;
 
-    Naive_Export ~Vertex();
+    Naive_EXPORT ~Vertex();
 
   public:
     const Naive_Vector3d &Coord() const { return myCoord; }
@@ -49,19 +49,19 @@ public:
     friend class HalfEdgeMesh;
 
   public:
-    Naive_Export HalfEdge();
+    Naive_EXPORT HalfEdge();
 
-    Naive_Export HalfEdge(Vertex *theOrigin);
+    Naive_EXPORT HalfEdge(Vertex *theOrigin);
 
     HalfEdge(const HalfEdge &theOther) = delete;
 
-    Naive_Export HalfEdge(HalfEdge &&theOther) noexcept;
+    Naive_EXPORT HalfEdge(HalfEdge &&theOther) noexcept;
 
     HalfEdge &operator=(const HalfEdge &theOther) = delete;
 
-    Naive_Export HalfEdge &operator=(HalfEdge &&theOther) noexcept;
+    Naive_EXPORT HalfEdge &operator=(HalfEdge &&theOther) noexcept;
 
-    Naive_Export ~HalfEdge();
+    Naive_EXPORT ~HalfEdge();
 
   public:
     const Vertex *Origin() const { return myOrigin; }
@@ -86,26 +86,26 @@ public:
     friend class HalfEdgeMesh;
 
   public:
-    Naive_Export Face();
+    Naive_EXPORT Face();
 
-    Naive_Export Face(HalfEdge *theOuterEdge);
+    Naive_EXPORT Face(HalfEdge *theOuterEdge);
 
     Face(const Face &theOther) = delete;
 
-    Naive_Export Face(Face &&theOther) noexcept;
+    Naive_EXPORT Face(Face &&theOther) noexcept;
 
     Face &operator=(const Face &theOther) = delete;
 
-    Naive_Export Face &operator=(Face &&theOther) noexcept;
+    Naive_EXPORT Face &operator=(Face &&theOther) noexcept;
 
-    Naive_Export ~Face();
+    Naive_EXPORT ~Face();
 
   public:
     class EdgeIterator {
     public:
-      Naive_Export EdgeIterator(const Face *theFace);
+      Naive_EXPORT EdgeIterator(const Face *theFace);
 
-      Naive_Export Naive_Bool More() const;
+      Naive_EXPORT Naive_Bool More() const;
 
       void Next() { myCurrent = myCurrent->Next(); }
 
@@ -131,21 +131,21 @@ public:
   };
 
 public:
-  Naive_Export HalfEdgeMesh();
+  Naive_EXPORT HalfEdgeMesh();
 
   /// @brief Construct a half-edge mesh from a trangle soup.
-  Naive_Export HalfEdgeMesh(const TriangleSoup &theTriangleSoup);
+  Naive_EXPORT HalfEdgeMesh(const TriangleSoup &theTriangleSoup);
 
   HalfEdgeMesh(const HalfEdgeMesh &theOther) = delete;
 
-  Naive_Export HalfEdgeMesh(HalfEdgeMesh &&theOther) noexcept = default;
+  Naive_EXPORT HalfEdgeMesh(HalfEdgeMesh &&theOther) noexcept = default;
 
   HalfEdgeMesh &operator=(const HalfEdgeMesh &theOther) = delete;
 
-  Naive_Export HalfEdgeMesh &
+  Naive_EXPORT HalfEdgeMesh &
   operator=(HalfEdgeMesh &&theOther) noexcept = default;
 
-  Naive_Export ~HalfEdgeMesh();
+  Naive_EXPORT ~HalfEdgeMesh();
 
 public:
   size_t NbVertices() const { return myVertices.size(); }
@@ -191,6 +191,6 @@ private:
   Naive_Map<Naive_Integer, HalfEdge> myHalfEdges{}; // Half-edges.
 };
 
-Naive_Namespace_End(geometry);
+Naive_NAMESPACE_END(geometry);
 
 #endif

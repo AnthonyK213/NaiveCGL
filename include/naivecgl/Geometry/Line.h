@@ -3,7 +3,7 @@
 
 #include "def.h"
 
-Naive_Namespace_Begin(geometry);
+Naive_NAMESPACE_BEGIN(geometry);
 
 class Line final {
 public:
@@ -12,6 +12,6 @@ private:
   Naive_Point3d myTo;
 };
 
-Naive_Namespace_End(geometry);
+Naive_NAMESPACE_END(geometry);
 
 #endif

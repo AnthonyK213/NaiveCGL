@@ -2,7 +2,7 @@
 
 #include <naivecgl/Tessellation/Sphere.h>
 
-Naive_Namespace_Begin(tessellation);
+Naive_NAMESPACE_BEGIN(tessellation);
 
 const Naive_Real SQRT_3 = std::sqrt(3.0);
 const Naive_Real SQRT_1_3 = std::sqrt(1.0 / 3.0);
@@ -295,4 +295,4 @@ Naive_H_Poly IcoShpere(const Naive_Point3d &theCenter,
   return nullptr;
 }
 
-Naive_Namespace_End(tessellation);
+Naive_NAMESPACE_END(tessellation);

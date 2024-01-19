@@ -55,4 +55,13 @@ target_link_libraries(
 
 include(GoogleTest)
 
+if(MSVC)
+  add_custom_command(
+    TARGET ${PROJECT_NAME}Test POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+      "$<TARGET_PROPERTY:NaiveCGL,BINARY_DIR>/$<CONFIG>"
+      "$<TARGET_PROPERTY:NaiveCGLTest,BINARY_DIR>/$<CONFIG>"
+    )
+endif()
+
 gtest_discover_tests(${PROJECT_NAME}Test)

@@ -1,4 +1,4 @@
-﻿#include <naivecgl/BndShape/Obb.h>
+#include <naivecgl/BndShape/Box.h>
 
 Naive_NAMESPACE_BEGIN(bndshape);
 

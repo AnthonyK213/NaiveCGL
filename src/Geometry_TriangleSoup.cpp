@@ -1,6 +1,6 @@
 ﻿#include <naivecgl/Geometry/TriangleSoup.h>
 
-Naive_Namespace_Begin(geometry);
+Naive_NAMESPACE_BEGIN(geometry);
 
 TriangleSoup::TriangleSoup() {}
 
@@ -43,4 +43,4 @@ Naive_Bool TriangleSoup::IsValid() {
   return true;
 }
 
-Naive_Namespace_End(geometry);
+Naive_NAMESPACE_END(geometry);

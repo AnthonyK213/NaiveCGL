@@ -3,19 +3,19 @@
 
 #include "Plane.h"
 
-Naive_Namespace_Begin(geometry);
+Naive_NAMESPACE_BEGIN(geometry);
 
 class Circle final {
 public:
-  Naive_Export Circle();
+  Naive_EXPORT Circle();
 
-  Naive_Export Circle(const Plane &thePlane, const Naive_Real theRadius);
+  Naive_EXPORT Circle(const Plane &thePlane, const Naive_Real theRadius);
 
 private:
   Plane myPlane;
   Naive_Real myRadius;
 };
 
-Naive_Namespace_End(geometry);
+Naive_NAMESPACE_END(geometry);
 
 #endif

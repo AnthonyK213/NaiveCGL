@@ -3,17 +3,16 @@
 
 #include <naivecgl/Common/geometry.h>
 
-Naive_Namespace_Begin(bndshape);
+Naive_NAMESPACE_BEGIN(bndshape);
 
 class Obb final {
 public:
 private:
-  Naive_Plane myPlane;
-  Naive_Interval myX;
-  Naive_Interval myY;
-  Naive_Interval myZ;
+  Naive_Point3d myCenter;
+  Naive_Vector3d myAxes[3];
+  Naive_Real myHDims[3];
 };
 
-Naive_Namespace_End(bndshape);
+Naive_NAMESPACE_END(bndshape);
 
 #endif

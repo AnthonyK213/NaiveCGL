@@ -1,6 +1,6 @@
 ﻿#include <naivecgl/Math/Util.h>
 
-Naive_Namespace_Begin(math);
+Naive_NAMESPACE_BEGIN(math);
 
 Naive_Bool EpsilonEquals(Naive_Real theX, Naive_Real theY,
                          Naive_Real theEpsilon) {
@@ -37,4 +37,4 @@ constexpr Naive_Real ToRadians(Naive_Real theDegrees) {
   return theDegrees * PI / 180.0;
 }
 
-Naive_Namespace_End(math);
+Naive_NAMESPACE_END(math);

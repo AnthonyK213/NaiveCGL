@@ -2,7 +2,7 @@
 
 #include <tuple>
 
-Naive_Namespace_Begin(geometry);
+Naive_NAMESPACE_BEGIN(geometry);
 
 HalfEdgeMesh::Vertex::Vertex() {}
 
@@ -210,4 +210,4 @@ void HalfEdgeMesh::makeTwins() {
   }
 }
 
-Naive_Namespace_End(geometry);
+Naive_NAMESPACE_END(geometry);

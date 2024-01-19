@@ -3,7 +3,7 @@
 
 #include "def.h"
 
-Naive_Namespace_Begin(geometry);
+Naive_NAMESPACE_BEGIN(geometry);
 
 class Rectangle final {
 public:
@@ -13,6 +13,6 @@ private:
   Interval myY;
 };
 
-Naive_Namespace_End(geometry);
+Naive_NAMESPACE_END(geometry);
 
 #endif
