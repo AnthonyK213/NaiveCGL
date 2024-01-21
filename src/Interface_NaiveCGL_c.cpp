@@ -132,16 +132,16 @@ Naive_BndShape_ConvexHull2D_ConvexIndices(const Naive_Handle theHandle,
 
 Naive_Code
 Naive_BndShape_ConvexHull2D_ConvexPoints(const Naive_Handle theHandle,
-                                         Naive_Point2d_T *theConvexIndices) {
-  if (!theHandle)
+                                         Naive_Point2d_T *theConvexPoints) {
+  if (!theHandle || !theConvexPoints)
     return Naive_Err;
 
   Naive_HANDLE_CAST(const naivecgl::bndshape::ConvexHull2D, theHandle, theCH2D);
   Naive_Point2d_List aPoints = theCH2D->ConvexPoints();
 
   for (Naive_Integer i = 0; i < aPoints.size(); ++i) {
-    theConvexIndices[i].x = aPoints[i].x();
-    theConvexIndices[i].y = aPoints[i].y();
+    theConvexPoints[i].x = aPoints[i].x();
+    theConvexPoints[i].y = aPoints[i].y();
   }
 
   return Naive_Ok;
