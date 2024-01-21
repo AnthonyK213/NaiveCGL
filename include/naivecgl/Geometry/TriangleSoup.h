@@ -5,7 +5,7 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-class TriangleSoup {
+class TriangleSoup : std::enable_shared_from_this<TriangleSoup> {
   using VertexList = Naive_List<Naive_Vector3d>;
   using TriangleList = Naive_List<Naive_Triangle>;
 

@@ -37,8 +37,10 @@ template <typename T> using Naive_Vector2 = Eigen::Matrix<T, 2, 1>;
 template <typename T> using Naive_Vector3 = Eigen::Matrix<T, 3, 1>;
 
 using Naive_Bool = bool;
-using Naive_Real = double;
 using Naive_Integer = int32_t;
+using Naive_Real = double;
+using Naive_Integer_List = Naive_List<Naive_Integer>;
+using Naive_Real_List = Naive_List<Naive_Real>;
 
 using Naive_Matrix3d = Naive_Matrix3<Naive_Real>;
 

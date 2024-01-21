@@ -1,6 +1,8 @@
 ﻿#include <naivecgl/Interface/NaiveCGL_c.h>
 #include <naivecgl/Math/Constants.h>
 
+#define Naive_HANDLE_CAST(T, H, N) T *N = static_cast<T *>(H);
+
 /// Naive_Poly {{{
 
 int32_t Naive_Poly_NbVertices(const Naive_Poly *theHandle) {
@@ -53,31 +55,101 @@ void Naive_Poly_Release(Naive_Poly *theHandle) { delete theHandle; }
 
 /// BndShape {{{
 
-Naive_Code Naive_BndShape_ConvexHull2D(const Naive_Point2d_T *thePoints,
-                                       int32_t *theCount,
-                                       int32_t **theConvexIndices) {
-  if (!thePoints || !theCount || *theCount < 0 || !theConvexIndices)
-    return Naive_Fail;
+Naive_Handle
+Naive_BndShape_ConvexHull2D_New(const Naive_Point2d_T *thePoints,
+                                int32_t nbPoints,
+                                Naive_ConvexHull2D_Algorithm theAlgo) {
+  if (!thePoints || nbPoints < 0)
+    return nullptr;
 
-  int32_t nbPoints = *theCount;
-  Naive_List<Naive_Point2d> aPoints(nbPoints);
+  Naive_Point2d_List aPoints(nbPoints);
 
-  for (int32_t i = 0; i < nbPoints; ++i) {
+  for (Naive_Integer i = 0; i < nbPoints; ++i) {
     aPoints[i](0) = thePoints[i].x;
     aPoints[i](1) = thePoints[i].y;
   }
 
-  Naive_List<Naive_Integer> aConvexIndices{};
-  Naive_Code aCode = naivecgl::bndshape::ConvexHull2D(aPoints, aConvexIndices);
+  return new naivecgl::bndshape::ConvexHull2D{std::move(aPoints), theAlgo};
+}
 
-  if (aCode == Naive_Ok) {
-    int32_t *result = new int32_t[aConvexIndices.size()];
-    std::copy(aConvexIndices.cbegin(), aConvexIndices.cend(), result);
-    *theCount = static_cast<int32_t>(aConvexIndices.size());
-    *theConvexIndices = result;
+void Naive_BndShape_ConvexHull2D_SetAlgorithm(
+    Naive_Handle theHandle, Naive_ConvexHull2D_Algorithm theAlgo) {
+  if (!theHandle)
+    return;
+
+  Naive_HANDLE_CAST(naivecgl::bndshape::ConvexHull2D, theHandle, theCH2D);
+  theCH2D->SetAlgorithm(theAlgo);
+}
+
+void Naive_BndShape_ConvexHull2D_Perform(Naive_Handle theHandle) {
+  if (!theHandle)
+    return;
+
+  Naive_HANDLE_CAST(naivecgl::bndshape::ConvexHull2D, theHandle, theCH2D);
+  theCH2D->Perform();
+}
+
+void Naive_BndShape_ConvexHull2D_Add(Naive_Handle theHandle,
+                                     Naive_Point2d_T thePoint,
+                                     bool thePerform) {
+  if (!theHandle)
+    return;
+
+  Naive_HANDLE_CAST(naivecgl::bndshape::ConvexHull2D, theHandle, theCH2D);
+  theCH2D->Add({thePoint.x, thePoint.y}, thePerform);
+}
+
+Naive_ConvexHull2D_Status
+Naive_BndShape_ConvexHull2D_Status(const Naive_Handle theHandle) {
+  if (!theHandle)
+    return Naive_ConvexHull2D_Failed;
+
+  Naive_HANDLE_CAST(const naivecgl::bndshape::ConvexHull2D, theHandle, theCH2D);
+  return theCH2D->Status();
+}
+
+int32_t
+Naive_BndShape_ConvexHull2D_NbConvexPoints(const Naive_Handle theHandle) {
+  if (!theHandle)
+    return 0;
+
+  Naive_HANDLE_CAST(const naivecgl::bndshape::ConvexHull2D, theHandle, theCH2D);
+  return theCH2D->NbConvexPoints();
+}
+
+Naive_Code
+Naive_BndShape_ConvexHull2D_ConvexIndices(const Naive_Handle theHandle,
+                                          int32_t *theConvexIndices) {
+  if (!theHandle || !theConvexIndices)
+    return Naive_Err;
+
+  Naive_HANDLE_CAST(const naivecgl::bndshape::ConvexHull2D, theHandle, theCH2D);
+  Naive_Integer_List anIndices = theCH2D->ConvexIndices();
+  std::copy(anIndices.cbegin(), anIndices.cend(), theConvexIndices);
+
+  return Naive_Ok;
+}
+
+Naive_Code
+Naive_BndShape_ConvexHull2D_ConvexPoints(const Naive_Handle theHandle,
+                                         Naive_Point2d_T *theConvexIndices) {
+  if (!theHandle)
+    return Naive_Err;
+
+  Naive_HANDLE_CAST(const naivecgl::bndshape::ConvexHull2D, theHandle, theCH2D);
+  Naive_Point2d_List aPoints = theCH2D->ConvexPoints();
+
+  for (Naive_Integer i = 0; i < aPoints.size(); ++i) {
+    theConvexIndices[i].x = aPoints[i].x();
+    theConvexIndices[i].y = aPoints[i].y();
   }
 
-  return aCode;
+  return Naive_Ok;
+}
+
+void Naive_BndShape_ConvexHull2D_Release(Naive_Handle theHandle) {
+  Naive_HANDLE_CAST(const naivecgl::bndshape::ConvexHull2D, theHandle, theCH2D);
+  delete theCH2D;
 }
 
 /// }}}

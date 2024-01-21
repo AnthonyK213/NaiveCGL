@@ -1,11 +1,11 @@
-﻿#ifndef _NaiveCGL_BndShape_Obb_HeaderFile
-#define _NaiveCGL_BndShape_Obb_HeaderFile
+﻿#ifndef _NaiveCGL_BndShape_OBB_HeaderFile
+#define _NaiveCGL_BndShape_OBB_HeaderFile
 
 #include <naivecgl/Common/geometry.h>
 
 Naive_NAMESPACE_BEGIN(bndshape);
 
-class Obb final {
+class OBB final {
 public:
 private:
   Naive_Point3d myCenter;

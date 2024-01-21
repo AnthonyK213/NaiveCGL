@@ -6,7 +6,8 @@
 #ifndef __cplusplus
 #define Naive_CAPI
 #else
-#include <naivecgl/BndShape/ConvexHull.h>
+#include <naivecgl/BndShape/ConvexHull2D.h>
+#include <naivecgl/BndShape/ConvexHull3D.h>
 #include <naivecgl/Tessellation/Sphere.h>
 #ifdef _WIN32
 #define Naive_CAPI extern "C" __declspec(dllexport)
@@ -33,9 +34,33 @@ Naive_CAPI void Naive_Poly_Release(Naive_Poly *theHandle);
 
 /// BndShape {{{
 
-Naive_CAPI Naive_Code
-Naive_BndShape_ConvexHull2D(const Naive_Point2d_T *thePoints, int32_t *theCount,
-                            int32_t **theConvexIndices);
+Naive_CAPI Naive_Handle Naive_BndShape_ConvexHull2D_New(
+    const Naive_Point2d_T *thePoints, int32_t nbPoints,
+    Naive_ConvexHull2D_Algorithm theAlgo);
+
+Naive_CAPI void
+Naive_BndShape_ConvexHull2D_SetAlgorithm(Naive_Handle theHandle,
+                                         Naive_ConvexHull2D_Algorithm theAlgo);
+
+Naive_CAPI void Naive_BndShape_ConvexHull2D_Perform(Naive_Handle theHandle);
+
+Naive_CAPI void Naive_BndShape_ConvexHull2D_Add(Naive_Handle theHandle,
+                                                Naive_Point2d_T thePoint,
+                                                bool thePerform);
+
+Naive_CAPI Naive_ConvexHull2D_Status
+Naive_BndShape_ConvexHull2D_Status(const Naive_Handle theHandle);
+
+Naive_CAPI int32_t
+Naive_BndShape_ConvexHull2D_NbConvexPoints(const Naive_Handle theHandle);
+
+Naive_CAPI Naive_Code Naive_BndShape_ConvexHull2D_ConvexIndices(
+    const Naive_Handle theHandle, int32_t *theConvexIndices);
+
+Naive_CAPI Naive_Code Naive_BndShape_ConvexHull2D_ConvexPoints(
+    const Naive_Handle theHandle, Naive_Point2d_T *theConvexIndices);
+
+Naive_CAPI void Naive_BndShape_ConvexHull2D_Release(Naive_Handle theHandle);
 
 /// }}}
 

@@ -6,7 +6,7 @@
 Naive_NAMESPACE_BEGIN(geometry);
 
 /// @brief Manifold mesh described by half-edges.
-class HalfEdgeMesh {
+class HalfEdgeMesh : std::enable_shared_from_this<HalfEdgeMesh> {
 public:
   class Vertex;
   class HalfEdge;
@@ -41,7 +41,7 @@ public:
 
   private:
     Naive_Vector3d myCoord; // Vertex coordinates.
-    HalfEdge *myEdge;      // An half-edge starts with the vertex.
+    HalfEdge *myEdge;       // An half-edge starts with the vertex.
     Naive_Integer myId;     // The ID(key) in the vertex map.
   };
 
@@ -75,10 +75,10 @@ public:
     Naive_Integer Id() const { return myId; }
 
   private:
-    Vertex *myOrigin;  // Start vertex of the half-edge.
-    HalfEdge *myTwin;  // The twin half-edge.
-    Face *myFace;      // The face the half-edge bounds.
-    HalfEdge *myNext;  // Previous edge on the boundary of myIncidentFace.
+    Vertex *myOrigin;   // Start vertex of the half-edge.
+    HalfEdge *myTwin;   // The twin half-edge.
+    Face *myFace;       // The face the half-edge bounds.
+    HalfEdge *myNext;   // Previous edge on the boundary of myIncidentFace.
     Naive_Integer myId; // The ID(key) in the half-edge map.
   };
 
@@ -125,7 +125,7 @@ public:
     Naive_Integer Id() const { return myId; }
 
   private:
-    HalfEdge *myOuterEdge;  // A half-edge on the outer boundary.
+    HalfEdge *myOuterEdge;   // A half-edge on the outer boundary.
     Naive_Vector3d myNormal; // Face normal.
     Naive_Integer myId;      // The ID(key) in the face map.
   };
@@ -160,17 +160,13 @@ public:
     return myHalfEdges.at(theId);
   }
 
-  const Face &GetFace(Naive_Integer theId) const {
-    return myFaces.at(theId);
-  }
+  const Face &GetFace(Naive_Integer theId) const { return myFaces.at(theId); }
 
   const Naive_Map<Naive_Integer, Vertex> &Vertices() const {
     return myVertices;
   }
 
-  const Naive_Map<Naive_Integer, Face> &Faces() const {
-    return myFaces;
-  }
+  const Naive_Map<Naive_Integer, Face> &Faces() const { return myFaces; }
 
 private:
   Vertex &addVertex(Vertex &&theVertex);
@@ -183,9 +179,9 @@ private:
   void makeTwins();
 
 private:
-  Naive_Integer myVertexIndex;                       // Current vertex index.
-  Naive_Integer myHalfEdgeIndex;                     // Current half-edge index.
-  Naive_Integer myFaceIndex;                         // Current face index.
+  Naive_Integer myVertexIndex;                      // Current vertex index.
+  Naive_Integer myHalfEdgeIndex;                    // Current half-edge index.
+  Naive_Integer myFaceIndex;                        // Current face index.
   Naive_Map<Naive_Integer, Vertex> myVertices{};    // Vertices.
   Naive_Map<Naive_Integer, Face> myFaces{};         // Faces.
   Naive_Map<Naive_Integer, HalfEdge> myHalfEdges{}; // Half-edges.

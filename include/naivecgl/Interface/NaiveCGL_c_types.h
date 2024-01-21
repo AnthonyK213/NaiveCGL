@@ -10,10 +10,43 @@ typedef void Naive_Poly;
 #include <cstdint>
 #endif
 
+typedef void *Naive_Handle;
+
 typedef enum {
   Naive_Ok,
-  Naive_Fail,
+  Naive_Err,
 } Naive_Code;
+
+typedef enum {
+  Naive_ConvexHull2D_Quickhull,
+  Naive_ConvexHull2D_Incremental,
+  Naive_ConvexHull2D_GrahamScan,
+} Naive_ConvexHull2D_Algorithm;
+
+typedef enum {
+  Naive_ConvexHull2D_Done,
+  Naive_ConvexHull2D_InitDone,
+  Naive_ConvexHull2D_Failed,
+  Naive_ConvexHull2D_InsufficientPoint,
+  Naive_ConvexHull2D_PointsAreColinear,
+  Naive_ConvexHull2D_AlgoNotImplemented,
+} Naive_ConvexHull2D_Status;
+
+typedef enum {
+  Naive_ConvexHull3D_Quickhull,
+  Naive_ConvexHull3D_Incremental,
+  Naive_ConvexHull3D_DivideAndConquer,
+} Naive_ConvexHull3D_Algorithm;
+
+typedef enum {
+  Naive_ConvexHull3D_Done,
+  Naive_ConvexHull3D_InitDone,
+  Naive_ConvexHull3D_Failed,
+  Naive_ConvexHull3D_InsufficientPoint,
+  Naive_ConvexHull3D_PointsAreColinear,
+  Naive_ConvexHull3D_PointsAreCoplanar,
+  Naive_ConvexHull3D_AlgoNotImplemented,
+} Naive_ConvexHull3D_Status;
 
 typedef struct {
   double x, y;
