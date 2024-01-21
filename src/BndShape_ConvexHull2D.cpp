@@ -83,6 +83,7 @@ public:
 
     myStatus = Naive_ConvexHull2D_Done;
 
+    /* Triangle... */
     if (myPtrs.size() == 3) {
       myHull = myPtrs;
       return;
@@ -94,8 +95,8 @@ public:
     if (myStatus != Naive_ConvexHull2D_Done)
       return;
 
-    Ptrs A = rightOf(myPtrs, a, b, fA);
-    Ptrs B = rightOf(myPtrs, b, a, fB);
+    Ptrs A = rightOf(myPtrs, a, b, fA); /* Right side of line ab. */
+    Ptrs B = rightOf(myPtrs, b, a, fB); /* Right side of line ba. */
 
     myHull.push_back(a);
     half(A, a, b, fA, myHull);
@@ -122,6 +123,9 @@ public:
   }
 
 private:
+  /// @brief Find points (|a|, |b|) with min and max the value of x.
+  /// @param a Min
+  /// @param b Max
   void extremX(Ptr &a, Ptr &b) const {
     Naive_Real xMin = std::numeric_limits<Naive_Real>::infinity();
     Naive_Real xMax = -xMin;
@@ -144,28 +148,38 @@ private:
     }
   }
 
+  /// @brief Find all points which is on the right side of the line ab.
+  /// @param points The set of points to be searched.
+  /// @param a The "from point" of the line.
+  /// @param b The "to point" of the line.
+  /// @param f The farthest ponit on the right side of the line ab.
+  /// @return The right-side point set.
   Ptrs rightOf(const Ptrs &points, Ptr a, Ptr b, Ptr &f) const {
     Naive_Real dist = 0.0;
     Ptrs result{};
 
     for (const Ptr &p : points) {
-      Naive_Vector2d v = (*p) - (*a);
-      Naive_Vector2d l = (*b) - (*a);
-
       if (p == a || p == b)
         continue;
+
+      /* Determines if point |p| is on the right side. */
+
+      Naive_Vector2d v = (*p) - (*a);
+      Naive_Vector2d l = (*b) - (*a);
 
       if (v.x() * l.y() - v.y() * l.x() < 0)
         continue;
 
       result.push_back(p);
 
-      l.normalize();
+      /* Calculates the distance |d| from point |p| to line ab. */
 
+      l.normalize();
       Naive_Vector2d n = v - l * v.dot(l);
       n.normalize();
-
       Naive_Real d = n.dot(v);
+
+      /* Finds the farthest point. */
 
       if (d > dist) {
         dist = d;
@@ -176,6 +190,12 @@ private:
     return result;
   }
 
+  /// @brief Find convex points on a half plane.
+  /// @param points The point set.
+  /// @param a
+  /// @param b
+  /// @param f
+  /// @param buf The convex ponits.
   void half(const Ptrs &points, Ptr a, Ptr b, Ptr f, Ptrs &buf) {
     if (points.empty())
       return;
@@ -188,9 +208,9 @@ private:
     buf.push_back(f);
     half(B, f, b, fB, buf);
   }
-
-private:
 };
+
+/* Incremental */
 
 /* ConvexHull2D */
 

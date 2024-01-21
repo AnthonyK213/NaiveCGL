@@ -9,5 +9,6 @@ using Naive_Point3d = Naive_Vector3<Naive_Real>;
 using Naive_Vector3d = Naive_Vector3<Naive_Real>;
 using Naive_Triangle = Naive_Vector3<Naive_Integer>;
 using Naive_Point2d_List = Naive_List<Naive_Point2d>;
+using Naive_Point3d_List = Naive_List<Naive_Point3d>;
 
 #endif

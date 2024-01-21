@@ -168,7 +168,7 @@ Naive_Poly *Naive_Tessellation_TetraSphere(const Naive_Point3d_T *theCenter,
   if (poly.get() == nullptr)
     return nullptr;
 
-  Naive_Poly *result = new Naive_Poly(std::move(*poly.get()));
+  Naive_Poly *result = new Naive_Poly(std::move(*poly));
 
   return result;
 }

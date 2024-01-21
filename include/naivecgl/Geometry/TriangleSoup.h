@@ -6,7 +6,7 @@
 Naive_NAMESPACE_BEGIN(geometry);
 
 class TriangleSoup : std::enable_shared_from_this<TriangleSoup> {
-  using VertexList = Naive_List<Naive_Vector3d>;
+  using VertexList = Naive_List<Naive_Point3d>;
   using TriangleList = Naive_List<Naive_Triangle>;
 
 public:
@@ -14,11 +14,13 @@ public:
 
   Naive_EXPORT TriangleSoup(TriangleSoup &&theOther) noexcept;
 
-  Naive_EXPORT TriangleSoup(const VertexList &theVertices,
-                            const TriangleList &theTriangles);
-
-  Naive_EXPORT TriangleSoup(VertexList &&theVertices,
-                            TriangleList &&theTriangles);
+  template <typename V, typename T,
+            typename = Naive_WHERE_IS_REF_OF(V, VertexList),
+            typename = Naive_WHERE_IS_REF_OF(T, TriangleList)>
+  TriangleSoup(V &&theVertices, T &&theTriangles) {
+    myVertices = std::forward<V>(theVertices);
+    myTriangles = std::forward<T>(theTriangles);
+  }
 
   Naive_EXPORT TriangleSoup &operator=(TriangleSoup &&theOther) noexcept;
 
@@ -32,8 +34,8 @@ public:
   const TriangleList &Triangles() const { return myTriangles; }
 
 private:
-  VertexList myVertices{};
-  TriangleList myTriangles{};
+  VertexList myVertices;
+  TriangleList myTriangles;
 };
 
 Naive_NAMESPACE_END(geometry);

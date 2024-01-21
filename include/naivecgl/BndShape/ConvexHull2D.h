@@ -5,6 +5,7 @@
 
 Naive_NAMESPACE_BEGIN(bndshape);
 
+/// @brief Calculates the convex hull of a set of 2d points.
 class ConvexHull2D {
 public:
   Naive_EXPORT explicit ConvexHull2D(
@@ -32,12 +33,14 @@ public:
 
   Naive_EXPORT Naive_Integer NbConvexPoints() const;
 
+  /// @brief The index(0-based) of convex points in the point list.
+  /// @return The indices.
   Naive_EXPORT Naive_Integer_List ConvexIndices() const;
 
   Naive_EXPORT Naive_Point2d_List ConvexPoints() const;
 
 public:
-  class Impl {
+  class Naive_EXPORT Impl {
   public:
     virtual ~Impl();
 
@@ -59,7 +62,7 @@ public:
     using Ptrs = Naive_List<Ptr>;
 
     explicit Impl(Naive_Point2d_List &thePoints);
-    
+
     void initPtrs();
 
   protected:

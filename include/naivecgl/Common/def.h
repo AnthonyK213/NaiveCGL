@@ -27,6 +27,11 @@
   }                                                                            \
   }
 
+#define Naive_WHERE_IS_REF_OF(T, R)                                            \
+  typename std::enable_if<                                                     \
+      std::is_same<typename std::remove_reference<T>::type, R>::value,         \
+      void>::type
+
 template <typename T> using Naive_H = std::shared_ptr<T>;
 template <typename T> using Naive_List = std::vector<T>;
 template <typename K, typename V> using Naive_Map = std::map<K, V>;
