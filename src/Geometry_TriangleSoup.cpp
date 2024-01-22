@@ -19,7 +19,7 @@ TriangleSoup &TriangleSoup::operator=(TriangleSoup &&theOther) noexcept {
 TriangleSoup::~TriangleSoup() {}
 
 Naive_Bool TriangleSoup::IsValid() {
-  size_t nbVertices = myVertices.size();
+  Naive_Size nbVertices = myVertices.size();
 
   for (const Naive_Triangle &aTriangle : myTriangles) {
     for (Naive_Integer i = 0; i < 3; ++i) {

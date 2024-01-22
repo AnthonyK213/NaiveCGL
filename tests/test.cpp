@@ -10,8 +10,8 @@ TEST(HalfEdgeMesh, CreateHalfEdgeMeshFromTriangleSoup) {
   };
 
   Naive_List<Naive_Triangle> triangles = {
-      {0, 1, 2}, {0, 2, 3}, {0, 3, 4}, {0, 4, 1},
-      {5, 1, 2}, {5, 2, 3}, {5, 3, 4}, {5, 4, 1},
+      {0, 2, 1}, {0, 4, 2}, {0, 3, 4}, {0, 1, 3},
+      {5, 1, 2}, {5, 2, 4}, {5, 4, 3}, {5, 3, 1},
   };
 
   Naive_Poly soup(std::move(vertices), std::move(triangles));

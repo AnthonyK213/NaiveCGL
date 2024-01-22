@@ -7,6 +7,7 @@
 
 #include <map>
 #include <memory>
+#include <stack>
 #include <unordered_map>
 #include <vector>
 
@@ -34,6 +35,7 @@
 
 template <typename T> using Naive_H = std::shared_ptr<T>;
 template <typename T> using Naive_List = std::vector<T>;
+template <typename T> using Naive_Stack = std::stack<T>;
 template <typename K, typename V> using Naive_Map = std::map<K, V>;
 template <typename K, typename V> using Naive_Hash = std::unordered_map<K, V>;
 
@@ -43,6 +45,7 @@ template <typename T> using Naive_Vector3 = Eigen::Matrix<T, 3, 1>;
 
 using Naive_Bool = bool;
 using Naive_Integer = int32_t;
+using Naive_Size = size_t;
 using Naive_Real = double;
 using Naive_Integer_List = Naive_List<Naive_Integer>;
 using Naive_Real_List = Naive_List<Naive_Real>;

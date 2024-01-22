@@ -17,9 +17,9 @@ void Naive_Poly_Vertices(const Naive_Poly *theHandle,
   if (!theHandle || !theVertices)
     return;
 
-  size_t nbVertices = theHandle->Vertices().size();
+  Naive_Size nbVertices = theHandle->Vertices().size();
 
-  for (size_t i = 0; i < nbVertices; ++i) {
+  for (Naive_Size i = 0; i < nbVertices; ++i) {
     const Naive_Point3d &aVertex = theHandle->Vertices()[i];
     theVertices[i].x = aVertex(0);
     theVertices[i].y = aVertex(1);
@@ -39,9 +39,9 @@ void Naive_Poly_Triangles(const Naive_Poly *theHandle,
   if (!theHandle || !theTriangles)
     return;
 
-  size_t nbTriangles = theHandle->Triangles().size();
+  Naive_Size nbTriangles = theHandle->Triangles().size();
 
-  for (size_t i = 0; i < nbTriangles; ++i) {
+  for (Naive_Size i = 0; i < nbTriangles; ++i) {
     const Naive_Triangle &aTriangle = theHandle->Triangles()[i];
     theTriangles[i].n0 = aTriangle(0);
     theTriangles[i].n1 = aTriangle(1);
