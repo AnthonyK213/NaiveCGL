@@ -107,7 +107,7 @@ public:
 
     Naive_EXPORT const HalfEdge *Next() const { return myNext; }
 
-    Naive_EXPORT const HalfEdge *Prev() const;
+    Naive_EXPORT const HalfEdge *Prev() const { return myPrev; }
 
     Naive_EXPORT const HalfEdgeId &Id() const { return myId; }
 
@@ -115,6 +115,7 @@ public:
     Vertex *myOrigin; // Start vertex of the half-edge.
     HalfEdge *myTwin; // The twin half-edge.
     Face *myFace;     // The face the half-edge bounds.
+    HalfEdge *myPrev; // Previous edge on the boundary of the incident face.
     HalfEdge *myNext; // Next edge on the boundary of the incident face.
     HalfEdgeId myId;  // The ID(key) in the half-edge map.
   };
@@ -204,7 +205,8 @@ public:
   Naive_EXPORT Naive_Integer AddFace(Naive_Integer theV1, Naive_Integer theV2,
                                      Naive_Integer theV3);
 
-  Naive_EXPORT Naive_Bool RemoveFace(Naive_Integer theId);
+  Naive_EXPORT Naive_Bool RemoveFace(Naive_Integer theId,
+                                     Naive_Bool theCompat = false);
 
 private:
   Naive_Bool addVertex(Naive_Integer theId, const Naive_Point3d &thePoint);

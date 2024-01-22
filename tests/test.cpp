@@ -18,7 +18,10 @@ TEST(HalfEdgeMesh, CreateHalfEdgeMeshFromTriangleSoup) {
 
   ASSERT_TRUE(soup.IsValid());
 
-  Naive_Mesh mesh(soup);
+  Naive_H_Mesh mesh = std::make_shared<Naive_Mesh>(soup);
+  
+  mesh->RemoveVertex(5);
+  mesh->RemoveVertex(1);
 }
 
 TEST(Sphere, CreateOctasphere) {

@@ -79,7 +79,7 @@ public:
     if (myStatus != Naive_ConvexHull2D_InitDone)
       return;
 
-    // TODO: Check colinear.
+    // TODO: Check collinear.
 
     myStatus = Naive_ConvexHull2D_Done;
 

@@ -28,7 +28,7 @@ typedef enum {
   Naive_ConvexHull2D_InitDone,
   Naive_ConvexHull2D_Failed,
   Naive_ConvexHull2D_InsufficientPoint,
-  Naive_ConvexHull2D_PointsAreColinear,
+  Naive_ConvexHull2D_PointsAreCollinear,
   Naive_ConvexHull2D_AlgoNotImplemented,
 } Naive_ConvexHull2D_Status;
 
@@ -43,7 +43,7 @@ typedef enum {
   Naive_ConvexHull3D_InitDone,
   Naive_ConvexHull3D_Failed,
   Naive_ConvexHull3D_InsufficientPoint,
-  Naive_ConvexHull3D_PointsAreColinear,
+  Naive_ConvexHull3D_PointsAreCollinear,
   Naive_ConvexHull3D_PointsAreCoplanar,
   Naive_ConvexHull3D_AlgoNotImplemented,
 } Naive_ConvexHull3D_Status;
