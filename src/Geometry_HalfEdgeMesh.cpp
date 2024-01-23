@@ -1,5 +1,6 @@
 ﻿#include <naivecgl/Geometry/HalfEdgeMesh.h>
 
+#include <set>
 #include <tuple>
 
 Naive_NAMESPACE_BEGIN(geometry);
@@ -243,6 +244,56 @@ const HalfEdgeMesh::Face *HalfEdgeMesh::GetFace(Naive_Integer theId) const {
   return &ret->second;
 }
 
+Naive_H<TriangleSoup> HalfEdgeMesh::Soup(Naive_Bool theCompat) const {
+  if (!IsValid())
+    return nullptr;
+
+  Naive_Point3d_List aVertices{};
+  Naive_List<Naive_Triangle> aTriangles{};
+
+  aVertices.reserve(NbVertices());
+  aTriangles.reserve(NbFaces());
+
+  Naive_Map<Naive_Integer, Naive_Integer> aVertIdMap{};
+  Naive_Integer anIndex = 0;
+
+  for (auto anIter = myVertices.cbegin(); anIter != myVertices.cend();
+       ++anIter) {
+    const Vertex &aVertex = anIter->second;
+
+    if (theCompat && !aVertex.myEdge)
+      continue;
+
+    aVertices.push_back(aVertex.Coord());
+    aVertIdMap.emplace(aVertex.Id(), anIndex);
+    anIndex++;
+  }
+
+  for (auto anIter = myFaces.cbegin(); anIter != myFaces.cend(); ++anIter) {
+    const Face &aFace = anIter->second;
+    Naive_Triangle aTriangle{0, 0, 0};
+    Naive_Integer anIdx = 0;
+
+    for (auto itEdge = aFace.EdgeIter(); itEdge.More(); itEdge.Next()) {
+      if (anIdx >= 3)
+        return nullptr;
+
+      auto ret = aVertIdMap.find(itEdge.Current()->Origin()->Id());
+
+      if (ret == aVertIdMap.end())
+        return nullptr;
+
+      aTriangle(anIdx) = ret->second;
+      anIdx++;
+    }
+
+    aTriangles.push_back(aTriangle);
+  }
+
+  return std::make_shared<TriangleSoup>(std::move(aVertices),
+                                        std::move(aTriangles));
+}
+
 Naive_Bool HalfEdgeMesh::addVertex(Naive_Integer theId,
                                    const Naive_Point3d &thePoint) {
   Vertex anVertex{thePoint};
@@ -274,23 +325,27 @@ Naive_Bool HalfEdgeMesh::RemoveVertex(Naive_Integer theId) {
   if (!aVertex)
     return false;
 
-  const HalfEdge *anPrev = aVertex->myEdge;
-  const HalfEdge *anNext = aVertex->myEdge->Twin();
+  const HalfEdge *aPrev = aVertex->myEdge;
+  const HalfEdgeId aNextId = aVertex->myEdge->Twin()->Id();
 
   do {
-    if (!anPrev)
+    if (!aPrev)
       break;
 
-    RemoveFace(anPrev->Owner()->Id());
-    anPrev = anPrev->Prev()->Twin();
+    Naive_Integer aFaceId = aPrev->Owner()->Id();
+    aPrev = aPrev->Prev()->Twin();
+    RemoveFace(aFaceId);
   } while (aVertex->myEdge);
 
+  const HalfEdge *aNext = GetHalfEdge(aNextId);
+
   do {
-    if (!anNext)
+    if (!aNext)
       break;
 
-    RemoveFace(anNext->Owner()->Id());
-    anNext = anNext->Next()->Twin();
+    Naive_Integer aFaceId = aNext->Owner()->Id();
+    aNext = aNext->Next()->Twin();
+    RemoveFace(aFaceId);
   } while (aVertex->myEdge);
 
   myVertices.erase(theId);
@@ -425,51 +480,71 @@ Naive_Integer HalfEdgeMesh::AddFace(Naive_Integer theV1, Naive_Integer theV2,
   return anFaceId;
 }
 
-Naive_EXPORT Naive_Bool HalfEdgeMesh::RemoveFace(Naive_Integer theId,
-                                                 Naive_Bool theCompat) {
+Naive_Bool HalfEdgeMesh::removeHalfEdge(const HalfEdge *theEdge,
+                                        Naive_Bool theCompat) {
+  if (!theEdge)
+    return false;
+
+  Vertex *anOrigin = theEdge->myOrigin;
+
+  /* To find anther edge for |anOrigin|... */
+
+  if (anOrigin->myEdge == theEdge) {
+    anOrigin->myEdge = nullptr;
+
+    if (theEdge->myTwin) {
+      anOrigin->myEdge = theEdge->myTwin->myNext;
+    }
+
+    if (!anOrigin->myEdge && theEdge->myPrev) {
+      anOrigin->myEdge = theEdge->myPrev->myTwin;
+    }
+
+    if (!anOrigin->myEdge) {
+      // FIXME: What if the mesh became non-manifold after deleting the face?
+      //  Here!
+      //    |
+      // |\ v /|
+      // | \ / |
+      // | / \ |
+      // |/   \|
+
+      if (theCompat) {
+        myVertexSlots.push(anOrigin->Id());
+        myVertices.erase(anOrigin->Id());
+      }
+    }
+  }
+
+  if (theEdge->myTwin) {
+    theEdge->myTwin->myTwin = nullptr;
+  }
+
+  if (theEdge->myNext) {
+    theEdge->myNext->myPrev = nullptr;
+  }
+
+  if (theEdge->myPrev) {
+    theEdge->myPrev->myNext = nullptr;
+  }
+
+  myHalfEdges.erase(theEdge->Id());
+
+  return true;
+}
+
+Naive_Bool HalfEdgeMesh::RemoveFace(Naive_Integer theId, Naive_Bool theCompat) {
   const Face *aFace = GetFace(theId);
 
   if (!aFace)
     return false;
 
-  for (auto anIter = aFace->EdgeIter(); anIter.More(); anIter.Next()) {
-    const HalfEdge *anEdge = anIter.Current();
-    Vertex *anOrigin = anEdge->myOrigin;
+  const HalfEdge *anEdge = aFace->myOuterEdge;
 
-    /* To find anther edge for |anOrigin|... */
-
-    if (anOrigin->myEdge == anEdge) {
-      anOrigin->myEdge = nullptr;
-
-      if (anEdge->myTwin) {
-        anOrigin->myEdge = anEdge->myTwin->myNext;
-      }
-
-      if (!anOrigin->myEdge) {
-        anOrigin->myEdge = anEdge->myPrev->myTwin;
-      }
-
-      if (!anOrigin->myEdge) {
-        // FIXME: What if the mesh became non-manifold after deleting the face?
-        //  Here!
-        //    |
-        // |\ v /|
-        // | \ / |
-        // | / \ |
-        // |/   \|
-
-        if (theCompat) {
-          myVertexSlots.push(anOrigin->Id());
-          myVertices.erase(anOrigin->Id());
-        }
-      }
-    }
-
-    if (anEdge->myTwin) {
-      anEdge->myTwin->myTwin = nullptr;
-    }
-
-    myHalfEdges.erase(anEdge->Id());
+  while (anEdge) {
+    HalfEdge *anEdgeNext = anEdge->myNext;
+    removeHalfEdge(anEdge, theCompat);
+    anEdge = anEdgeNext;
   }
 
   myFaces.erase(theId);

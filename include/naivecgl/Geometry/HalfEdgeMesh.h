@@ -145,9 +145,9 @@ public:
 
       Naive_EXPORT Naive_Bool More() const;
 
-      void Next() { myCurrent = myCurrent->Next(); }
+      Naive_EXPORT void Next() { myCurrent = myCurrent->Next(); }
 
-      const HalfEdge *Current() const { return myCurrent; }
+      Naive_EXPORT const HalfEdge *Current() const { return myCurrent; }
 
     private:
       const Face *myOwner;
@@ -198,6 +198,8 @@ public:
 
   Naive_EXPORT const Face *GetFace(Naive_Integer theId) const;
 
+  Naive_EXPORT Naive_H<TriangleSoup> Soup(Naive_Bool theCompat = false) const;
+
   Naive_EXPORT Naive_Integer AddVertex(const Naive_Point3d &thePoint);
 
   Naive_EXPORT Naive_Bool RemoveVertex(Naive_Integer theId);
@@ -210,6 +212,8 @@ public:
 
 private:
   Naive_Bool addVertex(Naive_Integer theId, const Naive_Point3d &thePoint);
+
+  Naive_Bool removeHalfEdge(const HalfEdge *theEdge, Naive_Bool theCompat);
 
 private:
   Naive_Integer myVertexIndex; // Current vertex index.
