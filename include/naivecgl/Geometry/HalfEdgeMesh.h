@@ -172,7 +172,7 @@ public:
   Naive_EXPORT HalfEdgeMesh();
 
   /// @brief Construct a half-edge mesh from a trangle soup.
-  Naive_EXPORT HalfEdgeMesh(const TriangleSoup &theTriangleSoup);
+  Naive_EXPORT explicit HalfEdgeMesh(const TriangleSoup &theTriangleSoup);
 
   HalfEdgeMesh(const HalfEdgeMesh &theOther) = delete;
 
@@ -197,6 +197,10 @@ public:
   Naive_EXPORT const HalfEdge *GetHalfEdge(const HalfEdgeId &theId) const;
 
   Naive_EXPORT const Face *GetFace(Naive_Integer theId) const;
+
+  Naive_EXPORT Naive_Integer_List GetAllVertices() const;
+
+  Naive_EXPORT Naive_Integer_List GetAllFaces() const;
 
   Naive_EXPORT Naive_H<TriangleSoup> Soup(Naive_Bool theCompat = false) const;
 
