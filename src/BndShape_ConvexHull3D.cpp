@@ -16,7 +16,12 @@ ConvexHull3D::Impl::Impl(Naive_Point3d_List &thePoints)
 
 ConvexHull3D::Impl::~Impl() {}
 
-Naive_H_Poly ConvexHull3D::Impl::ConvexHull() const { return nullptr; }
+Naive_H_Poly ConvexHull3D::Impl::ConvexHull() const {
+  if (!myConvexHull || !myConvexHull->IsValid())
+    return nullptr;
+
+  return myConvexHull->Soup();
+}
 
 /* QuickHull3D */
 

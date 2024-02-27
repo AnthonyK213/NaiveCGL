@@ -304,6 +304,7 @@ Naive_H<TriangleSoup> HalfEdgeMesh::Soup(Naive_Bool theCompat) const {
     Naive_Integer anIdx = 0;
 
     for (auto itEdge = aFace.EdgeIter(); itEdge.More(); itEdge.Next()) {
+      // TODO: Ngon?
       if (anIdx >= 3)
         return nullptr;
 
