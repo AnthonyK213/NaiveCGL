@@ -23,7 +23,7 @@ if(EXISTS "${LOC_PATH}")
   build subdirectory. Feel free to remove CMakeCache.txt and CMakeFiles.")
 endif()
 
-option(ENABLE_UNIT_TESTS "Enable unit tests" ON)
+# option(ENABLE_UNIT_TESTS "Enable unit tests" OFF)
 option(INSTALL_GTEST "Enable installation of googletest. (Projects embedding googletest may want to turn this OFF.)" OFF)
 message(STATUS "Enable testing: ${ENABLE_UNIT_TESTS}")
 
