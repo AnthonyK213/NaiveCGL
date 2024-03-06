@@ -2,13 +2,36 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
+Naive_EXPORT Plane::Plane(const Naive_Plane_T &thePlane) {
+  myLocation = Naive_POINT3D(thePlane.origin);
+  myXAxis = Naive_VECTOR3D(thePlane.xAxis);
+  myYAxis = Naive_VECTOR3D(thePlane.yAxis);
+  if (myXAxis.isZero())
+    return;
+  myXAxis.normalize();
+  myZAxis = myXAxis.cross(myYAxis);
+  if (myZAxis.isZero())
+    return;
+  myZAxis.normalize();
+  myYAxis = myZAxis.cross(myXAxis);
+  if (myYAxis.isZero())
+    return;
+  myYAxis.normalize();
+}
+
 Plane::Plane(const Naive_Point3d &thePoint, const Naive_Vector3d &theXAxis,
              const Naive_Vector3d &theYAxis)
     : myLocation(thePoint), myXAxis(theXAxis) {
+  if (myXAxis.isZero())
+    return;
   myXAxis.normalize();
   myZAxis = theXAxis.cross(theYAxis);
+  if (myZAxis.isZero())
+    return;
   myZAxis.normalize();
   myYAxis = myZAxis.cross(myXAxis);
+  if (myYAxis.isZero())
+    return;
   myYAxis.normalize();
 }
 

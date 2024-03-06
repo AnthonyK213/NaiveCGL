@@ -9,6 +9,8 @@ class Plane final {
 public:
   Naive_EXPORT Plane() {}
 
+  Naive_EXPORT Plane(const Naive_Plane_T &thePlane);
+
   Naive_EXPORT Plane(const Naive_Point3d &thePoint,
                      const Naive_Vector3d &theXAxis,
                      const Naive_Vector3d &theYAxis);

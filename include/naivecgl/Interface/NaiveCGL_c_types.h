@@ -83,6 +83,11 @@ typedef struct {
 } Naive_Rectangle_T;
 
 typedef struct {
+  Naive_Circle_T circle;
+  double height;
+} Naive_Cylinder_T;
+
+typedef struct {
   int32_t n0, n1, n2;
 } Naive_Triangle_T;
 
