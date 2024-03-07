@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
 
-set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
-
 project(
   NaiveCGL
   VERSION 0.0.1
@@ -23,16 +21,18 @@ if(EXISTS "${LOC_PATH}")
   build subdirectory. Feel free to remove CMakeCache.txt and CMakeFiles.")
 endif()
 
-# option(ENABLE_UNIT_TESTS "Enable unit tests" OFF)
+# option(ENABLE_UNIT_TESTS "Enable unit tests" ON)
 option(INSTALL_GTEST "Enable installation of googletest. (Projects embedding googletest may want to turn this OFF.)" OFF)
 message(STATUS "Enable testing: ${ENABLE_UNIT_TESTS}")
 
-find_package(Eigen3 REQUIRED)
-message(${EIGEN3_INCLUDE_DIRS})
+include(cmake/FetchDeps.cmake)
+
+message("eigen3_SOURCE_DIR: ${eigen3_SOURCE_DIR}")
+message("eigen3_BINARY_DIR: ${eigen3_BINARY_DIR}")
 
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include/
-  ${EIGEN3_INCLUDE_DIRS}
+  ${eigen3_SOURCE_DIR}
   )
 
 add_subdirectory(src)

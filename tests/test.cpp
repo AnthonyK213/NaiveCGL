@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-TEST(HalfEdgeMesh, CreateHalfEdgeMeshFromTriangleSoup) {
+TEST(NaiveCGL_HalfEdgeMesh, CreateHalfEdgeMeshFromTriangleSoup) {
   Naive_List<Naive_Vector3d> vertices = {
       {0., 0., 1.},  {-1., -1., 0.}, {-1., 1., 0.},
       {1., -1., 0.}, {1., 1., 0.},   {0., 0., -1.},
@@ -30,7 +30,7 @@ TEST(HalfEdgeMesh, CreateHalfEdgeMeshFromTriangleSoup) {
   Naive_H_Poly poly = mesh->Soup(true);
 }
 
-TEST(Sphere, CreateOctasphere) {
+TEST(NaiveCGL_Sphere, CreateOctasphere) {
   Naive_H_Poly sphere = naivecgl::tessellation::OctaSphere({3, 4, 5}, 10);
 
   ASSERT_EQ(36, sphere->Vertices().size());
@@ -40,7 +40,7 @@ TEST(Sphere, CreateOctasphere) {
   ASSERT_EQ(49, sphere->Triangles().capacity());
 }
 
-TEST(ConvexHull2D, GetHull) {
+TEST(NaiveCGL_ConvexHull2D, GetHull) {
   Naive_List<Naive_Point2d> points{
       {0, 2}, {1, 3}, {2, 2}, {2, 0}, {3, 1}, {3, 4}, {4, 2}, {4, 3},
   };
