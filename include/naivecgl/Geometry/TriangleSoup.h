@@ -12,8 +12,6 @@ class TriangleSoup : std::enable_shared_from_this<TriangleSoup> {
 public:
   Naive_EXPORT TriangleSoup();
 
-  Naive_EXPORT TriangleSoup(TriangleSoup &&theOther) noexcept;
-
   template <typename V, typename T,
             typename = Naive_WHERE_IS_REF_OF(V, VertexList),
             typename = Naive_WHERE_IS_REF_OF(T, TriangleList)>
@@ -22,16 +20,12 @@ public:
     myTriangles = std::forward<T>(theTriangles);
   }
 
-  Naive_EXPORT TriangleSoup &operator=(TriangleSoup &&theOther) noexcept;
-
-  Naive_EXPORT ~TriangleSoup();
-
 public:
   Naive_EXPORT Naive_Bool IsValid();
 
-  const VertexList &Vertices() const { return myVertices; }
+  Naive_EXPORT const VertexList &Vertices() const { return myVertices; }
 
-  const TriangleList &Triangles() const { return myTriangles; }
+  Naive_EXPORT const TriangleList &Triangles() const { return myTriangles; }
 
 private:
   VertexList myVertices;
