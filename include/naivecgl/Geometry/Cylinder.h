@@ -7,9 +7,7 @@ Naive_NAMESPACE_BEGIN(geometry);
 
 class Cylinder final {
 public:
-
 private:
-  
 };
 
 Naive_NAMESPACE_END(geometry);

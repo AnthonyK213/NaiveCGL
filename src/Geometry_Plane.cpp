@@ -2,7 +2,11 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-Naive_EXPORT Plane::Plane(const Naive_Plane_T &thePlane) {
+Plane::Plane()
+    : myLocation(0, 0, 0), myXAxis(1, 0, 0), myYAxis(0, 1, 0),
+      myZAxis(0, 0, 1) {}
+
+Plane::Plane(const Naive_Plane_T &thePlane) {
   myLocation = Naive_POINT3D(thePlane.origin);
   myXAxis = Naive_VECTOR3D(thePlane.xAxis);
   myYAxis = Naive_VECTOR3D(thePlane.yAxis);
@@ -35,7 +39,7 @@ Plane::Plane(const Naive_Point3d &thePoint, const Naive_Vector3d &theXAxis,
   myYAxis.normalize();
 }
 
-Naive_EXPORT Naive_Bool Plane::IsValid() const {
+Naive_Bool Plane::IsValid() const {
   if (myXAxis.isZero())
     return false;
 

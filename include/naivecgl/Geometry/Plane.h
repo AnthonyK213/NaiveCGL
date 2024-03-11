@@ -7,7 +7,7 @@ Naive_NAMESPACE_BEGIN(geometry);
 
 class Plane final {
 public:
-  Naive_EXPORT Plane() {}
+  Naive_EXPORT Plane();
 
   Naive_EXPORT Plane(const Naive_Plane_T &thePlane);
 
