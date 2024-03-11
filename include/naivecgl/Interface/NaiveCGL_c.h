@@ -18,17 +18,22 @@
 
 /// Naive_Poly {{{
 
-Naive_CAPI int32_t Naive_Poly_NbVertices(const Naive_Poly *theHandle);
+Naive_CAPI Naive_Handle Naive_Poly_New(const int32_t nbVertices,
+                                       const Naive_Point3d_T *theVertices,
+                                       const int32_t nbTriangles,
+                                       const Naive_Triangle_T *theTriangles);
 
-Naive_CAPI void Naive_Poly_Vertices(const Naive_Poly *theHandle,
+Naive_CAPI int32_t Naive_Poly_NbVertices(const Naive_Handle theHandle);
+
+Naive_CAPI void Naive_Poly_Vertices(const Naive_Handle theHandle,
                                     Naive_Point3d_T *theVertices);
 
-Naive_CAPI int32_t Naive_Poly_NbTriangles(const Naive_Poly *theHandle);
+Naive_CAPI int32_t Naive_Poly_NbTriangles(const Naive_Handle theHandle);
 
-Naive_CAPI void Naive_Poly_Triangles(const Naive_Poly *theHandle,
+Naive_CAPI void Naive_Poly_Triangles(const Naive_Handle theHandle,
                                      Naive_Triangle_T *theTriangles);
 
-Naive_CAPI void Naive_Poly_Release(Naive_Poly *theHandle);
+Naive_CAPI void Naive_Poly_Release(Naive_Handle theHandle);
 
 /// }}}
 
@@ -66,9 +71,8 @@ Naive_CAPI void Naive_BndShape_ConvexHull2D_Release(Naive_Handle theHandle);
 
 /// Tessellation {{{
 
-Naive_CAPI Naive_Poly *
-Naive_Tessellation_TetraSphere(const Naive_Point3d_T *theCenter,
-                               double theRadius, int32_t theLevel);
+Naive_CAPI Naive_Handle Naive_Tessellation_TetraSphere(
+    const Naive_Point3d_T *theCenter, double theRadius, int32_t theLevel);
 
 /// }}}
 

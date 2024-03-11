@@ -5,51 +5,82 @@
 
 /// Naive_Poly {{{
 
-int32_t Naive_Poly_NbVertices(const Naive_Poly *theHandle) {
+Naive_Handle Naive_Poly_New(const int32_t nbVertices,
+                            const Naive_Point3d_T *theVertices,
+                            const int32_t nbTriangles,
+                            const Naive_Triangle_T *theTriangles) {
+  if (nbVertices < 0 || !theVertices || nbTriangles < 0 || !theTriangles)
+    return nullptr;
+
+  Naive_Point3d_List aVerts(nbVertices);
+  for (int i = 0; i < nbVertices; ++i) {
+    aVerts[i].x() = theVertices[i].x;
+    aVerts[i].y() = theVertices[i].y;
+    aVerts[i].z() = theVertices[i].z;
+  }
+
+  std::vector<Naive_Triangle> aTris(nbTriangles);
+  for (int i = 0; i < nbTriangles; ++i) {
+    aTris[i].x() = theTriangles[i].n0;
+    aTris[i].y() = theTriangles[i].n1;
+    aTris[i].z() = theTriangles[i].n2;
+  }
+
+  return new Naive_Poly(std::move(aVerts), std::move(aTris));
+}
+
+int32_t Naive_Poly_NbVertices(const Naive_Handle theHandle) {
   if (!theHandle)
     return 0;
 
-  return static_cast<int32_t>(theHandle->Vertices().size());
+  Naive_HANDLE_CAST(const Naive_Poly, theHandle, H);
+  return static_cast<int32_t>(H->Vertices().size());
 }
 
-void Naive_Poly_Vertices(const Naive_Poly *theHandle,
+void Naive_Poly_Vertices(const Naive_Handle theHandle,
                          Naive_Point3d_T *theVertices) {
   if (!theHandle || !theVertices)
     return;
 
-  Naive_Size nbVertices = theHandle->Vertices().size();
+  Naive_HANDLE_CAST(const Naive_Poly, theHandle, H);
+  Naive_Size nbVertices = H->Vertices().size();
 
   for (Naive_Size i = 0; i < nbVertices; ++i) {
-    const Naive_Point3d &aVertex = theHandle->Vertices()[i];
+    const Naive_Point3d &aVertex = H->Vertices()[i];
     theVertices[i].x = aVertex(0);
     theVertices[i].y = aVertex(1);
     theVertices[i].z = aVertex(2);
   }
 }
 
-int32_t Naive_Poly_NbTriangles(const Naive_Poly *theHandle) {
+int32_t Naive_Poly_NbTriangles(const Naive_Handle theHandle) {
   if (!theHandle)
     return 0;
 
-  return static_cast<int32_t>(theHandle->Triangles().size());
+  Naive_HANDLE_CAST(const Naive_Poly, theHandle, H);
+  return static_cast<int32_t>(H->Triangles().size());
 }
 
-void Naive_Poly_Triangles(const Naive_Poly *theHandle,
+void Naive_Poly_Triangles(const Naive_Handle theHandle,
                           Naive_Triangle_T *theTriangles) {
   if (!theHandle || !theTriangles)
     return;
 
-  Naive_Size nbTriangles = theHandle->Triangles().size();
+  Naive_HANDLE_CAST(const Naive_Poly, theHandle, H);
+  Naive_Size nbTriangles = H->Triangles().size();
 
   for (Naive_Size i = 0; i < nbTriangles; ++i) {
-    const Naive_Triangle &aTriangle = theHandle->Triangles()[i];
+    const Naive_Triangle &aTriangle = H->Triangles()[i];
     theTriangles[i].n0 = aTriangle(0);
     theTriangles[i].n1 = aTriangle(1);
     theTriangles[i].n2 = aTriangle(2);
   }
 }
 
-void Naive_Poly_Release(Naive_Poly *theHandle) { delete theHandle; }
+void Naive_Poly_Release(Naive_Handle theHandle) {
+  Naive_HANDLE_CAST(Naive_Poly, theHandle, H);
+  delete H;
+}
 
 /// }}}
 
@@ -156,8 +187,9 @@ void Naive_BndShape_ConvexHull2D_Release(Naive_Handle theHandle) {
 
 /// Tessellation {{{
 
-Naive_Poly *Naive_Tessellation_TetraSphere(const Naive_Point3d_T *theCenter,
-                                           double theRadius, int32_t theLevel) {
+Naive_Handle Naive_Tessellation_TetraSphere(const Naive_Point3d_T *theCenter,
+                                            double theRadius,
+                                            int32_t theLevel) {
   if (!theCenter || theRadius <= naivecgl::math::ZeroTolerance || theLevel < 0)
     return nullptr;
 
@@ -168,9 +200,7 @@ Naive_Poly *Naive_Tessellation_TetraSphere(const Naive_Point3d_T *theCenter,
   if (poly.get() == nullptr)
     return nullptr;
 
-  Naive_Poly *result = new Naive_Poly(std::move(*poly));
-
-  return result;
+  return new Naive_Poly(std::move(*poly));
 }
 
 /// }}}
