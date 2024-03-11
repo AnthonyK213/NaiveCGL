@@ -21,7 +21,7 @@ public:
   }
 
 public:
-  Naive_EXPORT Naive_Bool IsValid();
+  Naive_EXPORT Naive_Bool IsValid() const;
 
   Naive_EXPORT const VertexList &Vertices() const { return myVertices; }
 

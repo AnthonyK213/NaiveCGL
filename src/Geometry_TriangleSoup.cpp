@@ -4,7 +4,7 @@ Naive_NAMESPACE_BEGIN(geometry);
 
 TriangleSoup::TriangleSoup() : myVertices(), myTriangles() {}
 
-Naive_Bool TriangleSoup::IsValid() {
+Naive_Bool TriangleSoup::IsValid() const {
   Naive_Size nbVertices = myVertices.size();
 
   for (const Naive_Triangle &aTriangle : myTriangles) {
