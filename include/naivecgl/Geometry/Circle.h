@@ -20,4 +20,6 @@ private:
 
 Naive_NAMESPACE_END(geometry);
 
+using Naive_Circle = naivecgl::geometry::Circle;
+
 #endif

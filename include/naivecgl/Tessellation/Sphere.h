@@ -1,7 +1,7 @@
 ﻿#ifndef _NaiveCGL_Tessellation_Sphere_HeaderFile
 #define _NaiveCGL_Tessellation_Sphere_HeaderFile
 
-#include <naivecgl/Common/geometry.h>
+#include <naivecgl/Geometry/TriangleSoup.h>
 
 Naive_NAMESPACE_BEGIN(tessellation);
 

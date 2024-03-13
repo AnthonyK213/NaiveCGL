@@ -14,9 +14,7 @@ Naive_Handle Naive_Poly_New(const int32_t nbVertices,
 
   Naive_Point3d_List aVerts(nbVertices);
   for (int i = 0; i < nbVertices; ++i) {
-    aVerts[i].x() = theVertices[i].x;
-    aVerts[i].y() = theVertices[i].y;
-    aVerts[i].z() = theVertices[i].z;
+    aVerts[i] = theVertices[i];
   }
 
   std::vector<Naive_Triangle> aTris(nbTriangles);
@@ -47,9 +45,7 @@ void Naive_Poly_Vertices(const Naive_Handle theHandle,
 
   for (Naive_Size i = 0; i < nbVertices; ++i) {
     const Naive_Point3d &aVertex = H->Vertices()[i];
-    theVertices[i].x = aVertex(0);
-    theVertices[i].y = aVertex(1);
-    theVertices[i].z = aVertex(2);
+    aVertex.Dump(theVertices[i]);
   }
 }
 
@@ -193,8 +189,7 @@ Naive_Handle Naive_Tessellation_TetraSphere(const Naive_Point3d_T *theCenter,
   if (!theCenter || theRadius <= naivecgl::math::ZeroTolerance || theLevel < 0)
     return nullptr;
 
-  Naive_Point3d aCenter{theCenter->x, theCenter->y, theCenter->z};
-
+  Naive_Point3d aCenter{*theCenter};
   auto poly = naivecgl::tessellation::TetraSphere(aCenter, theRadius, theLevel);
 
   if (poly.get() == nullptr)

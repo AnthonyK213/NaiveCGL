@@ -1,7 +1,7 @@
 ﻿#ifndef _NaiveCGL_Geometry_Plane_HeaderFile
 #define _NaiveCGL_Geometry_Plane_HeaderFile
 
-#include "def.h"
+#include "Vector3d.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 
@@ -35,5 +35,7 @@ private:
 };
 
 Naive_NAMESPACE_END(geometry);
+
+using Naive_Plane = naivecgl::geometry::Plane;
 
 #endif

@@ -1,7 +1,7 @@
 ﻿#ifndef _NaiveCGL_Math_Constants_HeaderFile
 #define _NaiveCGL_Math_Constants_HeaderFile
 
-#include <naivecgl/Common/def.h>
+#include <naivecgl/Common/Type.h>
 
 #include <cmath>
 
@@ -29,7 +29,7 @@ static constexpr Naive_Real UnsetValue = -1.23432101234321e+308;
 
 static constexpr Naive_Real ZeroTolerance = 2.3283064365386962890625e-10;
 
-static constexpr float UnsetSingle = -1.234321e+38f;
+static constexpr Naive_ShortReal UnsetSingle = -1.234321e+38f;
 
 static constexpr Naive_Integer UnsetIntIndex = INT_MIN + 1;
 

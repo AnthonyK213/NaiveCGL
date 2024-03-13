@@ -1,5 +1,5 @@
-﻿#ifndef _NaiveCGL_Common_def_HeaderFile
-#define _NaiveCGL_Common_def_HeaderFile
+﻿#ifndef _NaiveCGL_Common_common_HeaderFile
+#define _NaiveCGL_Common_common_HeaderFile
 
 #include <Eigen/Eigen>
 
@@ -47,9 +47,12 @@ using Naive_Bool = bool;
 using Naive_Integer = int32_t;
 using Naive_Size = size_t;
 using Naive_Real = double;
+using Naive_ShortReal = float;
 using Naive_Integer_List = Naive_List<Naive_Integer>;
 using Naive_Real_List = Naive_List<Naive_Real>;
 
 using Naive_Matrix3d = Naive_Matrix3<Naive_Real>;
+using Naive_XY = Naive_Vector2<Naive_Real>;
+using Naive_XYZ = Naive_Vector3<Naive_Real>;
 
 #endif

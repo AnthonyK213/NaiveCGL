@@ -1,7 +1,8 @@
 ﻿#ifndef _NaiveCGL_Shape_TriangleSoup_HeaderFile
 #define _NaiveCGL_Shape_TriangleSoup_HeaderFile
 
-#include "def.h"
+#include "Triangle.h"
+#include "Vector3d.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 
@@ -33,5 +34,8 @@ private:
 };
 
 Naive_NAMESPACE_END(geometry);
+
+using Naive_Poly = naivecgl::geometry::TriangleSoup;
+using Naive_H_Poly = Naive_H<Naive_Poly>;
 
 #endif

@@ -1,7 +1,7 @@
 ﻿#ifndef _NaiveCGL_Geometry_Interval_HeaderFile
 #define _NaiveCGL_Geometry_Interval_HeaderFile
 
-#include "def.h"
+#include <naivecgl/Common/Type.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
@@ -140,5 +140,7 @@ Naive_EXPORT const Interval operator+(Naive_Real theNumber,
                                       const Interval &theInterval);
 
 Naive_NAMESPACE_END(geometry);
+
+using Naive_Interval = naivecgl::geometry::Interval;
 
 #endif

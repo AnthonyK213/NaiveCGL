@@ -1,10 +1,11 @@
 ﻿#include <naivecgl/BndShape/ConvexHull2D.h>
+#include <naivecgl/Geometry/HalfEdgeMesh.h>
 #include <naivecgl/Tessellation/Sphere.h>
 
 #include <gtest/gtest.h>
 
 TEST(NaiveCGL_HalfEdgeMesh, CreateHalfEdgeMeshFromTriangleSoup) {
-  Naive_List<Naive_Vector3d> vertices = {
+  Naive_List<Naive_Point3d> vertices = {
       {0., 0., 1.},  {-1., -1., 0.}, {-1., 1., 0.},
       {1., -1., 0.}, {1., 1., 0.},   {0., 0., -1.},
   };

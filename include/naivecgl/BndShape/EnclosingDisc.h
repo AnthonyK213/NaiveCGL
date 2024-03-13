@@ -1,7 +1,8 @@
 ﻿#ifndef _NaiveCGL_BndShape_EnclosingDisc_HeaderFile
 #define _NaiveCGL_BndShape_EnclosingDisc_HeaderFile
 
-#include <naivecgl/Common/geometry.h>
+#include <naivecgl/Geometry/Point2d.h>
+#include <naivecgl/Geometry/Vector3d.h>
 
 Naive_NAMESPACE_BEGIN(bndshape);
 

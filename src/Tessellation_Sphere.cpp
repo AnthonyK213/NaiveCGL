@@ -8,7 +8,7 @@ const Naive_Real SQRT_3 = std::sqrt(3.0);
 const Naive_Real SQRT_1_3 = std::sqrt(1.0 / 3.0);
 
 struct Vertex_ {
-  Naive_Point3d myPoint;
+  Naive_XYZ myPoint;
   Naive_Integer myIndex;
 };
 
@@ -212,15 +212,15 @@ Naive_H_Poly TetraSphere(const Naive_Point3d &theCenter,
     }
   }
 
-  Naive_List<Naive_Point3d> aPoints{};
+  Naive_Point3d_List aPoints{};
   aPoints.reserve(aVertIndex); // 2 * d * d + 2
 
   for (const auto &verts : aVertices) {
     for (const auto &vert : verts) {
-      Naive_Point3d point = vert.myPoint;
+      Naive_XYZ point = vert.myPoint;
       point.normalize();
       point *= theRadius;
-      point += theCenter;
+      point += theCenter.XYZ();
       aPoints.push_back(point);
     }
   }
@@ -235,18 +235,18 @@ Naive_H_Poly OctaSphere(const Naive_Point3d &theCenter,
   if (theRadius < 0 || theLevel < 0)
     return nullptr;
 
-  Naive_List<Naive_List<Naive_Point3d>> aPoints{};
+  Naive_List<Naive_List<Naive_XYZ>> aPoints{};
   Naive_Integer d = theLevel + 1;
 
   aPoints.reserve(d + 1);
 
   Naive_Real aHalf = theRadius * std::sqrt(0.5);
-  Naive_Point3d aPntA{0.0, 0.0, theRadius};
-  Naive_Point3d aPntB{aHalf, aHalf, 0.0};
-  Naive_Point3d aPntC{-aHalf, aHalf, 0.0};
+  Naive_XYZ aPntA{0.0, 0.0, theRadius};
+  Naive_XYZ aPntB{aHalf, aHalf, 0.0};
+  Naive_XYZ aPntC{-aHalf, aHalf, 0.0};
 
   for (Naive_Integer n = 0; n <= d; ++n) {
-    Naive_List<Naive_Point3d> aPnts{};
+    Naive_List<Naive_XYZ> aPnts{};
     aPnts.reserve(n + 1);
 
     Naive_Real a = Naive_Real(d - n) / d;
@@ -259,10 +259,10 @@ Naive_H_Poly OctaSphere(const Naive_Point3d &theCenter,
 
       aPnts[k].normalize();
       aPnts[k] *= theRadius;
-      aPnts[k] += theCenter;
+      aPnts[k] += theCenter.XYZ();
     }
 
-    aPoints.push_back(std::move(aPnts));
+    aPoints.push_back(aPnts);
   }
 
   Naive_List<Naive_Triangle> aTriangles{};
@@ -280,7 +280,7 @@ Naive_H_Poly OctaSphere(const Naive_Point3d &theCenter,
     }
   }
 
-  Naive_List<Naive_Point3d> aFlatPoints{};
+  Naive_Point3d_List aFlatPoints{};
   aFlatPoints.reserve(((d + 1) * (d + 2)) >> 1);
 
   for (Naive_Integer n = 0; n <= d; ++n) {

@@ -232,4 +232,7 @@ private:
 
 Naive_NAMESPACE_END(geometry);
 
+using Naive_Mesh = naivecgl::geometry::HalfEdgeMesh;
+using Naive_H_Mesh = Naive_H<Naive_Mesh>;
+
 #endif
