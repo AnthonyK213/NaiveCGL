@@ -49,7 +49,7 @@ public:
   Naive_EXPORT void Dump(Naive_Point3d_T &theP) const;
 
 public:
-  const Vector3d operator-(const Point3d &thePoint) const;
+  Naive_EXPORT const Vector3d operator-(const Point3d &thePoint) const;
 
 private:
   Naive_Vector3<Naive_Real> myXYZ;
