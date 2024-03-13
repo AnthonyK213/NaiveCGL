@@ -41,7 +41,7 @@ Naive_Real Point3d::DistanceToSquared(const Point3d &thePoint) const {
 }
 
 Vector3d Point3d::Subtracted(const Point3d &thePoint) const {
-  return {myXYZ - thePoint.myXYZ};
+  return myXYZ - thePoint.myXYZ;
 }
 
 void Point3d::Dump(Naive_Point3d_T &theP) const {
