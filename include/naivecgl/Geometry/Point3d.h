@@ -42,11 +42,10 @@ public:
 
   Naive_EXPORT Naive_Real DistanceTo(const Point3d &thePoint) const;
 
-  Naive_EXPORT Naive_Real
-  Point3d::DistanceToSquared(const Point3d &thePoint) const;
+  Naive_EXPORT Naive_Real DistanceToSquared(const Point3d &thePoint) const;
 
   Naive_EXPORT Vector3d Subtracted(const Point3d &thePoint) const;
-  
+
   Naive_EXPORT void Dump(Naive_Point3d_T &theP) const;
 
 public:
