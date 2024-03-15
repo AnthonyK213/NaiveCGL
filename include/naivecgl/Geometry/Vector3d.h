@@ -2,6 +2,7 @@
 #define _NaiveCGL_Geometry_Vector3d_HeaderFile
 
 #include <naivecgl/Geometry/Point3d.h>
+#include <naivecgl/Math/Constants.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
@@ -30,13 +31,15 @@ public:
 
   Naive_EXPORT Naive_Bool IsValid() const;
 
-  Naive_EXPORT Naive_Bool IsZero() const { return myXYZ.isZero(); }
+  Naive_EXPORT Naive_Bool IsZero() const {
+    return myXYZ.isZero(math::ZeroTolerance);
+  }
 
   Naive_EXPORT Naive_Real Length() const { return myXYZ.norm(); }
 
   Naive_EXPORT Naive_Real SquareLength() const { return myXYZ.squaredNorm(); }
 
-  Naive_EXPORT void Normalize() { myXYZ.normalize(); }
+  Naive_EXPORT Naive_Bool Normalize();
 
   Naive_EXPORT Vector3d Crossed(const Vector3d &theVec) const {
     return myXYZ.cross(theVec.myXYZ);

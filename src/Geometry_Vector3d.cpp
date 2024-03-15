@@ -22,8 +22,17 @@ const Vector3d &Vector3d::Unset() {
 }
 
 Naive_Bool Vector3d::IsValid() const {
-  return math::IsValidDouble(myXYZ.x()) &&
-         math::IsValidDouble(myXYZ.y()) && math::IsValidDouble(myXYZ.z());
+  return math::IsValidDouble(myXYZ.x()) && math::IsValidDouble(myXYZ.y()) &&
+         math::IsValidDouble(myXYZ.z());
+}
+
+Naive_Bool Vector3d::Normalize() {
+  if (IsValid() && !IsZero()) {
+    myXYZ.normalize();
+    return true;
+  }
+
+  return false;
 }
 
 Naive_NAMESPACE_END(geometry);

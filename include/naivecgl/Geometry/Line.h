@@ -21,10 +21,16 @@ public:
   Naive_EXPORT Line(const Naive_Line_T &theL);
 
   Naive_EXPORT Naive_Vector3d Direction() const { return myTo - myFrom; }
+  
+  Naive_EXPORT Naive_Vector3d UnitTangent() const;
 
   Naive_EXPORT const Naive_Point3d &From() const { return myFrom; }
 
   Naive_EXPORT const Naive_Point3d &To() const { return myTo; }
+
+  Naive_EXPORT Naive_Bool IsValid() const;
+  
+  Naive_EXPORT Naive_Bool IsZero() const;
 
   Naive_EXPORT Naive_Real Length() const { return myFrom.DistanceTo(myTo); }
 
@@ -34,7 +40,7 @@ public:
   Naive_EXPORT Naive_Point3d PointAt(const Naive_Real theT) const;
 
   Naive_EXPORT Naive_Point3d PointAtLength(const Naive_Real theLength) const;
-  
+
   Naive_EXPORT void Dump(Naive_Line_T &theL) const;
 
 private:
