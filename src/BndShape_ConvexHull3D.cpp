@@ -4,7 +4,7 @@ Naive_NAMESPACE_BEGIN(bndshape);
 
 /* ConvexHull3D::Impl */
 
-ConvexHull3D::Impl::Impl(Naive_Point3d_List &thePoints)
+ConvexHull3D::Impl::Impl(Naive_Point3dList &thePoints)
     : myPoints(&thePoints), myStatus(Naive_ConvexHull3D_Failed) {
   if (myPoints->size() < 4) {
     myStatus = Naive_ConvexHull3D_InsufficientPoint;
@@ -27,7 +27,7 @@ Naive_H_Poly ConvexHull3D::Impl::ConvexHull() const {
 
 class QuickHull3D : public ConvexHull3D::Impl {
 public:
-  QuickHull3D(Naive_Point3d_List &thePoints) : ConvexHull3D::Impl(thePoints) {}
+  QuickHull3D(Naive_Point3dList &thePoints) : ConvexHull3D::Impl(thePoints) {}
 
   ~QuickHull3D() {}
 
@@ -50,13 +50,13 @@ public:
 
 /* ConvexHull3D */
 
-ConvexHull3D::ConvexHull3D(const Naive_Point3d_List &thePoints,
+ConvexHull3D::ConvexHull3D(const Naive_Point3dList &thePoints,
                            Naive_ConvexHull3D_Algorithm theAlgo) {
   myPoints = thePoints;
   SetAlgorithm(theAlgo);
 }
 
-ConvexHull3D::ConvexHull3D(Naive_Point3d_List &&thePoints,
+ConvexHull3D::ConvexHull3D(Naive_Point3dList &&thePoints,
                            Naive_ConvexHull3D_Algorithm theAlgo) noexcept {
   myPoints = std::move(thePoints);
   SetAlgorithm(theAlgo);
@@ -76,17 +76,18 @@ void ConvexHull3D::SetAlgorithm(Naive_ConvexHull3D_Algorithm theAlgo) {
     break;
   }
 
-    // case Naive_ConvexHull3D_Incremental: {
-    //   break;
-    // }
+  case Naive_ConvexHull3D_Incremental: {
+    myImpl = nullptr;
+    break;
+  }
 
-    // case Naive_ConvexHull3D_DivideAndConquer: {
-    //   break;
-    // }
+  case Naive_ConvexHull3D_DivideAndConquer: {
+    myImpl = nullptr;
+    break;
+  }
 
   default: {
     myImpl = nullptr;
-    return;
   }
   }
 }

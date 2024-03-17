@@ -212,7 +212,7 @@ Naive_H_Poly TetraSphere(const Naive_Point3d &theCenter,
     }
   }
 
-  Naive_Point3d_List aPoints{};
+  Naive_Point3dList aPoints{};
   aPoints.reserve(aVertIndex); // 2 * d * d + 2
 
   for (const auto &verts : aVertices) {
@@ -280,7 +280,7 @@ Naive_H_Poly OctaSphere(const Naive_Point3d &theCenter,
     }
   }
 
-  Naive_Point3d_List aFlatPoints{};
+  Naive_Point3dList aFlatPoints{};
   aFlatPoints.reserve(((d + 1) * (d + 2)) >> 1);
 
   for (Naive_Integer n = 0; n <= d; ++n) {

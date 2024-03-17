@@ -12,7 +12,7 @@ Naive_Handle Naive_Poly_New(const int32_t nbVertices,
   if (nbVertices < 0 || !theVertices || nbTriangles < 0 || !theTriangles)
     return nullptr;
 
-  Naive_Point3d_List aVerts(nbVertices);
+  Naive_Point3dList aVerts(nbVertices);
   for (int i = 0; i < nbVertices; ++i) {
     aVerts[i] = theVertices[i];
   }
@@ -89,11 +89,10 @@ Naive_BndShape_ConvexHull2D_New(const Naive_Point2d_T *thePoints,
   if (!thePoints || nbPoints < 0)
     return nullptr;
 
-  Naive_Point2d_List aPoints(nbPoints);
+  Naive_Point2dList aPoints(nbPoints);
 
   for (Naive_Integer i = 0; i < nbPoints; ++i) {
-    aPoints[i](0) = thePoints[i].x;
-    aPoints[i](1) = thePoints[i].y;
+    aPoints[i] = thePoints[i];
   }
 
   return new naivecgl::bndshape::ConvexHull2D{std::move(aPoints), theAlgo};
@@ -104,16 +103,16 @@ void Naive_BndShape_ConvexHull2D_SetAlgorithm(
   if (!theHandle)
     return;
 
-  Naive_HANDLE_CAST(naivecgl::bndshape::ConvexHull2D, theHandle, theCH2D);
-  theCH2D->SetAlgorithm(theAlgo);
+  Naive_HANDLE_CAST(naivecgl::bndshape::ConvexHull2D, theHandle, H);
+  H->SetAlgorithm(theAlgo);
 }
 
 void Naive_BndShape_ConvexHull2D_Perform(Naive_Handle theHandle) {
   if (!theHandle)
     return;
 
-  Naive_HANDLE_CAST(naivecgl::bndshape::ConvexHull2D, theHandle, theCH2D);
-  theCH2D->Perform();
+  Naive_HANDLE_CAST(naivecgl::bndshape::ConvexHull2D, theHandle, H);
+  H->Perform();
 }
 
 void Naive_BndShape_ConvexHull2D_Add(Naive_Handle theHandle,
@@ -122,8 +121,8 @@ void Naive_BndShape_ConvexHull2D_Add(Naive_Handle theHandle,
   if (!theHandle)
     return;
 
-  Naive_HANDLE_CAST(naivecgl::bndshape::ConvexHull2D, theHandle, theCH2D);
-  theCH2D->Add({thePoint.x, thePoint.y}, thePerform);
+  Naive_HANDLE_CAST(naivecgl::bndshape::ConvexHull2D, theHandle, H);
+  H->Add({thePoint.x, thePoint.y}, thePerform);
 }
 
 Naive_ConvexHull2D_Status
@@ -131,8 +130,8 @@ Naive_BndShape_ConvexHull2D_Status(const Naive_Handle theHandle) {
   if (!theHandle)
     return Naive_ConvexHull2D_Failed;
 
-  Naive_HANDLE_CAST(const naivecgl::bndshape::ConvexHull2D, theHandle, theCH2D);
-  return theCH2D->Status();
+  Naive_HANDLE_CAST(const naivecgl::bndshape::ConvexHull2D, theHandle, H);
+  return H->Status();
 }
 
 int32_t
@@ -140,8 +139,8 @@ Naive_BndShape_ConvexHull2D_NbConvexPoints(const Naive_Handle theHandle) {
   if (!theHandle)
     return 0;
 
-  Naive_HANDLE_CAST(const naivecgl::bndshape::ConvexHull2D, theHandle, theCH2D);
-  return theCH2D->NbConvexPoints();
+  Naive_HANDLE_CAST(const naivecgl::bndshape::ConvexHull2D, theHandle, H);
+  return H->NbConvexPoints();
 }
 
 Naive_Code
@@ -150,8 +149,8 @@ Naive_BndShape_ConvexHull2D_ConvexIndices(const Naive_Handle theHandle,
   if (!theHandle || !theConvexIndices)
     return Naive_Err;
 
-  Naive_HANDLE_CAST(const naivecgl::bndshape::ConvexHull2D, theHandle, theCH2D);
-  Naive_Integer_List anIndices = theCH2D->ConvexIndices();
+  Naive_HANDLE_CAST(const naivecgl::bndshape::ConvexHull2D, theHandle, H);
+  Naive_IntegerList anIndices = H->ConvexIndices();
   std::copy(anIndices.cbegin(), anIndices.cend(), theConvexIndices);
 
   return Naive_Ok;
@@ -163,12 +162,11 @@ Naive_BndShape_ConvexHull2D_ConvexPoints(const Naive_Handle theHandle,
   if (!theHandle || !theConvexPoints)
     return Naive_Err;
 
-  Naive_HANDLE_CAST(const naivecgl::bndshape::ConvexHull2D, theHandle, theCH2D);
-  Naive_Point2d_List aPoints = theCH2D->ConvexPoints();
+  Naive_HANDLE_CAST(const naivecgl::bndshape::ConvexHull2D, theHandle, H);
+  Naive_Point2dList aPoints = H->ConvexPoints();
 
   for (Naive_Integer i = 0; i < aPoints.size(); ++i) {
-    theConvexPoints[i].x = aPoints[i].x();
-    theConvexPoints[i].y = aPoints[i].y();
+    aPoints[i].Dump(theConvexPoints[i]);
   }
 
   return Naive_Ok;

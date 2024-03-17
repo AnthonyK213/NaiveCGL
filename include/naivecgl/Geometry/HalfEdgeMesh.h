@@ -198,9 +198,9 @@ public:
 
   Naive_EXPORT const Face *GetFace(Naive_Integer theId) const;
 
-  Naive_EXPORT Naive_Integer_List GetAllVertices() const;
+  Naive_EXPORT Naive_IntegerList GetAllVertices() const;
 
-  Naive_EXPORT Naive_Integer_List GetAllFaces() const;
+  Naive_EXPORT Naive_IntegerList GetAllFaces() const;
 
   Naive_EXPORT Naive_H<TriangleSoup> Soup(Naive_Bool theCompat = false) const;
 

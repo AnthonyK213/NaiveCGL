@@ -10,10 +10,10 @@ Naive_NAMESPACE_BEGIN(bndshape);
 class ConvexHull3D {
 public:
   Naive_EXPORT ConvexHull3D(
-      const Naive_Point3d_List &thePoints,
+      const Naive_Point3dList &thePoints,
       Naive_ConvexHull3D_Algorithm theAlgo = Naive_ConvexHull3D_Quickhull);
 
-  Naive_EXPORT ConvexHull3D(Naive_Point3d_List &&thePoints,
+  Naive_EXPORT ConvexHull3D(Naive_Point3dList &&thePoints,
                             Naive_ConvexHull3D_Algorithm theAlgo =
                                 Naive_ConvexHull3D_Quickhull) noexcept;
 
@@ -49,16 +49,16 @@ public:
     virtual Naive_H_Poly ConvexHull() const;
 
   protected:
-    explicit Impl(Naive_Point3d_List &thePoints);
+    explicit Impl(Naive_Point3dList &thePoints);
 
   protected:
-    Naive_Point3d_List *myPoints;
+    Naive_Point3dList *myPoints;
     Naive_H_Mesh myConvexHull;
     Naive_ConvexHull3D_Status myStatus;
   };
 
 private:
-  Naive_Point3d_List myPoints;
+  Naive_Point3dList myPoints;
   std::unique_ptr<Impl> myImpl;
   Naive_ConvexHull3D_Algorithm myAlgo;
 };

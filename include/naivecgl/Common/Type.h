@@ -48,8 +48,8 @@ using Naive_Integer = int32_t;
 using Naive_Size = size_t;
 using Naive_Real = double;
 using Naive_ShortReal = float;
-using Naive_Integer_List = Naive_List<Naive_Integer>;
-using Naive_Real_List = Naive_List<Naive_Real>;
+using Naive_IntegerList = Naive_List<Naive_Integer>;
+using Naive_RealList = Naive_List<Naive_Real>;
 
 using Naive_Matrix3d = Naive_Matrix3<Naive_Real>;
 using Naive_XY = Naive_Vector2<Naive_Real>;

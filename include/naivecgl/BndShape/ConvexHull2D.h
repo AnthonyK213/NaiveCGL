@@ -10,10 +10,10 @@ Naive_NAMESPACE_BEGIN(bndshape);
 class ConvexHull2D {
 public:
   Naive_EXPORT explicit ConvexHull2D(
-      const Naive_Point2d_List &thePoints,
+      const Naive_Point2dList &thePoints,
       Naive_ConvexHull2D_Algorithm theAlgo = Naive_ConvexHull2D_Quickhull);
 
-  Naive_EXPORT explicit ConvexHull2D(Naive_Point2d_List &&thePoints,
+  Naive_EXPORT explicit ConvexHull2D(Naive_Point2dList &&thePoints,
                                      Naive_ConvexHull2D_Algorithm theAlgo =
                                          Naive_ConvexHull2D_Quickhull) noexcept;
 
@@ -36,9 +36,9 @@ public:
 
   /// @brief The index(0-based) of convex points in the point list.
   /// @return The indices.
-  Naive_EXPORT Naive_Integer_List ConvexIndices() const;
+  Naive_EXPORT Naive_IntegerList ConvexIndices() const;
 
-  Naive_EXPORT Naive_Point2d_List ConvexPoints() const;
+  Naive_EXPORT Naive_Point2dList ConvexPoints() const;
 
 public:
   class Naive_EXPORT Impl {
@@ -54,27 +54,27 @@ public:
 
     virtual Naive_Integer NbConvexPoints() const;
 
-    virtual Naive_Integer_List ConvexIndices() const;
+    virtual Naive_IntegerList ConvexIndices() const;
 
-    virtual Naive_Point2d_List ConvexPoints() const;
+    virtual Naive_Point2dList ConvexPoints() const;
 
   protected:
     using Ptr = const Naive_Point2d *;
     using Ptrs = Naive_List<Ptr>;
 
-    explicit Impl(Naive_Point2d_List &thePoints);
+    explicit Impl(Naive_Point2dList &thePoints);
 
     void initPtrs();
 
   protected:
-    Naive_Point2d_List *myPoints;
+    Naive_Point2dList *myPoints;
     Ptrs myPtrs;
     Ptrs myHull;
     mutable Naive_ConvexHull2D_Status myStatus;
   };
 
 private:
-  Naive_Point2d_List myPoints;
+  Naive_Point2dList myPoints;
   std::unique_ptr<Impl> myImpl;
   Naive_ConvexHull2D_Algorithm myAlgo;
 };

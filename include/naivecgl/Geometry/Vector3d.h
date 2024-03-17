@@ -1,8 +1,11 @@
 #ifndef _NaiveCGL_Geometry_Vector3d_HeaderFile
 #define _NaiveCGL_Geometry_Vector3d_HeaderFile
 
-#include <naivecgl/Geometry/Point3d.h>
+#include "Point3d.h"
+#include "Transform3d.h"
+
 #include <naivecgl/Math/Constants.h>
+#include <naivecgl/Math/Util.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
@@ -10,14 +13,14 @@ class Vector3d final {
 public:
   Naive_EXPORT Vector3d();
 
+  Naive_EXPORT explicit Vector3d(const Point3d &thePoint);
+
   Naive_EXPORT Vector3d(const Naive_Real theX, const Naive_Real theY,
                         const Naive_Real theZ);
 
   Naive_EXPORT Vector3d(const Naive_XYZ &theXYZ);
 
   Naive_EXPORT Vector3d(const Naive_Vector3d_T &theVec);
-
-  Naive_EXPORT static const Vector3d &Unset();
 
   Naive_EXPORT const Naive_XYZ &XYZ() const { return myXYZ; }
 
@@ -31,19 +34,62 @@ public:
 
   Naive_EXPORT Naive_Bool IsValid() const;
 
-  Naive_EXPORT Naive_Bool IsZero() const {
-    return myXYZ.isZero(math::ZeroTolerance);
-  }
+  Naive_EXPORT Naive_Bool IsUnitVector() const;
 
-  Naive_EXPORT Naive_Real Length() const { return myXYZ.norm(); }
+  Naive_EXPORT Naive_Bool IsZero() const;
 
-  Naive_EXPORT Naive_Real SquareLength() const { return myXYZ.squaredNorm(); }
+  Naive_EXPORT Naive_Real Length() const;
+
+  Naive_EXPORT Naive_Real SquareLength() const;
+
+  Naive_EXPORT static const Vector3d &XAxis();
+
+  Naive_EXPORT static const Vector3d &YAxis();
+
+  Naive_EXPORT static const Vector3d &ZAxis();
+
+  Naive_EXPORT static const Vector3d &Zero();
+
+  Naive_EXPORT static const Vector3d &Unset();
 
   Naive_EXPORT Naive_Bool Normalize();
 
-  Naive_EXPORT Vector3d Crossed(const Vector3d &theVec) const {
-    return myXYZ.cross(theVec.myXYZ);
-  }
+  Naive_EXPORT void Add(const Vector3d &theVec);
+
+  Naive_EXPORT Vector3d Added(const Vector3d &theVec) const;
+
+  Naive_EXPORT void Subtract(const Vector3d &theVec);
+
+  Naive_EXPORT Vector3d Subtracted(const Vector3d &theVec) const;
+
+  Naive_EXPORT void Multiply(const Naive_Real theT);
+
+  Naive_EXPORT Vector3d Multiplied(const Naive_Real theT) const;
+
+  Naive_EXPORT void Divide(const Naive_Real theT);
+
+  Naive_EXPORT Vector3d Divided(const Naive_Real theT) const;
+
+  Naive_EXPORT void Negate();
+
+  Naive_EXPORT Vector3d Negated() const;
+
+  Naive_EXPORT Naive_Real Dot(const Vector3d &theVec) const;
+
+  Naive_EXPORT void Cross(const Vector3d &theVec);
+
+  Naive_EXPORT Vector3d Crossed(const Vector3d &theVec) const;
+
+  Naive_EXPORT Naive_Bool Reverse();
+
+  Naive_EXPORT Naive_Bool EpsilonEquals(const Vector3d &theVec,
+                                        const Naive_Real theE = math::Epsilon);
+
+  Naive_EXPORT Naive_Bool Equals(const Vector3d &theVec);
+
+  Naive_EXPORT void Transform(const Naive_Transform3d &theTrsf);
+
+  Naive_EXPORT Vector3d Transformed(const Naive_Transform3d &theTrsf) const;
 
 private:
   Naive_Vector3<Naive_Real> myXYZ;
@@ -52,6 +98,6 @@ private:
 Naive_NAMESPACE_END(geometry);
 
 using Naive_Vector3d = naivecgl::geometry::Vector3d;
-using Naive_Vector3d_List = Naive_List<Naive_Vector3d>;
+using Naive_Vector3dList = Naive_List<Naive_Vector3d>;
 
 #endif

@@ -58,6 +58,6 @@ private:
 Naive_NAMESPACE_END(geometry);
 
 using Naive_Point3d = naivecgl::geometry::Point3d;
-using Naive_Point3d_List = Naive_List<Naive_Point3d>;
+using Naive_Point3dList = Naive_List<Naive_Point3d>;
 
 #endif

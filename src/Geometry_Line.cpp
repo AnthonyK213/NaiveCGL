@@ -22,10 +22,8 @@ Naive_Vector3d Line::UnitTangent() const {
 }
 
 Naive_Bool Line::IsValid() const {
-  return myFrom.IsValid() || myFrom.IsValid();
+  return myFrom.IsValid() && myFrom.IsValid() && Length() < math::ZeroTolerance;
 }
-
-Naive_Bool Line::IsZero() const { return Length() < math::ZeroTolerance; }
 
 Naive_Real Line::DistanceTo(const Naive_Point3d &thePnt,
                             const Naive_Bool theFinite) const {

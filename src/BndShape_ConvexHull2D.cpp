@@ -4,7 +4,7 @@ Naive_NAMESPACE_BEGIN(bndshape);
 
 /* ConvexHull2D::Impl */
 
-ConvexHull2D::Impl::Impl(Naive_Point2d_List &thePoints)
+ConvexHull2D::Impl::Impl(Naive_Point2dList &thePoints)
     : myPoints(&thePoints), myPtrs{}, myHull{},
       myStatus(Naive_ConvexHull2D_Failed) {
   if (myPoints->size() < 3) {
@@ -26,8 +26,8 @@ Naive_Integer ConvexHull2D::Impl::NbConvexPoints() const {
   return static_cast<Naive_Integer>(myHull.size());
 }
 
-Naive_Integer_List ConvexHull2D::Impl::ConvexIndices() const {
-  Naive_Integer_List result{};
+Naive_IntegerList ConvexHull2D::Impl::ConvexIndices() const {
+  Naive_IntegerList result{};
 
   if (myHull.empty())
     return result;
@@ -43,8 +43,8 @@ Naive_Integer_List ConvexHull2D::Impl::ConvexIndices() const {
   return result;
 }
 
-Naive_Point2d_List ConvexHull2D::Impl::ConvexPoints() const {
-  Naive_Point2d_List result{};
+Naive_Point2dList ConvexHull2D::Impl::ConvexPoints() const {
+  Naive_Point2dList result{};
 
   if (myHull.empty())
     return result;
@@ -70,7 +70,7 @@ void ConvexHull2D::Impl::initPtrs() {
 
 class QuickHull2D : public ConvexHull2D::Impl {
 public:
-  QuickHull2D(Naive_Point2d_List &thePoints) : ConvexHull2D::Impl(thePoints) {}
+  QuickHull2D(Naive_Point2dList &thePoints) : ConvexHull2D::Impl(thePoints) {}
 
   ~QuickHull2D() {}
 
@@ -131,13 +131,13 @@ private:
     Naive_Real xMax = -xMin;
 
     for (const Ptr &p : myPtrs) {
-      if (p->x() < xMin) {
-        xMin = p->x();
+      if (p->X() < xMin) {
+        xMin = p->X();
         a = p;
       }
 
-      if (p->x() > xMax) {
-        xMax = p->x();
+      if (p->X() > xMax) {
+        xMax = p->X();
         b = p;
       }
     }
@@ -162,10 +162,10 @@ private:
       if (p == a || p == b)
         continue;
 
-      /* Determines if point |p| is on the right side. */
+      /* Check if point |p| is on the right side. */
 
-      Naive_Vector2d v = (*p) - (*a);
-      Naive_Vector2d l = (*b) - (*a);
+      Naive_XY v = p->XY() - a->XY();
+      Naive_XY l = b->XY() - a->XY();
 
       if (v.x() * l.y() - v.y() * l.x() < 0)
         continue;
@@ -175,7 +175,7 @@ private:
       /* Calculates the distance |d| from point |p| to line ab. */
 
       l.normalize();
-      Naive_Vector2d n = v - l * v.dot(l);
+      Naive_XY n = v - l * v.dot(l);
       n.normalize();
       Naive_Real d = n.dot(v);
 
@@ -214,13 +214,13 @@ private:
 
 /* ConvexHull2D */
 
-ConvexHull2D::ConvexHull2D(const Naive_Point2d_List &thePoints,
+ConvexHull2D::ConvexHull2D(const Naive_Point2dList &thePoints,
                            Naive_ConvexHull2D_Algorithm theAlgo) {
   myPoints = thePoints;
   SetAlgorithm(theAlgo);
 }
 
-ConvexHull2D::ConvexHull2D(Naive_Point2d_List &&thePoints,
+ConvexHull2D::ConvexHull2D(Naive_Point2dList &&thePoints,
                            Naive_ConvexHull2D_Algorithm theAlgo) noexcept {
   myPoints = std::move(thePoints);
   SetAlgorithm(theAlgo);
@@ -240,13 +240,15 @@ void ConvexHull2D::SetAlgorithm(Naive_ConvexHull2D_Algorithm theAlgo) {
     break;
   }
 
-    // case Naive_ConvexHull2D_Incremental: {
-    //   break;
-    // }
+  case Naive_ConvexHull2D_Incremental: {
+    myImpl = nullptr;
+    break;
+  }
 
-    // case Naive_ConvexHull2D_GrahamScan: {
-    //   break;
-    // }
+  case Naive_ConvexHull2D_GrahamScan: {
+    myImpl = nullptr;
+    break;
+  }
 
   default: {
     myImpl = nullptr;
@@ -284,14 +286,14 @@ Naive_Integer ConvexHull2D::NbConvexPoints() const {
   return myImpl->NbConvexPoints();
 }
 
-Naive_Integer_List ConvexHull2D::ConvexIndices() const {
+Naive_IntegerList ConvexHull2D::ConvexIndices() const {
   if (!myImpl)
     return {};
 
   return myImpl->ConvexIndices();
 }
 
-Naive_Point2d_List ConvexHull2D::ConvexPoints() const {
+Naive_Point2dList ConvexHull2D::ConvexPoints() const {
   if (!myImpl)
     return {};
 

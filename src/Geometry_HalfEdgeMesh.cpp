@@ -244,11 +244,11 @@ const HalfEdgeMesh::Face *HalfEdgeMesh::GetFace(Naive_Integer theId) const {
   return &ret->second;
 }
 
-Naive_Integer_List HalfEdgeMesh::GetAllVertices() const {
+Naive_IntegerList HalfEdgeMesh::GetAllVertices() const {
   if (!IsValid())
     return {};
 
-  Naive_Integer_List anIdList{};
+  Naive_IntegerList anIdList{};
   anIdList.reserve(NbVertices());
 
   for (auto anIter = myVertices.cbegin(); anIter != myVertices.cend();
@@ -259,11 +259,11 @@ Naive_Integer_List HalfEdgeMesh::GetAllVertices() const {
   return anIdList;
 }
 
-Naive_Integer_List HalfEdgeMesh::GetAllFaces() const {
+Naive_IntegerList HalfEdgeMesh::GetAllFaces() const {
   if (!IsValid())
     return {};
 
-  Naive_Integer_List anIdList{};
+  Naive_IntegerList anIdList{};
   anIdList.reserve(NbFaces());
 
   for (auto anIter = myFaces.cbegin(); anIter != myFaces.cend(); ++anIter) {
@@ -277,7 +277,7 @@ Naive_H<TriangleSoup> HalfEdgeMesh::Soup(Naive_Bool theCompat) const {
   if (!IsValid())
     return nullptr;
 
-  Naive_Point3d_List aVertices{};
+  Naive_Point3dList aVertices{};
   Naive_List<Naive_Triangle> aTriangles{};
 
   aVertices.reserve(NbVertices());
