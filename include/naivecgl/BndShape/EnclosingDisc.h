@@ -17,6 +17,18 @@ public:
   Naive_EXPORT const Naive_Point2dList &Points() const { return myPoints; }
 
 private:
+  Naive_Bool isInsideCircle(const Naive_Point2d &theP);
+
+  void minDisc();
+
+  void minDiscWithPoint(const Naive_Integer theI);
+
+  void minDiscWith2Points(const Naive_Integer theI, const Naive_Integer theJ);
+
+  void circle3Points(const Naive_Point2d &theA, const Naive_Point2d &theB,
+                     const Naive_Point2d &theC);
+
+private:
   Naive_Point2dList myPoints;
   Naive_Point2d myOrigin;
   Naive_Real myR;

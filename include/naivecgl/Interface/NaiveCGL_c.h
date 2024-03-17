@@ -6,9 +6,6 @@
 #ifndef __cplusplus
 #define Naive_CAPI
 #else
-#include <naivecgl/BndShape/ConvexHull2D.h>
-#include <naivecgl/BndShape/ConvexHull3D.h>
-#include <naivecgl/Tessellation/Sphere.h>
 #ifdef _WIN32
 #define Naive_CAPI extern "C" __declspec(dllexport)
 #else
@@ -66,6 +63,17 @@ Naive_CAPI Naive_Code Naive_BndShape_ConvexHull2D_ConvexPoints(
     const Naive_Handle theHandle, Naive_Point2d_T *theConvexIndices);
 
 Naive_CAPI void Naive_BndShape_ConvexHull2D_Release(Naive_Handle theHandle);
+
+Naive_CAPI Naive_Handle Naive_BndShape_EnclosingDisc_New();
+
+Naive_CAPI void
+Naive_BndShape_EnclosingDisc_Rebuild(Naive_Handle theHandle, int32_t nbPoints,
+                                     const Naive_Point2d_T *thePoints);
+
+Naive_CAPI int32_t Naive_BndShape_EnclosingDisc_Circle(
+    const Naive_Handle theHandle, Naive_Point2d_T *theOrigin, double *theR);
+
+Naive_CAPI void Naive_BndShape_EnclosingDisc_Release(Naive_Handle theHandle);
 
 /// }}}
 

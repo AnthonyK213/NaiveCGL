@@ -1,5 +1,9 @@
-﻿#include <naivecgl/Interface/NaiveCGL_c.h>
+﻿#include <naivecgl/BndShape/ConvexHull2D.h>
+#include <naivecgl/BndShape/ConvexHull3D.h>
+#include <naivecgl/BndShape/EnclosingDisc.h>
+#include <naivecgl/Interface/NaiveCGL_c.h>
 #include <naivecgl/Math/Constants.h>
+#include <naivecgl/Tessellation/Sphere.h>
 
 #define Naive_HANDLE_CAST(T, H, N) T *N = static_cast<T *>(H);
 
@@ -173,8 +177,50 @@ Naive_BndShape_ConvexHull2D_ConvexPoints(const Naive_Handle theHandle,
 }
 
 void Naive_BndShape_ConvexHull2D_Release(Naive_Handle theHandle) {
-  Naive_HANDLE_CAST(const naivecgl::bndshape::ConvexHull2D, theHandle, theCH2D);
-  delete theCH2D;
+  Naive_HANDLE_CAST(const naivecgl::bndshape::ConvexHull2D, theHandle, H);
+  delete H;
+}
+
+Naive_Handle Naive_BndShape_EnclosingDisc_New() {
+  return new naivecgl::bndshape::EnclosingDisc();
+}
+
+void Naive_BndShape_EnclosingDisc_Rebuild(Naive_Handle theHandle,
+                                          int32_t nbPoints,
+                                          const Naive_Point2d_T *thePoints) {
+  if (!theHandle || nbPoints < 0 || !thePoints)
+    return;
+
+  Naive_Point2dList aPoints(nbPoints);
+  for (int i = 0; i < nbPoints; ++i) {
+    aPoints[i] = thePoints[i];
+  }
+
+  Naive_HANDLE_CAST(naivecgl::bndshape::EnclosingDisc, theHandle, H);
+  H->ReBuild(aPoints);
+}
+
+int32_t Naive_BndShape_EnclosingDisc_Circle(const Naive_Handle theHandle,
+                                            Naive_Point2d_T *theOrigin,
+                                            double *theR) {
+  if (!theHandle || !theOrigin || !theR)
+    return false;
+
+  Naive_Point2d anOrigin;
+  Naive_Real aR;
+  Naive_HANDLE_CAST(naivecgl::bndshape::EnclosingDisc, theHandle, H);
+  if (!H->Circle(anOrigin, aR))
+    return false;
+
+  anOrigin.Dump(*theOrigin);
+  *theR = aR;
+
+  return true;
+}
+
+void Naive_BndShape_EnclosingDisc_Release(Naive_Handle theHandle) {
+  Naive_HANDLE_CAST(naivecgl::bndshape::EnclosingDisc, theHandle, H);
+  delete H;
 }
 
 /// }}}

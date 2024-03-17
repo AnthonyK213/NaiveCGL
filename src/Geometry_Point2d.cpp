@@ -18,6 +18,18 @@ Naive_Bool Point2d::IsValid() const {
   return math::IsValidDouble(X()) && math::IsValidDouble(Y());
 }
 
+Naive_Real Point2d::DistanceTo(const Point2d &theP) const {
+  if (!IsValid())
+    return math::UnsetValue;
+  return (myXY - theP.myXY).norm();
+}
+
+Naive_Real Point2d::DistanceToSquared(const Point2d &theP) const {
+  if (!IsValid())
+    return math::UnsetValue;
+  return (myXY - theP.myXY).squaredNorm();
+}
+
 const Point2d &Point2d::Unset() {
   static Point2d p{};
   return p;

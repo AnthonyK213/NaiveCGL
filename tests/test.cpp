@@ -1,4 +1,5 @@
 ﻿#include <naivecgl/BndShape/ConvexHull2D.h>
+#include <naivecgl/BndShape/EnclosingDisc.h>
 #include <naivecgl/Geometry/HalfEdgeMesh.h>
 #include <naivecgl/Tessellation/Sphere.h>
 
@@ -42,19 +43,32 @@ TEST(NaiveCGL_Sphere, CreateOctasphere) {
 }
 
 TEST(NaiveCGL_ConvexHull2D, GetHull) {
-  Naive_List<Naive_Point2d> points{
+  Naive_Point2dList points{
       {0, 2}, {1, 3}, {2, 2}, {2, 0}, {3, 1}, {3, 4}, {4, 2}, {4, 3},
   };
 
-  Naive_List<Naive_Integer> result{};
-  // Naive_ConvexHull2D_Status code =
-  //     naivecgl::bndshape::ConvexHull2D(points, result);
+  naivecgl::bndshape::ConvexHull2D aCH2d{points};
+  aCH2d.Perform();
 
-  // ASSERT_EQ(Naive_ConvexHull2D_Done, code);
+  Naive_ConvexHull2D_Status code = aCH2d.Status();
+  ASSERT_EQ(Naive_ConvexHull2D_Done, code);
 
-  // Naive_List<Naive_Integer> answer{0, 3, 4, 6, 7, 5, 1};
+  Naive_IntegerList answer{0, 3, 4, 6, 7, 5, 1};
+  ASSERT_EQ(answer, aCH2d.ConvexIndices());
+}
 
-  // ASSERT_EQ(answer, result);
+TEST(NaiveCGL_EnclosingDisc, GetDisc) {
+  Naive_Point2dList points{
+      {0, 2}, {1, 3}, {2, 2}, {2, 0}, {3, 1}, {3, 4}, {4, 2}, {4, 3},
+  };
+
+  naivecgl::bndshape::EnclosingDisc aDisc{};
+  aDisc.ReBuild(points);
+
+  Naive_Point2d anOrigin{};
+  Naive_Real aR;
+
+  ASSERT_TRUE(aDisc.Circle(anOrigin, aR));
 }
 
 int main(int argc, char **argv) {

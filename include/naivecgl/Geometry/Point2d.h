@@ -25,6 +25,10 @@ public:
 
   Naive_EXPORT Naive_Bool IsValid() const;
 
+  Naive_EXPORT Naive_Real DistanceTo(const Point2d &theP) const;
+
+  Naive_EXPORT Naive_Real DistanceToSquared(const Point2d &theP) const;
+
   Naive_EXPORT static const Point2d &Unset();
 
   Naive_EXPORT Naive_Bool Dump(Naive_Point2d_T &theP) const;
