@@ -1,6 +1,7 @@
 #ifndef _NaiveCGL_BndShape_Box_HeaderFile
 #define _NaiveCGL_BndShape_Box_HeaderFile
 
+#include <naivecgl/Geometry/Point3d.h>
 #include <naivecgl/Geometry/Vector3d.h>
 
 Naive_NAMESPACE_BEGIN(bndshape);

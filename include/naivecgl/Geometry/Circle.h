@@ -7,7 +7,7 @@ Naive_NAMESPACE_BEGIN(geometry);
 
 class Circle final {
 public:
-  Naive_EXPORT Circle() {}
+  Naive_EXPORT Circle();
 
   Naive_EXPORT Circle(const Naive_Circle_T &theCircle);
 

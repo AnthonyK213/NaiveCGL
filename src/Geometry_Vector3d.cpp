@@ -1,5 +1,7 @@
+#include <naivecgl/Geometry/Point3d.h>
+#include <naivecgl/Geometry/Transform3d.h>
 #include <naivecgl/Geometry/Vector3d.h>
-#include <naivecgl/Math/Constants.h>
+#include <naivecgl/Math/Util.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
@@ -52,22 +54,22 @@ Naive_Bool Vector3d::Normalize() {
 }
 
 const Vector3d &Vector3d::XAxis() {
-  static Vector3d aVector{1., 0., 0.};
+  static Vector3d aVector{Naive_XYZ::UnitX()};
   return aVector;
 }
 
 const Vector3d &Vector3d::YAxis() {
-  static Vector3d aVector{0., 1., 0.};
+  static Vector3d aVector{Naive_XYZ::UnitY()};
   return aVector;
 }
 
 const Vector3d &Vector3d::ZAxis() {
-  static Vector3d aVector{0., 0., 1.};
+  static Vector3d aVector{Naive_XYZ::UnitZ()};
   return aVector;
 }
 
 const Vector3d &Vector3d::Zero() {
-  static Vector3d aVector{0., 0., 0.};
+  static Vector3d aVector{Naive_XYZ::Zero()};
   return aVector;
 }
 
@@ -76,7 +78,11 @@ const Vector3d &Vector3d::Unset() {
   return aVector;
 }
 
-void Vector3d::Add(const Vector3d &theVec) { myXYZ += theVec.myXYZ; }
+void Vector3d::Add(const Vector3d &theVec) {
+  if (!IsValid() || !theVec.IsValid())
+    return;
+  myXYZ += theVec.myXYZ;
+}
 
 Vector3d Vector3d::Added(const Vector3d &theVec) const {
   if (!IsValid() || !theVec.IsValid())
@@ -84,7 +90,11 @@ Vector3d Vector3d::Added(const Vector3d &theVec) const {
   return {myXYZ + theVec.myXYZ};
 }
 
-void Vector3d::Subtract(const Vector3d &theVec) { myXYZ -= theVec.myXYZ; }
+void Vector3d::Subtract(const Vector3d &theVec) {
+  if (!IsValid() || !theVec.IsValid())
+    return;
+  myXYZ -= theVec.myXYZ;
+}
 
 Vector3d Vector3d::Subtracted(const Vector3d &theVec) const {
   if (!IsValid() || !theVec.IsValid())
@@ -162,16 +172,18 @@ Naive_Bool Vector3d::Equals(const Vector3d &theVec) {
   return myXYZ == theVec.myXYZ;
 }
 
-void Vector3d::Transform(const Naive_Transform3d &theTrsf) {
-  if (!IsValid())
-    return;
-  myXYZ = theTrsf * myXYZ;
+Naive_Bool Vector3d::Transform(const Transform3d &theTrsf) {
+  if (!IsValid() || !theTrsf.IsValid())
+    return false;
+  myXYZ = theTrsf.Trsf() * myXYZ;
+  return true;
 }
 
-Vector3d Vector3d::Transformed(const Naive_Transform3d &theTrsf) const {
-  if (!IsValid())
-    return Unset();
-  return theTrsf * myXYZ;
+Vector3d Vector3d::Transformed(const Transform3d &theTrsf) const {
+  Vector3d aVec(myXYZ);
+  if (aVec.Transform(theTrsf))
+    return aVec;
+  return Unset();
 }
 
 Naive_NAMESPACE_END(geometry);

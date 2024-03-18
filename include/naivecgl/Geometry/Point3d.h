@@ -6,6 +6,7 @@
 Naive_NAMESPACE_BEGIN(geometry);
 
 class Vector3d;
+class Transform3d;
 
 class Point3d final {
 public:
@@ -46,7 +47,11 @@ public:
 
   Naive_EXPORT Vector3d Subtracted(const Point3d &thePoint) const;
 
-  Naive_EXPORT void Dump(Naive_Point3d_T &theP) const;
+  Naive_EXPORT Naive_Bool Transform(const Transform3d &theTrsf);
+
+  Naive_EXPORT Point3d Transformed(const Transform3d &theTrsf) const;
+
+  Naive_EXPORT Naive_Bool Dump(Naive_Point3d_T &theP) const;
 
 public:
   Naive_EXPORT const Vector3d operator-(const Point3d &thePoint) const;

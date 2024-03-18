@@ -1,13 +1,12 @@
 #ifndef _NaiveCGL_Geometry_Vector3d_HeaderFile
 #define _NaiveCGL_Geometry_Vector3d_HeaderFile
 
-#include "Point3d.h"
-#include "Transform3d.h"
-
 #include <naivecgl/Math/Constants.h>
-#include <naivecgl/Math/Util.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
+
+class Point3d;
+class Transform3d;
 
 class Vector3d final {
 public:
@@ -87,9 +86,9 @@ public:
 
   Naive_EXPORT Naive_Bool Equals(const Vector3d &theVec);
 
-  Naive_EXPORT void Transform(const Naive_Transform3d &theTrsf);
+  Naive_EXPORT Naive_Bool Transform(const Transform3d &theTrsf);
 
-  Naive_EXPORT Vector3d Transformed(const Naive_Transform3d &theTrsf) const;
+  Naive_EXPORT Vector3d Transformed(const Transform3d &theTrsf) const;
 
 private:
   Naive_Vector3<Naive_Real> myXYZ;

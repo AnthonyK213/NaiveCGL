@@ -1,4 +1,5 @@
 #include <naivecgl/Geometry/Point3d.h>
+#include <naivecgl/Geometry/Transform3d.h>
 #include <naivecgl/Geometry/Vector3d.h>
 #include <naivecgl/Math/Constants.h>
 #include <naivecgl/Math/Util.h>
@@ -33,21 +34,44 @@ Naive_Bool Point3d::IsValid() const {
 }
 
 Naive_Real Point3d::DistanceTo(const Point3d &thePoint) const {
+  if (!IsValid() || !thePoint.IsValid())
+    return math::UnsetValue;
   return (myXYZ - thePoint.myXYZ).norm();
 }
 
 Naive_Real Point3d::DistanceToSquared(const Point3d &thePoint) const {
+  if (!IsValid() || !thePoint.IsValid())
+    return math::UnsetValue;
   return (myXYZ - thePoint.myXYZ).squaredNorm();
 }
 
 Vector3d Point3d::Subtracted(const Point3d &thePoint) const {
+  if (!IsValid() || !thePoint.IsValid())
+    return Vector3d::Unset();
   return {myXYZ - thePoint.myXYZ};
 }
 
-void Point3d::Dump(Naive_Point3d_T &theP) const {
+Naive_Bool Point3d::Transform(const Transform3d &theTrsf) {
+  if (!IsValid() || !theTrsf.IsValid())
+    return false;
+  myXYZ = theTrsf.Trsf() * myXYZ;
+  return true;
+}
+
+Point3d Point3d::Transformed(const Transform3d &theTrsf) const {
+  Point3d aPnt(*this);
+  if (aPnt.Transform(theTrsf))
+    return aPnt;
+  return Point3d::Unset();
+}
+
+Naive_Bool Point3d::Dump(Naive_Point3d_T &theP) const {
+  if (!IsValid())
+    return false;
   theP.x = X();
   theP.y = Y();
   theP.z = Z();
+  return true;
 }
 
 const Vector3d Point3d::operator-(const Point3d &thePoint) const {

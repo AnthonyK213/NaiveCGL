@@ -38,7 +38,6 @@ template <typename T> using Naive_List = std::vector<T>;
 template <typename T> using Naive_Stack = std::stack<T>;
 template <typename K, typename V> using Naive_Map = std::map<K, V>;
 template <typename K, typename V> using Naive_Hash = std::unordered_map<K, V>;
-
 template <typename T> using Naive_Matrix3 = Eigen::Matrix<T, 3, 3>;
 template <typename T> using Naive_Vector2 = Eigen::Matrix<T, 2, 1>;
 template <typename T> using Naive_Vector3 = Eigen::Matrix<T, 3, 1>;
@@ -50,9 +49,9 @@ using Naive_Real = double;
 using Naive_ShortReal = float;
 using Naive_IntegerList = Naive_List<Naive_Integer>;
 using Naive_RealList = Naive_List<Naive_Real>;
-
 using Naive_Matrix3d = Naive_Matrix3<Naive_Real>;
 using Naive_XY = Naive_Vector2<Naive_Real>;
 using Naive_XYZ = Naive_Vector3<Naive_Real>;
+using Naive_Trsf = Eigen::Affine3d;
 
 #endif

@@ -1,6 +1,7 @@
 ﻿#ifndef _NaiveCGL_Geometry_Line_HeaderFile
 #define _NaiveCGL_Geometry_Line_HeaderFile
 
+#include "Point3d.h"
 #include "Vector3d.h"
 
 Naive_NAMESPACE_BEGIN(geometry);

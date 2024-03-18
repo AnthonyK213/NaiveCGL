@@ -1,6 +1,7 @@
 ﻿#ifndef _NaiveCGL_Shape_HalfEdgeMesh_HeaderFile
 #define _NaiveCGL_Shape_HalfEdgeMesh_HeaderFile
 
+#include "Point3d.h"
 #include "TriangleSoup.h"
 
 #include <stack>
