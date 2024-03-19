@@ -17,7 +17,7 @@ Plane::Plane(const Naive_Point3d &thePoint, const Naive_Vector3d &theXAxis,
 }
 
 Plane::Plane(const Naive_Point3d &thePoint, const Naive_Vector3d &theNormal)
-    : myZAxis(theNormal) {
+    : myLocation(thePoint), myZAxis(theNormal) {
   if (!myZAxis.Normalize())
     return;
 

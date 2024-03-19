@@ -61,6 +61,10 @@ public:
   /// @brief
   /// @return
   Naive_Real T1() const { return myT1; }
+  
+  void SetT0(const Naive_Real theT0) { myT0 = theT0; }
+
+  void SetT1(const Naive_Real theT1) { myT1 = theT1; }
 
 public:
   Naive_EXPORT static Interval FromIntersection(const Interval &theA,

@@ -8,7 +8,7 @@ Naive_Bool Intersection::LinePlane(const Naive_Line &theLine,
   if (!theLine.IsValid() || !thePlane.IsValid())
     return false;
 
-  Naive_XYZ PL = theLine.From().XYZ() - thePlane.Location().XYZ();
+  Naive_XYZ LP = thePlane.Location().XYZ() - theLine.From().XYZ();
   const Naive_XYZ &l = theLine.Direction().XYZ();
   const Naive_XYZ &n = thePlane.Axis().XYZ();
   Naive_Real d = l.dot(n);
@@ -16,7 +16,7 @@ Naive_Bool Intersection::LinePlane(const Naive_Line &theLine,
   if (std::abs(d) <= math::ZeroTolerance)
     return false;
 
-  theT = PL.dot(n) / d;
+  theT = LP.dot(n) / d;
 
   return true;
 }

@@ -137,19 +137,19 @@ Vector3d Vector3d::Negated() const {
 }
 
 Naive_Real Vector3d::Dot(const Vector3d &theVec) const {
-  if (!IsValid() || theVec.IsValid())
+  if (!IsValid() || !theVec.IsValid())
     return math::UnsetValue;
   return myXYZ.dot(theVec.myXYZ);
 }
 
 void Vector3d::Cross(const Vector3d &theVec) {
-  if (!IsValid() || theVec.IsValid())
+  if (!IsValid() || !theVec.IsValid())
     return;
   myXYZ = myXYZ.cross(theVec.myXYZ);
 }
 
 Vector3d Vector3d::Crossed(const Vector3d &theVec) const {
-  if (!IsValid() || theVec.IsValid())
+  if (!IsValid() || !theVec.IsValid())
     return Unset();
   return myXYZ.cross(theVec.myXYZ);
 }
@@ -175,7 +175,7 @@ Naive_Bool Vector3d::Equals(const Vector3d &theVec) {
 Naive_Bool Vector3d::Transform(const Transform3d &theTrsf) {
   if (!IsValid() || !theTrsf.IsValid())
     return false;
-  myXYZ = theTrsf.Trsf() * myXYZ;
+  myXYZ = theTrsf.Trsf().rotation() * myXYZ;
   return true;
 }
 
