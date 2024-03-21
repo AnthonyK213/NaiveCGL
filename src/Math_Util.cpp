@@ -29,12 +29,8 @@ Naive_Bool IsValidDouble(Naive_Real theX) {
   return false;
 }
 
-constexpr Naive_Real ToDegrees(Naive_Real theRadians) {
-  return theRadians * 180.0 / PI;
-}
+Naive_Real ToDegrees(Naive_Real theRadians) { return theRadians * 180.0 / PI; }
 
-constexpr Naive_Real ToRadians(Naive_Real theDegrees) {
-  return theDegrees * PI / 180.0;
-}
+Naive_Real ToRadians(Naive_Real theDegrees) { return theDegrees * PI / 180.0; }
 
 Naive_NAMESPACE_END(math);
