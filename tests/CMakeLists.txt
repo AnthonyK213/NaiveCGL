@@ -44,6 +44,7 @@ target_include_directories(
   ${PROJECT_NAME}Test
   PRIVATE
   ${PROJECT_SOURCE_DIR}/include/
+  ${eigen3_SOURCE_DIR}
   )
 
 target_link_libraries(

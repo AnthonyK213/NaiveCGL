@@ -41,7 +41,7 @@ public:
   Naive_EXPORT Naive_Point2dList ConvexPoints() const;
 
 public:
-  class Naive_EXPORT Impl {
+  class Impl {
   public:
     virtual ~Impl();
 

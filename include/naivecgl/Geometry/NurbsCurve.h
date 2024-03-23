@@ -5,7 +5,7 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-class NurbsCurve final {
+class NurbsCurve final : std::enable_shared_from_this<NurbsCurve> {
 public:
   Naive_EXPORT NurbsCurve();
 

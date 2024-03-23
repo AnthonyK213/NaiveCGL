@@ -17,7 +17,8 @@ endif()
 target_include_directories(
   ${PROJECT_NAME}
   PRIVATE
-  ${PROJECT_SOURCE_DIR}/include/naivecgl/
+  ${PROJECT_SOURCE_DIR}/include
+  ${eigen3_SOURCE_DIR}
   )
 
 target_link_libraries(

@@ -1,8 +1,8 @@
 ﻿#ifndef _NaiveCGL_BndShape_ConvexHull3D_HeaderFile
 #define _NaiveCGL_BndShape_ConvexHull3D_HeaderFile
 
-#include <naivecgl/Geometry/Point3d.h>
 #include <naivecgl/Geometry/HalfEdgeMesh.h>
+#include <naivecgl/Geometry/Point3d.h>
 #include <naivecgl/Geometry/TriangleSoup.h>
 
 Naive_NAMESPACE_BEGIN(bndshape);
@@ -36,7 +36,7 @@ public:
   Naive_EXPORT Naive_H_Poly ConvexHull() const;
 
 public:
-  class Naive_EXPORT Impl {
+  class Impl {
   public:
     virtual ~Impl();
 

@@ -32,11 +32,6 @@ include(cmake/FetchDeps.cmake)
 message("eigen3_SOURCE_DIR: ${eigen3_SOURCE_DIR}")
 message("eigen3_BINARY_DIR: ${eigen3_BINARY_DIR}")
 
-include_directories(
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/
-  ${eigen3_SOURCE_DIR}
-  )
-
 add_subdirectory(src)
 
 if(ENABLE_UNIT_TESTS)
