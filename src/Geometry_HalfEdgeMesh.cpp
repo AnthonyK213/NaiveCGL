@@ -273,7 +273,7 @@ Naive_IntegerList HalfEdgeMesh::GetAllFaces() const {
   return anIdList;
 }
 
-Naive_H<TriangleSoup> HalfEdgeMesh::Soup(Naive_Bool theCompat) const {
+Naive_Handle<TriangleSoup> HalfEdgeMesh::Soup(Naive_Bool theCompat) const {
   if (!IsValid())
     return nullptr;
 
@@ -320,8 +320,7 @@ Naive_H<TriangleSoup> HalfEdgeMesh::Soup(Naive_Bool theCompat) const {
     aTriangles.push_back(aTriangle);
   }
 
-  return std::make_shared<TriangleSoup>(std::move(aVertices),
-                                        std::move(aTriangles));
+  return new TriangleSoup(std::move(aVertices), std::move(aTriangles));
 }
 
 Naive_Bool HalfEdgeMesh::addVertex(Naive_Integer theId,

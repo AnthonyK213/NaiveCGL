@@ -8,7 +8,7 @@
 #include <cstdint>
 #endif
 
-typedef void *Naive_Handle;
+typedef void *Naive_H;
 
 typedef enum {
   Naive_Ok,

@@ -13,73 +13,86 @@
 #endif
 #endif
 
+/// Naive_NurbsCurve {{{
+
+Naive_CAPI Naive_H Naive_NurbsCurve_New(
+    const int32_t nbPoles, const Naive_Point3d_T *thePoles,
+    const double *theWeights, const int32_t nbKnots, const double *theKnots,
+    const int32_t *theMults, const int32_t theDegree);
+
+Naive_CAPI int32_t Naive_NurbsCurve_PointAt(const Naive_H theHandle,
+                                            const double theT,
+                                            Naive_Point3d_T *theP);
+
+/// }}}
+
 /// Naive_Poly {{{
 
-Naive_CAPI Naive_Handle Naive_Poly_New(const int32_t nbVertices,
-                                       const Naive_Point3d_T *theVertices,
-                                       const int32_t nbTriangles,
-                                       const Naive_Triangle_T *theTriangles);
+Naive_CAPI Naive_H Naive_Poly_New(const int32_t nbVertices,
+                                  const Naive_Point3d_T *theVertices,
+                                  const int32_t nbTriangles,
+                                  const Naive_Triangle_T *theTriangles);
 
-Naive_CAPI int32_t Naive_Poly_NbVertices(const Naive_Handle theHandle);
+Naive_CAPI int32_t Naive_Poly_NbVertices(const Naive_H theHandle);
 
-Naive_CAPI void Naive_Poly_Vertices(const Naive_Handle theHandle,
+Naive_CAPI void Naive_Poly_Vertices(const Naive_H theHandle,
                                     Naive_Point3d_T *theVertices);
 
-Naive_CAPI int32_t Naive_Poly_NbTriangles(const Naive_Handle theHandle);
+Naive_CAPI int32_t Naive_Poly_NbTriangles(const Naive_H theHandle);
 
-Naive_CAPI void Naive_Poly_Triangles(const Naive_Handle theHandle,
+Naive_CAPI void Naive_Poly_Triangles(const Naive_H theHandle,
                                      Naive_Triangle_T *theTriangles);
 
-Naive_CAPI void Naive_Poly_Release(Naive_Handle theHandle);
+Naive_CAPI void Naive_Poly_Release(Naive_H theHandle);
 
 /// }}}
 
 /// BndShape {{{
 
-Naive_CAPI Naive_Handle Naive_BndShape_ConvexHull2D_New(
+Naive_CAPI Naive_H Naive_BndShape_ConvexHull2D_New(
     const Naive_Point2d_T *thePoints, int32_t nbPoints,
     Naive_ConvexHull2D_Algorithm theAlgo);
 
 Naive_CAPI void
-Naive_BndShape_ConvexHull2D_SetAlgorithm(Naive_Handle theHandle,
+Naive_BndShape_ConvexHull2D_SetAlgorithm(Naive_H theHandle,
                                          Naive_ConvexHull2D_Algorithm theAlgo);
 
-Naive_CAPI void Naive_BndShape_ConvexHull2D_Perform(Naive_Handle theHandle);
+Naive_CAPI void Naive_BndShape_ConvexHull2D_Perform(Naive_H theHandle);
 
-Naive_CAPI void Naive_BndShape_ConvexHull2D_Add(Naive_Handle theHandle,
+Naive_CAPI void Naive_BndShape_ConvexHull2D_Add(Naive_H theHandle,
                                                 Naive_Point2d_T thePoint,
                                                 bool thePerform);
 
 Naive_CAPI Naive_ConvexHull2D_Status
-Naive_BndShape_ConvexHull2D_Status(const Naive_Handle theHandle);
+Naive_BndShape_ConvexHull2D_Status(const Naive_H theHandle);
 
 Naive_CAPI int32_t
-Naive_BndShape_ConvexHull2D_NbConvexPoints(const Naive_Handle theHandle);
+Naive_BndShape_ConvexHull2D_NbConvexPoints(const Naive_H theHandle);
 
 Naive_CAPI Naive_Code Naive_BndShape_ConvexHull2D_ConvexIndices(
-    const Naive_Handle theHandle, int32_t *theConvexIndices);
+    const Naive_H theHandle, int32_t *theConvexIndices);
 
 Naive_CAPI Naive_Code Naive_BndShape_ConvexHull2D_ConvexPoints(
-    const Naive_Handle theHandle, Naive_Point2d_T *theConvexIndices);
+    const Naive_H theHandle, Naive_Point2d_T *theConvexIndices);
 
-Naive_CAPI void Naive_BndShape_ConvexHull2D_Release(Naive_Handle theHandle);
+Naive_CAPI void Naive_BndShape_ConvexHull2D_Release(Naive_H theHandle);
 
-Naive_CAPI Naive_Handle Naive_BndShape_EnclosingDisc_New();
+Naive_CAPI Naive_H Naive_BndShape_EnclosingDisc_New();
 
 Naive_CAPI void
-Naive_BndShape_EnclosingDisc_Rebuild(Naive_Handle theHandle, int32_t nbPoints,
+Naive_BndShape_EnclosingDisc_Rebuild(Naive_H theHandle, int32_t nbPoints,
                                      const Naive_Point2d_T *thePoints);
 
 Naive_CAPI int32_t Naive_BndShape_EnclosingDisc_Circle(
-    const Naive_Handle theHandle, Naive_Point2d_T *theOrigin, double *theR);
+    const Naive_H theHandle, Naive_Point2d_T *theOrigin, double *theR);
 
-Naive_CAPI void Naive_BndShape_EnclosingDisc_Release(Naive_Handle theHandle);
+Naive_CAPI void Naive_BndShape_EnclosingDisc_Release(Naive_H theHandle);
 
 /// }}}
 
 /// Tessellation {{{
 
-Naive_CAPI Naive_Handle Naive_Tessellation_TetraSphere(
+Naive_CAPI Naive_H Naive_Tessellation_TetraSphere(
     const Naive_Point3d_T *theCenter, double theRadius, int32_t theLevel);
 
 /// }}}

@@ -1,17 +1,17 @@
 aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR} NAIVECGL_SRC)
 
 if(NAIVECGL_BUILD_STATIC)
-add_library(
-  ${PROJECT_NAME}
-  STATIC
-  ${NAIVECGL_SRC}
-  )
+  add_library(
+    ${PROJECT_NAME}
+    STATIC
+    ${NAIVECGL_SRC}
+    )
 else()
-add_library(
-  ${PROJECT_NAME}
-  SHARED
-  ${NAIVECGL_SRC}
-  )
+  add_library(
+    ${PROJECT_NAME}
+    SHARED
+    ${NAIVECGL_SRC}
+    )
 endif()
 
 target_include_directories(

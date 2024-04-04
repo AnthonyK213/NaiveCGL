@@ -4,12 +4,14 @@
 #include "Point3d.h"
 #include "TriangleSoup.h"
 
+#include <naivecgl/Common/Handle.h>
+
 #include <stack>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
 /// @brief Manifold mesh described by half-edges.
-class HalfEdgeMesh : std::enable_shared_from_this<HalfEdgeMesh> {
+class HalfEdgeMesh : public Naive_Transient {
 public:
   class Vertex;
   class HalfEdge;
@@ -203,7 +205,7 @@ public:
 
   Naive_EXPORT Naive_IntegerList GetAllFaces() const;
 
-  Naive_EXPORT Naive_H<TriangleSoup> Soup(Naive_Bool theCompat = false) const;
+  Naive_EXPORT Naive_Handle<TriangleSoup> Soup(Naive_Bool theCompat = false) const;
 
   Naive_EXPORT Naive_Integer AddVertex(const Naive_Point3d &thePoint);
 
@@ -234,6 +236,6 @@ private:
 Naive_NAMESPACE_END(geometry);
 
 using Naive_Mesh = naivecgl::geometry::HalfEdgeMesh;
-using Naive_H_Mesh = Naive_H<Naive_Mesh>;
+using Handle_Naive_Mesh = Naive_Handle<Naive_Mesh>;
 
 #endif

@@ -5,9 +5,11 @@
 #include "Triangle.h"
 #include "Vector3d.h"
 
+#include <naivecgl/Common/Handle.h>
+
 Naive_NAMESPACE_BEGIN(geometry);
 
-class TriangleSoup : std::enable_shared_from_this<TriangleSoup> {
+class TriangleSoup : public Naive_Transient {
   using VertexList = Naive_List<Naive_Point3d>;
   using TriangleList = Naive_List<Naive_Triangle>;
 
@@ -37,6 +39,6 @@ private:
 Naive_NAMESPACE_END(geometry);
 
 using Naive_Poly = naivecgl::geometry::TriangleSoup;
-using Naive_H_Poly = Naive_H<Naive_Poly>;
+using Handle_Naive_Poly = Naive_Handle<Naive_Poly>;
 
 #endif

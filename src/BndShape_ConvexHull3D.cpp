@@ -16,7 +16,7 @@ ConvexHull3D::Impl::Impl(Naive_Point3dList &thePoints)
 
 ConvexHull3D::Impl::~Impl() {}
 
-Naive_H_Poly ConvexHull3D::Impl::ConvexHull() const {
+Handle_Naive_Poly ConvexHull3D::Impl::ConvexHull() const {
   if (!myConvexHull || !myConvexHull->IsValid())
     return nullptr;
 
@@ -114,7 +114,7 @@ Naive_ConvexHull3D_Status ConvexHull3D::Status() const {
   return myImpl->Status();
 }
 
-Naive_H_Poly ConvexHull3D::ConvexHull() const {
+Handle_Naive_Poly ConvexHull3D::ConvexHull() const {
   if (!myImpl)
     return nullptr;
 

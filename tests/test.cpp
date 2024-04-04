@@ -20,7 +20,7 @@ TEST(NaiveCGL_HalfEdgeMesh, CreateHalfEdgeMeshFromTriangleSoup) {
 
   ASSERT_TRUE(soup.IsValid());
 
-  Naive_H_Mesh mesh = std::make_shared<Naive_Mesh>(soup);
+  Handle_Naive_Mesh mesh = new Naive_Mesh(soup);
 
   mesh->RemoveVertex(5);
   mesh->RemoveVertex(1);
@@ -29,11 +29,11 @@ TEST(NaiveCGL_HalfEdgeMesh, CreateHalfEdgeMeshFromTriangleSoup) {
   mesh->AddFace(id, 2, 4);
   mesh->RemoveFace(2);
 
-  Naive_H_Poly poly = mesh->Soup(true);
+  Handle_Naive_Poly poly = mesh->Soup(true);
 }
 
 TEST(NaiveCGL_Sphere, CreateOctasphere) {
-  Naive_H_Poly sphere = naivecgl::tessellation::OctaSphere({3, 4, 5}, 10);
+  Handle_Naive_Poly sphere = naivecgl::tessellation::OctaSphere({3, 4, 5}, 10);
 
   ASSERT_EQ(36, sphere->Vertices().size());
   ASSERT_EQ(49, sphere->Triangles().size());

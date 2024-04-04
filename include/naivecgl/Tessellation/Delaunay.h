@@ -1,0 +1,4 @@
+#ifndef _NaiveCGL_Tessellation_Delaunay_HeaderFile
+#define _NaiveCGL_Tessellation_Delaunay_HeaderFile
+
+#endif

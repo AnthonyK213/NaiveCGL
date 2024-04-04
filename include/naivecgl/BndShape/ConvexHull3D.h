@@ -33,7 +33,7 @@ public:
 
   Naive_EXPORT Naive_ConvexHull3D_Status Status() const;
 
-  Naive_EXPORT Naive_H_Poly ConvexHull() const;
+  Naive_EXPORT Handle_Naive_Poly ConvexHull() const;
 
 public:
   class Impl {
@@ -47,14 +47,14 @@ public:
 
     Naive_ConvexHull3D_Status Status() const { return myStatus; }
 
-    virtual Naive_H_Poly ConvexHull() const;
+    virtual Handle_Naive_Poly ConvexHull() const;
 
   protected:
     explicit Impl(Naive_Point3dList &thePoints);
 
   protected:
     Naive_Point3dList *myPoints;
-    Naive_H_Mesh myConvexHull;
+    Handle_Naive_Mesh myConvexHull;
     Naive_ConvexHull3D_Status myStatus;
   };
 

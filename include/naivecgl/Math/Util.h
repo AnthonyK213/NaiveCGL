@@ -6,7 +6,7 @@
 Naive_NAMESPACE_BEGIN(math);
 
 Naive_EXPORT Naive_Bool EpsilonEquals(Naive_Real theX, Naive_Real theY,
-                                      Naive_Real theEpsilon);
+                                      Naive_Real theEpsilon = math::Epsilon);
 
 Naive_EXPORT Naive_Bool IsValidDouble(Naive_Real theX);
 
