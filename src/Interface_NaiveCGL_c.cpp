@@ -7,6 +7,15 @@
 #include <naivecgl/Tessellation/Sphere.h>
 
 #define Naive_H_CAST(T, H, N) T *N = static_cast<T *>(H);
+#define Naive_H_RELEASE(T, H)                                                  \
+  Naive_H_CAST(T, H, __h__);                                                   \
+  delete __h__;
+#define Naive_H_RELEASE_TRANSIENT(T, H)                                        \
+  if (H) {                                                                     \
+    Naive_H_CAST(T, H, __h__);                                                 \
+    if (__h__->DecrementRefCounter() == 0)                                     \
+      __h__->Delete();                                                         \
+  }
 
 /// Naive_NurbsCurve {{{
 
@@ -29,13 +38,22 @@ Naive_H Naive_NurbsCurve_New(const int32_t nbPoles,
   Naive_RealList aKnots(theKnots, theKnots + nbKnots);
   Naive_IntegerList aMults(theMults, theMults + nbKnots);
   auto aCrv = new Naive_NurbsCurve(aPoles, aWeights, aKnots, aMults, theDegree);
-
+  aCrv->IncrementRefCounter();
   return aCrv;
 }
 
 int32_t Naive_NurbsCurve_PointAt(const Naive_H theHandle, const double theT,
                                  Naive_Point3d_T *theP) {
-  return true;
+  if (!theHandle || !theP)
+    return false;
+
+  Naive_H_CAST(Naive_NurbsCurve, theHandle, H);
+  Naive_Point3d aP = H->PointAt(theT);
+  return aP.Dump(*theP);
+}
+
+void Naive_NurbsCurve_Release(Naive_H theHandle) {
+  Naive_H_RELEASE_TRANSIENT(Naive_NurbsCurve, theHandle);
 }
 
 /// }}}
@@ -61,7 +79,9 @@ Naive_H Naive_Poly_New(const int32_t nbVertices,
     aTris[i].z() = theTriangles[i].n2;
   }
 
-  return new Naive_Poly(std::move(aVerts), std::move(aTris));
+  auto aPoly = new Naive_Poly(std::move(aVerts), std::move(aTris));
+  aPoly->IncrementRefCounter();
+  return aPoly;
 }
 
 int32_t Naive_Poly_NbVertices(const Naive_H theHandle) {
@@ -111,8 +131,7 @@ void Naive_Poly_Triangles(const Naive_H theHandle,
 }
 
 void Naive_Poly_Release(Naive_H theHandle) {
-  Naive_H_CAST(Naive_Poly, theHandle, H);
-  delete H;
+  Naive_H_RELEASE_TRANSIENT(Naive_Poly, theHandle);
 }
 
 /// }}}
@@ -208,8 +227,7 @@ Naive_BndShape_ConvexHull2D_ConvexPoints(const Naive_H theHandle,
 }
 
 void Naive_BndShape_ConvexHull2D_Release(Naive_H theHandle) {
-  Naive_H_CAST(const naivecgl::bndshape::ConvexHull2D, theHandle, H);
-  delete H;
+  Naive_H_RELEASE(naivecgl::bndshape::ConvexHull2D, theHandle);
 }
 
 Naive_H Naive_BndShape_EnclosingDisc_New() {
@@ -249,8 +267,7 @@ int32_t Naive_BndShape_EnclosingDisc_Circle(const Naive_H theHandle,
 }
 
 void Naive_BndShape_EnclosingDisc_Release(Naive_H theHandle) {
-  Naive_H_CAST(naivecgl::bndshape::EnclosingDisc, theHandle, H);
-  delete H;
+  Naive_H_RELEASE(naivecgl::bndshape::EnclosingDisc, theHandle);
 }
 
 /// }}}
@@ -275,9 +292,9 @@ Naive_H Naive_Tessellation_TetraSphere(const Naive_Point3d_T *theCenter,
 
 /// Release {{{
 
-void Naive_Release_Int32Array(int32_t *theArray) { delete[] theArray; }
+void Naive_Release_Int32Array(const int32_t *theArray) { delete[] theArray; }
 
-void Naive_Release_DoubleArray(double *theArray) { delete[] theArray; }
+void Naive_Release_DoubleArray(const double *theArray) { delete[] theArray; }
 
 /// }}}
 

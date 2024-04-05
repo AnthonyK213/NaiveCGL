@@ -24,6 +24,8 @@ Naive_CAPI int32_t Naive_NurbsCurve_PointAt(const Naive_H theHandle,
                                             const double theT,
                                             Naive_Point3d_T *theP);
 
+Naive_CAPI void Naive_NurbsCurve_Release(Naive_H theHandle);
+
 /// }}}
 
 /// Naive_Poly {{{
@@ -99,9 +101,9 @@ Naive_CAPI Naive_H Naive_Tessellation_TetraSphere(
 
 /// Release {{{
 
-Naive_CAPI void Naive_Release_Int32Array(int32_t *theArray);
+Naive_CAPI void Naive_Release_Int32Array(const int32_t *theArray);
 
-Naive_CAPI void Naive_Release_DoubleArray(double *theArray);
+Naive_CAPI void Naive_Release_DoubleArray(const double *theArray);
 
 /// }}}
 

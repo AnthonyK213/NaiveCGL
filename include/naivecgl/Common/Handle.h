@@ -5,21 +5,21 @@
 
 Naive_NAMESPACE_BEGIN(common);
 
-template <typename T> class Handle {
+template <typename T> class handle {
 public:
-  Handle() : myEntity(nullptr) {}
+  handle() : myEntity(nullptr) {}
 
-  Handle(const T *thePtr) : myEntity(const_cast<T *>(thePtr)) { beginScope(); }
+  handle(const T *thePtr) : myEntity(const_cast<T *>(thePtr)) { beginScope(); }
 
-  Handle(const Handle &theHandle) : myEntity(theHandle.myEntity) {
+  handle(const handle &theHandle) : myEntity(theHandle.myEntity) {
     beginScope();
   }
 
-  Handle(Handle &&theHandle) : myEntity(theHandle.myEntity) {
+  handle(handle &&theHandle) : myEntity(theHandle.myEntity) {
     theHandle.myEntity = nullptr;
   }
 
-  ~Handle() { endScope(); }
+  ~handle() { endScope(); }
 
   void Nullify() { endScope(); }
 
@@ -27,17 +27,17 @@ public:
 
   void reset(T *thePtr) { assign(thePtr); }
 
-  Handle &operator=(const Handle &theHandle) {
+  handle &operator=(const handle &theHandle) {
     assign(theHandle.myEntity);
     return *this;
   }
 
-  Handle &operator=(Handle &&theHandle) noexcept {
+  handle &operator=(handle &&theHandle) noexcept {
     std::swap(myEntity, theHandle.myEntity);
     return *this;
   }
 
-  Handle &operator=(const T *thePtr) {
+  handle &operator=(const T *thePtr) {
     assign(const_cast<T *>(thePtr));
     return *this;
   }
@@ -49,12 +49,44 @@ public:
   T &operator*() const { return *get(); }
 
   template <typename T1>
-  Naive_Bool operator==(const Handle<T1> &theHandle) const {
+  Naive_Bool operator==(const handle<T1> &theHandle) const {
     return get() == theHandle.get();
   }
 
   template <typename T1> Naive_Bool operator==(const T1 *thePtr) const {
     return get() == thePtr;
+  }
+
+  template <typename T1>
+  friend Naive_Bool operator==(const T1 *left, const handle &right) {
+    return left == right.get();
+  }
+
+  template <typename T1>
+  Naive_Bool operator!=(const handle<T1> &theHandle) const {
+    return get() != theHandle.get();
+  }
+
+  template <typename T1> Naive_Bool operator!=(const T1 *thePtr) const {
+    return get() != thePtr;
+  }
+
+  template <typename T1>
+  friend Naive_Bool operator!=(const T1 *left, const handle &right) {
+    return left != right.get();
+  }
+
+  template <typename T1>
+  Naive_Bool operator<(const handle<T1> &theHandle) const {
+    return get() < theHandle.get();
+  }
+
+  template <typename T1> static handle DownCast(const handle<T1> &theHandle) {
+    return handle(dynamic_cast<T *>(const_cast<T1 *>(theHandle.get())));
+  }
+
+  template <typename T1> static handle DownCast(const T1 *thePtr) {
+    return handle(dynamic_cast<T *>(const_cast<T1 *>(thePtr)));
   }
 
   explicit operator bool() const { return myEntity != nullptr; }
@@ -79,12 +111,27 @@ private:
     myEntity = nullptr;
   }
 
+  template <typename T1> friend class handle;
+
 private:
   Transient *myEntity;
 };
 
 Naive_NAMESPACE_END(common);
 
-template <typename T> using Naive_Handle = naivecgl::common::Handle<T>;
+template <typename T> using Naive_Handle = naivecgl::common::handle<T>;
+
+namespace std {
+
+template <typename TheTransientType>
+struct hash<Naive_Handle<TheTransientType>> {
+  size_t
+  operator()(const Naive_Handle<TheTransientType> &theHandle) const noexcept {
+    return static_cast<size_t>(
+        reinterpret_cast<std::uintptr_t>(theHandle.get()));
+  }
+};
+
+} // namespace std
 
 #endif
