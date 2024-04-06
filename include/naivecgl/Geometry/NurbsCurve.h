@@ -18,6 +18,8 @@ public:
 
   Naive_EXPORT Naive_Integer Degree() const { return myDegree; }
 
+  Naive_EXPORT Naive_Integer NbPoles() const;
+
   Naive_EXPORT const Naive_Point3d &Pole(const Naive_Integer theIndex) const;
 
   Naive_EXPORT const Naive_Point3dList &Poles() const;
@@ -26,9 +28,15 @@ public:
 
   Naive_EXPORT const Naive_RealList &Weights() const;
 
+  Naive_EXPORT Naive_Integer NbKnots() const;
+
   Naive_EXPORT Naive_Real Knot(const Naive_Integer theIndex) const;
 
   Naive_EXPORT const Naive_RealList &Knots() const;
+
+  Naive_EXPORT Naive_Real FirstParameter() const;
+
+  Naive_EXPORT Naive_Real LastParameter() const;
 
   Naive_EXPORT Naive_Point3d PointAt(const Naive_Real theT) const;
 
@@ -39,6 +47,11 @@ public:
                                        Naive_Vector3dList &theD) const;
 
 private:
+  Naive_Bool isValid() const;
+
+  Naive_Real basisFn(Naive_Integer theI, Naive_Integer theP, Naive_Real theT, Naive_Integer theIDom) const;
+
+private:
   Naive_Bool myRational;
   Naive_Bool myPeriodic;
   Naive_Integer myDegree;
@@ -47,11 +60,12 @@ private:
   Naive_RealList myFlatKnots;
   Naive_RealList myKnots;
   Naive_IntegerList myMults;
+  Naive_IntegerList myDomIdx;
 };
 
 Naive_NAMESPACE_END(geometry);
 
-using Naive_NurbsCurve = naivecgl::geometry::NurbsCurve;
-using Handle_Naive_NurbsCurve = Naive_Handle<naivecgl::geometry::NurbsCurve>;
+using Naive_NurbsCurve = ::naivecgl::geometry::NurbsCurve;
+using Handle_Naive_NurbsCurve = Naive_Handle<Naive_NurbsCurve>;
 
 #endif

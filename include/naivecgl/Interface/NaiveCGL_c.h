@@ -20,9 +20,9 @@ Naive_CAPI Naive_H Naive_NurbsCurve_New(
     const double *theWeights, const int32_t nbKnots, const double *theKnots,
     const int32_t *theMults, const int32_t theDegree);
 
-Naive_CAPI int32_t Naive_NurbsCurve_PointAt(const Naive_H theHandle,
-                                            const double theT,
-                                            Naive_Point3d_T *theP);
+Naive_CAPI bool Naive_NurbsCurve_PointAt(const Naive_H theHandle,
+                                         const double theT,
+                                         Naive_Point3d_T *theP);
 
 Naive_CAPI void Naive_NurbsCurve_Release(Naive_H theHandle);
 
@@ -85,8 +85,9 @@ Naive_CAPI void
 Naive_BndShape_EnclosingDisc_Rebuild(Naive_H theHandle, int32_t nbPoints,
                                      const Naive_Point2d_T *thePoints);
 
-Naive_CAPI int32_t Naive_BndShape_EnclosingDisc_Circle(
-    const Naive_H theHandle, Naive_Point2d_T *theOrigin, double *theR);
+Naive_CAPI bool Naive_BndShape_EnclosingDisc_Circle(const Naive_H theHandle,
+                                                    Naive_Point2d_T *theOrigin,
+                                                    double *theR);
 
 Naive_CAPI void Naive_BndShape_EnclosingDisc_Release(Naive_H theHandle);
 

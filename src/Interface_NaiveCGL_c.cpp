@@ -37,13 +37,14 @@ Naive_H Naive_NurbsCurve_New(const int32_t nbPoles,
   Naive_RealList aWeights(theWeights, theWeights + nbPoles);
   Naive_RealList aKnots(theKnots, theKnots + nbKnots);
   Naive_IntegerList aMults(theMults, theMults + nbKnots);
-  auto aCrv = new Naive_NurbsCurve(aPoles, aWeights, aKnots, aMults, theDegree);
+  Handle_Naive_NurbsCurve aCrv =
+      new Naive_NurbsCurve(aPoles, aWeights, aKnots, aMults, theDegree);
   aCrv->IncrementRefCounter();
-  return aCrv;
+  return aCrv.get();
 }
 
-int32_t Naive_NurbsCurve_PointAt(const Naive_H theHandle, const double theT,
-                                 Naive_Point3d_T *theP) {
+bool Naive_NurbsCurve_PointAt(const Naive_H theHandle, const double theT,
+                              Naive_Point3d_T *theP) {
   if (!theHandle || !theP)
     return false;
 
@@ -79,9 +80,9 @@ Naive_H Naive_Poly_New(const int32_t nbVertices,
     aTris[i].z() = theTriangles[i].n2;
   }
 
-  auto aPoly = new Naive_Poly(std::move(aVerts), std::move(aTris));
+  Handle_Naive_Poly aPoly = new Naive_Poly(std::move(aVerts), std::move(aTris));
   aPoly->IncrementRefCounter();
-  return aPoly;
+  return aPoly.get();
 }
 
 int32_t Naive_Poly_NbVertices(const Naive_H theHandle) {
@@ -248,9 +249,9 @@ void Naive_BndShape_EnclosingDisc_Rebuild(Naive_H theHandle, int32_t nbPoints,
   H->ReBuild(aPoints);
 }
 
-int32_t Naive_BndShape_EnclosingDisc_Circle(const Naive_H theHandle,
-                                            Naive_Point2d_T *theOrigin,
-                                            double *theR) {
+bool Naive_BndShape_EnclosingDisc_Circle(const Naive_H theHandle,
+                                         Naive_Point2d_T *theOrigin,
+                                         double *theR) {
   if (!theHandle || !theOrigin || !theR)
     return false;
 
