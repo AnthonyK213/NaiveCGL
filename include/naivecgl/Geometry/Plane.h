@@ -59,6 +59,6 @@ private:
 
 Naive_NAMESPACE_END(geometry);
 
-using Naive_Plane = naivecgl::geometry::Plane;
+using Naive_Plane = ::naivecgl::geometry::Plane;
 
 #endif

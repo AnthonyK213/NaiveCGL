@@ -14,6 +14,6 @@ public:
 
 Naive_NAMESPACE_END(intersect);
 
-using Naive_Intersection = naivecgl::intersect::Intersection;
+using Naive_Intersection = ::naivecgl::intersect::Intersection;
 
 #endif

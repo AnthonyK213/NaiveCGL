@@ -39,7 +39,7 @@ private:
 
 Naive_NAMESPACE_END(geometry);
 
-using Naive_Point2d = naivecgl::geometry::Point2d;
+using Naive_Point2d = ::naivecgl::geometry::Point2d;
 using Naive_Point2dList = Naive_List<Naive_Point2d>;
 
 #endif

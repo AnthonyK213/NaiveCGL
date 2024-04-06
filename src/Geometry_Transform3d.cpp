@@ -13,7 +13,7 @@ Naive_Bool Transform3d::IsValid() const {
 
 const Transform3d &Transform3d::Unset() {
   static Transform3d aTrsf =
-      Naive_Trsf{Eigen::Translation3d{Vector3d::Unset().XYZ()}};
+      Naive_Trsf{::Eigen::Translation3d{Vector3d::Unset().XYZ()}};
   return aTrsf;
 }
 
@@ -25,7 +25,7 @@ const Transform3d &Transform3d::Identity() {
 Transform3d Transform3d::Translation(const Vector3d &theVec) {
   if (!theVec.IsValid())
     return Unset();
-  Naive_Trsf aTrsf(Eigen::Translation3d(theVec.XYZ()));
+  Naive_Trsf aTrsf(::Eigen::Translation3d(theVec.XYZ()));
   return {aTrsf};
 }
 

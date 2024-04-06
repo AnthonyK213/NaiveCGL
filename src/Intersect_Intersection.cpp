@@ -13,7 +13,7 @@ Naive_Bool Intersection::LinePlane(const Naive_Line &theLine,
   const Naive_XYZ &n = thePlane.Axis().XYZ();
   Naive_Real d = l.dot(n);
 
-  if (std::abs(d) <= math::ZeroTolerance)
+  if (::std::abs(d) <= math::ZeroTolerance)
     return false;
 
   theT = LP.dot(n) / d;

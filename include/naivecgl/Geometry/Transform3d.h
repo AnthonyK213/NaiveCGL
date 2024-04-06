@@ -31,6 +31,6 @@ private:
 
 Naive_NAMESPACE_END(geometry);
 
-using Naive_Transform3d = naivecgl::geometry::Transform3d;
+using Naive_Transform3d = ::naivecgl::geometry::Transform3d;
 
 #endif

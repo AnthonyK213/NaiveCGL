@@ -11,7 +11,7 @@ NurbsCurve::NurbsCurve(const Naive_Point3dList &thePoles,
                        const Naive_IntegerList &theMults,
                        const Naive_Integer theDegree)
     : myRational(false), myPeriodic(false), myDegree(0), myFlatKnots(),
-      myDomIdx() {
+      mySpanIdx() {
   if (theDegree < 1)
     return;
 
@@ -44,10 +44,10 @@ NurbsCurve::NurbsCurve(const Naive_Point3dList &thePoles,
       return;
   }
 
-  myDomIdx.reserve(theMults.size() - 1);
+  mySpanIdx.reserve(theMults.size() - 1);
   Naive_Integer nbFlatKnots = theMults[0];
   for (Naive_Integer i = 1; i < theMults.size(); ++i) {
-    myDomIdx.push_back(nbFlatKnots);
+    mySpanIdx.push_back(nbFlatKnots);
     nbFlatKnots += theMults[i];
   }
 
@@ -116,34 +116,16 @@ Naive_Point3d NurbsCurve::PointAt(const Naive_Real theT) const {
   if (!isValid())
     return Naive_Point3d::Unset();
 
-  if (theT < FirstParameter() || theT > LastParameter())
+  Naive_Integer iSpan = findSpan(theT);
+  if (iSpan < 0)
     return Naive_Point3d::Unset();
-
-  Naive_Integer m = static_cast<Naive_Integer>(myKnots.size()) - 1;
-  Naive_Integer k;
-  if (theT == LastParameter()) {
-    k = m - 1;
-  } else {
-    Naive_Integer lower = 0;
-    Naive_Integer upper = m;
-    while (upper - lower > 1) {
-      Naive_Integer mid = (lower + upper) >> 1;
-      if (theT < myKnots[mid])
-        upper = mid;
-      else
-        lower = mid;
-    }
-    k = lower;
-  }
-
-  Naive_Integer iDom = myDomIdx[k] - 1;
 
   // TODO: Caching.
 
   Naive_XYZ aXYZ(0., 0., 0.);
   Naive_Real aR = 0.;
-  for (Naive_Integer i = ::std::max(0, iDom - myDegree); i <= iDom; ++i) {
-    Naive_Real aN = myWeights[i] * basisFn(i, myDegree, theT, iDom);
+  for (Naive_Integer i = (::std::max)(0, iSpan - myDegree); i <= iSpan; ++i) {
+    Naive_Real aN = myWeights[i] * basisFn(i, myDegree, theT, iSpan);
     aXYZ += aN * myPoles[i].XYZ();
     aR += aN;
   }
@@ -164,10 +146,34 @@ Naive_Bool NurbsCurve::DerivativeAt(const Naive_Real theT,
 
 Naive_Bool NurbsCurve::isValid() const { return myDegree > 0; }
 
+Naive_Integer NurbsCurve::findSpan(const Naive_Real theT) const {
+  if (theT < FirstParameter() || theT > LastParameter())
+    return -1;
+
+  Naive_Integer m = static_cast<Naive_Integer>(myKnots.size()) - 1;
+  Naive_Integer k;
+  if (theT == LastParameter()) {
+    k = m - 1;
+  } else {
+    Naive_Integer lower = 0;
+    Naive_Integer upper = m;
+    while (upper - lower > 1) {
+      Naive_Integer mid = (lower + upper) >> 1;
+      if (theT < myKnots[mid])
+        upper = mid;
+      else
+        lower = mid;
+    }
+    k = lower;
+  }
+
+  return mySpanIdx[k] - 1;
+}
+
 Naive_Real NurbsCurve::basisFn(Naive_Integer theI, Naive_Integer theP,
-                               Naive_Real theT, Naive_Integer theIDom) const {
+                               Naive_Real theT, Naive_Integer theSpan) const {
   if (theP == 0)
-    return theIDom == theI ? 1. : 0.;
+    return theSpan == theI ? 1. : 0.;
 
   Naive_Real aF0 = myFlatKnots[theI + theP] - myFlatKnots[theI];
   Naive_Real aG0 = myFlatKnots[theI + theP + 1] - myFlatKnots[theI + 1];
@@ -177,8 +183,8 @@ Naive_Real NurbsCurve::basisFn(Naive_Integer theI, Naive_Integer theP,
                       ? 0.
                       : (myFlatKnots[theI + theP + 1] - theT) / aG0;
 
-  return aF * basisFn(theI, theP - 1, theT, theIDom) +
-         aG * basisFn(theI + 1, theP - 1, theT, theIDom);
+  return aF * basisFn(theI, theP - 1, theT, theSpan) +
+         aG * basisFn(theI + 1, theP - 1, theT, theSpan);
 }
 
 Naive_NAMESPACE_END(geometry);

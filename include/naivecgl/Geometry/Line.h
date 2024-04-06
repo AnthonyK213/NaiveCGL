@@ -49,6 +49,6 @@ private:
 
 Naive_NAMESPACE_END(geometry);
 
-using Naive_Line = naivecgl::geometry::Line;
+using Naive_Line = ::naivecgl::geometry::Line;
 
 #endif

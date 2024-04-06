@@ -16,7 +16,7 @@ HalfEdgeMesh::Vertex::Vertex(Naive_Real theX, Naive_Real theY, Naive_Real theZ)
     : myCoord(theX, theY, theZ), myEdge(nullptr), myId(-1) {}
 
 HalfEdgeMesh::Vertex::Vertex(Vertex &&theOther) noexcept {
-  myCoord = std::move(theOther.myCoord);
+  myCoord = ::std::move(theOther.myCoord);
   myEdge = theOther.myEdge;
   theOther.myEdge = nullptr;
   myId = theOther.myId;
@@ -24,7 +24,7 @@ HalfEdgeMesh::Vertex::Vertex(Vertex &&theOther) noexcept {
 
 HalfEdgeMesh::Vertex &
 HalfEdgeMesh::Vertex::operator=(Vertex &&theOther) noexcept {
-  myCoord = std::move(theOther.myCoord);
+  myCoord = ::std::move(theOther.myCoord);
   myEdge = theOther.myEdge;
   theOther.myEdge = nullptr;
   myId = theOther.myId;
@@ -121,7 +121,7 @@ HalfEdgeMesh::HalfEdge::HalfEdge(HalfEdge &&theOther) noexcept {
   theOther.myFace = nullptr;
   theOther.myPrev = nullptr;
   theOther.myNext = nullptr;
-  myId = std::move(theOther.myId);
+  myId = ::std::move(theOther.myId);
 }
 
 HalfEdgeMesh::HalfEdge &
@@ -136,7 +136,7 @@ HalfEdgeMesh::HalfEdge::operator=(HalfEdge &&theOther) noexcept {
   theOther.myFace = nullptr;
   theOther.myPrev = nullptr;
   theOther.myNext = nullptr;
-  myId = std::move(theOther.myId);
+  myId = ::std::move(theOther.myId);
 
   return *this;
 }
@@ -153,14 +153,14 @@ HalfEdgeMesh::Face::Face(HalfEdge *theOuterEdge)
 HalfEdgeMesh::Face::Face(Face &&theOther) noexcept {
   myOuterEdge = theOther.myOuterEdge;
   theOther.myOuterEdge = nullptr;
-  myNormal = std::move(theOther.myNormal);
+  myNormal = ::std::move(theOther.myNormal);
   myId = theOther.myId;
 }
 
 HalfEdgeMesh::Face &HalfEdgeMesh::Face::operator=(Face &&theOther) noexcept {
   myOuterEdge = theOther.myOuterEdge;
   theOther.myOuterEdge = nullptr;
-  myNormal = std::move(theOther.myNormal);
+  myNormal = ::std::move(theOther.myNormal);
   myId = theOther.myId;
 
   return *this;
@@ -273,7 +273,7 @@ Naive_IntegerList HalfEdgeMesh::GetAllFaces() const {
   return anIdList;
 }
 
-Naive_Handle<TriangleSoup> HalfEdgeMesh::Soup(Naive_Bool theCompat) const {
+Handle_Naive_Poly HalfEdgeMesh::Soup(Naive_Bool theCompat) const {
   if (!IsValid())
     return nullptr;
 
@@ -320,14 +320,14 @@ Naive_Handle<TriangleSoup> HalfEdgeMesh::Soup(Naive_Bool theCompat) const {
     aTriangles.push_back(aTriangle);
   }
 
-  return new TriangleSoup(std::move(aVertices), std::move(aTriangles));
+  return new TriangleSoup(::std::move(aVertices), ::std::move(aTriangles));
 }
 
 Naive_Bool HalfEdgeMesh::addVertex(Naive_Integer theId,
                                    const Naive_Point3d &thePoint) {
   Vertex anVertex{thePoint};
   anVertex.myId = theId;
-  auto result = myVertices.emplace(theId, std::move(anVertex));
+  auto result = myVertices.emplace(theId, ::std::move(anVertex));
 
   return result.second;
 }

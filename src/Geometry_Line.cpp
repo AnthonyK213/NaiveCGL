@@ -38,7 +38,7 @@ Naive_Real Line::DistanceTo(const Naive_Point3d &thePnt,
   if (theFinite && (t < 0. || t > Length())) {
     Naive_Real d1 = v.norm();
     Naive_Real d2 = (thePnt.XYZ() - myTo.XYZ()).norm();
-    return std::min(d1, d2);
+    return (::std::min)(d1, d2);
   } else {
     Naive_XYZ p = myFrom.XYZ() - t * d.XYZ();
     return p.norm();

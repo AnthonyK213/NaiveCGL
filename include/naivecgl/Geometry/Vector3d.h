@@ -90,13 +90,15 @@ public:
 
   Naive_EXPORT Vector3d Transformed(const Transform3d &theTrsf) const;
 
+  Naive_EXPORT bool Dump(Naive_Vector3d_T &theVec) const;
+
 private:
   Naive_Vector3<Naive_Real> myXYZ;
 };
 
 Naive_NAMESPACE_END(geometry);
 
-using Naive_Vector3d = naivecgl::geometry::Vector3d;
+using Naive_Vector3d = ::naivecgl::geometry::Vector3d;
 using Naive_Vector3dList = Naive_List<Naive_Vector3d>;
 
 #endif

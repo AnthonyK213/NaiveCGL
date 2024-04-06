@@ -145,6 +145,6 @@ Naive_EXPORT const Interval operator+(Naive_Real theNumber,
 
 Naive_NAMESPACE_END(geometry);
 
-using Naive_Interval = naivecgl::geometry::Interval;
+using Naive_Interval = ::naivecgl::geometry::Interval;
 
 #endif

@@ -28,11 +28,11 @@ public:
   virtual void Delete() const { delete this; }
 
 protected:
-  std::atomic<Naive_Integer> myRefCount_;
+  ::std::atomic<Naive_Integer> myRefCount_;
 };
 
 Naive_NAMESPACE_END(common);
 
-using Naive_Transient = naivecgl::common::Transient;
+using Naive_Transient = ::naivecgl::common::Transient;
 
 #endif

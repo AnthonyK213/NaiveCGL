@@ -16,7 +16,7 @@ TEST(NaiveCGL_HalfEdgeMesh, CreateHalfEdgeMeshFromTriangleSoup) {
       {5, 1, 2}, {5, 2, 4}, {5, 4, 3}, {5, 3, 1},
   };
 
-  Naive_Poly soup(std::move(vertices), std::move(triangles));
+  Naive_Poly soup(::std::move(vertices), ::std::move(triangles));
 
   ASSERT_TRUE(soup.IsValid());
 
@@ -33,7 +33,8 @@ TEST(NaiveCGL_HalfEdgeMesh, CreateHalfEdgeMeshFromTriangleSoup) {
 }
 
 TEST(NaiveCGL_Sphere, CreateOctasphere) {
-  Handle_Naive_Poly sphere = naivecgl::tessellation::OctaSphere({3, 4, 5}, 10);
+  Handle_Naive_Poly sphere =
+      ::naivecgl::tessellation::OctaSphere({3, 4, 5}, 10);
 
   ASSERT_EQ(36, sphere->Vertices().size());
   ASSERT_EQ(49, sphere->Triangles().size());
@@ -47,7 +48,7 @@ TEST(NaiveCGL_ConvexHull2D, GetHull) {
       {0, 2}, {1, 3}, {2, 2}, {2, 0}, {3, 1}, {3, 4}, {4, 2}, {4, 3},
   };
 
-  naivecgl::bndshape::ConvexHull2D aCH2d{points};
+  ::naivecgl::bndshape::ConvexHull2D aCH2d{points};
   aCH2d.Perform();
 
   Naive_ConvexHull2D_Status code = aCH2d.Status();
@@ -62,7 +63,7 @@ TEST(NaiveCGL_EnclosingDisc, GetDisc) {
       {0, 2}, {1, 3}, {2, 2}, {2, 0}, {3, 1}, {3, 4}, {4, 2}, {4, 3},
   };
 
-  naivecgl::bndshape::EnclosingDisc aDisc{};
+  ::naivecgl::bndshape::EnclosingDisc aDisc{};
   aDisc.ReBuild(points);
 
   Naive_Point2d anOrigin{};

@@ -75,7 +75,7 @@ void EnclosingDisc::circle3Points(const Naive_Point2d &theA,
   Naive_Real b2 = 2. * (theB.Y() - theC.Y());
   Naive_Real d = a1 * b2 - a2 * b1;
 
-  if (std::abs(d) < math::ZeroTolerance) {
+  if (::std::abs(d) < math::ZeroTolerance) {
     myOrigin = Naive_Point2d::Unset();
     return;
   }

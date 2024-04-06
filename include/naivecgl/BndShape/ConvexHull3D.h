@@ -60,7 +60,7 @@ public:
 
 private:
   Naive_Point3dList myPoints;
-  std::unique_ptr<Impl> myImpl;
+  ::std::unique_ptr<Impl> myImpl;
   Naive_ConvexHull3D_Algorithm myAlgo;
 };
 

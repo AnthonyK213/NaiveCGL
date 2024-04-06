@@ -4,8 +4,8 @@
 
 Naive_NAMESPACE_BEGIN(tessellation);
 
-const Naive_Real SQRT_3 = std::sqrt(3.0);
-const Naive_Real SQRT_1_3 = std::sqrt(1.0 / 3.0);
+const Naive_Real SQRT_3 = ::std::sqrt(3.0);
+const Naive_Real SQRT_1_3 = ::std::sqrt(1.0 / 3.0);
 
 struct Vertex_ {
   Naive_XYZ myPoint;
@@ -19,9 +19,9 @@ static Naive_Integer triangle_index_(Naive_Integer theN, Naive_Integer theK) {
 static Naive_Real tetra_tau_(const Naive_Real theU, const Naive_Real theV,
                              const Naive_Real theW) {
   Naive_Real u = theU * 0.5, v = theV * 0.5, w = theW * 0.5;
-  Naive_Real Su = std::sin(u), Cu = std::cos(u);
-  Naive_Real Sv = std::sin(v), Cv = std::cos(v);
-  Naive_Real Sw = std::sin(w), Cw = std::cos(w);
+  Naive_Real Su = ::std::sin(u), Cu = ::std::cos(u);
+  Naive_Real Sv = ::std::sin(v), Cv = ::std::cos(v);
+  Naive_Real Sw = ::std::sin(w), Cw = ::std::cos(w);
 
   // clang-format off
 
@@ -38,9 +38,9 @@ static Naive_Real tetra_tau_(const Naive_Real theU, const Naive_Real theV,
 static Naive_Real tetra_xi_(const Naive_Real theU, const Naive_Real theV,
                             const Naive_Real theW) {
   Naive_Real u = theU * 0.5, v = theV * 0.5, w = theW * 0.5;
-  Naive_Real Su = std::sin(u), Cu = std::cos(u);
-  Naive_Real Sv = std::sin(v), Cv = std::cos(v);
-  Naive_Real Sw = std::sin(w), Cw = std::cos(w);
+  Naive_Real Su = ::std::sin(u), Cu = ::std::cos(u);
+  Naive_Real Sv = ::std::sin(v), Cv = ::std::cos(v);
+  Naive_Real Sw = ::std::sin(w), Cw = ::std::cos(w);
 
   // clang-format off
 
@@ -183,7 +183,7 @@ Handle_Naive_Poly TetraSphere(const Naive_Point3d &theCenter,
       }
     }
 
-    aVertices.push_back(std::move(aVerts));
+    aVertices.push_back(::std::move(aVerts));
   }
 
   Naive_List<Naive_Triangle> aTriangles{};
@@ -225,7 +225,7 @@ Handle_Naive_Poly TetraSphere(const Naive_Point3d &theCenter,
     }
   }
 
-  return new Naive_Poly(std::move(aPoints), std::move(aTriangles));
+  return new Naive_Poly(::std::move(aPoints), ::std::move(aTriangles));
 }
 
 Handle_Naive_Poly OctaSphere(const Naive_Point3d &theCenter,
@@ -239,7 +239,7 @@ Handle_Naive_Poly OctaSphere(const Naive_Point3d &theCenter,
 
   aPoints.reserve(d + 1);
 
-  Naive_Real aHalf = theRadius * std::sqrt(0.5);
+  Naive_Real aHalf = theRadius * ::std::sqrt(0.5);
   Naive_XYZ aPntA{0.0, 0.0, theRadius};
   Naive_XYZ aPntB{aHalf, aHalf, 0.0};
   Naive_XYZ aPntC{-aHalf, aHalf, 0.0};
@@ -288,7 +288,7 @@ Handle_Naive_Poly OctaSphere(const Naive_Point3d &theCenter,
     }
   }
 
-  return new Naive_Poly(std::move(aFlatPoints), std::move(aTriangles));
+  return new Naive_Poly(::std::move(aFlatPoints), ::std::move(aTriangles));
 }
 
 Handle_Naive_Poly IcoShpere(const Naive_Point3d &theCenter,

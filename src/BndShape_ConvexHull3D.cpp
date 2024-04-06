@@ -58,7 +58,7 @@ ConvexHull3D::ConvexHull3D(const Naive_Point3dList &thePoints,
 
 ConvexHull3D::ConvexHull3D(Naive_Point3dList &&thePoints,
                            Naive_ConvexHull3D_Algorithm theAlgo) noexcept {
-  myPoints = std::move(thePoints);
+  myPoints = ::std::move(thePoints);
   SetAlgorithm(theAlgo);
 }
 
@@ -72,7 +72,7 @@ void ConvexHull3D::SetAlgorithm(Naive_ConvexHull3D_Algorithm theAlgo) {
 
   switch (myAlgo) {
   case Naive_ConvexHull3D_Quickhull: {
-    myImpl = std::make_unique<QuickHull3D>(myPoints);
+    myImpl = ::std::make_unique<QuickHull3D>(myPoints);
     break;
   }
 

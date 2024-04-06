@@ -4,17 +4,17 @@ Naive_NAMESPACE_BEGIN(math);
 
 Naive_Bool EpsilonEquals(Naive_Real theX, Naive_Real theY,
                          Naive_Real theEpsilon) {
-  if (std::isnan(theX) || std::isnan(theY))
+  if (::std::isnan(theX) || ::std::isnan(theY))
     return false;
 
-  if (theX == std::numeric_limits<double>::infinity())
-    return theY == std::numeric_limits<double>::infinity();
+  if (theX == ::std::numeric_limits<double>::infinity())
+    return theY == ::std::numeric_limits<double>::infinity();
 
-  if (theX == -std::numeric_limits<double>::infinity())
-    return theY == -std::numeric_limits<double>::infinity();
+  if (theX == -::std::numeric_limits<double>::infinity())
+    return theY == -::std::numeric_limits<double>::infinity();
 
-  if (std::abs(theX) < theEpsilon && std::abs(theY) < theEpsilon)
-    return std::abs(theX - theY) < theEpsilon;
+  if (::std::abs(theX) < theEpsilon && ::std::abs(theY) < theEpsilon)
+    return ::std::abs(theX - theY) < theEpsilon;
 
   if (theX >= theY - theEpsilon)
     return theX <= theY + theEpsilon;
@@ -23,8 +23,8 @@ Naive_Bool EpsilonEquals(Naive_Real theX, Naive_Real theY,
 }
 
 Naive_Bool IsValidDouble(Naive_Real theX) {
-  if (theX != UnsetValue && !std::isinf(theX))
-    return !std::isnan(theX);
+  if (theX != UnsetValue && !::std::isinf(theX))
+    return !::std::isnan(theX);
 
   return false;
 }

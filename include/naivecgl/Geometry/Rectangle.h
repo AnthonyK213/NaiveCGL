@@ -16,6 +16,6 @@ private:
 
 Naive_NAMESPACE_END(geometry);
 
-using Naive_Rectangle = naivecgl::geometry::Rectangle;
+using Naive_Rectangle = ::naivecgl::geometry::Rectangle;
 
 #endif

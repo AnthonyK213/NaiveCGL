@@ -75,7 +75,7 @@ public:
 
 private:
   Naive_Point2dList myPoints;
-  std::unique_ptr<Impl> myImpl;
+  ::std::unique_ptr<Impl> myImpl;
   Naive_ConvexHull2D_Algorithm myAlgo;
 };
 

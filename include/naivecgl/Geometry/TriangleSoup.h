@@ -20,8 +20,8 @@ public:
             typename = Naive_WHERE_IS_REF_OF(V, VertexList),
             typename = Naive_WHERE_IS_REF_OF(T, TriangleList)>
   TriangleSoup(V &&theVertices, T &&theTriangles) {
-    myVertices = std::forward<V>(theVertices);
-    myTriangles = std::forward<T>(theTriangles);
+    myVertices = ::std::forward<V>(theVertices);
+    myTriangles = ::std::forward<T>(theTriangles);
   }
 
 public:
@@ -38,7 +38,7 @@ private:
 
 Naive_NAMESPACE_END(geometry);
 
-using Naive_Poly = naivecgl::geometry::TriangleSoup;
+using Naive_Poly = ::naivecgl::geometry::TriangleSoup;
 using Handle_Naive_Poly = Naive_Handle<Naive_Poly>;
 
 #endif

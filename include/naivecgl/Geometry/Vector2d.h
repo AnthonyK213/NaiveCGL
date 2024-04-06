@@ -35,7 +35,7 @@ private:
 
 Naive_NAMESPACE_END(geometry);
 
-using Naive_Vector2d = naivecgl::geometry::Vector2d;
+using Naive_Vector2d = ::naivecgl::geometry::Vector2d;
 using Naive_Vector2dList = Naive_List<Naive_Vector2d>;
 
 #endif

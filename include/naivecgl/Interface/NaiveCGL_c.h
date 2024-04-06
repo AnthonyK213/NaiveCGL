@@ -20,9 +20,19 @@ Naive_CAPI Naive_H Naive_NurbsCurve_New(
     const double *theWeights, const int32_t nbKnots, const double *theKnots,
     const int32_t *theMults, const int32_t theDegree);
 
+Naive_CAPI int32_t Naive_NurbsCurve_Degree(const Naive_H theHandle);
+
+Naive_CAPI double Naive_NurbsCurve_FirstParameter(const Naive_H theHandle);
+
+Naive_CAPI double Naive_NurbsCurve_LastParameter(const Naive_H theHandle);
+
 Naive_CAPI bool Naive_NurbsCurve_PointAt(const Naive_H theHandle,
                                          const double theT,
                                          Naive_Point3d_T *theP);
+
+Naive_CAPI bool Naive_NurbsCurve_TangentAt(const Naive_H theHandle,
+                                           const double theT,
+                                           Naive_Vector3d_T *theV);
 
 Naive_CAPI void Naive_NurbsCurve_Release(Naive_H theHandle);
 

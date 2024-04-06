@@ -49,7 +49,10 @@ public:
 private:
   Naive_Bool isValid() const;
 
-  Naive_Real basisFn(Naive_Integer theI, Naive_Integer theP, Naive_Real theT, Naive_Integer theIDom) const;
+  Naive_Integer findSpan(const Naive_Real theT) const;
+
+  Naive_Real basisFn(Naive_Integer theI, Naive_Integer theP, Naive_Real theT,
+                     Naive_Integer theSpan) const;
 
 private:
   Naive_Bool myRational;
@@ -60,7 +63,7 @@ private:
   Naive_RealList myFlatKnots;
   Naive_RealList myKnots;
   Naive_IntegerList myMults;
-  Naive_IntegerList myDomIdx;
+  Naive_IntegerList mySpanIdx;
 };
 
 Naive_NAMESPACE_END(geometry);

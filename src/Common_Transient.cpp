@@ -12,8 +12,8 @@ Transient::~Transient() {}
 
 Transient *Transient::This() const {
   if (GetRefCount() == 0)
-    throw std::runtime_error("Attempt to create handle to object created in "
-                             "stack, not yet constructed, or destroyed");
+    throw ::std::runtime_error("Attempt to create handle to object created in "
+                               "stack, not yet constructed, or destroyed");
   return const_cast<Transient *>(this);
 }
 

@@ -37,7 +37,7 @@ Naive_IntegerList ConvexHull2D::Impl::ConvexIndices() const {
   Ptr first = myPtrs[0];
 
   for (const Ptr &p : myHull) {
-    result.push_back(std::distance(first, p));
+    result.push_back(::std::distance(first, p));
   }
 
   return result;
@@ -127,7 +127,7 @@ private:
   /// @param a Min
   /// @param b Max
   void extremX(Ptr &a, Ptr &b) const {
-    Naive_Real xMin = std::numeric_limits<Naive_Real>::infinity();
+    Naive_Real xMin = ::std::numeric_limits<Naive_Real>::infinity();
     Naive_Real xMax = -xMin;
 
     for (const Ptr &p : myPtrs) {
@@ -222,7 +222,7 @@ ConvexHull2D::ConvexHull2D(const Naive_Point2dList &thePoints,
 
 ConvexHull2D::ConvexHull2D(Naive_Point2dList &&thePoints,
                            Naive_ConvexHull2D_Algorithm theAlgo) noexcept {
-  myPoints = std::move(thePoints);
+  myPoints = ::std::move(thePoints);
   SetAlgorithm(theAlgo);
 }
 
@@ -236,7 +236,7 @@ void ConvexHull2D::SetAlgorithm(Naive_ConvexHull2D_Algorithm theAlgo) {
 
   switch (myAlgo) {
   case Naive_ConvexHull2D_Quickhull: {
-    myImpl = std::make_unique<QuickHull2D>(myPoints);
+    myImpl = ::std::make_unique<QuickHull2D>(myPoints);
     break;
   }
 

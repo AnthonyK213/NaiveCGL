@@ -25,7 +25,7 @@ Naive_Bool Vector3d::IsValid() const {
 }
 
 Naive_Bool Vector3d::IsUnitVector() const {
-  return std::abs(Length() - 1.) <= math::Epsilon;
+  return ::std::abs(Length() - 1.) <= math::Epsilon;
 }
 
 Naive_Bool Vector3d::IsZero() const {
@@ -114,13 +114,13 @@ Vector3d Vector3d::Multiplied(const Naive_Real theT) const {
 }
 
 void Vector3d::Divide(const Naive_Real theT) {
-  if (!IsValid() || std::abs(theT) < math::ZeroTolerance)
+  if (!IsValid() || ::std::abs(theT) < math::ZeroTolerance)
     return;
   myXYZ /= theT;
 }
 
 Vector3d Vector3d::Divided(const Naive_Real theT) const {
-  if (!IsValid() || std::abs(theT) < math::ZeroTolerance)
+  if (!IsValid() || ::std::abs(theT) < math::ZeroTolerance)
     return Unset();
   return {myXYZ / theT};
 }
@@ -184,6 +184,15 @@ Vector3d Vector3d::Transformed(const Transform3d &theTrsf) const {
   if (aVec.Transform(theTrsf))
     return aVec;
   return Unset();
+}
+
+bool Vector3d::Dump(Naive_Vector3d_T &theVec) const {
+  if (!IsValid())
+    return false;
+  theVec.x = X();
+  theVec.y = Y();
+  theVec.z = Z();
+  return true;
 }
 
 Naive_NAMESPACE_END(geometry);

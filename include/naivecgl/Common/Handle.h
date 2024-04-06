@@ -33,7 +33,7 @@ public:
   }
 
   handle &operator=(handle &&theHandle) noexcept {
-    std::swap(myEntity, theHandle.myEntity);
+    ::std::swap(myEntity, theHandle.myEntity);
     return *this;
   }
 
@@ -119,7 +119,7 @@ private:
 
 Naive_NAMESPACE_END(common);
 
-template <typename T> using Naive_Handle = naivecgl::common::handle<T>;
+template <typename T> using Naive_Handle = ::naivecgl::common::handle<T>;
 
 namespace std {
 
@@ -128,7 +128,7 @@ struct hash<Naive_Handle<TheTransientType>> {
   size_t
   operator()(const Naive_Handle<TheTransientType> &theHandle) const noexcept {
     return static_cast<size_t>(
-        reinterpret_cast<std::uintptr_t>(theHandle.get()));
+        reinterpret_cast<::std::uintptr_t>(theHandle.get()));
   }
 };
 
