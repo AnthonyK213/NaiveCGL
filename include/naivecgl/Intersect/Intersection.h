@@ -8,8 +8,9 @@ Naive_NAMESPACE_BEGIN(intersect);
 
 class Intersection {
 public:
-  static Naive_Bool LinePlane(const Naive_Line &theLine,
-                              const Naive_Plane &thePlane, Naive_Real &theT);
+  Naive_EXPORT static Naive_Bool LinePlane(const Naive_Line &theLine,
+                                           const Naive_Plane &thePlane,
+                                           Naive_Real &theT);
 };
 
 Naive_NAMESPACE_END(intersect);

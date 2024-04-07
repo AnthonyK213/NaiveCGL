@@ -9,13 +9,13 @@ Naive_NAMESPACE_BEGIN(common);
 
 class Transient {
 public:
-  Transient();
+  Naive_EXPORT Transient();
 
-  Transient(const Transient &);
+  Naive_EXPORT Transient(const Transient &);
 
-  Transient &operator=(const Transient &);
+  Naive_EXPORT Transient &operator=(const Transient &);
 
-  virtual ~Transient();
+  Naive_EXPORT virtual ~Transient();
 
   Naive_EXPORT Transient *This() const;
 
@@ -25,7 +25,7 @@ public:
 
   inline Naive_Integer DecrementRefCounter() noexcept { return --myRefCount_; }
 
-  virtual void Delete() const { delete this; }
+  Naive_EXPORT virtual void Delete() const { delete this; }
 
 protected:
   ::std::atomic<Naive_Integer> myRefCount_;
