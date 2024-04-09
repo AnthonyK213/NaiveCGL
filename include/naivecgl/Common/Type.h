@@ -34,6 +34,7 @@
       void>::type
 
 template <typename T> using Naive_List = ::std::vector<T>;
+template <typename T> using Naive_List2 = ::std::vector<::std::vector<T>>;
 template <typename T> using Naive_Stack = ::std::stack<T>;
 template <typename K, typename V> using Naive_Map = ::std::map<K, V>;
 template <typename K, typename V> using Naive_Hash = ::std::unordered_map<K, V>;
@@ -47,7 +48,9 @@ using Naive_Size = size_t;
 using Naive_Real = double;
 using Naive_ShortReal = float;
 using Naive_IntegerList = Naive_List<Naive_Integer>;
+using Naive_IntegerList2 = Naive_List2<Naive_Integer>;
 using Naive_RealList = Naive_List<Naive_Real>;
+using Naive_RealList2 = Naive_List2<Naive_Real>;
 using Naive_Matrix3d = Naive_Matrix3<Naive_Real>;
 using Naive_XY = Naive_Vector2<Naive_Real>;
 using Naive_XYZ = Naive_Vector3<Naive_Real>;

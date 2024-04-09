@@ -18,7 +18,7 @@ Naive_Bool Interval::IsIncreasing() const { return myT0 < myT1; }
 Naive_Bool Interval::IsSingleton() const { return IsValid() && myT0 == myT1; }
 
 Naive_Bool Interval::IsValid() const {
-  return math::IsValidDouble(myT0) && math::IsValidDouble(myT1);
+  return math::Util::IsValidDouble(myT0) && math::Util::IsValidDouble(myT1);
 }
 
 Naive_Real Interval::Length() const { return myT1 - myT0; }
@@ -76,8 +76,8 @@ int32_t Interval::CompareTo(const Interval &theOther) const {
 
 Naive_Bool Interval::EpsilonEquals(const Interval &theOther,
                                    Naive_Real theEpsilon) const {
-  return math::EpsilonEquals(myT0, theOther.myT0, theEpsilon) &&
-         math::EpsilonEquals(myT1, theOther.myT1, theEpsilon);
+  return math::Util::EpsilonEquals(myT0, theOther.myT0, theEpsilon) &&
+         math::Util::EpsilonEquals(myT1, theOther.myT1, theEpsilon);
 }
 
 Naive_Bool Interval::Equals(const Interval &theOther) const {
@@ -114,7 +114,7 @@ Naive_Bool Interval::IncludesParameter(Naive_Real theT) const {
 
 Naive_Bool Interval::IncludesParameter(Naive_Real theT,
                                        Naive_Bool theStrict) const {
-  if (!math::IsValidDouble(theT)) {
+  if (!math::Util::IsValidDouble(theT)) {
     return false;
   }
   if (theStrict) {
@@ -141,7 +141,7 @@ Interval::NormalizedIntervalAt(const Interval &theIntervalParameter) const {
 
 Naive_Real
 Interval::NormalizedParameterAt(Naive_Real theIntervalParameter) const {
-  if (math::IsValidDouble(theIntervalParameter)) {
+  if (math::Util::IsValidDouble(theIntervalParameter)) {
     if (myT0 != myT1) {
       return (theIntervalParameter == myT1)
                  ? 1.0
@@ -155,7 +155,7 @@ Interval::NormalizedParameterAt(Naive_Real theIntervalParameter) const {
 }
 
 Naive_Real Interval::ParameterAt(Naive_Real theNormalizedParameter) const {
-  if (!math::IsValidDouble(theNormalizedParameter)) {
+  if (!math::Util::IsValidDouble(theNormalizedParameter)) {
     return math::UnsetValue;
   }
 

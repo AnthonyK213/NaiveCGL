@@ -100,5 +100,6 @@ Naive_NAMESPACE_END(geometry);
 
 using Naive_Vector3d = ::naivecgl::geometry::Vector3d;
 using Naive_Vector3dList = Naive_List<Naive_Vector3d>;
+using Naive_Vector3dList2 = Naive_List2<Naive_Vector3d>;
 
 #endif

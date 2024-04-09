@@ -2,6 +2,7 @@
 #include <naivecgl/BndShape/ConvexHull3D.h>
 #include <naivecgl/BndShape/EnclosingDisc.h>
 #include <naivecgl/Geometry/NurbsCurve.h>
+#include <naivecgl/Geometry/NurbsSurface.h>
 #include <naivecgl/Interface/NaiveCGL_c.h>
 #include <naivecgl/Math/Constants.h>
 #include <naivecgl/Tessellation/Sphere.h>
@@ -21,22 +22,21 @@
 
 Naive_H Naive_NurbsCurve_New(const int32_t nbPoles,
                              const Naive_Point3d_T *thePoles,
-                             const double *theWeights, const int32_t nbKnots,
-                             const double *theKnots, const int32_t *theMults,
+                             const int32_t nbWeights, const double *theWeights,
+                             const int32_t nbKnots, const double *theKnots,
+                             const int32_t nbMults, const int32_t *theMults,
                              const int32_t theDegree) {
-  if (nbPoles < 2 || nbKnots < 2)
+  if (nbPoles < 2 || nbWeights < 2 || nbKnots < 2 || nbMults < 2 ||
+      theDegree < 1)
     return nullptr;
 
   if (!thePoles || !theWeights || !theKnots || !theMults)
     return nullptr;
 
-  Naive_Point3dList aPoles(nbPoles);
-  for (int i = 0; i < nbPoles; ++i) {
-    aPoles[i] = thePoles[i];
-  }
-  Naive_RealList aWeights(theWeights, theWeights + nbPoles);
+  Naive_Point3dList aPoles(thePoles, thePoles + nbPoles);
+  Naive_RealList aWeights(theWeights, theWeights + nbWeights);
   Naive_RealList aKnots(theKnots, theKnots + nbKnots);
-  Naive_IntegerList aMults(theMults, theMults + nbKnots);
+  Naive_IntegerList aMults(theMults, theMults + nbMults);
   Handle_Naive_NurbsCurve aCrv =
       new Naive_NurbsCurve(aPoles, aWeights, aKnots, aMults, theDegree);
   aCrv->IncrementRefCounter();
@@ -80,6 +80,76 @@ bool Naive_NurbsCurve_TangentAt(const Naive_H theHandle, const double theT,
 
 void Naive_NurbsCurve_Release(Naive_H theHandle) {
   Naive_H_RELEASE_TRANSIENT(Naive_NurbsCurve, theHandle);
+}
+
+/// }}}
+
+/// Naive_NurbsSurface {{{
+
+Naive_H Naive_NurbsSurface_New(
+    const int32_t nbUPoles, const int32_t nbVPoles,
+    const Naive_Point3d_T *thePoles, const int32_t nbUWeights,
+    const int32_t nbVWeights, const double *theWeights, const int32_t nbUKnots,
+    const double *theUKnots, const int32_t nbVKnots, const double *theVKnots,
+    const int32_t nbUMults, const int32_t *theUMults, const int32_t nbVMults,
+    const int32_t *theVMults, const int32_t theUDegree,
+    const int32_t theVDegree) {
+  if (nbUPoles < 2 || nbVPoles < 2 || nbUWeights < 2 || nbVWeights < 2 ||
+      nbUKnots < 2 || nbVKnots < 2 || nbUMults < 2 || nbVMults < 2 ||
+      theUDegree < 1 || theVDegree < 1)
+    return nullptr;
+
+  if (!thePoles || !theWeights || !theUKnots || !theVKnots || !theUMults ||
+      !theVMults)
+    return nullptr;
+
+  Naive_Point3dList2 aPoles{};
+  aPoles.reserve(nbUPoles);
+  const Naive_Point3d_T *aPHead = thePoles;
+  for (Naive_Integer i = 0; i < nbUPoles; ++i, aPHead += nbVPoles) {
+    Naive_Point3dList aVP(aPHead, aPHead + nbVPoles);
+    aPoles.push_back(aVP);
+  }
+  Naive_RealList2 aWeights{};
+  aWeights.reserve(nbUWeights);
+  const Naive_Real *aWHead = theWeights;
+  for (Naive_Integer i = 0; i < nbUWeights; ++i, aWHead += nbVWeights) {
+    Naive_RealList aVW(aWHead, aWHead + nbVWeights);
+    aWeights.push_back(aVW);
+  }
+  Naive_RealList aUKnots(theUKnots, theUKnots + nbUKnots);
+  Naive_RealList aVKnots(theVKnots, theVKnots + nbVKnots);
+  Naive_IntegerList aUMults(theUMults, theUMults + nbUMults);
+  Naive_IntegerList aVMults(theVMults, theVMults + nbVMults);
+  Handle_Naive_NurbsSurface aSrf =
+      new Naive_NurbsSurface(aPoles, aWeights, aUKnots, aVKnots, aUMults,
+                             aVMults, theUDegree, theVDegree);
+  aSrf->IncrementRefCounter();
+  return aSrf.get();
+}
+
+int32_t Naive_NurbsSurface_UDegree(const Naive_H theHandle) {
+  Naive_H_CAST(const Naive_NurbsSurface, theHandle, H);
+  return H->UDegree();
+}
+
+int32_t Naive_NurbsSurface_VDegree(const Naive_H theHandle) {
+  Naive_H_CAST(const Naive_NurbsSurface, theHandle, H);
+  return H->VDegree();
+}
+
+bool Naive_NurbsSurface_PointAt(const Naive_H theHandle, const double theU,
+                                const double theV, Naive_Point3d_T *theP) {
+  if (!theHandle || !theP)
+    return false;
+
+  Naive_H_CAST(Naive_NurbsSurface, theHandle, H);
+  Naive_Point3d aP = H->PointAt(theU, theV);
+  return aP.Dump(*theP);
+}
+
+void Naive_NurbsSurface_Release(Naive_H theHandle) {
+  Naive_H_RELEASE_TRANSIENT(Naive_NurbsSurface, theHandle);
 }
 
 /// }}}

@@ -29,8 +29,9 @@ const Point3d &Point3d::Unset() {
 }
 
 Naive_Bool Point3d::IsValid() const {
-  return math::IsValidDouble(myXYZ.x()) && math::IsValidDouble(myXYZ.y()) &&
-         math::IsValidDouble(myXYZ.z());
+  return math::Util::IsValidDouble(myXYZ.x()) &&
+         math::Util::IsValidDouble(myXYZ.y()) &&
+         math::Util::IsValidDouble(myXYZ.z());
 }
 
 Naive_Real Point3d::DistanceTo(const Point3d &thePoint) const {

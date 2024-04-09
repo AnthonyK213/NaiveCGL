@@ -17,8 +17,9 @@
 
 Naive_CAPI Naive_H Naive_NurbsCurve_New(
     const int32_t nbPoles, const Naive_Point3d_T *thePoles,
-    const double *theWeights, const int32_t nbKnots, const double *theKnots,
-    const int32_t *theMults, const int32_t theDegree);
+    const int32_t nbWeights, const double *theWeights, const int32_t nbKnots,
+    const double *theKnots, const int32_t nbMults, const int32_t *theMults,
+    const int32_t theDegree);
 
 Naive_CAPI int32_t Naive_NurbsCurve_Degree(const Naive_H theHandle);
 
@@ -35,6 +36,29 @@ Naive_CAPI bool Naive_NurbsCurve_TangentAt(const Naive_H theHandle,
                                            Naive_Vector3d_T *theV);
 
 Naive_CAPI void Naive_NurbsCurve_Release(Naive_H theHandle);
+
+/// }}}
+
+/// Naive_NurbsSurface {{{
+
+Naive_CAPI Naive_H Naive_NurbsSurface_New(
+    const int32_t nbUPoles, const int32_t nbVPoles,
+    const Naive_Point3d_T *thePoles, const int32_t nbUWeights,
+    const int32_t nbVWeights, const double *theWeights, const int32_t nbUKnots,
+    const double *theUKnots, const int32_t nbVKnots, const double *theVKnots,
+    const int32_t nbUMults, const int32_t *theUMults, const int32_t nbVMults,
+    const int32_t *theVMults, const int32_t theUDegree,
+    const int32_t theVDegree);
+
+Naive_CAPI int32_t Naive_NurbsSurface_UDegree(const Naive_H theHandle);
+
+Naive_CAPI int32_t Naive_NurbsSurface_VDegree(const Naive_H theHandle);
+
+Naive_CAPI bool Naive_NurbsSurface_PointAt(const Naive_H theHandle,
+                                           const double theU, const double theV,
+                                           Naive_Point3d_T *theP);
+
+Naive_CAPI void Naive_NurbsSurface_Release(Naive_H theHandle);
 
 /// }}}
 

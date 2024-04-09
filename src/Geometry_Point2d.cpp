@@ -15,7 +15,7 @@ Point2d::Point2d(const Naive_Point2d_T &thePoint)
 Point2d::Point2d(const Naive_XY &theXY) : myXY(theXY) {}
 
 Naive_Bool Point2d::IsValid() const {
-  return math::IsValidDouble(X()) && math::IsValidDouble(Y());
+  return math::Util::IsValidDouble(X()) && math::Util::IsValidDouble(Y());
 }
 
 Naive_Real Point2d::DistanceTo(const Point2d &theP) const {

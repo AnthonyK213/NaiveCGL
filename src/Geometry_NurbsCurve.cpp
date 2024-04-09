@@ -1,4 +1,5 @@
 #include <naivecgl/Geometry/NurbsCurve.h>
+#include <naivecgl/Math/Nurbs.h>
 #include <naivecgl/Math/Util.h>
 
 #include <numeric>
@@ -21,63 +22,22 @@ NurbsCurve::NurbsCurve(const Naive_Point3dList &thePoles,
   if (thePoles.size() != theWeights.size())
     return;
 
-  if (theKnots.size() < 2)
+  if (!math::Nurbs::CheckParam(thePoles.size(), theKnots, theMults, theDegree,
+                               myPeriodic, myFlatKnots, mySpanIdx))
     return;
 
-  if (theKnots.size() != theMults.size())
-    return;
-
-  for (Naive_Integer i = 0; i < theMults.size(); ++i) {
-    if (theMults[i] < 1)
-      return;
-
-    if (i != 0 && i != theMults.size() - 1) {
-      if (theMults[i] > theDegree)
-        return;
-    } else if (theMults[i] > theDegree + 1) {
-      return;
+  for (Naive_Integer i = 1; i < theWeights.size(); ++i) {
+    if (!math::Util::EpsilonEquals(theWeights[i], theWeights[0])) {
+      myRational = true;
+      break;
     }
   }
-
-  for (Naive_Integer i = 1; i < theKnots.size(); ++i) {
-    if (theKnots[i] <= theKnots[i - 1])
-      return;
-  }
-
-  mySpanIdx.reserve(theMults.size() - 1);
-  Naive_Integer nbFlatKnots = theMults[0];
-  for (Naive_Integer i = 1; i < theMults.size(); ++i) {
-    mySpanIdx.push_back(nbFlatKnots);
-    nbFlatKnots += theMults[i];
-  }
-
-  if (thePoles.size() + theDegree + 1 == nbFlatKnots)
-    myPeriodic = false;
-  else if (thePoles.size() == nbFlatKnots)
-    // TODO: What is periodic?
-    myPeriodic = true;
-  else
-    return;
 
   myPoles = thePoles;
   myWeights = theWeights;
   myKnots = theKnots;
   myMults = theMults;
   myDegree = theDegree;
-
-  for (Naive_Integer i = 1; i < myWeights.size(); ++i) {
-    if (!math::EpsilonEquals(myWeights[i], myWeights[0])) {
-      myRational = true;
-      break;
-    }
-  }
-
-  myFlatKnots.reserve(nbFlatKnots);
-  for (Naive_Integer i = 0; i < theKnots.size(); ++i) {
-    for (Naive_Integer j = 0; j < theMults[i]; ++j) {
-      myFlatKnots.push_back(theKnots[i]);
-    }
-  }
 }
 
 Naive_Integer NurbsCurve::NbPoles() const {
@@ -177,9 +137,10 @@ Naive_Real NurbsCurve::basisFn(Naive_Integer theI, Naive_Integer theP,
 
   Naive_Real aF0 = myFlatKnots[theI + theP] - myFlatKnots[theI];
   Naive_Real aG0 = myFlatKnots[theI + theP + 1] - myFlatKnots[theI + 1];
-  Naive_Real aF =
-      math::EpsilonEquals(aF0, 0.) ? 0. : (theT - myFlatKnots[theI]) / aF0;
-  Naive_Real aG = math::EpsilonEquals(aG0, 0.)
+  Naive_Real aF = math::Util::EpsilonEquals(aF0, 0.)
+                      ? 0.
+                      : (theT - myFlatKnots[theI]) / aF0;
+  Naive_Real aG = math::Util::EpsilonEquals(aG0, 0.)
                       ? 0.
                       : (myFlatKnots[theI + theP + 1] - theT) / aG0;
 

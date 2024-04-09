@@ -20,8 +20,8 @@ Vector3d::Vector3d(const Naive_Vector3d_T &theVec)
     : myXYZ(theVec.x, theVec.y, theVec.z) {}
 
 Naive_Bool Vector3d::IsValid() const {
-  return math::IsValidDouble(X()) && math::IsValidDouble(Y()) &&
-         math::IsValidDouble(Z());
+  return math::Util::IsValidDouble(X()) && math::Util::IsValidDouble(Y()) &&
+         math::Util::IsValidDouble(Z());
 }
 
 Naive_Bool Vector3d::IsUnitVector() const {
@@ -156,9 +156,9 @@ Vector3d Vector3d::Crossed(const Vector3d &theVec) const {
 
 Naive_Bool Vector3d::EpsilonEquals(const Vector3d &theVec,
                                    const Naive_Real theE) {
-  return math::EpsilonEquals(X(), theVec.X(), theE) &&
-         math::EpsilonEquals(Y(), theVec.Y(), theE) &&
-         math::EpsilonEquals(Z(), theVec.Z(), theE);
+  return math::Util::EpsilonEquals(X(), theVec.X(), theE) &&
+         math::Util::EpsilonEquals(Y(), theVec.Y(), theE) &&
+         math::Util::EpsilonEquals(Z(), theVec.Z(), theE);
 }
 
 Naive_Bool Vector3d::Reverse() {

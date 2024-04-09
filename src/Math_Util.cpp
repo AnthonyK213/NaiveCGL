@@ -2,8 +2,8 @@
 
 Naive_NAMESPACE_BEGIN(math);
 
-Naive_Bool EpsilonEquals(Naive_Real theX, Naive_Real theY,
-                         Naive_Real theEpsilon) {
+Naive_Bool Util::EpsilonEquals(Naive_Real theX, Naive_Real theY,
+                               Naive_Real theEpsilon) {
   if (::std::isnan(theX) || ::std::isnan(theY))
     return false;
 
@@ -22,15 +22,19 @@ Naive_Bool EpsilonEquals(Naive_Real theX, Naive_Real theY,
   return false;
 }
 
-Naive_Bool IsValidDouble(Naive_Real theX) {
+Naive_Bool Util::IsValidDouble(Naive_Real theX) {
   if (theX != UnsetValue && !::std::isinf(theX))
     return !::std::isnan(theX);
 
   return false;
 }
 
-Naive_Real ToDegrees(Naive_Real theRadians) { return theRadians * 180.0 / PI; }
+Naive_Real Util::ToDegrees(Naive_Real theRadians) {
+  return theRadians * 180.0 / PI;
+}
 
-Naive_Real ToRadians(Naive_Real theDegrees) { return theDegrees * PI / 180.0; }
+Naive_Real Util::ToRadians(Naive_Real theDegrees) {
+  return theDegrees * PI / 180.0;
+}
 
 Naive_NAMESPACE_END(math);

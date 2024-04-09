@@ -41,5 +41,6 @@ Naive_NAMESPACE_END(geometry);
 
 using Naive_Point2d = ::naivecgl::geometry::Point2d;
 using Naive_Point2dList = Naive_List<Naive_Point2d>;
+using Naive_Point2dList2 = Naive_List2<Naive_Point2d>;
 
 #endif
