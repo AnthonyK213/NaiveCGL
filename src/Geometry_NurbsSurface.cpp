@@ -71,7 +71,33 @@ Naive_Bool NurbsSurface::Bounds(Naive_Real &theU0, Naive_Real &theU1,
 
 Naive_Point3d NurbsSurface::PointAt(const Naive_Real theU,
                                     const Naive_Real theV) const {
-  return Naive_Point3d::Unset();
+  if (!isValid())
+    return Naive_Point3d::Unset();
+
+  Naive_Integer iUSpan = math::Nurbs::FindSpan(myUKnots, myUSpanIdx, theU);
+  if (iUSpan < 0)
+    return Naive_Point3d::Unset();
+  Naive_Integer iVSpan = math::Nurbs::FindSpan(myVKnots, myVSpanIdx, theV);
+  if (iVSpan < 0)
+    return Naive_Point3d::Unset();
+
+  Naive_XYZ aXYZ(0., 0., 0.);
+  Naive_Real aR = 0.;
+  Naive_Integer iBegin = (::std::max)(0, iUSpan - myUDegree);
+  Naive_Integer jBegin = (::std::max)(0, iVSpan - myVDegree);
+  for (Naive_Integer i = iBegin; i <= iUSpan; ++i) {
+    for (Naive_Integer j = jBegin; j <= iVSpan; ++j) {
+      Naive_Real aN =
+          myWeights[i][j] *
+          math::Nurbs::BasisFn(myUFlatKnots, i, myUDegree, theU, iUSpan) *
+          math::Nurbs::BasisFn(myVFlatKnots, j, myVDegree, theV, iVSpan);
+      aXYZ += aN * myPoles[i][j].XYZ();
+      aR += aN;
+    }
+  }
+
+  aXYZ /= aR;
+  return aXYZ;
 }
 
 Naive_Bool NurbsSurface::isValid() const {

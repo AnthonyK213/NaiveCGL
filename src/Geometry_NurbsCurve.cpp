@@ -2,8 +2,6 @@
 #include <naivecgl/Math/Nurbs.h>
 #include <naivecgl/Math/Util.h>
 
-#include <numeric>
-
 Naive_NAMESPACE_BEGIN(geometry);
 
 NurbsCurve::NurbsCurve(const Naive_Point3dList &thePoles,
@@ -76,7 +74,7 @@ Naive_Point3d NurbsCurve::PointAt(const Naive_Real theT) const {
   if (!isValid())
     return Naive_Point3d::Unset();
 
-  Naive_Integer iSpan = findSpan(theT);
+  Naive_Integer iSpan = math::Nurbs::FindSpan(myKnots, mySpanIdx, theT);
   if (iSpan < 0)
     return Naive_Point3d::Unset();
 
@@ -85,7 +83,8 @@ Naive_Point3d NurbsCurve::PointAt(const Naive_Real theT) const {
   Naive_XYZ aXYZ(0., 0., 0.);
   Naive_Real aR = 0.;
   for (Naive_Integer i = (::std::max)(0, iSpan - myDegree); i <= iSpan; ++i) {
-    Naive_Real aN = myWeights[i] * basisFn(i, myDegree, theT, iSpan);
+    Naive_Real aN = myWeights[i] *
+                    math::Nurbs::BasisFn(myFlatKnots, i, myDegree, theT, iSpan);
     aXYZ += aN * myPoles[i].XYZ();
     aR += aN;
   }
@@ -105,47 +104,5 @@ Naive_Bool NurbsCurve::DerivativeAt(const Naive_Real theT,
 }
 
 Naive_Bool NurbsCurve::isValid() const { return myDegree > 0; }
-
-Naive_Integer NurbsCurve::findSpan(const Naive_Real theT) const {
-  if (theT < FirstParameter() || theT > LastParameter())
-    return -1;
-
-  Naive_Integer m = static_cast<Naive_Integer>(myKnots.size()) - 1;
-  Naive_Integer k;
-  if (theT == LastParameter()) {
-    k = m - 1;
-  } else {
-    Naive_Integer lower = 0;
-    Naive_Integer upper = m;
-    while (upper - lower > 1) {
-      Naive_Integer mid = (lower + upper) >> 1;
-      if (theT < myKnots[mid])
-        upper = mid;
-      else
-        lower = mid;
-    }
-    k = lower;
-  }
-
-  return mySpanIdx[k] - 1;
-}
-
-Naive_Real NurbsCurve::basisFn(Naive_Integer theI, Naive_Integer theP,
-                               Naive_Real theT, Naive_Integer theSpan) const {
-  if (theP == 0)
-    return theSpan == theI ? 1. : 0.;
-
-  Naive_Real aF0 = myFlatKnots[theI + theP] - myFlatKnots[theI];
-  Naive_Real aG0 = myFlatKnots[theI + theP + 1] - myFlatKnots[theI + 1];
-  Naive_Real aF = math::Util::EpsilonEquals(aF0, 0.)
-                      ? 0.
-                      : (theT - myFlatKnots[theI]) / aF0;
-  Naive_Real aG = math::Util::EpsilonEquals(aG0, 0.)
-                      ? 0.
-                      : (myFlatKnots[theI + theP + 1] - theT) / aG0;
-
-  return aF * basisFn(theI, theP - 1, theT, theSpan) +
-         aG * basisFn(theI + 1, theP - 1, theT, theSpan);
-}
 
 Naive_NAMESPACE_END(geometry);

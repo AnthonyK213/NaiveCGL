@@ -7,7 +7,8 @@ Interval::Interval(Naive_Real theT0, Naive_Real theT1)
     : myT0(theT0), myT1(theT1) {}
 
 const Interval &Interval::Unset() noexcept {
-  static Interval Interval_Unset{math::UnsetValue, math::UnsetValue};
+  static Interval Interval_Unset{math::Constant::UnsetValue,
+                                 math::Constant::UnsetValue};
   return Interval_Unset;
 }
 
@@ -151,12 +152,12 @@ Interval::NormalizedParameterAt(Naive_Real theIntervalParameter) const {
     return myT0;
   }
 
-  return math::UnsetValue;
+  return math::Constant::UnsetValue;
 }
 
 Naive_Real Interval::ParameterAt(Naive_Real theNormalizedParameter) const {
   if (!math::Util::IsValidDouble(theNormalizedParameter)) {
-    return math::UnsetValue;
+    return math::Constant::UnsetValue;
   }
 
   return (1.0 - theNormalizedParameter) * myT0 + theNormalizedParameter * myT1;

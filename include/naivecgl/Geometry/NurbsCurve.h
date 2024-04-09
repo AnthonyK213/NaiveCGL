@@ -49,11 +49,6 @@ public:
 private:
   Naive_Bool isValid() const;
 
-  Naive_Integer findSpan(const Naive_Real theT) const;
-
-  Naive_Real basisFn(Naive_Integer theI, Naive_Integer theP, Naive_Real theT,
-                     Naive_Integer theSpan) const;
-
 private:
   Naive_Bool myRational;
   Naive_Bool myPeriodic;

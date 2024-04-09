@@ -23,18 +23,18 @@ Naive_Bool Util::EpsilonEquals(Naive_Real theX, Naive_Real theY,
 }
 
 Naive_Bool Util::IsValidDouble(Naive_Real theX) {
-  if (theX != UnsetValue && !::std::isinf(theX))
+  if (theX != Constant::UnsetValue && !::std::isinf(theX))
     return !::std::isnan(theX);
 
   return false;
 }
 
 Naive_Real Util::ToDegrees(Naive_Real theRadians) {
-  return theRadians * 180.0 / PI;
+  return theRadians * 180.0 / Constant::PI;
 }
 
 Naive_Real Util::ToRadians(Naive_Real theDegrees) {
-  return theDegrees * PI / 180.0;
+  return theDegrees * Constant::PI / 180.0;
 }
 
 Naive_NAMESPACE_END(math);

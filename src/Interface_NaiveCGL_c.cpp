@@ -4,7 +4,7 @@
 #include <naivecgl/Geometry/NurbsCurve.h>
 #include <naivecgl/Geometry/NurbsSurface.h>
 #include <naivecgl/Interface/NaiveCGL_c.h>
-#include <naivecgl/Math/Constants.h>
+#include <naivecgl/Math/Constant.h>
 #include <naivecgl/Tessellation/Sphere.h>
 
 #define Naive_H_CAST(T, H, N) T *N = static_cast<T *>(H);
@@ -373,7 +373,7 @@ void Naive_BndShape_EnclosingDisc_Release(Naive_H theHandle) {
 
 Naive_H Naive_Tessellation_TetraSphere(const Naive_Point3d_T *theCenter,
                                        double theRadius, int32_t theLevel) {
-  if (!theCenter || theRadius <= ::naivecgl::math::ZeroTolerance ||
+  if (!theCenter || theRadius <= ::naivecgl::math::Constant::ZeroTolerance ||
       theLevel < 0)
     return nullptr;
 

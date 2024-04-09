@@ -1,5 +1,5 @@
 #include <naivecgl/Geometry/Line.h>
-#include <naivecgl/Math/Constants.h>
+#include <naivecgl/Math/Constant.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
@@ -22,7 +22,8 @@ Naive_Vector3d Line::UnitTangent() const {
 }
 
 Naive_Bool Line::IsValid() const {
-  return myFrom.IsValid() && myFrom.IsValid() && Length() > math::ZeroTolerance;
+  return myFrom.IsValid() && myFrom.IsValid() &&
+         Length() > math::Constant::ZeroTolerance;
 }
 
 Naive_Real Line::DistanceTo(const Naive_Point3d &thePnt,

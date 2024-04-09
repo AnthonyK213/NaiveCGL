@@ -1,4 +1,5 @@
 #include <naivecgl/Math/Nurbs.h>
+#include <naivecgl/Math/Util.h>
 
 Naive_NAMESPACE_BEGIN(math);
 
@@ -56,6 +57,55 @@ Nurbs::CheckParam(const Naive_Integer nbPoles, const Naive_RealList &theKnots,
   }
 
   return true;
+}
+
+Naive_Integer Nurbs::FindSpan(const Naive_RealList &theKnots,
+                              const Naive_IntegerList &theSpanIdx,
+                              const Naive_Real theT) {
+  if (theKnots.size() < 2 || theSpanIdx.size() != theKnots.size() - 1)
+    return -1;
+
+  Naive_Real aF = theKnots[0];
+  Naive_Real aL = theKnots[theKnots.size() - 1];
+  if (theT < aF || theT > aL)
+    return -1;
+
+  Naive_Integer m = static_cast<Naive_Integer>(theKnots.size()) - 1;
+  Naive_Integer k;
+  if (theT == aL) {
+    k = m - 1;
+  } else {
+    Naive_Integer lower = 0;
+    Naive_Integer upper = m;
+    while (upper - lower > 1) {
+      Naive_Integer mid = (lower + upper) >> 1;
+      if (theT < theKnots[mid])
+        upper = mid;
+      else
+        lower = mid;
+    }
+    k = lower;
+  }
+
+  return theSpanIdx[k] - 1;
+}
+
+Naive_Real Nurbs::BasisFn(const Naive_RealList &theFlatKnots,
+                          Naive_Integer theI, Naive_Integer theP,
+                          Naive_Real theT, Naive_Integer theSpan) {
+  if (theP == 0)
+    return theSpan == theI ? 1. : 0.;
+
+  Naive_Real aF0 = theFlatKnots[theI + theP] - theFlatKnots[theI];
+  Naive_Real aG0 = theFlatKnots[theI + theP + 1] - theFlatKnots[theI + 1];
+  Naive_Real aF =
+      Util::EpsilonEquals(aF0, 0.) ? 0. : (theT - theFlatKnots[theI]) / aF0;
+  Naive_Real aG = Util::EpsilonEquals(aG0, 0.)
+                      ? 0.
+                      : (theFlatKnots[theI + theP + 1] - theT) / aG0;
+
+  return aF * BasisFn(theFlatKnots, theI, theP - 1, theT, theSpan) +
+         aG * BasisFn(theFlatKnots, theI + 1, theP - 1, theT, theSpan);
 }
 
 Naive_NAMESPACE_END(math);

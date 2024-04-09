@@ -1,7 +1,7 @@
 #ifndef _NaiveCGL_Geometry_Vector3d_HeaderFile
 #define _NaiveCGL_Geometry_Vector3d_HeaderFile
 
-#include <naivecgl/Math/Constants.h>
+#include <naivecgl/Math/Constant.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
@@ -81,8 +81,8 @@ public:
 
   Naive_EXPORT Naive_Bool Reverse();
 
-  Naive_EXPORT Naive_Bool EpsilonEquals(const Vector3d &theVec,
-                                        const Naive_Real theE = math::Epsilon);
+  Naive_EXPORT Naive_Bool EpsilonEquals(
+      const Vector3d &theVec, const Naive_Real theE = math::Constant::Epsilon);
 
   Naive_EXPORT Naive_Bool Equals(const Vector3d &theVec);
 

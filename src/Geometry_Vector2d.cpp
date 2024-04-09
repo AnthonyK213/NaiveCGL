@@ -1,10 +1,11 @@
 #include <naivecgl/Geometry/Vector2d.h>
-#include <naivecgl/Math/Constants.h>
+#include <naivecgl/Math/Constant.h>
 #include <naivecgl/Math/Util.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-Vector2d::Vector2d() : myXY(math::UnsetValue, math::UnsetValue) {}
+Vector2d::Vector2d()
+    : myXY(math::Constant::UnsetValue, math::Constant::UnsetValue) {}
 
 Vector2d::Vector2d(const Naive_Real theX, const Naive_Real theY)
     : myXY(theX, theY) {}

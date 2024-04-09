@@ -1,10 +1,11 @@
 #include <naivecgl/Geometry/Point2d.h>
-#include <naivecgl/Math/Constants.h>
+#include <naivecgl/Math/Constant.h>
 #include <naivecgl/Math/Util.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-Point2d::Point2d() : myXY(math::UnsetValue, math::UnsetValue) {}
+Point2d::Point2d()
+    : myXY(math::Constant::UnsetValue, math::Constant::UnsetValue) {}
 
 Point2d::Point2d(const Naive_Real theX, const Naive_Real theY)
     : myXY(theX, theY) {}
@@ -20,13 +21,13 @@ Naive_Bool Point2d::IsValid() const {
 
 Naive_Real Point2d::DistanceTo(const Point2d &theP) const {
   if (!IsValid())
-    return math::UnsetValue;
+    return math::Constant::UnsetValue;
   return (myXY - theP.myXY).norm();
 }
 
 Naive_Real Point2d::DistanceToSquared(const Point2d &theP) const {
   if (!IsValid())
-    return math::UnsetValue;
+    return math::Constant::UnsetValue;
   return (myXY - theP.myXY).squaredNorm();
 }
 
