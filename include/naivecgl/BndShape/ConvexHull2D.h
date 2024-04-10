@@ -30,7 +30,7 @@ public:
   Naive_EXPORT void Add(const Naive_Point2d &thePoint,
                         const Naive_Bool thePerform = false);
 
-  Naive_EXPORT Naive_ConvexHull2D_Status Status() const;
+  Naive_EXPORT Naive_Code Status() const;
 
   Naive_EXPORT Naive_Integer NbConvexPoints() const;
 
@@ -50,7 +50,7 @@ public:
     virtual void Add(const Naive_Point2d &thePoint,
                      const Naive_Bool thePerform) = 0;
 
-    Naive_ConvexHull2D_Status Status() const { return myStatus; }
+    Naive_Code Status() const { return myStatus; }
 
     virtual Naive_Integer NbConvexPoints() const;
 
@@ -70,7 +70,7 @@ public:
     Naive_Point2dList *myPoints;
     Ptrs myPtrs;
     Ptrs myHull;
-    mutable Naive_ConvexHull2D_Status myStatus;
+    mutable Naive_Code myStatus;
   };
 
 private:

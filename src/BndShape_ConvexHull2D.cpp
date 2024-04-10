@@ -5,10 +5,9 @@ Naive_NAMESPACE_BEGIN(bndshape);
 /* ConvexHull2D::Impl */
 
 ConvexHull2D::Impl::Impl(Naive_Point2dList &thePoints)
-    : myPoints(&thePoints), myPtrs{}, myHull{},
-      myStatus(Naive_ConvexHull2D_Failed) {
+    : myPoints(&thePoints), myPtrs{}, myHull{}, myStatus(Naive_Err) {
   if (myPoints->size() < 3) {
-    myStatus = Naive_ConvexHull2D_InsufficientPoint;
+    myStatus = Naive_ConvexHull_InsufficientPoint;
     return;
   }
 
@@ -17,7 +16,7 @@ ConvexHull2D::Impl::Impl(Naive_Point2dList &thePoints)
 
   initPtrs();
 
-  myStatus = Naive_ConvexHull2D_InitDone;
+  myStatus = Naive_Initialized;
 }
 
 ConvexHull2D::Impl::~Impl() {}
@@ -76,12 +75,12 @@ public:
 
 public:
   void Perform() override {
-    if (myStatus != Naive_ConvexHull2D_InitDone)
+    if (myStatus != Naive_Initialized)
       return;
 
     // TODO: Check collinear.
 
-    myStatus = Naive_ConvexHull2D_Done;
+    myStatus = Naive_Ok;
 
     /* Triangle... */
     if (myPtrs.size() == 3) {
@@ -92,7 +91,7 @@ public:
     Ptr a, b, fA, fB;
     extremX(a, b);
 
-    if (myStatus != Naive_ConvexHull2D_Done)
+    if (myStatus != Naive_Ok)
       return;
 
     Ptrs A = rightOf(myPtrs, a, b, fA); /* Right side of line ab. */
@@ -116,7 +115,7 @@ public:
     // |aRealloc|, then set |myStatus| to |Naive_ConvexHull2D_Done|.
 
     myHull.clear();
-    myStatus = Naive_ConvexHull2D_InitDone;
+    myStatus = Naive_Initialized;
 
     if (thePerform)
       Perform();
@@ -144,7 +143,7 @@ private:
 
     /// TODO: Handle this!
     if (a == b) {
-      myStatus = Naive_ConvexHull2D_Failed;
+      myStatus = Naive_Err;
     }
   }
 
@@ -272,9 +271,9 @@ void ConvexHull2D::Add(const Naive_Point2d &thePoint,
   myImpl->Add(thePoint, thePerform);
 }
 
-Naive_ConvexHull2D_Status ConvexHull2D::Status() const {
+Naive_Code ConvexHull2D::Status() const {
   if (!myImpl)
-    return Naive_ConvexHull2D_AlgoNotImplemented;
+    return Naive_NotImplemented;
 
   return myImpl->Status();
 }

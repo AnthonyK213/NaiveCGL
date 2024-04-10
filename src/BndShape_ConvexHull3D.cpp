@@ -5,13 +5,13 @@ Naive_NAMESPACE_BEGIN(bndshape);
 /* ConvexHull3D::Impl */
 
 ConvexHull3D::Impl::Impl(Naive_Point3dList &thePoints)
-    : myPoints(&thePoints), myStatus(Naive_ConvexHull3D_Failed) {
+    : myPoints(&thePoints), myStatus(Naive_Err) {
   if (myPoints->size() < 4) {
-    myStatus = Naive_ConvexHull3D_InsufficientPoint;
+    myStatus = Naive_ConvexHull_InsufficientPoint;
     return;
   }
 
-  myStatus = Naive_ConvexHull3D_InitDone;
+  myStatus = Naive_Initialized;
 }
 
 ConvexHull3D::Impl::~Impl() {}
@@ -33,10 +33,10 @@ public:
 
 public:
   void Perform() override {
-    if (myStatus != Naive_ConvexHull3D_InitDone)
+    if (myStatus != Naive_Initialized)
       return;
 
-    myStatus = Naive_ConvexHull3D_Done;
+    myStatus = Naive_Ok;
   }
 
   void Add(const Naive_Point3d &thePoint,
@@ -107,9 +107,9 @@ void ConvexHull3D::Add(const Naive_Point3d &thePoint,
   myImpl->Add(thePoint, thePerform);
 }
 
-Naive_ConvexHull3D_Status ConvexHull3D::Status() const {
+Naive_Code ConvexHull3D::Status() const {
   if (!myImpl)
-    return Naive_ConvexHull3D_AlgoNotImplemented;
+    return Naive_NotImplemented;
 
   return myImpl->Status();
 }

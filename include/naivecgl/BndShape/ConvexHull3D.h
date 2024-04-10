@@ -31,7 +31,7 @@ public:
   Naive_EXPORT void Add(const Naive_Point3d &thePoint,
                         const Naive_Bool thePerform = false);
 
-  Naive_EXPORT Naive_ConvexHull3D_Status Status() const;
+  Naive_EXPORT Naive_Code Status() const;
 
   Naive_EXPORT Handle_Naive_Poly ConvexHull() const;
 
@@ -45,7 +45,7 @@ public:
     virtual void Add(const Naive_Point3d &thePoint,
                      const Naive_Bool thePerform) = 0;
 
-    Naive_ConvexHull3D_Status Status() const { return myStatus; }
+    Naive_Code Status() const { return myStatus; }
 
     virtual Handle_Naive_Poly ConvexHull() const;
 
@@ -55,7 +55,7 @@ public:
   protected:
     Naive_Point3dList *myPoints;
     Handle_Naive_Mesh myConvexHull;
-    Naive_ConvexHull3D_Status myStatus;
+    mutable Naive_Code myStatus;
   };
 
 private:

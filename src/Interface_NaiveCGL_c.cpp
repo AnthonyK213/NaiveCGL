@@ -277,10 +277,9 @@ void Naive_BndShape_ConvexHull2D_Add(Naive_H theHandle,
   H->Add({thePoint.x, thePoint.y}, thePerform);
 }
 
-Naive_ConvexHull2D_Status
-Naive_BndShape_ConvexHull2D_Status(const Naive_H theHandle) {
+Naive_Code Naive_BndShape_ConvexHull2D_Status(const Naive_H theHandle) {
   if (!theHandle)
-    return Naive_ConvexHull2D_Failed;
+    return Naive_NullException;
 
   Naive_H_CAST(const ::naivecgl::bndshape::ConvexHull2D, theHandle, H);
   return H->Status();

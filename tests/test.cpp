@@ -51,8 +51,8 @@ TEST(NaiveCGL_ConvexHull2D, GetHull) {
   ::naivecgl::bndshape::ConvexHull2D aCH2d{points};
   aCH2d.Perform();
 
-  Naive_ConvexHull2D_Status code = aCH2d.Status();
-  ASSERT_EQ(Naive_ConvexHull2D_Done, code);
+  Naive_Code code = aCH2d.Status();
+  ASSERT_EQ(Naive_Ok, code);
 
   Naive_IntegerList answer{0, 3, 4, 6, 7, 5, 1};
   ASSERT_EQ(answer, aCH2d.ConvexIndices());

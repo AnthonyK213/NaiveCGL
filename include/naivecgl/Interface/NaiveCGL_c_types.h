@@ -11,40 +11,27 @@
 typedef void *Naive_H;
 
 typedef enum {
-  Naive_Ok,
+  Naive_Ok = 0,
   Naive_Err,
+  Naive_Initialized,
+  Naive_NullException,
+  Naive_NotImplemented,
+  Naive_ConvexHull_InsufficientPoint,
+  Naive_ConvexHull_PointsAreCollinear,
+  Naive_ConvexHull_PointsAreCoplanar,
 } Naive_Code;
 
 typedef enum {
-  Naive_ConvexHull2D_Quickhull,
+  Naive_ConvexHull2D_Quickhull = 0,
   Naive_ConvexHull2D_Incremental,
   Naive_ConvexHull2D_GrahamScan,
 } Naive_ConvexHull2D_Algorithm;
 
 typedef enum {
-  Naive_ConvexHull2D_Done,
-  Naive_ConvexHull2D_InitDone,
-  Naive_ConvexHull2D_Failed,
-  Naive_ConvexHull2D_InsufficientPoint,
-  Naive_ConvexHull2D_PointsAreCollinear,
-  Naive_ConvexHull2D_AlgoNotImplemented,
-} Naive_ConvexHull2D_Status;
-
-typedef enum {
-  Naive_ConvexHull3D_Quickhull,
+  Naive_ConvexHull3D_Quickhull = 0,
   Naive_ConvexHull3D_Incremental,
   Naive_ConvexHull3D_DivideAndConquer,
 } Naive_ConvexHull3D_Algorithm;
-
-typedef enum {
-  Naive_ConvexHull3D_Done,
-  Naive_ConvexHull3D_InitDone,
-  Naive_ConvexHull3D_Failed,
-  Naive_ConvexHull3D_InsufficientPoint,
-  Naive_ConvexHull3D_PointsAreCollinear,
-  Naive_ConvexHull3D_PointsAreCoplanar,
-  Naive_ConvexHull3D_AlgoNotImplemented,
-} Naive_ConvexHull3D_Status;
 
 typedef struct {
   double x, y;

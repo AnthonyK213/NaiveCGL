@@ -99,7 +99,7 @@ Naive_CAPI void Naive_BndShape_ConvexHull2D_Add(Naive_H theHandle,
                                                 Naive_Point2d_T thePoint,
                                                 bool thePerform);
 
-Naive_CAPI Naive_ConvexHull2D_Status
+Naive_CAPI Naive_Code
 Naive_BndShape_ConvexHull2D_Status(const Naive_H theHandle);
 
 Naive_CAPI int32_t
