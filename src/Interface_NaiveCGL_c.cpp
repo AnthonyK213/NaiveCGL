@@ -78,6 +78,31 @@ bool Naive_NurbsCurve_TangentAt(const Naive_H theHandle, const double theT,
   return aV.Dump(*theV);
 }
 
+bool Naive_NurbsCurve_DerivativeAt(const Naive_H theHandle, const double theT,
+                                   int32_t theN, int32_t *nbD,
+                                   Naive_Vector3d_T *theD) {
+  if (!theHandle || theN < 0)
+    return false;
+
+  if (!nbD && !theD)
+    return false;
+
+  *nbD = theN + 1;
+
+  if (theD) {
+    Naive_H_CAST(const Naive_NurbsCurve, theHandle, H);
+    Naive_Vector3dList aD{};
+    if (!H->DerivativeAt(theT, theN, aD))
+      return false;
+
+    for (Naive_Integer i = 0; i < *nbD; ++i) {
+      aD[i].Dump(theD[i]);
+    }
+  }
+
+  return true;
+}
+
 void Naive_NurbsCurve_Release(Naive_H theHandle) {
   Naive_H_RELEASE_TRANSIENT(Naive_NurbsCurve, theHandle);
 }
@@ -385,14 +410,6 @@ Naive_H Naive_Tessellation_TetraSphere(const Naive_Point3d_T *theCenter,
   aPoly->IncrementRefCounter();
   return aPoly.get();
 }
-
-/// }}}
-
-/// Release {{{
-
-void Naive_Release_Int32Array(const int32_t *theArray) { delete[] theArray; }
-
-void Naive_Release_DoubleArray(const double *theArray) { delete[] theArray; }
 
 /// }}}
 

@@ -35,6 +35,11 @@ Naive_CAPI bool Naive_NurbsCurve_TangentAt(const Naive_H theHandle,
                                            const double theT,
                                            Naive_Vector3d_T *theV);
 
+Naive_CAPI bool Naive_NurbsCurve_DerivativeAt(const Naive_H theHandle,
+                                              const double theT, int32_t theN,
+                                              int32_t *nbD,
+                                              Naive_Vector3d_T *theD);
+
 Naive_CAPI void Naive_NurbsCurve_Release(Naive_H theHandle);
 
 /// }}}
@@ -131,14 +136,6 @@ Naive_CAPI void Naive_BndShape_EnclosingDisc_Release(Naive_H theHandle);
 
 Naive_CAPI Naive_H Naive_Tessellation_TetraSphere(
     const Naive_Point3d_T *theCenter, double theRadius, int32_t theLevel);
-
-/// }}}
-
-/// Release {{{
-
-Naive_CAPI void Naive_Release_Int32Array(const int32_t *theArray);
-
-Naive_CAPI void Naive_Release_DoubleArray(const double *theArray);
 
 /// }}}
 

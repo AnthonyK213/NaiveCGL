@@ -94,7 +94,10 @@ Naive_Point3d NurbsCurve::PointAt(const Naive_Real theT) const {
 }
 
 Naive_Vector3d NurbsCurve::TangentAt(const Naive_Real theT) const {
-  return Naive_Vector3d::Unset();
+  Naive_Vector3dList aD{};
+  if (!DerivativeAt(theT, 1, aD))
+    return Naive_Vector3d::Unset();
+  return aD[1];
 }
 
 Naive_Bool NurbsCurve::DerivativeAt(const Naive_Real theT,
