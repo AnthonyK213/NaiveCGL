@@ -235,8 +235,8 @@ void Naive_Poly_Release(Naive_H theHandle) {
 
 /// BndShape {{{
 
-Naive_H Naive_BndShape_ConvexHull2D_New(const Naive_Point2d_T *thePoints,
-                                        int32_t nbPoints,
+Naive_H Naive_BndShape_ConvexHull2D_New(int32_t nbPoints,
+                                        const Naive_Point2d_T *thePoints,
                                         Naive_ConvexHull2D_Algorithm theAlgo) {
   if (!thePoints || nbPoints < 0)
     return nullptr;

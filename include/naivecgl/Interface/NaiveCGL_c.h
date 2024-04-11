@@ -86,7 +86,7 @@ Naive_CAPI void Naive_Poly_Release(Naive_H theHandle);
 /// BndShape {{{
 
 Naive_CAPI Naive_H Naive_BndShape_ConvexHull2D_New(
-    const Naive_Point2d_T *thePoints, int32_t nbPoints,
+    int32_t nbPoints, const Naive_Point2d_T *thePoints,
     Naive_ConvexHull2D_Algorithm theAlgo);
 
 Naive_CAPI void
@@ -109,7 +109,7 @@ Naive_CAPI Naive_Code Naive_BndShape_ConvexHull2D_ConvexIndices(
     const Naive_H theHandle, int32_t *theConvexIndices);
 
 Naive_CAPI Naive_Code Naive_BndShape_ConvexHull2D_ConvexPoints(
-    const Naive_H theHandle, Naive_Point2d_T *theConvexIndices);
+    const Naive_H theHandle, Naive_Point2d_T *theConvexPoints);
 
 Naive_CAPI void Naive_BndShape_ConvexHull2D_Release(Naive_H theHandle);
 
