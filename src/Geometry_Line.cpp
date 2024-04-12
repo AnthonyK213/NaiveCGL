@@ -23,7 +23,7 @@ Naive_Vector3d Line::UnitTangent() const {
 
 Naive_Bool Line::IsValid() const {
   return myFrom.IsValid() && myFrom.IsValid() &&
-         Length() > math::Constant::ZeroTolerance;
+         Length() > math::Constant::ZeroTolerance();
 }
 
 Naive_Real Line::DistanceTo(const Naive_Point3d &thePnt,

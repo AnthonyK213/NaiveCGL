@@ -7,7 +7,8 @@
 Naive_NAMESPACE_BEGIN(geometry);
 
 Point3d::Point3d()
-    : myXYZ(math::Constant::UnsetValue, math::Constant::UnsetValue, math::Constant::UnsetValue) {}
+    : myXYZ(math::Constant::UnsetValue(), math::Constant::UnsetValue(),
+            math::Constant::UnsetValue()) {}
 
 Point3d::Point3d(const Naive_Real theX, const Naive_Real theY,
                  const Naive_Real theZ)
@@ -36,13 +37,13 @@ Naive_Bool Point3d::IsValid() const {
 
 Naive_Real Point3d::DistanceTo(const Point3d &thePoint) const {
   if (!IsValid() || !thePoint.IsValid())
-    return math::Constant::UnsetValue;
+    return math::Constant::UnsetValue();
   return (myXYZ - thePoint.myXYZ).norm();
 }
 
 Naive_Real Point3d::DistanceToSquared(const Point3d &thePoint) const {
   if (!IsValid() || !thePoint.IsValid())
-    return math::Constant::UnsetValue;
+    return math::Constant::UnsetValue();
   return (myXYZ - thePoint.myXYZ).squaredNorm();
 }
 

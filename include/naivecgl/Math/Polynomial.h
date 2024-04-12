@@ -11,7 +11,11 @@ class Polynomial {
 public:
   Naive_EXPORT explicit Polynomial(const Naive_RealList &theA);
 
+  Naive_EXPORT static const Polynomial &Unset();
+
   Naive_EXPORT static const Polynomial &Zero();
+
+  Naive_EXPORT Naive_Bool IsValid() const;
 
   Naive_EXPORT Naive_Bool IsZero() const;
 
@@ -43,7 +47,7 @@ public:
 
   Naive_EXPORT Polynomial Multiplied(const Polynomial &theOther) const;
 
-  Naive_EXPORT void Divide(const Naive_Real theT);
+  Naive_EXPORT Naive_Bool Divide(const Naive_Real theT);
 
   Naive_EXPORT Polynomial Divided(const Naive_Real theT) const;
 

@@ -81,8 +81,9 @@ public:
 
   Naive_EXPORT Naive_Bool Reverse();
 
-  Naive_EXPORT Naive_Bool EpsilonEquals(
-      const Vector3d &theVec, const Naive_Real theE = math::Constant::Epsilon);
+  Naive_EXPORT Naive_Bool
+  EpsilonEquals(const Vector3d &theVec,
+                const Naive_Real theE = math::Constant::Epsilon());
 
   Naive_EXPORT Naive_Bool Equals(const Vector3d &theVec);
 

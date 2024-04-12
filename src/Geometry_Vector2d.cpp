@@ -5,7 +5,7 @@
 Naive_NAMESPACE_BEGIN(geometry);
 
 Vector2d::Vector2d()
-    : myXY(math::Constant::UnsetValue, math::Constant::UnsetValue) {}
+    : myXY(math::Constant::UnsetValue(), math::Constant::UnsetValue()) {}
 
 Vector2d::Vector2d(const Naive_Real theX, const Naive_Real theY)
     : myXY(theX, theY) {}

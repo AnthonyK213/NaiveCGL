@@ -6,8 +6,8 @@
 Naive_NAMESPACE_BEGIN(geometry);
 
 Vector3d::Vector3d()
-    : myXYZ(math::Constant::UnsetValue, math::Constant::UnsetValue,
-            math::Constant::UnsetValue) {}
+    : myXYZ(math::Constant::UnsetValue(), math::Constant::UnsetValue(),
+            math::Constant::UnsetValue()) {}
 
 Vector3d::Vector3d(const Naive_Point3d &thePoint) : myXYZ(thePoint.XYZ()) {}
 
@@ -26,22 +26,22 @@ Naive_Bool Vector3d::IsValid() const {
 }
 
 Naive_Bool Vector3d::IsUnitVector() const {
-  return ::std::abs(Length() - 1.) <= math::Constant::Epsilon;
+  return ::std::abs(Length() - 1.) <= math::Constant::Epsilon();
 }
 
 Naive_Bool Vector3d::IsZero() const {
-  return myXYZ.isZero(math::Constant::ZeroTolerance);
+  return myXYZ.isZero(math::Constant::ZeroTolerance());
 }
 
 Naive_Real Vector3d::Length() const {
   if (!IsValid())
-    return math::Constant::UnsetValue;
+    return math::Constant::UnsetValue();
   return myXYZ.norm();
 }
 
 Naive_Real Vector3d::SquareLength() const {
   if (!IsValid())
-    return math::Constant::UnsetValue;
+    return math::Constant::UnsetValue();
   return myXYZ.squaredNorm();
 }
 
@@ -115,13 +115,13 @@ Vector3d Vector3d::Multiplied(const Naive_Real theT) const {
 }
 
 void Vector3d::Divide(const Naive_Real theT) {
-  if (!IsValid() || ::std::abs(theT) < math::Constant::ZeroTolerance)
+  if (!IsValid() || ::std::abs(theT) < math::Constant::ZeroTolerance())
     return;
   myXYZ /= theT;
 }
 
 Vector3d Vector3d::Divided(const Naive_Real theT) const {
-  if (!IsValid() || ::std::abs(theT) < math::Constant::ZeroTolerance)
+  if (!IsValid() || ::std::abs(theT) < math::Constant::ZeroTolerance())
     return Unset();
   return {myXYZ / theT};
 }
@@ -139,7 +139,7 @@ Vector3d Vector3d::Negated() const {
 
 Naive_Real Vector3d::Dot(const Vector3d &theVec) const {
   if (!IsValid() || !theVec.IsValid())
-    return math::Constant::UnsetValue;
+    return math::Constant::UnsetValue();
   return myXYZ.dot(theVec.myXYZ);
 }
 

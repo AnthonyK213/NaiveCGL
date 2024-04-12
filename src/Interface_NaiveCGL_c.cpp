@@ -397,7 +397,7 @@ void Naive_BndShape_EnclosingDisc_Release(Naive_H theHandle) {
 
 Naive_H Naive_Tessellation_TetraSphere(const Naive_Point3d_T *theCenter,
                                        double theRadius, int32_t theLevel) {
-  if (!theCenter || theRadius <= ::naivecgl::math::Constant::ZeroTolerance ||
+  if (!theCenter || theRadius <= ::naivecgl::math::Constant::ZeroTolerance() ||
       theLevel < 0)
     return nullptr;
 
