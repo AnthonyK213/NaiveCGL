@@ -3,21 +3,27 @@
 
 #include "Util.h"
 
-#include <vector>
-
 Naive_NAMESPACE_BEGIN(math);
 
 class Polynomial {
 public:
+  Naive_EXPORT Polynomial();
+
   Naive_EXPORT explicit Polynomial(const Naive_RealList &theA);
 
   Naive_EXPORT static const Polynomial &Unset();
 
   Naive_EXPORT static const Polynomial &Zero();
 
+  Naive_EXPORT static const Polynomial &Identity();
+
   Naive_EXPORT Naive_Bool IsValid() const;
 
   Naive_EXPORT Naive_Bool IsZero() const;
+
+  Naive_EXPORT Naive_Bool IsIdentity() const;
+
+  Naive_EXPORT Naive_Bool IsEqual(const Polynomial &theOther) const;
 
   Naive_EXPORT Naive_Integer Degree() const;
 

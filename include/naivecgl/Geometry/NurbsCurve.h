@@ -5,6 +5,7 @@
 #include "Vector3d.h"
 
 #include <naivecgl/Common/Handle.h>
+#include <naivecgl/Math/Polynomial.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
@@ -48,6 +49,12 @@ public:
 
 private:
   Naive_Bool isValid() const;
+
+  Naive_Bool derivativeAt(const Naive_Real theT, const Naive_Integer theN,
+                          const Naive_Integer theI,
+                          const math::Polynomial &theA,
+                          const math::Polynomial &theW,
+                          Naive_Vector3dList &theD) const;
 
 private:
   Naive_Bool myRational;

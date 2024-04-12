@@ -81,15 +81,15 @@ Naive_Point3d NurbsCurve::PointAt(const Naive_Real theT) const {
   // TODO: Caching.
 
   Naive_XYZ aXYZ(0., 0., 0.);
-  Naive_Real aR = 0.;
+  Naive_Real aW = 0.;
   for (Naive_Integer i = (::std::max)(0, iSpan - myDegree); i <= iSpan; ++i) {
-    Naive_Real aN = myWeights[i] *
-                    math::Nurbs::BasisFn(myFlatKnots, i, myDegree, theT, iSpan);
+    Naive_Real aN = myWeights[i] * math::Nurbs::BasisFnValue(
+                                       myFlatKnots, i, myDegree, theT, iSpan);
     aXYZ += aN * myPoles[i].XYZ();
-    aR += aN;
+    aW += aN;
   }
 
-  aXYZ /= aR;
+  aXYZ /= aW;
   return aXYZ;
 }
 
@@ -103,6 +103,19 @@ Naive_Vector3d NurbsCurve::TangentAt(const Naive_Real theT) const {
 Naive_Bool NurbsCurve::DerivativeAt(const Naive_Real theT,
                                     const Naive_Integer theN,
                                     Naive_Vector3dList &theD) const {
+  if (!isValid())
+    return false;
+
+  if (theN < 0)
+    return false;
+
+  Naive_Integer iSpan = math::Nurbs::FindSpan(myKnots, mySpanIdx, theT);
+  if (iSpan < 0)
+    return false;
+
+  theD.clear();
+  theD.reserve(theN + 1);
+
   return true;
 }
 

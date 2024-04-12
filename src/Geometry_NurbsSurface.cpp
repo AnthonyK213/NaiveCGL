@@ -89,8 +89,8 @@ Naive_Point3d NurbsSurface::PointAt(const Naive_Real theU,
     for (Naive_Integer j = jBegin; j <= iVSpan; ++j) {
       Naive_Real aN =
           myWeights[i][j] *
-          math::Nurbs::BasisFn(myUFlatKnots, i, myUDegree, theU, iUSpan) *
-          math::Nurbs::BasisFn(myVFlatKnots, j, myVDegree, theV, iVSpan);
+          math::Nurbs::BasisFnValue(myUFlatKnots, i, myUDegree, theU, iUSpan) *
+          math::Nurbs::BasisFnValue(myVFlatKnots, j, myVDegree, theV, iVSpan);
       aXYZ += aN * myPoles[i][j].XYZ();
       aR += aN;
     }

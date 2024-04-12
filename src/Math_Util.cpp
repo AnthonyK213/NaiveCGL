@@ -49,4 +49,20 @@ Naive_Integer Util::Factorial(Naive_Integer theN) {
   return aRes;
 }
 
+Naive_Integer Util::Permutation(Naive_Integer theN, Naive_Integer theR) {
+  if (theN < 0 || theR < 0 || theN < theR)
+    return 0;
+
+  Naive_Integer aRes = 1;
+  for (Naive_Integer i = theN - theR + 1; i <= theN; ++i) {
+    aRes *= i;
+  }
+
+  return aRes;
+}
+
+Naive_Integer Util::Combination(Naive_Integer theN, Naive_Integer theR) {
+  return Permutation(theN, theR) / Factorial(theR);
+}
+
 Naive_NAMESPACE_END(math);

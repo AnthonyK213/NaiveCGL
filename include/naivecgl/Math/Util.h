@@ -18,6 +18,12 @@ public:
   Naive_EXPORT static Naive_Real ToRadians(Naive_Real theDegrees);
 
   Naive_EXPORT static Naive_Integer Factorial(Naive_Integer theN);
+
+  Naive_EXPORT static Naive_Integer Permutation(Naive_Integer theN,
+                                                Naive_Integer theR);
+
+  Naive_EXPORT static Naive_Integer Combination(Naive_Integer theN,
+                                                Naive_Integer theR);
 };
 
 Naive_NAMESPACE_END(math);

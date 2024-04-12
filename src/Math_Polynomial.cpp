@@ -2,6 +2,8 @@
 
 Naive_NAMESPACE_BEGIN(math);
 
+Polynomial::Polynomial() : myA() {}
+
 Polynomial::Polynomial(const Naive_RealList &theA) : myA(theA) {}
 
 const Polynomial &Polynomial::Unset() {
@@ -11,6 +13,11 @@ const Polynomial &Polynomial::Unset() {
 
 const Polynomial &Polynomial::Zero() {
   static Polynomial aP({0.});
+  return aP;
+}
+
+const Polynomial &Polynomial::Identity() {
+  static Polynomial aP({1.});
   return aP;
 }
 
@@ -26,9 +33,24 @@ Naive_Bool Polynomial::IsValid() const {
   return true;
 }
 
-Naive_Bool Polynomial::IsZero() const {
-  // TODO: Is zero?
-  return false;
+Naive_Bool Polynomial::IsZero() const { return IsEqual(Zero()); }
+
+Naive_Bool Polynomial::IsIdentity() const { return IsEqual(Identity()); }
+
+Naive_Bool Polynomial::IsEqual(const Polynomial &theOther) const {
+  if (!IsValid() || !theOther.IsValid())
+    return false;
+
+  if (Degree() != theOther.Degree())
+    return false;
+
+  for (Naive_Integer i = 0; i <= Degree(); ++i) {
+    // FIXME: Equality of float?
+    if (Coefficient(i) != theOther.Coefficient(i))
+      return false;
+  }
+
+  return true;
 }
 
 Naive_Integer Polynomial::Degree() const {
@@ -45,8 +67,8 @@ Naive_Real Polynomial::Evaluate(const Naive_Real theT) const {
   if (!IsValid())
     return Constant::UnsetValue();
 
-  Naive_Real aRes = 0.;
-  for (Naive_Integer i = Degree(); i >= 0; --i) {
+  Naive_Real aRes = Coefficient(Degree());
+  for (Naive_Integer i = Degree() - 1; i >= 0; --i) {
     aRes *= theT;
     aRes += Coefficient(i);
   }
@@ -69,7 +91,7 @@ Polynomial Polynomial::Derivative(const Naive_Integer theN) const {
 
   for (Naive_Integer i = theN; i <= Degree(); ++i) {
     Naive_Integer k = i;
-    for (Naive_Integer j = 1; j <= theN; ++j) {
+    for (Naive_Integer j = 1; j < theN; ++j) {
       k *= i - j;
     }
     a.push_back(myA[i] * static_cast<Naive_Real>(k));
@@ -128,7 +150,8 @@ Polynomial Polynomial::Subtracted(const Polynomial &theOther) const {
 
 void Polynomial::Multiply(const Naive_Real theT) {
   if (theT == 0.)
-    myA = {};
+    myA = {0.};
+
   for (Naive_Integer i = 0; i <= Degree(); ++i) {
     myA[i] *= theT;
   }
@@ -143,7 +166,17 @@ Polynomial Polynomial::Multiplied(const Naive_Real theT) const {
 }
 
 void Polynomial::Multiply(const Polynomial &theOther) {
-  // TODO
+  if (!IsValid() || !theOther.IsValid())
+    return;
+
+  Naive_RealList anA(Degree() + theOther.Degree() + 1, 0.0);
+  for (Naive_Integer i = 0; i <= Degree(); ++i) {
+    for (Naive_Integer j = 0; j <= theOther.Degree(); ++j) {
+      anA[i + j] += Coefficient(i) * theOther.Coefficient(j);
+    }
+  }
+
+  ::std::swap(myA, anA);
 }
 
 Polynomial Polynomial::Multiplied(const Polynomial &theOther) const {
@@ -162,7 +195,7 @@ Naive_Bool Polynomial::Divide(const Naive_Real theT) {
     return false;
 
   for (Naive_Integer i = 0; i <= Degree(); ++i) {
-    myA[i] *= theT;
+    myA[i] /= theT;
   }
 
   return true;
