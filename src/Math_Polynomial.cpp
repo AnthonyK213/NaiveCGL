@@ -7,17 +7,17 @@ Polynomial::Polynomial() : myA() {}
 Polynomial::Polynomial(const Naive_RealList &theA) : myA(theA) {}
 
 const Polynomial &Polynomial::Unset() {
-  static Polynomial aP({});
+  static Polynomial aP(Naive_RealList{});
   return aP;
 }
 
 const Polynomial &Polynomial::Zero() {
-  static Polynomial aP({0.});
+  static Polynomial aP(Naive_RealList{0.});
   return aP;
 }
 
 const Polynomial &Polynomial::Identity() {
-  static Polynomial aP({1.});
+  static Polynomial aP(Naive_RealList{1.});
   return aP;
 }
 

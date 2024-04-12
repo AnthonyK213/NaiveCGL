@@ -52,8 +52,10 @@ private:
 
   Naive_Bool derivativeAt(const Naive_Real theT, const Naive_Integer theN,
                           const Naive_Integer theI,
-                          const math::Polynomial &theA,
-                          const math::Polynomial &theW,
+                          const Naive_Integer thePBegin,
+                          const Naive_Integer thePEnd,
+                          const Naive_List<math::Polynomial> &theA,
+                          Naive_RealList &theWBuf,
                           Naive_Vector3dList &theD) const;
 
 private:
