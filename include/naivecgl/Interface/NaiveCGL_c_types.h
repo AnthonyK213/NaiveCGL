@@ -35,14 +35,16 @@ typedef enum {
 
 typedef struct {
   double x, y;
-} Naive_Vector2d_T;
+} Naive_XY_T;
 
 typedef struct {
   double x, y, z;
-} Naive_Vector3d_T;
+} Naive_XYZ_T;
 
-typedef Naive_Vector2d_T Naive_Point2d_T;
-typedef Naive_Vector3d_T Naive_Point3d_T;
+typedef Naive_XY_T Naive_Vector2d_T;
+typedef Naive_XY_T Naive_Point2d_T;
+typedef Naive_XYZ_T Naive_Vector3d_T;
+typedef Naive_XYZ_T Naive_Point3d_T;
 
 typedef struct {
   double t0, t1;

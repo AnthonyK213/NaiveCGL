@@ -71,26 +71,10 @@ Naive_Real NurbsCurve::LastParameter() const {
 }
 
 Naive_Point3d NurbsCurve::PointAt(const Naive_Real theT) const {
-  if (!isValid())
+  Naive_Vector3dList aD{};
+  if (!DerivativeAt(theT, 0, aD))
     return Naive_Point3d::Unset();
-
-  Naive_Integer iSpan = math::Nurbs::FindSpan(myKnots, mySpanIdx, theT);
-  if (iSpan < 0)
-    return Naive_Point3d::Unset();
-
-  // TODO: Caching.
-
-  Naive_XYZ aXYZ(0., 0., 0.);
-  Naive_Real aW = 0.;
-  for (Naive_Integer i = (::std::max)(0, iSpan - Degree()); i <= iSpan; ++i) {
-    Naive_Real aN = myWeights[i] * math::Nurbs::BasisFnValue(
-                                       myFlatKnots, i, Degree(), theT, iSpan);
-    aXYZ += aN * myPoles[i].XYZ();
-    aW += aN;
-  }
-
-  aXYZ /= aW;
-  return aXYZ;
+  return aD[0].XYZ();
 }
 
 Naive_Vector3d NurbsCurve::TangentAt(const Naive_Real theT) const {
@@ -118,49 +102,36 @@ Naive_Bool NurbsCurve::DerivativeAt(const Naive_Real theT,
   Naive_List<math::Polynomial> anA{};
   Naive_Integer pBegin = (::std::max)(0, iSpan - Degree());
   Naive_Integer pEnd = iSpan;
-  anA.reserve(pEnd = pBegin + 1);
+  anA.reserve(pEnd + pBegin + 1);
   for (Naive_Integer i = pBegin; i <= pEnd; ++i) {
     auto b = math::Nurbs::BasisFn(myFlatKnots, i, Degree(), iSpan)
                  .Multiplied(myWeights[i]);
-    anA.push_back(b);
+    anA.emplace_back(::std::move(b));
   }
 
-  if (!derivativeAt(theT, theN, 0, pBegin, pEnd, anA, aWBuf, theD))
-    return false;
+  for (Naive_Integer I = 0; I <= theN; ++I) {
+    Naive_XYZ A{0., 0., 0.};
+    Naive_Real W = 0.0;
+    for (Naive_Integer k = pBegin; k <= pEnd; ++k) {
+      Naive_Real N = anA[k - pBegin].Derivative(I).Evaluate(theT);
+      A += N * myPoles[k].XYZ();
+      W += N;
+    }
+
+    aWBuf[I] = W;
+
+    for (Naive_Integer k = 1; k <= I; ++k) {
+      Naive_XYZ M = static_cast<Naive_Real>(math::Util::Combination(I, k)) *
+                    aWBuf[k] * theD[I - k].XYZ();
+      A -= M;
+    }
+
+    theD[I].ChangeXYZ() = A / aWBuf[0];
+  }
 
   return true;
 }
 
 Naive_Bool NurbsCurve::isValid() const { return myDegree > 0; }
-
-Naive_Bool NurbsCurve::derivativeAt(
-    const Naive_Real theT, const Naive_Integer theN, const Naive_Integer theI,
-    const Naive_Integer thePBegin, const Naive_Integer thePEnd,
-    const Naive_List<math::Polynomial> &theA, Naive_RealList &theWBuf,
-    Naive_Vector3dList &theD) const {
-  if (theI > theN)
-    return true;
-
-  Naive_XYZ A{0., 0., 0.};
-  Naive_Real W = 0.0;
-  for (Naive_Integer i = thePBegin; i <= thePEnd; ++i) {
-    Naive_Real N = theA[i - thePBegin].Derivative(theI).Evaluate(theT);
-    A += N * myPoles[i].XYZ();
-    W += N;
-  }
-
-  theWBuf[theI] = W;
-
-  for (Naive_Integer i = 1; i <= theI; ++i) {
-    Naive_XYZ M = static_cast<Naive_Real>(math::Util::Combination(theI, i)) *
-                  theWBuf[i] * theD[theI - i].XYZ();
-    A -= M;
-  }
-
-  theD[theI].ChangeXYZ() = A / theWBuf[0];
-
-  return derivativeAt(theT, theN, theI + 1, thePBegin, thePEnd, theA, theWBuf,
-                      theD);
-}
 
 Naive_NAMESPACE_END(geometry);

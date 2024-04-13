@@ -50,14 +50,6 @@ public:
 private:
   Naive_Bool isValid() const;
 
-  Naive_Bool derivativeAt(const Naive_Real theT, const Naive_Integer theN,
-                          const Naive_Integer theI,
-                          const Naive_Integer thePBegin,
-                          const Naive_Integer thePEnd,
-                          const Naive_List<math::Polynomial> &theA,
-                          Naive_RealList &theWBuf,
-                          Naive_Vector3dList &theD) const;
-
 private:
   Naive_Bool myRational;
   Naive_Bool myPeriodic;
