@@ -100,6 +100,12 @@ Naive_Point3d NurbsSurface::PointAt(const Naive_Real theU,
   return aXYZ;
 }
 
+Naive_Bool NurbsSurface::Evaluate(const Naive_Real theU, const Naive_Real theV,
+                                  const Naive_Integer theN,
+                                  Naive_Vector3dList &theD) {
+  return true;
+}
+
 Naive_Bool NurbsSurface::isValid() const {
   return myUDegree > 0 && myVDegree > 0;
 }

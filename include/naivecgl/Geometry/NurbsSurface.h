@@ -18,15 +18,19 @@ public:
       const Naive_IntegerList &theUMults, const Naive_IntegerList &theVMults,
       const Naive_Integer theUDegree, const Naive_Integer theVDegree);
 
-  Naive_Integer UDegree() const { return myUDegree; }
+  Naive_EXPORT Naive_Integer UDegree() const { return myUDegree; }
 
-  Naive_Integer VDegree() const { return myVDegree; }
+  Naive_EXPORT Naive_Integer VDegree() const { return myVDegree; }
 
   Naive_EXPORT Naive_Bool Bounds(Naive_Real &theU0, Naive_Real &theU1,
                                  Naive_Real &theV0, Naive_Real &theV1) const;
 
   Naive_EXPORT Naive_Point3d PointAt(const Naive_Real theU,
                                      const Naive_Real theV) const;
+
+  Naive_EXPORT Naive_Bool Evaluate(const Naive_Real theU, const Naive_Real theV,
+                                   const Naive_Integer theN,
+                                   Naive_Vector3dList &theD);
 
 private:
   Naive_Bool isValid() const;
