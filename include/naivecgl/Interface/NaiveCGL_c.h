@@ -63,6 +63,12 @@ Naive_CAPI bool Naive_NurbsSurface_PointAt(const Naive_H theHandle,
                                            const double theU, const double theV,
                                            Naive_Point3d_T *theP);
 
+Naive_CAPI bool Naive_NurbsSurface_Evaluate(const Naive_H theHandle,
+                                            const double theU,
+                                            const double theV, int32_t theN,
+                                            int32_t *nbD,
+                                            Naive_Vector3d_T *theD);
+
 Naive_CAPI void Naive_NurbsSurface_Release(Naive_H theHandle);
 
 /// }}}

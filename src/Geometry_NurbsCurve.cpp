@@ -100,12 +100,11 @@ Naive_Bool NurbsCurve::DerivativeAt(const Naive_Real theT,
   Naive_RealList aWBuf(theN + 1, math::Constant::UnsetValue());
   theD.resize(theN + 1, Naive_Vector3d::Unset());
   Naive_List<math::Polynomial> anA{};
+  anA.reserve(Degree() + 1);
   Naive_Integer pBegin = (::std::max)(0, iSpan - Degree());
   Naive_Integer pEnd = iSpan;
-  anA.reserve(pEnd + pBegin + 1);
   for (Naive_Integer i = pBegin; i <= pEnd; ++i) {
-    auto b = math::Nurbs::BasisFn(myFlatKnots, i, Degree(), iSpan)
-                 .Multiplied(myWeights[i]);
+    auto b = math::Nurbs::BasisFn(myFlatKnots, i, Degree(), iSpan);
     anA.emplace_back(::std::move(b));
   }
 
@@ -113,7 +112,8 @@ Naive_Bool NurbsCurve::DerivativeAt(const Naive_Real theT,
     Naive_XYZ A{0., 0., 0.};
     Naive_Real W = 0.0;
     for (Naive_Integer k = pBegin; k <= pEnd; ++k) {
-      Naive_Real N = anA[k - pBegin].Derivative(I).Evaluate(theT);
+      Naive_Real N =
+          anA[k - pBegin].Derivative(I).Evaluate(theT) * myWeights[k];
       A += N * myPoles[k].XYZ();
       W += N;
     }
@@ -121,9 +121,8 @@ Naive_Bool NurbsCurve::DerivativeAt(const Naive_Real theT,
     aWBuf[I] = W;
 
     for (Naive_Integer k = 1; k <= I; ++k) {
-      Naive_XYZ M = static_cast<Naive_Real>(math::Util::Combination(I, k)) *
-                    aWBuf[k] * theD[I - k].XYZ();
-      A -= M;
+      A -= static_cast<Naive_Real>(math::Util::Combination(I, k)) * aWBuf[k] *
+           theD[I - k].XYZ();
     }
 
     theD[I].ChangeXYZ() = A / aWBuf[0];

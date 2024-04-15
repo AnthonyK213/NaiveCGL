@@ -30,7 +30,7 @@ public:
 
   Naive_EXPORT Naive_Bool Evaluate(const Naive_Real theU, const Naive_Real theV,
                                    const Naive_Integer theN,
-                                   Naive_Vector3dList &theD);
+                                   Naive_Vector3dList &theD) const;
 
 private:
   Naive_Bool isValid() const;

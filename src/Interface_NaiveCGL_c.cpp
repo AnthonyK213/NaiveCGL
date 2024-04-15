@@ -173,6 +173,31 @@ bool Naive_NurbsSurface_PointAt(const Naive_H theHandle, const double theU,
   return aP.Dump(*theP);
 }
 
+bool Naive_NurbsSurface_Evaluate(const Naive_H theHandle, const double theU,
+                                 const double theV, int32_t theN, int32_t *nbD,
+                                 Naive_Vector3d_T *theD) {
+  if (!theHandle || theN < 0)
+    return false;
+
+  if (!nbD && !theD)
+    return false;
+
+  *nbD = (theN + 1) * (theN + 2) >> 1;
+
+  if (theD) {
+    Naive_H_CAST(const Naive_NurbsSurface, theHandle, H);
+    Naive_Vector3dList aD{};
+    if (!H->Evaluate(theU, theV, theN, aD))
+      return false;
+
+    for (Naive_Integer i = 0; i < *nbD; ++i) {
+      aD[i].Dump(theD[i]);
+    }
+  }
+
+  return true;
+}
+
 void Naive_NurbsSurface_Release(Naive_H theHandle) {
   Naive_H_RELEASE_TRANSIENT(Naive_NurbsSurface, theHandle);
 }

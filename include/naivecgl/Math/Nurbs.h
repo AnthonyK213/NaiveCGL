@@ -18,10 +18,6 @@ public:
   FindSpan(const Naive_RealList &theKnots, const Naive_IntegerList &theSpanIdx,
            const Naive_Real theT);
 
-  Naive_EXPORT static Naive_Real
-  BasisFnValue(const Naive_RealList &theFlatKnots, Naive_Integer theI,
-               Naive_Integer theP, Naive_Real theT, Naive_Integer theSpan);
-
   Naive_EXPORT static Polynomial BasisFn(const Naive_RealList &theFlatKnots,
                                          Naive_Integer theI, Naive_Integer theP,
                                          Naive_Integer theSpan);

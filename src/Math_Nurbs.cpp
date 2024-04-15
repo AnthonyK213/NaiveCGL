@@ -90,26 +90,6 @@ Naive_Integer Nurbs::FindSpan(const Naive_RealList &theKnots,
   return theSpanIdx[k] - 1;
 }
 
-Naive_Real Nurbs::BasisFnValue(const Naive_RealList &theFlatKnots,
-                               Naive_Integer theI, Naive_Integer theP,
-                               Naive_Real theT, Naive_Integer theSpan) {
-  // if (theP == 0)
-  //   return theSpan == theI ? 1. : 0.;
-
-  // Naive_Real aF0 = theFlatKnots[theI + theP] - theFlatKnots[theI];
-  // Naive_Real aG0 = theFlatKnots[theI + theP + 1] - theFlatKnots[theI + 1];
-  // Naive_Real aF =
-  //     Util::EpsilonEquals(aF0, 0.) ? 0. : (theT - theFlatKnots[theI]) / aF0;
-  // Naive_Real aG = Util::EpsilonEquals(aG0, 0.)
-  //                     ? 0.
-  //                     : (theFlatKnots[theI + theP + 1] - theT) / aG0;
-
-  // return aF * BasisFnValue(theFlatKnots, theI, theP - 1, theT, theSpan) +
-  //        aG * BasisFnValue(theFlatKnots, theI + 1, theP - 1, theT, theSpan);
-
-  return BasisFn(theFlatKnots, theI, theP, theSpan).Evaluate(theT);
-}
-
 Polynomial Nurbs::BasisFn(const Naive_RealList &theFlatKnots,
                           Naive_Integer theI, Naive_Integer theP,
                           Naive_Integer theSpan) {
