@@ -93,11 +93,11 @@ Naive_Bool NurbsCurve::DerivativeAt(const Naive_Real theT,
   if (theN < 0)
     return false;
 
-  Naive_Integer iSpan = math::Nurbs::FindSpan(myKnots, mySpanIdx, theT);
+  Naive_Integer iSpan = math::Nurbs::FindFlatSpan(myKnots, mySpanIdx, theT);
   if (iSpan < 0)
     return false;
 
-  Naive_RealList aWBuf(theN + 1, math::Constant::UnsetValue());
+  Naive_RealList aWBuf(theN + 1, math::Constant::UnsetReal());
   theD.resize(theN + 1, Naive_Vector3d::Unset());
   Naive_List<math::Polynomial> anA{};
   anA.reserve(Degree() + 1);
@@ -127,6 +127,45 @@ Naive_Bool NurbsCurve::DerivativeAt(const Naive_Real theT,
 
     theD[I].ChangeXYZ() = A / aWBuf[0];
   }
+
+  return true;
+}
+
+Naive_Bool NurbsCurve::IncreaseMultiplicity(const Naive_Integer theI,
+                                            const Naive_Integer theM) {
+  if (theI < 0 || theI >= myMults.size() || theM < 0)
+    return false;
+
+  if (theM == 0)
+    return true;
+
+  if (theI != 0 && theI != myMults.size() - 1) {
+    if (theM + myMults[theI] > myDegree)
+      return false;
+  } else if (theM + myMults[theI] > myDegree + 1)
+    return false;
+
+  // TODO: Implementation.
+
+  return true;
+}
+
+Naive_Bool NurbsCurve::InsertKnot(const Naive_Real theU,
+                                  const Naive_Integer theM) {
+  if (theM <= 0 || theM > Degree())
+    return false;
+
+  Naive_Integer iSpan = math::Nurbs::FindSpan(myKnots, theU);
+  if (iSpan < 0)
+    return false;
+
+  // FIXME: Float equality?
+
+  if (theU == myKnots[iSpan])
+    return IncreaseMultiplicity(iSpan, theM);
+
+  if (theU == myKnots[iSpan + 1])
+    return IncreaseMultiplicity(iSpan + 1, theM);
 
   return true;
 }

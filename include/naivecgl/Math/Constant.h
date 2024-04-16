@@ -29,13 +29,13 @@ public:
 
   static constexpr Naive_Real TwoPI() { return Tau(); }
 
-  static constexpr Naive_Real UnsetValue() { return -1.23432101234321e+308; }
-
   static constexpr Naive_Real ZeroTolerance() {
     return 2.3283064365386962890625e-10;
   }
 
-  static constexpr Naive_ShortReal UnsetSingle() { return -1.234321e+38f; }
+  static constexpr Naive_Real UnsetReal() { return -1.23432101234321e+308; }
+
+  static constexpr Naive_ShortReal UnsetShortReal() { return -1.234321e+38f; }
 
   static constexpr Naive_Integer UnsetIntIndex() { return INT_MIN + 1; }
 };

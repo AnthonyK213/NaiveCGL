@@ -26,7 +26,7 @@ Naive_Bool Polynomial::IsValid() const {
     return false;
 
   for (Naive_Integer i = 0; i <= Degree(); ++i) {
-    if (!Util::IsValidDouble(Coefficient(i)))
+    if (!Util::IsValidReal(Coefficient(i)))
       return false;
   }
 
@@ -65,7 +65,7 @@ Naive_Real Polynomial::Coefficient(const Naive_Integer theP) const {
 
 Naive_Real Polynomial::Evaluate(const Naive_Real theT) const {
   if (!IsValid())
-    return Constant::UnsetValue();
+    return Constant::UnsetReal();
 
   Naive_Real aRes = Coefficient(Degree());
   for (Naive_Integer i = Degree() - 1; i >= 0; --i) {

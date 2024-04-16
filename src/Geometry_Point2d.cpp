@@ -5,7 +5,7 @@
 Naive_NAMESPACE_BEGIN(geometry);
 
 Point2d::Point2d()
-    : myXY(math::Constant::UnsetValue(), math::Constant::UnsetValue()) {}
+    : myXY(math::Constant::UnsetReal(), math::Constant::UnsetReal()) {}
 
 Point2d::Point2d(const Naive_Real theX, const Naive_Real theY)
     : myXY(theX, theY) {}
@@ -16,18 +16,18 @@ Point2d::Point2d(const Naive_Point2d_T &thePoint)
 Point2d::Point2d(const Naive_XY &theXY) : myXY(theXY) {}
 
 Naive_Bool Point2d::IsValid() const {
-  return math::Util::IsValidDouble(X()) && math::Util::IsValidDouble(Y());
+  return math::Util::IsValidReal(X()) && math::Util::IsValidReal(Y());
 }
 
 Naive_Real Point2d::DistanceTo(const Point2d &theP) const {
   if (!IsValid())
-    return math::Constant::UnsetValue();
+    return math::Constant::UnsetReal();
   return (myXY - theP.myXY).norm();
 }
 
 Naive_Real Point2d::DistanceToSquared(const Point2d &theP) const {
   if (!IsValid())
-    return math::Constant::UnsetValue();
+    return math::Constant::UnsetReal();
   return (myXY - theP.myXY).squaredNorm();
 }
 

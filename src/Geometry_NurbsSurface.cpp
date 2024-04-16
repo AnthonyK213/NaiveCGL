@@ -52,7 +52,23 @@ NurbsSurface::NurbsSurface(
                                myVPeriodic, myVFlatKnots, myVSpanIdx))
     return;
 
-  // TODO: Rational?
+  for (Naive_Integer j = 0; j < aWV; ++j) {
+    for (Naive_Integer i = 1; i < aWU; ++i) {
+      if (!math::Util::EpsilonEquals(theWeights[i][j], theWeights[0][j])) {
+        myURational = true;
+        break;
+      }
+    }
+  }
+
+  for (Naive_Integer i = 0; i < aWU; ++i) {
+    for (Naive_Integer j = 1; j < aWV; ++j) {
+      if (!math::Util::EpsilonEquals(theWeights[i][j], theWeights[i][0])) {
+        myVRational = true;
+        break;
+      }
+    }
+  }
 
   myPoles = thePoles;
   myWeights = theWeights;
@@ -66,6 +82,14 @@ NurbsSurface::NurbsSurface(
 
 Naive_Bool NurbsSurface::Bounds(Naive_Real &theU0, Naive_Real &theU1,
                                 Naive_Real &theV0, Naive_Real &theV1) const {
+  if (!isValid())
+    return false;
+
+  theU0 = myUKnots[0];
+  theU1 = myUKnots[myUKnots.size() - 1];
+  theV0 = myVKnots[0];
+  theV1 = myVKnots[myVKnots.size() - 1];
+
   return true;
 }
 
@@ -83,10 +107,10 @@ Naive_Bool NurbsSurface::Evaluate(const Naive_Real theU, const Naive_Real theV,
   if (!isValid())
     return false;
 
-  Naive_Integer iUSpan = math::Nurbs::FindSpan(myUKnots, myUSpanIdx, theU);
+  Naive_Integer iUSpan = math::Nurbs::FindFlatSpan(myUKnots, myUSpanIdx, theU);
   if (iUSpan < 0)
     return false;
-  Naive_Integer iVSpan = math::Nurbs::FindSpan(myVKnots, myVSpanIdx, theV);
+  Naive_Integer iVSpan = math::Nurbs::FindFlatSpan(myVKnots, myVSpanIdx, theV);
   if (iVSpan < 0)
     return false;
 
@@ -96,7 +120,7 @@ Naive_Bool NurbsSurface::Evaluate(const Naive_Real theU, const Naive_Real theV,
   }
   Naive_Integer aN = aHead[theN] + theN + 1;
   Naive_RealList2 aWBuf(theN + 1,
-                        Naive_RealList(theN + 1, math::Constant::UnsetValue()));
+                        Naive_RealList(theN + 1, math::Constant::UnsetReal()));
   theD.resize(aN, Naive_Vector3d::Unset());
   Naive_List<math::Polynomial> anUA{};
   anUA.reserve(UDegree() + 1);

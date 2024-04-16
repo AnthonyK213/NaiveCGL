@@ -60,9 +60,8 @@ Nurbs::CheckParam(const Naive_Integer nbPoles, const Naive_RealList &theKnots,
 }
 
 Naive_Integer Nurbs::FindSpan(const Naive_RealList &theKnots,
-                              const Naive_IntegerList &theSpanIdx,
                               const Naive_Real theT) {
-  if (theKnots.size() < 2 || theSpanIdx.size() != theKnots.size() - 1)
+  if (theKnots.size() < 2)
     return -1;
 
   Naive_Real aF = theKnots[0];
@@ -73,7 +72,7 @@ Naive_Integer Nurbs::FindSpan(const Naive_RealList &theKnots,
   Naive_Integer m = static_cast<Naive_Integer>(theKnots.size()) - 1;
   Naive_Integer k;
   if (theT == aL) {
-    k = m - 1;
+    return m - 1;
   } else {
     Naive_Integer lower = 0;
     Naive_Integer upper = m;
@@ -84,8 +83,19 @@ Naive_Integer Nurbs::FindSpan(const Naive_RealList &theKnots,
       else
         lower = mid;
     }
-    k = lower;
+    return lower;
   }
+}
+
+Naive_Integer Nurbs::FindFlatSpan(const Naive_RealList &theKnots,
+                                  const Naive_IntegerList &theSpanIdx,
+                                  const Naive_Real theT) {
+  // if (theSpanIdx.size() != theKnots.size() - 1)
+  //   return -1;
+
+  Naive_Integer k = FindSpan(theKnots, theT);
+  if (k < 0)
+    return -1;
 
   return theSpanIdx[k] - 1;
 }

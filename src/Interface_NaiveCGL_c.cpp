@@ -18,6 +18,14 @@
       __h__->Delete();                                                         \
   }
 
+/// Math_Util {{{
+
+bool Naive_Math_Util_IsValidReal(const double theR) {
+  return ::naivecgl::math::Util::IsValidReal(theR);
+}
+
+/// }}}
+
 /// Naive_NurbsCurve {{{
 
 Naive_H Naive_NurbsCurve_New(const int32_t nbPoles,

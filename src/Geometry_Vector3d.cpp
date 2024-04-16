@@ -6,8 +6,8 @@
 Naive_NAMESPACE_BEGIN(geometry);
 
 Vector3d::Vector3d()
-    : myXYZ(math::Constant::UnsetValue(), math::Constant::UnsetValue(),
-            math::Constant::UnsetValue()) {}
+    : myXYZ(math::Constant::UnsetReal(), math::Constant::UnsetReal(),
+            math::Constant::UnsetReal()) {}
 
 Vector3d::Vector3d(const Naive_Point3d &thePoint) : myXYZ(thePoint.XYZ()) {}
 
@@ -21,8 +21,8 @@ Vector3d::Vector3d(const Naive_Vector3d_T &theVec)
     : myXYZ(theVec.x, theVec.y, theVec.z) {}
 
 Naive_Bool Vector3d::IsValid() const {
-  return math::Util::IsValidDouble(X()) && math::Util::IsValidDouble(Y()) &&
-         math::Util::IsValidDouble(Z());
+  return math::Util::IsValidReal(X()) && math::Util::IsValidReal(Y()) &&
+         math::Util::IsValidReal(Z());
 }
 
 Naive_Bool Vector3d::IsUnitVector() const {
@@ -35,13 +35,13 @@ Naive_Bool Vector3d::IsZero() const {
 
 Naive_Real Vector3d::Length() const {
   if (!IsValid())
-    return math::Constant::UnsetValue();
+    return math::Constant::UnsetReal();
   return myXYZ.norm();
 }
 
 Naive_Real Vector3d::SquareLength() const {
   if (!IsValid())
-    return math::Constant::UnsetValue();
+    return math::Constant::UnsetReal();
   return myXYZ.squaredNorm();
 }
 
@@ -139,7 +139,7 @@ Vector3d Vector3d::Negated() const {
 
 Naive_Real Vector3d::Dot(const Vector3d &theVec) const {
   if (!IsValid() || !theVec.IsValid())
-    return math::Constant::UnsetValue();
+    return math::Constant::UnsetReal();
   return myXYZ.dot(theVec.myXYZ);
 }
 

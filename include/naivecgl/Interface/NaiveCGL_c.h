@@ -13,6 +13,12 @@
 #endif
 #endif
 
+/// Math_Util {{{
+
+Naive_CAPI bool Naive_Math_Util_IsValidReal(const double theR);
+
+/// }}}
+
 /// Naive_NurbsCurve {{{
 
 Naive_CAPI Naive_H Naive_NurbsCurve_New(

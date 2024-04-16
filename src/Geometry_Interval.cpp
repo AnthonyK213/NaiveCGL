@@ -7,8 +7,8 @@ Interval::Interval(Naive_Real theT0, Naive_Real theT1)
     : myT0(theT0), myT1(theT1) {}
 
 const Interval &Interval::Unset() noexcept {
-  static Interval Interval_Unset{math::Constant::UnsetValue(),
-                                 math::Constant::UnsetValue()};
+  static Interval Interval_Unset{math::Constant::UnsetReal(),
+                                 math::Constant::UnsetReal()};
   return Interval_Unset;
 }
 
@@ -19,7 +19,7 @@ Naive_Bool Interval::IsIncreasing() const { return myT0 < myT1; }
 Naive_Bool Interval::IsSingleton() const { return IsValid() && myT0 == myT1; }
 
 Naive_Bool Interval::IsValid() const {
-  return math::Util::IsValidDouble(myT0) && math::Util::IsValidDouble(myT1);
+  return math::Util::IsValidReal(myT0) && math::Util::IsValidReal(myT1);
 }
 
 Naive_Real Interval::Length() const { return myT1 - myT0; }
@@ -115,7 +115,7 @@ Naive_Bool Interval::IncludesParameter(Naive_Real theT) const {
 
 Naive_Bool Interval::IncludesParameter(Naive_Real theT,
                                        Naive_Bool theStrict) const {
-  if (!math::Util::IsValidDouble(theT)) {
+  if (!math::Util::IsValidReal(theT)) {
     return false;
   }
   if (theStrict) {
@@ -142,7 +142,7 @@ Interval::NormalizedIntervalAt(const Interval &theIntervalParameter) const {
 
 Naive_Real
 Interval::NormalizedParameterAt(Naive_Real theIntervalParameter) const {
-  if (math::Util::IsValidDouble(theIntervalParameter)) {
+  if (math::Util::IsValidReal(theIntervalParameter)) {
     if (myT0 != myT1) {
       return (theIntervalParameter == myT1)
                  ? 1.0
@@ -152,12 +152,12 @@ Interval::NormalizedParameterAt(Naive_Real theIntervalParameter) const {
     return myT0;
   }
 
-  return math::Constant::UnsetValue();
+  return math::Constant::UnsetReal();
 }
 
 Naive_Real Interval::ParameterAt(Naive_Real theNormalizedParameter) const {
-  if (!math::Util::IsValidDouble(theNormalizedParameter)) {
-    return math::Constant::UnsetValue();
+  if (!math::Util::IsValidReal(theNormalizedParameter)) {
+    return math::Constant::UnsetReal();
   }
 
   return (1.0 - theNormalizedParameter) * myT0 + theNormalizedParameter * myT1;

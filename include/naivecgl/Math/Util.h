@@ -11,7 +11,7 @@ public:
   EpsilonEquals(Naive_Real theX, Naive_Real theY,
                 Naive_Real theEpsilon = math::Constant::Epsilon());
 
-  Naive_EXPORT static Naive_Bool IsValidDouble(Naive_Real theX);
+  Naive_EXPORT static Naive_Bool IsValidReal(Naive_Real theX);
 
   Naive_EXPORT static Naive_Real ToDegrees(Naive_Real theRadians);
 

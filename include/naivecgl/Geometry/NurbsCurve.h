@@ -39,6 +39,10 @@ public:
 
   Naive_EXPORT Naive_Real LastParameter() const;
 
+  Naive_EXPORT Naive_Bool IsRational() const { return myRational; }
+
+  Naive_EXPORT Naive_Bool IsPeriodic() const { return myPeriodic; }
+
   Naive_EXPORT Naive_Point3d PointAt(const Naive_Real theT) const;
 
   Naive_EXPORT Naive_Vector3d TangentAt(const Naive_Real theT) const;
@@ -46,6 +50,12 @@ public:
   Naive_EXPORT Naive_Bool DerivativeAt(const Naive_Real theT,
                                        const Naive_Integer theN,
                                        Naive_Vector3dList &theD) const;
+
+  Naive_EXPORT Naive_Bool IncreaseMultiplicity(const Naive_Integer theI,
+                                               const Naive_Integer theM);
+
+  Naive_EXPORT Naive_Bool InsertKnot(const Naive_Real theU,
+                                     const Naive_Integer theM);
 
 private:
   Naive_Bool isValid() const;

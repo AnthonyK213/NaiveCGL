@@ -22,8 +22,8 @@ Naive_Bool Util::EpsilonEquals(Naive_Real theX, Naive_Real theY,
   return false;
 }
 
-Naive_Bool Util::IsValidDouble(Naive_Real theX) {
-  if (theX != Constant::UnsetValue() && !::std::isinf(theX))
+Naive_Bool Util::IsValidReal(Naive_Real theX) {
+  if (theX != Constant::UnsetReal() && !::std::isinf(theX))
     return !::std::isnan(theX);
 
   return false;

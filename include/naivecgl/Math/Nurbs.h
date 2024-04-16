@@ -14,9 +14,12 @@ public:
              Naive_Bool &myPeriodic, Naive_RealList &theFlatKnots,
              Naive_IntegerList &theSpanIdx);
 
+  Naive_EXPORT static Naive_Integer FindSpan(const Naive_RealList &theKnots,
+                                             const Naive_Real theT);
+
   Naive_EXPORT static Naive_Integer
-  FindSpan(const Naive_RealList &theKnots, const Naive_IntegerList &theSpanIdx,
-           const Naive_Real theT);
+  FindFlatSpan(const Naive_RealList &theKnots,
+               const Naive_IntegerList &theSpanIdx, const Naive_Real theT);
 
   Naive_EXPORT static Polynomial BasisFn(const Naive_RealList &theFlatKnots,
                                          Naive_Integer theI, Naive_Integer theP,

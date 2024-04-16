@@ -25,6 +25,14 @@ public:
   Naive_EXPORT Naive_Bool Bounds(Naive_Real &theU0, Naive_Real &theU1,
                                  Naive_Real &theV0, Naive_Real &theV1) const;
 
+  Naive_EXPORT Naive_Bool IsURational() const { return myURational; }
+
+  Naive_EXPORT Naive_Bool IsVRational() const { return myVRational; }
+
+  Naive_EXPORT Naive_Bool IsUPeriodic() const { return myUPeriodic; }
+
+  Naive_EXPORT Naive_Bool IsVPeriodic() const { return myVPeriodic; }
+
   Naive_EXPORT Naive_Point3d PointAt(const Naive_Real theU,
                                      const Naive_Real theV) const;
 
