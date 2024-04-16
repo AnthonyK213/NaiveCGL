@@ -4,11 +4,12 @@
 Naive_NAMESPACE_BEGIN(math);
 
 Naive_Bool
-Nurbs::CheckParam(const Naive_Integer nbPoles, const Naive_RealList &theKnots,
+Nurbs::CheckParam(const Naive_Integer nbPoles, const Naive_Integer nbWeights,
+                  const Naive_RealList &theKnots,
                   const Naive_IntegerList &theMults,
                   const Naive_Integer theDegree, Naive_Bool &myPeriodic,
                   Naive_RealList &theFlatKnots, Naive_IntegerList &theSpanIdx) {
-  if (nbPoles < 2 || theDegree < 1)
+  if (nbPoles < 2 || nbPoles != nbWeights || theDegree < 1)
     return false;
 
   if (theKnots.size() < 2)
@@ -35,6 +36,7 @@ Nurbs::CheckParam(const Naive_Integer nbPoles, const Naive_RealList &theKnots,
   }
 
   theSpanIdx.reserve(theMults.size() - 1);
+  theSpanIdx.clear();
   Naive_Integer nbFlatKnots = theMults[0];
   for (Naive_Integer i = 1; i < theMults.size(); ++i) {
     theSpanIdx.push_back(nbFlatKnots);
@@ -50,6 +52,7 @@ Nurbs::CheckParam(const Naive_Integer nbPoles, const Naive_RealList &theKnots,
     return false;
 
   theFlatKnots.reserve(nbFlatKnots);
+  theFlatKnots.clear();
   for (Naive_Integer i = 0; i < theKnots.size(); ++i) {
     for (Naive_Integer j = 0; j < theMults[i]; ++j) {
       theFlatKnots.push_back(theKnots[i]);

@@ -9,10 +9,10 @@ Naive_NAMESPACE_BEGIN(math);
 class Nurbs {
 public:
   Naive_EXPORT static Naive_Bool
-  CheckParam(const Naive_Integer nbPoles, const Naive_RealList &theKnots,
-             const Naive_IntegerList &theMults, const Naive_Integer theDegree,
-             Naive_Bool &myPeriodic, Naive_RealList &theFlatKnots,
-             Naive_IntegerList &theSpanIdx);
+  CheckParam(const Naive_Integer nbPoles, const Naive_Integer nbWeights,
+             const Naive_RealList &theKnots, const Naive_IntegerList &theMults,
+             const Naive_Integer theDegree, Naive_Bool &myPeriodic,
+             Naive_RealList &theFlatKnots, Naive_IntegerList &theSpanIdx);
 
   Naive_EXPORT static Naive_Integer FindSpan(const Naive_RealList &theKnots,
                                              const Naive_Real theT);

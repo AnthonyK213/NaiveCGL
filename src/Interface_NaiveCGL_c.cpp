@@ -56,6 +56,23 @@ int32_t Naive_NurbsCurve_Degree(const Naive_H theHandle) {
   return H->Degree();
 }
 
+int32_t Naive_NurbsCurve_NbPoles(const Naive_H theHandle) {
+  if (!theHandle)
+    return 0;
+
+  Naive_H_CAST(const Naive_NurbsCurve, theHandle, H);
+  return H->NbPoles();
+}
+
+bool Naive_NurbsCurve_Pole(const Naive_H theHandle, const int32_t theI,
+                           Naive_Point3d_T *thePole) {
+  if (!theHandle || theI < 0 || !thePole)
+    return false;
+
+  Naive_H_CAST(const Naive_NurbsCurve, theHandle, H);
+  return H->Pole(theI).Dump(*thePole);
+}
+
 double Naive_NurbsCurve_FirstParameter(const Naive_H theHandle) {
   Naive_H_CAST(const Naive_NurbsCurve, theHandle, H);
   return H->FirstParameter();
@@ -109,6 +126,15 @@ bool Naive_NurbsCurve_DerivativeAt(const Naive_H theHandle, const double theT,
   }
 
   return true;
+}
+
+bool Naive_NurbsCurve_InsertKnot(Naive_H theHandle, const double theT,
+                                 const int32_t theM) {
+  if (!theHandle || theM < 0)
+    return false;
+
+  Naive_H_CAST(Naive_NurbsCurve, theHandle, H);
+  return H->InsertKnot(theT, theM);
 }
 
 void Naive_NurbsCurve_Release(Naive_H theHandle) {

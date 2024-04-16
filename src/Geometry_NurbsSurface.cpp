@@ -44,11 +44,11 @@ NurbsSurface::NurbsSurface(
   if (aPU != aWU || aPV != aWV)
     return;
 
-  if (!math::Nurbs::CheckParam(aPU, theUKnots, theUMults, theUDegree,
+  if (!math::Nurbs::CheckParam(aPU, aWU, theUKnots, theUMults, theUDegree,
                                myUPeriodic, myUFlatKnots, myUSpanIdx))
     return;
 
-  if (!math::Nurbs::CheckParam(aPV, theVKnots, theVMults, theVDegree,
+  if (!math::Nurbs::CheckParam(aPV, aWV, theVKnots, theVMults, theVDegree,
                                myVPeriodic, myVFlatKnots, myVSpanIdx))
     return;
 

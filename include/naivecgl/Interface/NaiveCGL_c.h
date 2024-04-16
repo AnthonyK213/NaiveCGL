@@ -29,6 +29,12 @@ Naive_CAPI Naive_H Naive_NurbsCurve_New(
 
 Naive_CAPI int32_t Naive_NurbsCurve_Degree(const Naive_H theHandle);
 
+Naive_CAPI int32_t Naive_NurbsCurve_NbPoles(const Naive_H theHandle);
+
+Naive_CAPI bool Naive_NurbsCurve_Pole(const Naive_H theHandle,
+                                      const int32_t theI,
+                                      Naive_Point3d_T *thePole);
+
 Naive_CAPI double Naive_NurbsCurve_FirstParameter(const Naive_H theHandle);
 
 Naive_CAPI double Naive_NurbsCurve_LastParameter(const Naive_H theHandle);
@@ -45,6 +51,10 @@ Naive_CAPI bool Naive_NurbsCurve_DerivativeAt(const Naive_H theHandle,
                                               const double theT, int32_t theN,
                                               int32_t *nbD,
                                               Naive_Vector3d_T *theD);
+
+Naive_CAPI bool Naive_NurbsCurve_InsertKnot(Naive_H theHandle,
+                                            const double theT,
+                                            const int32_t theM);
 
 Naive_CAPI void Naive_NurbsCurve_Release(Naive_H theHandle);
 
