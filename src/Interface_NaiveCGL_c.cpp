@@ -106,10 +106,7 @@ bool Naive_NurbsCurve_TangentAt(const Naive_H theHandle, const double theT,
 bool Naive_NurbsCurve_DerivativeAt(const Naive_H theHandle, const double theT,
                                    int32_t theN, int32_t *nbD,
                                    Naive_Vector3d_T *theD) {
-  if (!theHandle || theN < 0)
-    return false;
-
-  if (!nbD && !theD)
+  if (!theHandle || theN < 0 || !nbD)
     return false;
 
   *nbD = theN + 1;
@@ -128,9 +125,19 @@ bool Naive_NurbsCurve_DerivativeAt(const Naive_H theHandle, const double theT,
   return true;
 }
 
+bool Naive_NurbsCurve_IncreaseMultiplicity(const Naive_H theHandle,
+                                           const int32_t theI,
+                                           const int32_t theM) {
+  if (!theHandle)
+    return false;
+
+  Naive_H_CAST(Naive_NurbsCurve, theHandle, H);
+  return H->IncreaseMultiplicity(theI, theM);
+}
+
 bool Naive_NurbsCurve_InsertKnot(Naive_H theHandle, const double theT,
                                  const int32_t theM) {
-  if (!theHandle || theM < 0)
+  if (!theHandle)
     return false;
 
   Naive_H_CAST(Naive_NurbsCurve, theHandle, H);
@@ -210,10 +217,7 @@ bool Naive_NurbsSurface_PointAt(const Naive_H theHandle, const double theU,
 bool Naive_NurbsSurface_Evaluate(const Naive_H theHandle, const double theU,
                                  const double theV, int32_t theN, int32_t *nbD,
                                  Naive_Vector3d_T *theD) {
-  if (!theHandle || theN < 0)
-    return false;
-
-  if (!nbD && !theD)
+  if (!theHandle || theN < 0 || !nbD)
     return false;
 
   *nbD = (theN + 1) * (theN + 2) >> 1;

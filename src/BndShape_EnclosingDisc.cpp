@@ -2,6 +2,8 @@
 
 Naive_NAMESPACE_BEGIN(bndshape);
 
+EnclosingDisc::EnclosingDisc() : myPoints(), myOrigin(), myR(0.) {}
+
 void EnclosingDisc::ReBuild(const Naive_Point2dList &thePoints) {
   myPoints = thePoints;
 

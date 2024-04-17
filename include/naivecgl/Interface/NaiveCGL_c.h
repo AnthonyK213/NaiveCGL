@@ -52,6 +52,10 @@ Naive_CAPI bool Naive_NurbsCurve_DerivativeAt(const Naive_H theHandle,
                                               int32_t *nbD,
                                               Naive_Vector3d_T *theD);
 
+Naive_CAPI bool Naive_NurbsCurve_IncreaseMultiplicity(const Naive_H theHandle,
+                                                      const int32_t theI,
+                                                      const int32_t theM);
+
 Naive_CAPI bool Naive_NurbsCurve_InsertKnot(Naive_H theHandle,
                                             const double theT,
                                             const int32_t theM);

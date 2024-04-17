@@ -8,7 +8,7 @@ Naive_NAMESPACE_BEGIN(bndshape);
 
 class EnclosingDisc final {
 public:
-  Naive_EXPORT EnclosingDisc() {}
+  Naive_EXPORT EnclosingDisc();
 
   Naive_EXPORT void ReBuild(const Naive_Point2dList &thePoints);
 

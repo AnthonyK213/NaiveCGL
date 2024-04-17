@@ -68,7 +68,7 @@ TEST(NaiveCGL_EnclosingDisc, GetDisc) {
   aDisc.ReBuild(points);
 
   Naive_Point2d anOrigin{};
-  Naive_Real aR;
+  Naive_Real aR{};
 
   ASSERT_TRUE(aDisc.Circle(anOrigin, aR));
 }
