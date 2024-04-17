@@ -1,4 +1,4 @@
-#ifndef _NaiveCGL_Math_Polynomial_HeaderFile
+﻿#ifndef _NaiveCGL_Math_Polynomial_HeaderFile
 #define _NaiveCGL_Math_Polynomial_HeaderFile
 
 #include "Util.h"

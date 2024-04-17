@@ -1,4 +1,4 @@
-#ifndef _NaiveCGL_BndShape_Box_HeaderFile
+﻿#ifndef _NaiveCGL_BndShape_Box_HeaderFile
 #define _NaiveCGL_BndShape_Box_HeaderFile
 
 #include <naivecgl/Geometry/Point3d.h>

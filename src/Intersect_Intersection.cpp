@@ -1,4 +1,4 @@
-#include <naivecgl/Intersect/Intersection.h>
+﻿#include <naivecgl/Intersect/Intersection.h>
 
 Naive_NAMESPACE_BEGIN(intersect);
 

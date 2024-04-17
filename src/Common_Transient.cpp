@@ -1,4 +1,4 @@
-#include <naivecgl/Common/Transient.h>
+﻿#include <naivecgl/Common/Transient.h>
 
 Naive_NAMESPACE_BEGIN(common);
 

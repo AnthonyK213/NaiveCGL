@@ -1,4 +1,4 @@
-#ifndef _NaiveCGL_Intersect_Intersection_HeaderFile
+﻿#ifndef _NaiveCGL_Intersect_Intersection_HeaderFile
 #define _NaiveCGL_Intersect_Intersection_HeaderFile
 
 #include <naivecgl/Geometry/Line.h>

@@ -410,7 +410,7 @@ void Naive_BndShape_ConvexHull2D_Release(Naive_H theHandle) {
   Naive_H_RELEASE(::naivecgl::bndshape::ConvexHull2D, theHandle);
 }
 
-Naive_H Naive_BndShape_EnclosingDisc_New() {
+Naive_H Naive_BndShape_EnclosingDisc_New(void) {
   return new ::naivecgl::bndshape::EnclosingDisc();
 }
 

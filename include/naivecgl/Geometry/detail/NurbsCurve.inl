@@ -1,4 +1,4 @@
-#include "../NurbsCurve.h"
+﻿#include "../NurbsCurve.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 

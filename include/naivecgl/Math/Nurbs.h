@@ -1,4 +1,4 @@
-#ifndef _NaiveCGL_Math_Nurbs_HeaderFile
+﻿#ifndef _NaiveCGL_Math_Nurbs_HeaderFile
 #define _NaiveCGL_Math_Nurbs_HeaderFile
 
 #include "Constant.h"

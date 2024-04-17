@@ -1,4 +1,4 @@
-#include <naivecgl/Geometry/Circle.h>
+﻿#include <naivecgl/Geometry/Circle.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 

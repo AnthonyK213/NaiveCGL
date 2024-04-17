@@ -24,8 +24,14 @@ public:
 
   Naive_EXPORT static Naive_Integer Combination(Naive_Integer theN,
                                                 Naive_Integer theR);
+
+  template <typename T>
+  static Naive_Bool List2CheckBound(const Naive_List2<T> &theList2,
+                                    Naive_Integer &theU, Naive_Integer &theV);
 };
 
 Naive_NAMESPACE_END(math);
+
+#include "detail/Util.inl"
 
 #endif

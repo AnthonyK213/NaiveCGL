@@ -1,4 +1,4 @@
-#ifndef _NaiveCGL_Geometry_Cylinder_HeaderFile
+﻿#ifndef _NaiveCGL_Geometry_Cylinder_HeaderFile
 #define _NaiveCGL_Geometry_Cylinder_HeaderFile
 
 #include "Plane.h"

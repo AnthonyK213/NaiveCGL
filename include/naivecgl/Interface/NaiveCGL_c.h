@@ -140,7 +140,7 @@ Naive_CAPI Naive_Code Naive_BndShape_ConvexHull2D_ConvexPoints(
 
 Naive_CAPI void Naive_BndShape_ConvexHull2D_Release(Naive_H theHandle);
 
-Naive_CAPI Naive_H Naive_BndShape_EnclosingDisc_New();
+Naive_CAPI Naive_H Naive_BndShape_EnclosingDisc_New(void);
 
 Naive_CAPI void
 Naive_BndShape_EnclosingDisc_Rebuild(Naive_H theHandle, int32_t nbPoints,

@@ -1,4 +1,4 @@
-#ifndef _NaiveCGL_Common_Transient_HeaderFile
+﻿#ifndef _NaiveCGL_Common_Transient_HeaderFile
 #define _NaiveCGL_Common_Transient_HeaderFile
 
 #include "Type.h"

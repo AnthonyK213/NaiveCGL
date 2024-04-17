@@ -1,4 +1,4 @@
-#include <naivecgl/Geometry/Plane.h>
+﻿#include <naivecgl/Geometry/Plane.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 

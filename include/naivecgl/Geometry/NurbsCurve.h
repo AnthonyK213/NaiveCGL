@@ -1,4 +1,4 @@
-#ifndef _NaiveCGL_Geometry_NurbsCurve_HeaderFile
+﻿#ifndef _NaiveCGL_Geometry_NurbsCurve_HeaderFile
 #define _NaiveCGL_Geometry_NurbsCurve_HeaderFile
 
 #include "Point3d.h"

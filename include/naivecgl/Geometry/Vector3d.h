@@ -1,4 +1,4 @@
-#ifndef _NaiveCGL_Geometry_Vector3d_HeaderFile
+﻿#ifndef _NaiveCGL_Geometry_Vector3d_HeaderFile
 #define _NaiveCGL_Geometry_Vector3d_HeaderFile
 
 #include <naivecgl/Math/Constant.h>

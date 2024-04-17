@@ -1,4 +1,4 @@
-#ifndef _NaiveCGL_Geometry_Triangle_HeaderFile
+﻿#ifndef _NaiveCGL_Geometry_Triangle_HeaderFile
 #define _NaiveCGL_Geometry_Triangle_HeaderFile
 
 #include <naivecgl/Common/Type.h>

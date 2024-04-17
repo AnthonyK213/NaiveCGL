@@ -1,4 +1,4 @@
-#include <naivecgl/Geometry/Line.h>
+﻿#include <naivecgl/Geometry/Line.h>
 #include <naivecgl/Math/Constant.h>
 
 Naive_NAMESPACE_BEGIN(geometry);

@@ -1,10 +1,11 @@
-#ifndef _NaiveCGL_Geometry_NurbsSurface_HeaderFile
+﻿#ifndef _NaiveCGL_Geometry_NurbsSurface_HeaderFile
 #define _NaiveCGL_Geometry_NurbsSurface_HeaderFile
 
 #include "Point3d.h"
 #include "Vector3d.h"
 
 #include <naivecgl/Common/Handle.h>
+#include <naivecgl/Math/Util.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
@@ -43,6 +44,12 @@ public:
 private:
   Naive_Bool isValid() const;
 
+  template <typename P2, typename R2, typename R, typename I>
+  Naive_Bool update(P2 &&thePoles, R2 &&theWeights, R &&theUKnots,
+                    R &&theVKnots, I &&theUMults, I &&theVMults,
+                    const Naive_Integer theUDegree,
+                    const Naive_Integer theVDegree);
+
 private:
   Naive_Bool myURational;
   Naive_Bool myVRational;
@@ -63,6 +70,8 @@ private:
 };
 
 Naive_NAMESPACE_END(geometry);
+
+#include "detail/NurbsSurface.inl"
 
 using Naive_NurbsSurface = ::naivecgl::geometry::NurbsSurface;
 using Handle_Naive_NurbsSurface = Naive_Handle<Naive_NurbsSurface>;

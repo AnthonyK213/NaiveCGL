@@ -1,4 +1,4 @@
-#include <naivecgl/Geometry/Point3d.h>
+﻿#include <naivecgl/Geometry/Point3d.h>
 #include <naivecgl/Geometry/Transform3d.h>
 #include <naivecgl/Geometry/Vector3d.h>
 #include <naivecgl/Math/Util.h>

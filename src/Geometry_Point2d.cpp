@@ -1,4 +1,4 @@
-#include <naivecgl/Geometry/Point2d.h>
+﻿#include <naivecgl/Geometry/Point2d.h>
 #include <naivecgl/Math/Constant.h>
 #include <naivecgl/Math/Util.h>
 

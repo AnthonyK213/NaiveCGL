@@ -3,81 +3,15 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-template <typename T>
-static Naive_Bool checkList2Bound(const Naive_List2<T> &theList2,
-                                  Naive_Integer &theU, Naive_Integer &theV) {
-  theU = static_cast<Naive_Integer>(theList2.size());
-  if (theU == 0) {
-    theV = 0;
-    return true;
-  }
-
-  const Naive_List<T> &aList = theList2[0];
-  theV = static_cast<Naive_Integer>(aList.size());
-  for (Naive_Integer i = 1; i < theU; ++i) {
-    if (theList2[i].size() != theV)
-      return false;
-  }
-
-  return true;
-}
-
 NurbsSurface::NurbsSurface(
     const Naive_Point3dList2 &thePoles, const Naive_RealList2 &theWeights,
     const Naive_RealList &theUKnots, const Naive_RealList &theVKnots,
     const Naive_IntegerList &theUMults, const Naive_IntegerList &theVMults,
     const Naive_Integer theUDegree, const Naive_Integer theVDegree)
-    : myURational(false), myVRational(false), myUPeriodic(false),
-      myVPeriodic(false), myUDegree(0), myVDegree(0), myUFlatKnots(),
-      myVFlatKnots() {
-  if (theUDegree < 1 || theVDegree < 1)
-    return;
-
-  Naive_Integer aPU, aPV, aWU, aWV;
-  if (!checkList2Bound(thePoles, aPU, aPV) ||
-      !checkList2Bound(theWeights, aWU, aWV))
-    return;
-
-  if (aPU < 2 || aPV < 2)
-    return;
-
-  if (aPU != aWU || aPV != aWV)
-    return;
-
-  if (!math::Nurbs::CheckParam(aPU, aWU, theUKnots, theUMults, theUDegree,
-                               myUPeriodic, myUFlatKnots, myUSpanIdx))
-    return;
-
-  if (!math::Nurbs::CheckParam(aPV, aWV, theVKnots, theVMults, theVDegree,
-                               myVPeriodic, myVFlatKnots, myVSpanIdx))
-    return;
-
-  for (Naive_Integer j = 0; j < aWV; ++j) {
-    for (Naive_Integer i = 1; i < aWU; ++i) {
-      if (!math::Util::EpsilonEquals(theWeights[i][j], theWeights[0][j])) {
-        myURational = true;
-        break;
-      }
-    }
-  }
-
-  for (Naive_Integer i = 0; i < aWU; ++i) {
-    for (Naive_Integer j = 1; j < aWV; ++j) {
-      if (!math::Util::EpsilonEquals(theWeights[i][j], theWeights[i][0])) {
-        myVRational = true;
-        break;
-      }
-    }
-  }
-
-  myPoles = thePoles;
-  myWeights = theWeights;
-  myUKnots = theUKnots;
-  myVKnots = theVKnots;
-  myUMults = theUMults;
-  myVMults = theVMults;
-  myUDegree = theUDegree;
-  myVDegree = theVDegree;
+    : myUDegree(0), myVDegree(0), myURational(false), myVRational(false),
+      myUPeriodic(false), myVPeriodic(false), myUFlatKnots(), myVFlatKnots() {
+  update(thePoles, theWeights, theUKnots, theVKnots, theUMults, theVMults,
+         theUDegree, theVDegree);
 }
 
 Naive_Bool NurbsSurface::Bounds(Naive_Real &theU0, Naive_Real &theU1,
