@@ -125,7 +125,7 @@ bool Naive_NurbsCurve_DerivativeAt(const Naive_H theHandle, const double theT,
   return true;
 }
 
-bool Naive_NurbsCurve_IncreaseMultiplicity(const Naive_H theHandle,
+bool Naive_NurbsCurve_IncreaseMultiplicity(Naive_H theHandle,
                                            const int32_t theI,
                                            const int32_t theM) {
   if (!theHandle)

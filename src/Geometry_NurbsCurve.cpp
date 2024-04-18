@@ -129,15 +129,32 @@ Naive_Bool NurbsCurve::IncreaseMultiplicity(const Naive_Integer theI,
   if (theM == 0)
     return true;
 
+  Naive_Real T = myKnots[theI];
+  Naive_Integer S = myMults[theI];
+
   if (theI != 0 && theI != myMults.size() - 1) {
-    if (theM + myMults[theI] > myDegree)
+    if (theM + S > myDegree)
       return false;
-  } else if (theM + myMults[theI] > myDegree + 1)
+  } else if (theM + S > myDegree + 1)
     return false;
 
-  // TODO: Implementation.
+  Naive_Integer iSpan = (theI == myMults.size() - 1) ? theI - 1 : theI;
+  Naive_Integer K = mySpanIdx[iSpan] - 1;
 
-  return true;
+  Naive_Point3dList aPoles(myPoles.size() + theM, Naive_Point3d::Unset());
+  Naive_RealList aWeights(myWeights.size() + theM, math::Constant::UnsetReal());
+  Naive_IntegerList aMults = myMults;
+  aMults[theI] += theM;
+
+  for (Naive_Integer I = 0; I < aPoles.size(); ++I) {
+    Naive_XYZW q = math::Nurbs::PoleAfterInsertKnot(
+        myPoles, myWeights, myFlatKnots, myDegree, T, K, S, I, theM);
+    aPoles[I] = Naive_XYZ(q.head<3>());
+    aWeights[I] = q(3);
+  }
+
+  return update(::std::move(aPoles), ::std::move(aWeights), myKnots,
+                ::std::move(aMults), myDegree);
 }
 
 Naive_Bool NurbsCurve::InsertKnot(const Naive_Real theT,
@@ -158,28 +175,24 @@ Naive_Bool NurbsCurve::InsertKnot(const Naive_Real theT,
   if (theT == myKnots[iSpan + 1])
     return IncreaseMultiplicity(iSpan + 1, theM);
 
-  // TODO: Insert knot with multiplicity |theM|?
+  if (iSpan != 0 && iSpan != myMults.size() - 1) {
+    if (theM > myDegree)
+      return false;
+  } else if (theM > myDegree + 1)
+    return false;
 
-  Naive_Point3dList aPoles(myPoles.size() + 1, Naive_Point3d::Unset());
-  Naive_RealList aWeights(myWeights.size() + 1, math::Constant::UnsetReal());
+  Naive_Point3dList aPoles(myPoles.size() + theM, Naive_Point3d::Unset());
+  Naive_RealList aWeights(myWeights.size() + theM, math::Constant::UnsetReal());
   Naive_RealList aKnots = myKnots;
   Naive_IntegerList aMults = myMults;
   aKnots.insert(aKnots.begin() + iSpan + 1, theT);
   aMults.insert(aMults.begin() + iSpan + 1, theM);
-  for (Naive_Integer i = 0; i <= myPoles.size(); ++i) {
-    if (i <= K - Degree()) {
-      aPoles[i].ChangeXYZ() = myPoles[i].XYZ();
-      aWeights[i] = myWeights[i];
-    } else if (i >= K + 1) {
-      aPoles[i].ChangeXYZ() = myPoles[i - 1].XYZ();
-      aWeights[i] = myWeights[i - 1];
-    } else {
-      Naive_Real a = (theT - myFlatKnots[i]) /
-                     (myFlatKnots[i + Degree()] - myFlatKnots[i]);
-      aPoles[i].ChangeXYZ() =
-          a * myPoles[i].XYZ() + (1. - a) * myPoles[i - 1].XYZ();
-      aWeights[i] = a * myWeights[i] + (1. - a) * myWeights[i - 1];
-    }
+
+  for (Naive_Integer I = 0; I < aPoles.size(); ++I) {
+    Naive_XYZW q = math::Nurbs::PoleAfterInsertKnot(
+        myPoles, myWeights, myFlatKnots, myDegree, theT, K, 0, I, theM);
+    aPoles[I] = Naive_XYZ(q.head<3>());
+    aWeights[I] = q(3);
   }
 
   return update(::std::move(aPoles), ::std::move(aWeights), ::std::move(aKnots),

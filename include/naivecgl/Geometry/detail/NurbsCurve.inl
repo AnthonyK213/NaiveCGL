@@ -2,8 +2,8 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-template <typename P, typename R, typename I>
-Naive_Bool NurbsCurve::update(P &&thePoles, R &&theWeights, R &&theKnots,
+template <typename P, typename Rw, typename Rk, typename I>
+Naive_Bool NurbsCurve::update(P &&thePoles, Rw &&theWeights, Rk &&theKnots,
                               I &&theMults, const Naive_Integer theDegree) {
   if (!math::Nurbs::CheckParam(thePoles.size(), theWeights.size(), theKnots,
                                theMults, theDegree, myPeriodic, myFlatKnots,
@@ -18,8 +18,8 @@ Naive_Bool NurbsCurve::update(P &&thePoles, R &&theWeights, R &&theKnots,
   }
 
   myPoles = ::std::forward<P>(thePoles);
-  myWeights = ::std::forward<R>(theWeights);
-  myKnots = ::std::forward<R>(theKnots);
+  myWeights = ::std::forward<Rw>(theWeights);
+  myKnots = ::std::forward<Rk>(theKnots);
   myMults = ::std::forward<I>(theMults);
   myDegree = theDegree;
 

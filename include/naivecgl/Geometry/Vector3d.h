@@ -94,7 +94,7 @@ public:
   Naive_EXPORT bool Dump(Naive_Vector3d_T &theVec) const;
 
 private:
-  Naive_Vector3<Naive_Real> myXYZ;
+  Naive_XYZ myXYZ;
 };
 
 Naive_NAMESPACE_END(geometry);

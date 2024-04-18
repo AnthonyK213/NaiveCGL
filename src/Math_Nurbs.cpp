@@ -1,4 +1,5 @@
-﻿#include <naivecgl/Math/Nurbs.h>
+﻿#include <naivecgl/Geometry/Point3d.h>
+#include <naivecgl/Math/Nurbs.h>
 #include <naivecgl/Math/Util.h>
 
 Naive_NAMESPACE_BEGIN(math);
@@ -124,6 +125,35 @@ Polynomial Nurbs::BasisFn(const Naive_RealList &theFlatKnots,
   aF.Add(aG);
 
   return aF;
+}
+
+Naive_XYZW Nurbs::PoleAfterInsertKnot(
+    const Naive_Point3dList &thePoles, const Naive_RealList &theWeights,
+    const Naive_RealList &theFlatKnots, const Naive_Integer theDegree,
+    const Naive_Real theT, const Naive_Integer theK, const Naive_Integer theS,
+    const Naive_Integer theI, const Naive_Integer theM) {
+  if (theM == 0)
+    return {thePoles[theI].X(), thePoles[theI].Y(), thePoles[theI].Z(),
+            theWeights[theI]};
+
+  if (theI <= theK - theDegree + theM - 1)
+    return PoleAfterInsertKnot(thePoles, theWeights, theFlatKnots, theDegree,
+                               theT, theK, theS, theI, theM - 1);
+
+  if (theI >= theK - theS + 1)
+    return PoleAfterInsertKnot(thePoles, theWeights, theFlatKnots, theDegree,
+                               theT, theK, theS, theI - 1, theM - 1);
+
+  Naive_XYZW q1 =
+      PoleAfterInsertKnot(thePoles, theWeights, theFlatKnots, theDegree, theT,
+                          theK, theS, theI, theM - 1);
+  Naive_XYZW q2 =
+      PoleAfterInsertKnot(thePoles, theWeights, theFlatKnots, theDegree, theT,
+                          theK, theS, theI - 1, theM - 1);
+  Naive_Real a =
+      (theT - theFlatKnots[theI]) /
+      (theFlatKnots[theI + theDegree - theM + 1] - theFlatKnots[theI]);
+  return a * q1 + (1. - a) * q2;
 }
 
 Naive_NAMESPACE_END(math);

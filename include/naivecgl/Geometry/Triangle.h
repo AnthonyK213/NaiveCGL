@@ -3,6 +3,6 @@
 
 #include <naivecgl/Common/Type.h>
 
-using Naive_Triangle = Naive_Vector3<Naive_Integer>;
+using Naive_Triangle = Naive_Vec3<Naive_Integer>;
 
 #endif

@@ -57,7 +57,7 @@ public:
   Naive_EXPORT const Vector3d operator-(const Point3d &thePoint) const;
 
 private:
-  Naive_Vector3<Naive_Real> myXYZ;
+  Naive_XYZ myXYZ;
 };
 
 Naive_NAMESPACE_END(geometry);

@@ -57,8 +57,8 @@ public:
 private:
   Naive_Bool isValid() const;
 
-  template <typename P, typename R, typename I>
-  Naive_Bool update(P &&thePoles, R &&theWeights, R &&theKnots, I &&theMults,
+  template <typename P, typename Rw, typename Rk, typename I>
+  Naive_Bool update(P &&thePoles, Rw &&theWeights, Rk &&theKnots, I &&theMults,
                     const Naive_Integer theDegree);
 
 private:
