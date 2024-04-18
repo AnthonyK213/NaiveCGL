@@ -125,6 +125,15 @@ bool Naive_NurbsCurve_DerivativeAt(const Naive_H theHandle, const double theT,
   return true;
 }
 
+bool Naive_NurbsCurve_IncreaseDegree(Naive_H theHandle,
+                                     const int32_t theDegree) {
+  if (!theHandle)
+    return false;
+
+  Naive_H_CAST(Naive_NurbsCurve, theHandle, H);
+  return H->IncreaseDegree(theDegree);
+}
+
 bool Naive_NurbsCurve_IncreaseMultiplicity(Naive_H theHandle,
                                            const int32_t theI,
                                            const int32_t theM) {
@@ -142,6 +151,15 @@ bool Naive_NurbsCurve_InsertKnot(Naive_H theHandle, const double theT,
 
   Naive_H_CAST(Naive_NurbsCurve, theHandle, H);
   return H->InsertKnot(theT, theM);
+}
+
+bool Naive_NurbsCurve_RemoveKnot(Naive_H theHandle, const int32_t theI,
+                                 const int32_t theM) {
+  if (!theHandle)
+    return false;
+
+  Naive_H_CAST(Naive_NurbsCurve, theHandle, H);
+  return H->RemoveKnot(theI, theM);
 }
 
 void Naive_NurbsCurve_Release(Naive_H theHandle) {

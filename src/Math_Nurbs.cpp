@@ -76,6 +76,7 @@ Naive_Integer Nurbs::FindSpan(const Naive_RealList &theKnots,
   Naive_Integer m = static_cast<Naive_Integer>(theKnots.size()) - 1;
   Naive_Integer k;
   if (theT == aL) {
+    /* The last knot belongs to the last span. */
     return m - 1;
   } else {
     Naive_Integer lower = 0;

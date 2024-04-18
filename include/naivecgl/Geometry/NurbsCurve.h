@@ -48,10 +48,15 @@ public:
                                        const Naive_Integer theN,
                                        Naive_Vector3dList &theD) const;
 
+  Naive_EXPORT Naive_Bool IncreaseDegree(const Naive_Integer theDegree);
+
   Naive_EXPORT Naive_Bool IncreaseMultiplicity(const Naive_Integer theI,
                                                const Naive_Integer theM);
 
   Naive_EXPORT Naive_Bool InsertKnot(const Naive_Real theT,
+                                     const Naive_Integer theM);
+
+  Naive_EXPORT Naive_Bool RemoveKnot(const Naive_Integer theI,
                                      const Naive_Integer theM);
 
 private:

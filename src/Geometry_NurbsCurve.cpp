@@ -121,6 +121,13 @@ Naive_Bool NurbsCurve::DerivativeAt(const Naive_Real theT,
   return true;
 }
 
+Naive_Bool NurbsCurve::IncreaseDegree(const Naive_Integer theDegree) {
+  if (!isValid() || theDegree < 0)
+    return false;
+
+  return true;
+}
+
 Naive_Bool NurbsCurve::IncreaseMultiplicity(const Naive_Integer theI,
                                             const Naive_Integer theM) {
   if (theI < 0 || theI >= myMults.size() || theM < 0)
@@ -138,6 +145,7 @@ Naive_Bool NurbsCurve::IncreaseMultiplicity(const Naive_Integer theI,
   } else if (theM + S > myDegree + 1)
     return false;
 
+  /* The last knot belongs to the last span. */
   Naive_Integer iSpan = (theI == myMults.size() - 1) ? theI - 1 : theI;
   Naive_Integer K = mySpanIdx[iSpan] - 1;
 
@@ -159,13 +167,19 @@ Naive_Bool NurbsCurve::IncreaseMultiplicity(const Naive_Integer theI,
 
 Naive_Bool NurbsCurve::InsertKnot(const Naive_Real theT,
                                   const Naive_Integer theM) {
-  if (theM <= 0 || theM > Degree())
+  if (theM < 0 || theM > Degree())
     return false;
 
   Naive_Integer iSpan = math::Nurbs::FindSpan(myKnots, theT);
   if (iSpan < 0)
     return false;
   Naive_Integer K = mySpanIdx[iSpan] - 1;
+
+  if (theM == 0)
+    return true;
+
+  /* If |theT| is already in the |myKnots|, the operation would be a
+   * multiplicity increase. */
 
   // FIXME: Float equality?
 
@@ -174,6 +188,9 @@ Naive_Bool NurbsCurve::InsertKnot(const Naive_Real theT,
 
   if (theT == myKnots[iSpan + 1])
     return IncreaseMultiplicity(iSpan + 1, theM);
+
+  /* Makes no sense for a inner knot with a multiplicity greater than
+   * |myDegree|. */
 
   if (iSpan != 0 && iSpan != myMults.size() - 1) {
     if (theM > myDegree)
@@ -197,6 +214,17 @@ Naive_Bool NurbsCurve::InsertKnot(const Naive_Real theT,
 
   return update(::std::move(aPoles), ::std::move(aWeights), ::std::move(aKnots),
                 ::std::move(aMults), myDegree);
+}
+
+Naive_Bool NurbsCurve::RemoveKnot(const Naive_Integer theI,
+                                  const Naive_Integer theM) {
+  if (theI < 0 || theI >= myMults.size() || theM < 0)
+    return false;
+
+  if (theM == 0)
+    return true;
+
+  return true;
 }
 
 Naive_Bool NurbsCurve::isValid() const { return myDegree > 0; }
