@@ -5,7 +5,7 @@
 #include "Vector3d.h"
 
 #include <naivecgl/Common/Handle.h>
-#include <naivecgl/Math/Util.h>
+#include <naivecgl/Math/Nurbs.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 

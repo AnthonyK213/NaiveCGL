@@ -6,7 +6,6 @@
 
 #include <naivecgl/Common/Handle.h>
 #include <naivecgl/Math/Nurbs.h>
-#include <naivecgl/Math/Polynomial.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
