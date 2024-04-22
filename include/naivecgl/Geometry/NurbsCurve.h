@@ -55,6 +55,10 @@ public:
   Naive_EXPORT Naive_Bool InsertKnot(const Naive_Real theT,
                                      const Naive_Integer theM);
 
+  /// @brief Reduces the multiplicity of the knot of index |I| to |M|.
+  /// @param theI The knot index.
+  /// @param theM The multiplicity to reduce to.
+  /// @return If reduced successfully, true; otherwise, false.
   Naive_EXPORT Naive_Bool RemoveKnot(const Naive_Integer theI,
                                      const Naive_Integer theM);
 

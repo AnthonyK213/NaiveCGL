@@ -74,6 +74,11 @@ Naive_CAPI bool Naive_NurbsCurve_InsertKnot(Naive_H theHandle,
                                             const double theT,
                                             const int32_t theM);
 
+/// @brief Reduces the multiplicity of the knot of index |I| to |M|.
+/// @param theHandle The handle of the NURBS curve.
+/// @param theI The knot index.
+/// @param theM The multiplicity to reduce to.
+/// @return If reduced successfully, true; otherwise, false.
 Naive_CAPI bool Naive_NurbsCurve_RemoveKnot(Naive_H theHandle,
                                             const int32_t theI,
                                             const int32_t theM);

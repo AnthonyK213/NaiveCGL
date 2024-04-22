@@ -218,11 +218,25 @@ Naive_Bool NurbsCurve::InsertKnot(const Naive_Real theT,
 
 Naive_Bool NurbsCurve::RemoveKnot(const Naive_Integer theI,
                                   const Naive_Integer theM) {
-  if (theI < 0 || theI >= myMults.size() || theM < 0)
+  Naive_Integer S = Multiplicity(theI);
+  if (S == 0)
     return false;
 
-  if (theM == 0)
+  Naive_Integer R = mySpanIdx[theI] - 1;
+  Naive_Integer N = S - theM;
+
+  if (theM < 0 || N < 0)
+    return false;
+
+  /* Nothing to do... */
+  if (N == 0)
     return true;
+
+  Naive_Integer aFirst = R - S;
+  Naive_Integer aLast = R - Degree();
+
+  for (Naive_Integer t = 0; t < N; ++t) {
+  }
 
   return true;
 }
