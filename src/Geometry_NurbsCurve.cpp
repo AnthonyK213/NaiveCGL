@@ -44,7 +44,7 @@ Naive_Real NurbsCurve::Knot(const Naive_Integer theIndex) const {
 
 Naive_Integer NurbsCurve::Multiplicity(const Naive_Integer theIndex) const {
   if (theIndex < 0 || theIndex >= NbKnots() || !isValid())
-    return math::Constant::UnsetReal();
+    return 0;
   return myMults[theIndex];
 }
 
@@ -157,7 +157,7 @@ Naive_Bool NurbsCurve::IncreaseMultiplicity(const Naive_Integer theI,
   for (Naive_Integer I = 0; I < aPoles.size(); ++I) {
     Naive_XYZW q = math::Nurbs::PoleAfterInsertKnot(
         myPoles, myWeights, myFlatKnots, myDegree, T, K, S, I, theM);
-    aPoles[I] = Naive_XYZ(q.head<3>());
+    aPoles[I] = Naive_XYZ(q.head<3>() / q(3));
     aWeights[I] = q(3);
   }
 
@@ -208,7 +208,7 @@ Naive_Bool NurbsCurve::InsertKnot(const Naive_Real theT,
   for (Naive_Integer I = 0; I < aPoles.size(); ++I) {
     Naive_XYZW q = math::Nurbs::PoleAfterInsertKnot(
         myPoles, myWeights, myFlatKnots, myDegree, theT, K, 0, I, theM);
-    aPoles[I] = Naive_XYZ(q.head<3>());
+    aPoles[I] = Naive_XYZ(q.head<3>() / q(3));
     aWeights[I] = q(3);
   }
 

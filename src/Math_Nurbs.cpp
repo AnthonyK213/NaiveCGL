@@ -134,8 +134,9 @@ Naive_XYZW Nurbs::PoleAfterInsertKnot(
     const Naive_Real theT, const Naive_Integer theK, const Naive_Integer theS,
     const Naive_Integer theI, const Naive_Integer theM) {
   if (theM == 0)
-    return {thePoles[theI].X(), thePoles[theI].Y(), thePoles[theI].Z(),
-            theWeights[theI]};
+    return Naive_XYZW{thePoles[theI].X(), thePoles[theI].Y(),
+                      thePoles[theI].Z(), 1.0} *
+           theWeights[theI];
 
   if (theI <= theK - theDegree + theM - 1)
     return PoleAfterInsertKnot(thePoles, theWeights, theFlatKnots, theDegree,

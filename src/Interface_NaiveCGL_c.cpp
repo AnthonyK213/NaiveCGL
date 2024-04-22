@@ -73,6 +73,39 @@ bool Naive_NurbsCurve_Pole(const Naive_H theHandle, const int32_t theI,
   return H->Pole(theI).Dump(*thePole);
 }
 
+double Naive_NurbsCurve_Weight(const Naive_H theHandle, const int32_t theI) {
+  if (!theHandle || theI < 0)
+    return false;
+
+  Naive_H_CAST(const Naive_NurbsCurve, theHandle, H);
+  return H->Weight(theI);
+}
+
+int32_t Naive_NurbsCurve_NbKnots(const Naive_H theHandle) {
+  if (!theHandle)
+    return 0;
+
+  Naive_H_CAST(const Naive_NurbsCurve, theHandle, H);
+  return H->NbKnots();
+}
+
+double Naive_NurbsCurve_Knot(const Naive_H theHandle, const int32_t theI) {
+  if (!theHandle || theI < 0)
+    return false;
+
+  Naive_H_CAST(const Naive_NurbsCurve, theHandle, H);
+  return H->Knot(theI);
+}
+
+int32_t Naive_NurbsCurve_Multiplicity(const Naive_H theHandle,
+                                      const int32_t theI) {
+  if (!theHandle || theI < 0)
+    return false;
+
+  Naive_H_CAST(const Naive_NurbsCurve, theHandle, H);
+  return H->Multiplicity(theI);
+}
+
 double Naive_NurbsCurve_FirstParameter(const Naive_H theHandle) {
   Naive_H_CAST(const Naive_NurbsCurve, theHandle, H);
   return H->FirstParameter();

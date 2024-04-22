@@ -35,6 +35,17 @@ Naive_CAPI bool Naive_NurbsCurve_Pole(const Naive_H theHandle,
                                       const int32_t theI,
                                       Naive_Point3d_T *thePole);
 
+Naive_CAPI double Naive_NurbsCurve_Weight(const Naive_H theHandle,
+                                          const int32_t theI);
+
+Naive_CAPI int32_t Naive_NurbsCurve_NbKnots(const Naive_H theHandle);
+
+Naive_CAPI double Naive_NurbsCurve_Knot(const Naive_H theHandle,
+                                        const int32_t theI);
+
+Naive_CAPI int32_t Naive_NurbsCurve_Multiplicity(const Naive_H theHandle,
+                                                 const int32_t theI);
+
 Naive_CAPI double Naive_NurbsCurve_FirstParameter(const Naive_H theHandle);
 
 Naive_CAPI double Naive_NurbsCurve_LastParameter(const Naive_H theHandle);
