@@ -225,14 +225,14 @@ Naive_H Naive_NurbsSurface_New(
   const Naive_Point3d_T *aPHead = thePoles;
   for (Naive_Integer i = 0; i < nbUPoles; ++i, aPHead += nbVPoles) {
     Naive_Point3dList aVP(aPHead, aPHead + nbVPoles);
-    aPoles.push_back(aVP);
+    aPoles.push_back(::std::move(aVP));
   }
   Naive_RealList2 aWeights{};
   aWeights.reserve(nbUWeights);
   const Naive_Real *aWHead = theWeights;
   for (Naive_Integer i = 0; i < nbUWeights; ++i, aWHead += nbVWeights) {
     Naive_RealList aVW(aWHead, aWHead + nbVWeights);
-    aWeights.push_back(aVW);
+    aWeights.push_back(::std::move(aVW));
   }
   Naive_RealList aUKnots(theUKnots, theUKnots + nbUKnots);
   Naive_RealList aVKnots(theVKnots, theVKnots + nbVKnots);
