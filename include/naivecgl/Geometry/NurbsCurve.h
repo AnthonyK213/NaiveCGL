@@ -1,15 +1,14 @@
 ﻿#ifndef _NaiveCGL_Geometry_NurbsCurve_HeaderFile
 #define _NaiveCGL_Geometry_NurbsCurve_HeaderFile
 
-#include "Point3d.h"
-#include "Vector3d.h"
+#include "Curve.h"
 
 #include <naivecgl/Common/Handle.h>
 #include <naivecgl/Math/Nurbs.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-class NurbsCurve final : public Naive_Transient {
+class NurbsCurve final : public Curve {
 public:
   Naive_EXPORT NurbsCurve(const Naive_Point3dList &thePoles,
                           const Naive_RealList &theWeights,
@@ -17,7 +16,7 @@ public:
                           const Naive_IntegerList &theMults,
                           const Naive_Integer theDegree);
 
-  Naive_Bool IsValid() const;
+  Naive_EXPORT virtual Naive_Bool IsValid() const override;
 
   Naive_EXPORT Naive_Integer Degree() const { return myDegree; }
 
@@ -33,21 +32,23 @@ public:
 
   Naive_EXPORT Naive_Integer Multiplicity(const Naive_Integer theIndex) const;
 
-  Naive_EXPORT Naive_Real FirstParameter() const;
+  Naive_EXPORT virtual Naive_Real FirstParameter() const override;
 
-  Naive_EXPORT Naive_Real LastParameter() const;
+  Naive_EXPORT virtual Naive_Real LastParameter() const override;
 
   Naive_EXPORT Naive_Bool IsRational() const { return myRational; }
 
   Naive_EXPORT Naive_Bool IsPeriodic() const { return myPeriodic; }
 
-  Naive_EXPORT Naive_Point3d PointAt(const Naive_Real theT) const;
+  Naive_EXPORT virtual Naive_Point3d
+  PointAt(const Naive_Real theT) const override;
 
-  Naive_EXPORT Naive_Vector3d TangentAt(const Naive_Real theT) const;
+  Naive_EXPORT virtual Naive_Vector3d
+  TangentAt(const Naive_Real theT) const override;
 
-  Naive_EXPORT Naive_Bool DerivativeAt(const Naive_Real theT,
-                                       const Naive_Integer theN,
-                                       Naive_Vector3dList &theD) const;
+  Naive_EXPORT virtual Naive_Bool
+  DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
+               Naive_Vector3dList &theD) const override;
 
   Naive_EXPORT Naive_Bool IncreaseDegree(const Naive_Integer theDegree);
 
@@ -86,6 +87,6 @@ Naive_NAMESPACE_END(geometry);
 #include "detail/NurbsCurve.inl"
 
 using Naive_NurbsCurve = ::naivecgl::geometry::NurbsCurve;
-using Handle_Naive_NurbsCurve = Naive_Handle<Naive_NurbsCurve>;
+Naive_DEFINE_HANDLE(Naive_NurbsCurve);
 
 #endif

@@ -236,6 +236,6 @@ private:
 Naive_NAMESPACE_END(geometry);
 
 using Naive_Mesh = ::naivecgl::geometry::HalfEdgeMesh;
-using Handle_Naive_Mesh = Naive_Handle<Naive_Mesh>;
+Naive_DEFINE_HANDLE(Naive_Mesh);
 
 #endif

@@ -54,6 +54,13 @@ Naive_Bool Vector3d::Normalize() {
   return false;
 }
 
+Naive_EXPORT Vector3d Vector3d::Normalized() const {
+  Vector3d aV(*this);
+  if (aV.Normalize())
+    return aV;
+  return Unset();
+}
+
 const Vector3d &Vector3d::XAxis() {
   static Vector3d aVector{Naive_XYZ::UnitX()};
   return aVector;

@@ -39,6 +39,6 @@ private:
 Naive_NAMESPACE_END(geometry);
 
 using Naive_Poly = ::naivecgl::geometry::TriangleSoup;
-using Handle_Naive_Poly = Naive_Handle<Naive_Poly>;
+Naive_DEFINE_HANDLE(Naive_Poly);
 
 #endif

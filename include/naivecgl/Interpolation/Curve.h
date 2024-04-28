@@ -1,0 +1,4 @@
+﻿#ifndef _NaiveCGL_Interpolation_Curve_HeaderFile
+#define _NaiveCGL_Interpolation_Curve_HeaderFile
+
+#endif

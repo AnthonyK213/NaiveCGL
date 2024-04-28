@@ -53,6 +53,8 @@ public:
 
   Naive_EXPORT Naive_Bool Normalize();
 
+  Naive_EXPORT Vector3d Normalized() const;
+
   Naive_EXPORT void Add(const Vector3d &theVec);
 
   Naive_EXPORT Vector3d Added(const Vector3d &theVec) const;

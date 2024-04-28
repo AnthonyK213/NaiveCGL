@@ -1,8 +1,7 @@
 ﻿#ifndef _NaiveCGL_Geometry_NurbsSurface_HeaderFile
 #define _NaiveCGL_Geometry_NurbsSurface_HeaderFile
 
-#include "Point3d.h"
-#include "Vector3d.h"
+#include "Surface.h"
 
 #include <naivecgl/Common/Handle.h>
 #include <naivecgl/Math/Nurbs.h>
@@ -11,7 +10,7 @@ Naive_NAMESPACE_BEGIN(geometry);
 
 class NurbsCurve;
 
-class NurbsSurface final : public Naive_Transient {
+class NurbsSurface final : public Surface {
 public:
   Naive_EXPORT NurbsSurface(
       const Naive_Point3dList2 &thePoles, const Naive_RealList2 &theWeights,
@@ -19,7 +18,7 @@ public:
       const Naive_IntegerList &theUMults, const Naive_IntegerList &theVMults,
       const Naive_Integer theUDegree, const Naive_Integer theVDegree);
 
-  Naive_Bool IsValid() const;
+  Naive_EXPORT virtual Naive_Bool IsValid() const override;
 
   Naive_EXPORT Naive_Integer UDegree() const { return myUDegree; }
 
@@ -36,12 +35,12 @@ public:
 
   Naive_EXPORT Naive_Bool IsVPeriodic() const { return myVPeriodic; }
 
-  Naive_EXPORT Naive_Point3d PointAt(const Naive_Real theU,
-                                     const Naive_Real theV) const;
+  Naive_EXPORT virtual Naive_Point3d
+  PointAt(const Naive_Real theU, const Naive_Real theV) const override;
 
-  Naive_EXPORT Naive_Bool Evaluate(const Naive_Real theU, const Naive_Real theV,
-                                   const Naive_Integer theN,
-                                   Naive_Vector3dList &theD) const;
+  Naive_EXPORT virtual Naive_Bool
+  Evaluate(const Naive_Real theU, const Naive_Real theV,
+           const Naive_Integer theN, Naive_Vector3dList &theD) const override;
 
 private:
   template <typename P2, typename R2, typename R, typename I>
@@ -74,6 +73,6 @@ Naive_NAMESPACE_END(geometry);
 #include "detail/NurbsSurface.inl"
 
 using Naive_NurbsSurface = ::naivecgl::geometry::NurbsSurface;
-using Handle_Naive_NurbsSurface = Naive_Handle<Naive_NurbsSurface>;
+Naive_DEFINE_HANDLE(Naive_NurbsSurface);
 
 #endif

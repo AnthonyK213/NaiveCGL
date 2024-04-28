@@ -21,6 +21,10 @@ Naive_Vector3d Line::UnitTangent() const {
   return Naive_Vector3d::Unset();
 }
 
+Naive_Real Line::FirstParameter() const { return 0.0; }
+
+Naive_Real Line::LastParameter() const { return 1.0; }
+
 Naive_Bool Line::IsValid() const {
   return myFrom.IsValid() && myFrom.IsValid() &&
          Length() > math::Constant::ZeroTolerance();
@@ -48,6 +52,24 @@ Naive_Real Line::DistanceTo(const Naive_Point3d &thePnt,
 
 Naive_Point3d Line::PointAt(const Naive_Real theT) const {
   return {myFrom.XYZ() * (1 - theT) + myTo.XYZ() * theT};
+}
+
+Naive_Vector3d Line::TangentAt(const Naive_Real theT) const {
+  return Direction();
+}
+
+Naive_Bool Line::DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
+                              Naive_Vector3dList &theD) const {
+  if (!IsValid() || theN < 0)
+    return false;
+
+  theD.resize(theN + 1, Naive_Vector3d::Zero());
+  if (theN >= 0)
+    theD[0].ChangeXYZ() = PointAt(theT).XYZ();
+  if (theN >= 1)
+    theD[1] = TangentAt(theT);
+
+  return true;
 }
 
 Naive_Point3d Line::PointAtLength(const Naive_Real theLength) const {

@@ -1,0 +1,4 @@
+﻿#ifndef _NaiveCGL_Interpolation_Surface_HeaderFile
+#define _NaiveCGL_Interpolation_Surface_HeaderFile
+
+#endif
