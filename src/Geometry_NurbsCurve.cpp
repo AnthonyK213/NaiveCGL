@@ -12,50 +12,52 @@ NurbsCurve::NurbsCurve(const Naive_Point3dList &thePoles,
   update(thePoles, theWeights, theKnots, theMults, theDegree);
 }
 
+Naive_Bool NurbsCurve::IsValid() const { return myDegree > 0; }
+
 Naive_Integer NurbsCurve::NbPoles() const {
-  if (!isValid())
+  if (!IsValid())
     return 0;
   return static_cast<Naive_Integer>(myPoles.size());
 }
 
 const Naive_Point3d &NurbsCurve::Pole(const Naive_Integer theIndex) const {
-  if (theIndex < 0 || theIndex >= NbPoles() || !isValid())
+  if (theIndex < 0 || theIndex >= NbPoles() || !IsValid())
     return Naive_Point3d::Unset();
   return myPoles[theIndex];
 }
 
 Naive_EXPORT Naive_Real NurbsCurve::Weight(const Naive_Integer theIndex) const {
-  if (theIndex < 0 || theIndex >= NbPoles() || !isValid())
+  if (theIndex < 0 || theIndex >= NbPoles() || !IsValid())
     return math::Constant::UnsetReal();
   return myWeights[theIndex];
 }
 
 Naive_Integer NurbsCurve::NbKnots() const {
-  if (!isValid())
+  if (!IsValid())
     return 0;
   return static_cast<Naive_Integer>(myKnots.size());
 }
 
 Naive_Real NurbsCurve::Knot(const Naive_Integer theIndex) const {
-  if (theIndex < 0 || theIndex >= NbKnots() || !isValid())
+  if (theIndex < 0 || theIndex >= NbKnots() || !IsValid())
     return math::Constant::UnsetReal();
   return myKnots[theIndex];
 }
 
 Naive_Integer NurbsCurve::Multiplicity(const Naive_Integer theIndex) const {
-  if (theIndex < 0 || theIndex >= NbKnots() || !isValid())
+  if (theIndex < 0 || theIndex >= NbKnots() || !IsValid())
     return 0;
   return myMults[theIndex];
 }
 
 Naive_Real NurbsCurve::FirstParameter() const {
-  if (!isValid())
+  if (!IsValid())
     return math::Constant::UnsetReal();
   return myKnots[0];
 }
 
 Naive_Real NurbsCurve::LastParameter() const {
-  if (!isValid())
+  if (!IsValid())
     return math::Constant::UnsetReal();
   return myKnots[myKnots.size() - 1];
 }
@@ -77,7 +79,7 @@ Naive_Vector3d NurbsCurve::TangentAt(const Naive_Real theT) const {
 Naive_Bool NurbsCurve::DerivativeAt(const Naive_Real theT,
                                     const Naive_Integer theN,
                                     Naive_Vector3dList &theD) const {
-  if (!isValid())
+  if (!IsValid())
     return false;
 
   if (theN < 0)
@@ -122,7 +124,7 @@ Naive_Bool NurbsCurve::DerivativeAt(const Naive_Real theT,
 }
 
 Naive_Bool NurbsCurve::IncreaseDegree(const Naive_Integer theDegree) {
-  if (!isValid() || theDegree < 0)
+  if (!IsValid() || theDegree < 0)
     return false;
 
   return true;
@@ -240,7 +242,5 @@ Naive_Bool NurbsCurve::RemoveKnot(const Naive_Integer theI,
 
   return true;
 }
-
-Naive_Bool NurbsCurve::isValid() const { return myDegree > 0; }
 
 Naive_NAMESPACE_END(geometry);

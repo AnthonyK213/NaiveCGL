@@ -10,15 +10,17 @@ Nurbs::CheckParam(const Naive_Integer nbPoles, const Naive_Integer nbWeights,
                   const Naive_IntegerList &theMults,
                   const Naive_Integer theDegree, Naive_Bool &myPeriodic,
                   Naive_RealList &theFlatKnots, Naive_IntegerList &theSpanIdx) {
-  if (nbPoles < 2 || nbPoles != nbWeights || theDegree < 1)
+  /* 1 <= Degree <= 9 */
+  if (theDegree < 1 || theDegree > 9)
     return false;
 
-  if (theKnots.size() < 2)
+  if (nbPoles < 2 || nbPoles != nbWeights)
     return false;
 
-  if (theKnots.size() != theMults.size())
+  if (theKnots.size() < 2 || theKnots.size() != theMults.size())
     return false;
 
+  /* 1 <= Mults <= Degree */
   for (Naive_Integer i = 0; i < theMults.size(); ++i) {
     if (theMults[i] < 1)
       return false;
@@ -31,6 +33,7 @@ Nurbs::CheckParam(const Naive_Integer nbPoles, const Naive_Integer nbWeights,
     }
   }
 
+  /* The knots must be strictly increasing. */
   for (Naive_Integer i = 1; i < theKnots.size(); ++i) {
     if (theKnots[i] <= theKnots[i - 1])
       return false;

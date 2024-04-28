@@ -27,6 +27,8 @@ Naive_CAPI Naive_H Naive_NurbsCurve_New(
     const double *theKnots, const int32_t nbMults, const int32_t *theMults,
     const int32_t theDegree);
 
+Naive_CAPI bool Naive_NurbsCurve_IsValid(const Naive_H theHandle);
+
 Naive_CAPI int32_t Naive_NurbsCurve_Degree(const Naive_H theHandle);
 
 Naive_CAPI int32_t Naive_NurbsCurve_NbPoles(const Naive_H theHandle);
@@ -97,6 +99,8 @@ Naive_CAPI Naive_H Naive_NurbsSurface_New(
     const int32_t nbUMults, const int32_t *theUMults, const int32_t nbVMults,
     const int32_t *theVMults, const int32_t theUDegree,
     const int32_t theVDegree);
+
+Naive_CAPI bool Naive_NurbsSurface_IsValid(const Naive_H theHandle);
 
 Naive_CAPI int32_t Naive_NurbsSurface_UDegree(const Naive_H theHandle);
 

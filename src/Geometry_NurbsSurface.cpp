@@ -14,9 +14,13 @@ NurbsSurface::NurbsSurface(
          theUDegree, theVDegree);
 }
 
+Naive_Bool NurbsSurface::IsValid() const {
+  return myUDegree > 0 && myVDegree > 0;
+}
+
 Naive_Bool NurbsSurface::Bounds(Naive_Real &theU0, Naive_Real &theU1,
                                 Naive_Real &theV0, Naive_Real &theV1) const {
-  if (!isValid())
+  if (!IsValid())
     return false;
 
   theU0 = myUKnots[0];
@@ -38,7 +42,7 @@ Naive_Point3d NurbsSurface::PointAt(const Naive_Real theU,
 Naive_Bool NurbsSurface::Evaluate(const Naive_Real theU, const Naive_Real theV,
                                   const Naive_Integer theN,
                                   Naive_Vector3dList &theD) const {
-  if (!isValid())
+  if (!IsValid())
     return false;
 
   Naive_Integer iUSpan = math::Nurbs::FindFlatSpan(myUKnots, myUSpanIdx, theU);
@@ -79,9 +83,9 @@ Naive_Bool NurbsSurface::Evaluate(const Naive_Real theU, const Naive_Real theV,
       Naive_Real W = 0.0;
       Naive_Integer K = I - L;
       for (Naive_Integer i = pUBegin; i <= pUEnd; ++i) {
-        auto nU = anUA[i - pUBegin].Derivative(K).Evaluate(theU);
+        Naive_Real nU = anUA[i - pUBegin].Derivative(K).Evaluate(theU);
         for (Naive_Integer j = pVBegin; j <= pVEnd; ++j) {
-          auto nV = anUA[j - pVBegin].Derivative(L).Evaluate(theV);
+          Naive_Real nV = anUA[j - pVBegin].Derivative(L).Evaluate(theV);
           Naive_Real N = nU * nV * myWeights[i][j];
           A += N * myPoles[i][j].XYZ();
           W += N;
@@ -114,10 +118,6 @@ Naive_Bool NurbsSurface::Evaluate(const Naive_Real theU, const Naive_Real theV,
   }
 
   return true;
-}
-
-Naive_Bool NurbsSurface::isValid() const {
-  return myUDegree > 0 && myVDegree > 0;
 }
 
 Naive_NAMESPACE_END(geometry);

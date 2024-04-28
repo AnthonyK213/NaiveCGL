@@ -7,10 +7,12 @@
 #include <naivecgl/Math/Constant.h>
 #include <naivecgl/Tessellation/Sphere.h>
 
-#define Naive_H_CAST(T, H, N) T *N = static_cast<T *>(H);
+#define Naive_H_CAST(T, H, N) T *N = reinterpret_cast<T *>(H);
+
 #define Naive_H_RELEASE(T, H)                                                  \
   Naive_H_CAST(T, H, __h__);                                                   \
   delete __h__;
+
 #define Naive_H_RELEASE_TRANSIENT(T, H)                                        \
   if (H) {                                                                     \
     Naive_H_CAST(T, H, __h__);                                                 \
@@ -49,6 +51,11 @@ Naive_H Naive_NurbsCurve_New(const int32_t nbPoles,
       new Naive_NurbsCurve(aPoles, aWeights, aKnots, aMults, theDegree);
   aCrv->IncrementRefCounter();
   return aCrv.get();
+}
+
+bool Naive_NurbsCurve_IsValid(const Naive_H theHandle) {
+  Naive_H_CAST(const Naive_NurbsCurve, theHandle, H);
+  return H->IsValid();
 }
 
 int32_t Naive_NurbsCurve_Degree(const Naive_H theHandle) {
@@ -243,6 +250,11 @@ Naive_H Naive_NurbsSurface_New(
                              aVMults, theUDegree, theVDegree);
   aSrf->IncrementRefCounter();
   return aSrf.get();
+}
+
+bool Naive_NurbsSurface_IsValid(const Naive_H theHandle) {
+  Naive_H_CAST(const Naive_NurbsSurface, theHandle, H);
+  return H->IsValid();
 }
 
 int32_t Naive_NurbsSurface_UDegree(const Naive_H theHandle) {

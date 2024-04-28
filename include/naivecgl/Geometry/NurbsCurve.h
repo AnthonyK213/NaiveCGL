@@ -17,6 +17,8 @@ public:
                           const Naive_IntegerList &theMults,
                           const Naive_Integer theDegree);
 
+  Naive_Bool IsValid() const;
+
   Naive_EXPORT Naive_Integer Degree() const { return myDegree; }
 
   Naive_EXPORT Naive_Integer NbPoles() const;
@@ -63,8 +65,6 @@ public:
                                      const Naive_Integer theM);
 
 private:
-  Naive_Bool isValid() const;
-
   template <typename P, typename Rw, typename Rk, typename I>
   Naive_Bool update(P &&thePoles, Rw &&theWeights, Rk &&theKnots, I &&theMults,
                     const Naive_Integer theDegree);

@@ -19,6 +19,8 @@ public:
       const Naive_IntegerList &theUMults, const Naive_IntegerList &theVMults,
       const Naive_Integer theUDegree, const Naive_Integer theVDegree);
 
+  Naive_Bool IsValid() const;
+
   Naive_EXPORT Naive_Integer UDegree() const { return myUDegree; }
 
   Naive_EXPORT Naive_Integer VDegree() const { return myVDegree; }
@@ -42,8 +44,6 @@ public:
                                    Naive_Vector3dList &theD) const;
 
 private:
-  Naive_Bool isValid() const;
-
   template <typename P2, typename R2, typename R, typename I>
   Naive_Bool update(P2 &&thePoles, R2 &&theWeights, R &&theUKnots,
                     R &&theVKnots, I &&theUMults, I &&theVMults,
