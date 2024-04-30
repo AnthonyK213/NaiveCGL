@@ -180,7 +180,7 @@ double Naive_NurbsCurve_LastParameter(const Naive_H theHandle) {
 
 bool Naive_NurbsCurve_PointAt(const Naive_H theHandle, const double theT,
                               Naive_Point3d_T *theP) {
-  Naive_H_CAST(Naive_NurbsCurve, theHandle, H);
+  Naive_H_CAST(const Naive_NurbsCurve, theHandle, H);
   if (!H || !theP)
     return false;
   Naive_Point3d aP = H->PointAt(theT);
@@ -189,7 +189,7 @@ bool Naive_NurbsCurve_PointAt(const Naive_H theHandle, const double theT,
 
 bool Naive_NurbsCurve_TangentAt(const Naive_H theHandle, const double theT,
                                 Naive_Vector3d_T *theV) {
-  Naive_H_CAST(Naive_NurbsCurve, theHandle, H);
+  Naive_H_CAST(const Naive_NurbsCurve, theHandle, H);
   if (!H || !theV)
     return false;
   Naive_Vector3d aV = H->TangentAt(theT);
@@ -314,7 +314,7 @@ int32_t Naive_NurbsSurface_VDegree(const Naive_H theHandle) {
 
 bool Naive_NurbsSurface_PointAt(const Naive_H theHandle, const double theU,
                                 const double theV, Naive_Point3d_T *theP) {
-  Naive_H_CAST(Naive_NurbsSurface, theHandle, H);
+  Naive_H_CAST(const Naive_NurbsSurface, theHandle, H);
   if (!H || !theP)
     return false;
   Naive_Point3d aP = H->PointAt(theU, theV);
@@ -526,7 +526,7 @@ void Naive_BndShape_EnclosingDisc_Rebuild(Naive_H theHandle, int32_t nbPoints,
 bool Naive_BndShape_EnclosingDisc_Circle(const Naive_H theHandle,
                                          Naive_Point2d_T *theOrigin,
                                          double *theR) {
-  Naive_H_CAST(::naivecgl::bndshape::EnclosingDisc, theHandle, H);
+  Naive_H_CAST(const ::naivecgl::bndshape::EnclosingDisc, theHandle, H);
   if (!H || !theOrigin || !theR)
     return false;
 
