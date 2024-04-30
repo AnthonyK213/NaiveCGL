@@ -70,4 +70,15 @@ Naive_Bool Circle::DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
   return true;
 }
 
+Naive_Vector3d Circle::CurvatureAt(const Naive_Real theT) const {
+  if (!IsValid())
+    return Naive_Vector3d::Unset();
+
+  Naive_Vector3dList aD{};
+  if (!DerivativeAt(theT, 2, aD))
+    return Naive_Vector3d::Unset();
+
+  return aD[2].Divided(myRadius * myRadius);
+}
+
 Naive_NAMESPACE_END(geometry);

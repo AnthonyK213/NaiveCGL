@@ -28,6 +28,9 @@ public:
   DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
                Naive_Vector3dList &theD) const override;
 
+  Naive_EXPORT virtual Naive_Vector3d
+  CurvatureAt(const Naive_Real theT) const override;
+
 private:
   Plane myPlane;
   Naive_Real myRadius;

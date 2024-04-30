@@ -50,6 +50,9 @@ public:
   DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
                Naive_Vector3dList &theD) const override;
 
+  Naive_EXPORT virtual Naive_Vector3d
+  CurvatureAt(const Naive_Real theT) const override;
+
   Naive_EXPORT Naive_Bool IncreaseDegree(const Naive_Integer theDegree);
 
   Naive_EXPORT Naive_Bool IncreaseMultiplicity(const Naive_Integer theI,

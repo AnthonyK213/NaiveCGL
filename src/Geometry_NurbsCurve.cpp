@@ -123,6 +123,19 @@ Naive_Bool NurbsCurve::DerivativeAt(const Naive_Real theT,
   return true;
 }
 
+Naive_Vector3d NurbsCurve::CurvatureAt(const Naive_Real theT) const {
+  if (!IsValid())
+    return Naive_Vector3d::Unset();
+
+  Naive_Vector3dList aD{};
+  if (!DerivativeAt(theT, 2, aD))
+    return Naive_Vector3d::Unset();
+
+  Naive_Vector3d b = aD[1].Crossed(aD[2]);
+  Naive_Real k = b.Length() / ::std::pow(aD[1].Length(), 3);
+  return b.Crossed(aD[1]).Normalized().Multiplied(k);
+}
+
 Naive_Bool NurbsCurve::IncreaseDegree(const Naive_Integer theDegree) {
   if (!IsValid() || theDegree < 0)
     return false;

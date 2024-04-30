@@ -21,6 +21,9 @@ public:
   Naive_EXPORT virtual Naive_Bool
   DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
                Naive_Vector3dList &theD) const = 0;
+
+  Naive_EXPORT virtual Naive_Vector3d
+  CurvatureAt(const Naive_Real theT) const = 0;
 };
 
 Naive_NAMESPACE_END(geometry);

@@ -70,6 +70,10 @@ Naive_Bool Line::DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
   return true;
 }
 
+Naive_Vector3d Line::CurvatureAt(const Naive_Real theT) const {
+  return Naive_Vector3d::Zero();
+}
+
 Naive_Point3d Line::PointAtLength(const Naive_Real theLength) const {
   Naive_Vector3d aTan = UnitTangent();
   if (!aTan.IsValid())

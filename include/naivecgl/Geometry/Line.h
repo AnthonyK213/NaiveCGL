@@ -47,6 +47,9 @@ public:
   DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
                Naive_Vector3dList &theD) const override;
 
+  Naive_EXPORT virtual Naive_Vector3d
+  CurvatureAt(const Naive_Real theT) const override;
+
   Naive_EXPORT Naive_Point3d PointAtLength(const Naive_Real theLength) const;
 
 private:

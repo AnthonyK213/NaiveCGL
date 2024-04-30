@@ -94,6 +94,10 @@ Naive_CAPI bool Naive_NurbsCurve_DerivativeAt(const Naive_H theHandle,
                                               int32_t *nbD,
                                               Naive_Vector3d_T *theD);
 
+Naive_CAPI bool Naive_NurbsCurve_CurvatureAt(const Naive_H theHandle,
+                                             const double theT,
+                                             Naive_Vector3d_T *theV);
+
 Naive_CAPI bool Naive_NurbsCurve_IncreaseDegree(Naive_H theHandle,
                                                 const int32_t theDegree);
 

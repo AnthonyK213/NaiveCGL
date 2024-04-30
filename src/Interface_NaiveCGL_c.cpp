@@ -14,7 +14,7 @@
 
 #define Naive_H_CLONE(T, H)                                                    \
   Naive_H_CAST(const T, H, __h__);                                             \
-  return H ? new T(*__h__) : nullptr;
+  return __h__ ? new T(*__h__) : nullptr;
 
 #define Naive_H_CLONE_TRANSIENT(T, H)                                          \
   Naive_H_CAST(const T, H, __h__);                                             \
@@ -181,19 +181,13 @@ double Naive_NurbsCurve_LastParameter(const Naive_H theHandle) {
 bool Naive_NurbsCurve_PointAt(const Naive_H theHandle, const double theT,
                               Naive_Point3d_T *theP) {
   Naive_H_CAST(const Naive_NurbsCurve, theHandle, H);
-  if (!H || !theP)
-    return false;
-  Naive_Point3d aP = H->PointAt(theT);
-  return aP.Dump(*theP);
+  return (H && theP) ? H->PointAt(theT).Dump(*theP) : false;
 }
 
 bool Naive_NurbsCurve_TangentAt(const Naive_H theHandle, const double theT,
                                 Naive_Vector3d_T *theV) {
   Naive_H_CAST(const Naive_NurbsCurve, theHandle, H);
-  if (!H || !theV)
-    return false;
-  Naive_Vector3d aV = H->TangentAt(theT);
-  return aV.Dump(*theV);
+  return (H && theV) ? H->TangentAt(theT).Dump(*theV) : false;
 }
 
 bool Naive_NurbsCurve_DerivativeAt(const Naive_H theHandle, const double theT,
@@ -216,6 +210,12 @@ bool Naive_NurbsCurve_DerivativeAt(const Naive_H theHandle, const double theT,
   }
 
   return true;
+}
+
+bool Naive_NurbsCurve_CurvatureAt(const Naive_H theHandle, const double theT,
+                                  Naive_Vector3d_T *theV) {
+  Naive_H_CAST(const Naive_NurbsCurve, theHandle, H);
+  return (H && theV) ? H->CurvatureAt(theT).Dump(*theV) : false;
 }
 
 bool Naive_NurbsCurve_IncreaseDegree(Naive_H theHandle,
@@ -315,10 +315,7 @@ int32_t Naive_NurbsSurface_VDegree(const Naive_H theHandle) {
 bool Naive_NurbsSurface_PointAt(const Naive_H theHandle, const double theU,
                                 const double theV, Naive_Point3d_T *theP) {
   Naive_H_CAST(const Naive_NurbsSurface, theHandle, H);
-  if (!H || !theP)
-    return false;
-  Naive_Point3d aP = H->PointAt(theU, theV);
-  return aP.Dump(*theP);
+  return (H && theP) ? H->PointAt(theU, theV).Dump(*theP) : false;
 }
 
 bool Naive_NurbsSurface_Evaluate(const Naive_H theHandle, const double theU,
