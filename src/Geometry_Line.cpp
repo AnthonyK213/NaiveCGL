@@ -11,8 +11,6 @@ Line::Line(const Naive_Point3d &theStart, const Naive_Vector3d &theDirection,
 
 Line::Line(const Naive_Point3d &theStart, const Naive_Vector3d &theSpan) {}
 
-Line::Line(const Naive_Line_T &theL) : myFrom(theL.from), myTo(theL.to) {}
-
 Naive_Vector3d Line::UnitTangent() const {
   Naive_Vector3d aDir = Direction();
   if (aDir.Normalize())
@@ -78,11 +76,6 @@ Naive_Point3d Line::PointAtLength(const Naive_Real theLength) const {
     return Naive_Point3d::Unset();
 
   return {myFrom.XYZ() + aTan.XYZ() * theLength};
-}
-
-void Line::Dump(Naive_Line_T &theL) const {
-  myFrom.Dump(theL.from);
-  myTo.Dump(theL.to);
 }
 
 Naive_NAMESPACE_END(geometry);

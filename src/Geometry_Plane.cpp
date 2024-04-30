@@ -4,12 +4,6 @@ Naive_NAMESPACE_BEGIN(geometry);
 
 Plane::Plane() {}
 
-Plane::Plane(const Naive_Plane_T &thePlane)
-    : myLocation(thePlane.origin), myXAxis(thePlane.xAxis),
-      myYAxis(thePlane.yAxis) {
-  initByXY();
-}
-
 Plane::Plane(const Naive_Point3d &thePoint, const Naive_Vector3d &theXAxis,
              const Naive_Vector3d &theYAxis)
     : myLocation(thePoint), myXAxis(theXAxis), myYAxis(theYAxis) {

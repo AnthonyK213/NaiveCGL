@@ -8,9 +8,6 @@ Circle::Circle() {}
 Circle::Circle(const Plane &thePlane, const Naive_Real theRadius)
     : myPlane(thePlane), myRadius(theRadius) {}
 
-Circle::Circle(const Naive_Circle_T &theCircle)
-    : myPlane(theCircle.plane), myRadius(theCircle.radius) {}
-
 Naive_Bool Circle::IsValid() const {
   return myPlane.IsValid() && math::Util::IsValidReal(myRadius) && myRadius > 0;
 }

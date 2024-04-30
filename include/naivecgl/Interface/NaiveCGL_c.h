@@ -19,6 +19,33 @@ Naive_CAPI bool Naive_Math_Util_IsValidReal(const double theR);
 
 /// }}}
 
+/// Naive_Plane {{{
+
+Naive_CAPI Naive_H Naive_Plane_New();
+
+Naive_CAPI Naive_H Naive_Plane_Clone(const Naive_H theHandle);
+
+Naive_CAPI bool Naive_Plane_IsValid(const Naive_H theHandle);
+
+Naive_CAPI void Naive_Plane_Release(const Naive_H theHandle);
+
+/// }}}
+
+/// Naive_Line {{{
+
+Naive_CAPI Naive_H Naive_Line_New();
+
+Naive_CAPI Naive_H Naive_Line_FromEnds(const Naive_Point3d_T *theFrom,
+                                       const Naive_Point3d_T *theTo);
+
+Naive_CAPI Naive_H Naive_Line_Clone(const Naive_H theHandle);
+
+Naive_CAPI bool Naive_Line_IsValid(const Naive_H theHandle);
+
+Naive_CAPI void Naive_Line_Release(Naive_H theHandle);
+
+/// }}}
+
 /// Naive_NurbsCurve {{{
 
 Naive_CAPI Naive_H Naive_NurbsCurve_New(
@@ -26,6 +53,8 @@ Naive_CAPI Naive_H Naive_NurbsCurve_New(
     const int32_t nbWeights, const double *theWeights, const int32_t nbKnots,
     const double *theKnots, const int32_t nbMults, const int32_t *theMults,
     const int32_t theDegree);
+
+Naive_CAPI Naive_H Naive_NurbsCurve_Clone(const Naive_H theHandle);
 
 Naive_CAPI bool Naive_NurbsCurve_IsValid(const Naive_H theHandle);
 
@@ -100,6 +129,8 @@ Naive_CAPI Naive_H Naive_NurbsSurface_New(
     const int32_t *theVMults, const int32_t theUDegree,
     const int32_t theVDegree);
 
+Naive_CAPI Naive_H Naive_NurbsSurface_Clone(const Naive_H theHandle);
+
 Naive_CAPI bool Naive_NurbsSurface_IsValid(const Naive_H theHandle);
 
 Naive_CAPI int32_t Naive_NurbsSurface_UDegree(const Naive_H theHandle);
@@ -127,6 +158,8 @@ Naive_CAPI Naive_H Naive_Poly_New(const int32_t nbVertices,
                                   const int32_t nbTriangles,
                                   const Naive_Triangle_T *theTriangles);
 
+Naive_CAPI Naive_H Naive_Poly_Clone(const Naive_H theHandle);
+
 Naive_CAPI int32_t Naive_Poly_NbVertices(const Naive_H theHandle);
 
 Naive_CAPI void Naive_Poly_Vertices(const Naive_H theHandle,
@@ -141,7 +174,7 @@ Naive_CAPI void Naive_Poly_Release(Naive_H theHandle);
 
 /// }}}
 
-/// BndShape {{{
+/// BndShape_ConvexHull2D {{{
 
 Naive_CAPI Naive_H Naive_BndShape_ConvexHull2D_New(
     int32_t nbPoints, const Naive_Point2d_T *thePoints,
@@ -169,7 +202,11 @@ Naive_CAPI Naive_Code Naive_BndShape_ConvexHull2D_ConvexIndices(
 Naive_CAPI Naive_Code Naive_BndShape_ConvexHull2D_ConvexPoints(
     const Naive_H theHandle, Naive_Point2d_T *theConvexPoints);
 
-Naive_CAPI void Naive_BndShape_ConvexHull2D_Release(Naive_H theHandle);
+Naive_CAPI void Naive_BndShape_ConvexHull2D_Release(const Naive_H theHandle);
+
+/// }}}
+
+/// BndShape_EnclosingDisc {{{
 
 Naive_CAPI Naive_H Naive_BndShape_EnclosingDisc_New(void);
 
@@ -181,7 +218,15 @@ Naive_CAPI bool Naive_BndShape_EnclosingDisc_Circle(const Naive_H theHandle,
                                                     Naive_Point2d_T *theOrigin,
                                                     double *theR);
 
-Naive_CAPI void Naive_BndShape_EnclosingDisc_Release(Naive_H theHandle);
+Naive_CAPI void Naive_BndShape_EnclosingDisc_Release(const Naive_H theHandle);
+
+/// }}}
+
+/// Intersect_Intersection {{{
+
+Naive_CAPI bool Naive_Intersect_Intersection_LinePlane(const Naive_H theLine,
+                                                       const Naive_H thePlane,
+                                                       double *theT);
 
 /// }}}
 

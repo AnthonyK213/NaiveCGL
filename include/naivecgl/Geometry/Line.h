@@ -18,8 +18,6 @@ public:
   Naive_EXPORT Line(const Naive_Point3d &theStart,
                     const Naive_Vector3d &theSpan);
 
-  Naive_EXPORT Line(const Naive_Line_T &theL);
-
   Naive_EXPORT Naive_Vector3d Direction() const { return myTo - myFrom; }
 
   Naive_EXPORT Naive_Vector3d UnitTangent() const;
@@ -51,8 +49,6 @@ public:
 
   Naive_EXPORT Naive_Point3d PointAtLength(const Naive_Real theLength) const;
 
-  Naive_EXPORT void Dump(Naive_Line_T &theL) const;
-
 private:
   Naive_Point3d myFrom;
   Naive_Point3d myTo;
@@ -61,5 +57,6 @@ private:
 Naive_NAMESPACE_END(geometry);
 
 using Naive_Line = ::naivecgl::geometry::Line;
+Naive_DEFINE_HANDLE(Naive_Line);
 
 #endif
