@@ -35,6 +35,14 @@
     __h__->Delete();                                                           \
   }
 
+/// Math_Constant {{{
+
+double Naive_Math_Constant_UnsetReal() {
+  return ::naivecgl::math::Constant::UnsetReal();
+}
+
+// }}}
+
 /// Math_Util {{{
 
 bool Naive_Math_Util_IsValidReal(const double theR) {
@@ -45,7 +53,29 @@ bool Naive_Math_Util_IsValidReal(const double theR) {
 
 /// Naive_Plane {{{
 
-Naive_H Naive_Plane_New() { return new Naive_Plane; }
+Naive_H Naive_Plane_New(void) { return new Naive_Plane; }
+
+Naive_H Naive_Plane_FromOXY(const Naive_Point3d_T *thePoint,
+                            const Naive_Vector3d_T *theXAxis,
+                            const Naive_Vector3d_T *theYAxis) {
+  if (!thePoint || !theXAxis || !theYAxis)
+    return nullptr;
+
+  Naive_Point3d aPoint{*thePoint};
+  Naive_Vector3d aXAxis{*theXAxis};
+  Naive_Vector3d aYAxis{*theYAxis};
+  return new Naive_Plane(aPoint, aXAxis, aYAxis);
+}
+
+Naive_H Naive_Plane_FromON(const Naive_Point3d_T *thePoint,
+                           const Naive_Vector3d_T *theNormal) {
+  if (!thePoint || !theNormal)
+    return nullptr;
+
+  Naive_Point3d aPoint{*thePoint};
+  Naive_Vector3d aNormal{*theNormal};
+  return new Naive_Plane(aPoint, aNormal);
+}
 
 Naive_H Naive_Plane_Clone(const Naive_H theHandle) {
   Naive_H_CLONE(Naive_Plane, theHandle);
@@ -56,6 +86,34 @@ bool Naive_Plane_IsValid(const Naive_H theHandle) {
   return H ? H->IsValid() : false;
 }
 
+bool Naive_Plane_Location(const Naive_H theHandle,
+                          Naive_Point3d_T *theLocation) {
+  Naive_H_CAST(const Naive_Plane, theHandle, H);
+  return (H && theLocation) ? H->Location().Dump(*theLocation) : false;
+}
+
+bool Naive_Plane_XAxis(const Naive_H theHandle, Naive_Point3d_T *theXAxis) {
+  Naive_H_CAST(const Naive_Plane, theHandle, H);
+  return (H && theXAxis) ? H->XAxis().Dump(*theXAxis) : false;
+}
+
+bool Naive_Plane_YAxis(const Naive_H theHandle, Naive_Point3d_T *theYAxis) {
+  Naive_H_CAST(const Naive_Plane, theHandle, H);
+  return (H && theYAxis) ? H->YAxis().Dump(*theYAxis) : false;
+}
+
+bool Naive_Plane_Axis(const Naive_H theHandle, Naive_Point3d_T *theAxis) {
+  Naive_H_CAST(const Naive_Plane, theHandle, H);
+  return (H && theAxis) ? H->Axis().Dump(*theAxis) : false;
+}
+
+double Naive_Plane_Distance(const Naive_H theHandle,
+                            const Naive_Point3d_T *thePoint) {
+  Naive_H_CAST(const Naive_Plane, theHandle, H);
+  return (H && thePoint) ? H->Distance(*thePoint)
+                         : ::naivecgl::math::Constant::UnsetReal();
+}
+
 void Naive_Plane_Release(const Naive_H theHandle) {
   Naive_H_RELEASE(const Naive_Plane, theHandle);
 }
@@ -64,7 +122,7 @@ void Naive_Plane_Release(const Naive_H theHandle) {
 
 /// Naive_Line {{{
 
-Naive_H Naive_Line_New() {
+Naive_H Naive_Line_New(void) {
   Handle_Naive_Line aLine = new Naive_Line;
   aLine->IncrementRefCounter();
   return aLine.get();

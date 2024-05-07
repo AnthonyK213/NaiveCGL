@@ -134,6 +134,4 @@ struct hash<Naive_Handle<TheTransientType>> {
 
 } // namespace std
 
-#define Naive_DEFINE_HANDLE(T) using Handle_##T = ::naivecgl::common::handle<T>;
-
 #endif

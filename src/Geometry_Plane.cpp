@@ -2,18 +2,21 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-Plane::Plane() {}
+Plane::Plane() { initInvalid(); }
 
 Plane::Plane(const Naive_Point3d &thePoint, const Naive_Vector3d &theXAxis,
              const Naive_Vector3d &theYAxis)
     : myLocation(thePoint), myXAxis(theXAxis), myYAxis(theYAxis) {
-  initByXY();
+  if (!initByXY())
+    initInvalid();
 }
 
 Plane::Plane(const Naive_Point3d &thePoint, const Naive_Vector3d &theNormal)
     : myLocation(thePoint), myZAxis(theNormal) {
-  if (!myZAxis.Normalize())
+  if (!myZAxis.Normalize()) {
+    initInvalid();
     return;
+  }
 
   myXAxis = Vector3d::YAxis().Crossed(myZAxis);
   if (!myXAxis.Normalize()) {
@@ -103,17 +106,26 @@ Naive_Bool Plane::Orient(const Plane &thePln, Transform3d &theTrsf) const {
   return true;
 }
 
-void Plane::initByXY() {
+void Plane::initInvalid() {
+  myLocation = Naive_Point3d::Unset();
+  myXAxis = Naive_Vector3d::Unset();
+  myYAxis = Naive_Vector3d::Unset();
+  myZAxis = Naive_Vector3d::Unset();
+}
+
+Naive_Bool Plane::initByXY() {
   if (!myXAxis.Normalize())
-    return;
+    return false;
 
   myZAxis = myXAxis.Crossed(myYAxis);
   if (!myZAxis.Normalize())
-    return;
+    return false;
 
   myYAxis = myZAxis.Crossed(myXAxis);
   if (!myYAxis.Normalize())
-    return;
+    return false;
+
+  return true;
 }
 
 Naive_NAMESPACE_END(geometry);

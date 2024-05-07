@@ -1,6 +1,7 @@
 ﻿#ifndef _NaiveCGL_Common_Transient_HeaderFile
 #define _NaiveCGL_Common_Transient_HeaderFile
 
+#include "Macro.h"
 #include "Type.h"
 
 #include <atomic>

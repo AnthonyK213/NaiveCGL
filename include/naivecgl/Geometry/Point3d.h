@@ -1,6 +1,7 @@
 ﻿#ifndef _NaiveCGL_Geometry_Point3d_HeaderFile
 #define _NaiveCGL_Geometry_Point3d_HeaderFile
 
+#include <naivecgl/Common/Macro.h>
 #include <naivecgl/Common/Type.h>
 
 Naive_NAMESPACE_BEGIN(geometry);

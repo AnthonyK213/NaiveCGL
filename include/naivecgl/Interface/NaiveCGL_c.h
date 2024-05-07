@@ -13,6 +13,12 @@
 #endif
 #endif
 
+/// Math_Constant {{{
+
+Naive_CAPI double Naive_Math_Constant_UnsetReal();
+
+// }}}
+
 /// Math_Util {{{
 
 Naive_CAPI bool Naive_Math_Util_IsValidReal(const double theR);
@@ -21,11 +27,33 @@ Naive_CAPI bool Naive_Math_Util_IsValidReal(const double theR);
 
 /// Naive_Plane {{{
 
-Naive_CAPI Naive_H Naive_Plane_New();
+Naive_CAPI Naive_H Naive_Plane_New(void);
+
+Naive_CAPI Naive_H Naive_Plane_FromOXY(const Naive_Point3d_T *thePoint,
+                                       const Naive_Vector3d_T *theXAxis,
+                                       const Naive_Vector3d_T *theYAxis);
+
+Naive_CAPI Naive_H Naive_Plane_FromON(const Naive_Point3d_T *thePoint,
+                                      const Naive_Vector3d_T *theNormal);
 
 Naive_CAPI Naive_H Naive_Plane_Clone(const Naive_H theHandle);
 
 Naive_CAPI bool Naive_Plane_IsValid(const Naive_H theHandle);
+
+Naive_CAPI bool Naive_Plane_Location(const Naive_H theHandle,
+                                     Naive_Point3d_T *theLocation);
+
+Naive_CAPI bool Naive_Plane_XAxis(const Naive_H theHandle,
+                                  Naive_Point3d_T *theXAxis);
+
+Naive_CAPI bool Naive_Plane_YAxis(const Naive_H theHandle,
+                                  Naive_Point3d_T *theYAxis);
+
+Naive_CAPI bool Naive_Plane_Axis(const Naive_H theHandle,
+                                 Naive_Point3d_T *theAxis);
+
+Naive_CAPI double Naive_Plane_Distance(const Naive_H theHandle,
+                                       const Naive_Point3d_T *thePoint);
 
 Naive_CAPI void Naive_Plane_Release(const Naive_H theHandle);
 
@@ -33,7 +61,7 @@ Naive_CAPI void Naive_Plane_Release(const Naive_H theHandle);
 
 /// Naive_Line {{{
 
-Naive_CAPI Naive_H Naive_Line_New();
+Naive_CAPI Naive_H Naive_Line_New(void);
 
 Naive_CAPI Naive_H Naive_Line_FromEnds(const Naive_Point3d_T *theFrom,
                                        const Naive_Point3d_T *theTo);

@@ -1,6 +1,7 @@
 ﻿#ifndef _NaiveCGL_Geometry_Interval_HeaderFile
 #define _NaiveCGL_Geometry_Interval_HeaderFile
 
+#include <naivecgl/Common/Macro.h>
 #include <naivecgl/Common/Type.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
@@ -61,7 +62,7 @@ public:
   /// @brief
   /// @return
   Naive_Real T1() const { return myT1; }
-  
+
   void SetT0(const Naive_Real theT0) { myT0 = theT0; }
 
   void SetT1(const Naive_Real theT1) { myT1 = theT1; }

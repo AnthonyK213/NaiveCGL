@@ -13,26 +13,6 @@
 
 #include <naivecgl/Interface/NaiveCGL_c_types.h>
 
-#ifndef Naive_EXPORT
-#ifdef _WIN32
-#define Naive_EXPORT __declspec(dllexport)
-#else
-#define Naive_EXPORT
-#endif
-#endif
-
-#define Naive_NAMESPACE_BEGIN(ns)                                              \
-  namespace naivecgl {                                                         \
-  namespace ns {
-#define Naive_NAMESPACE_END(ns)                                                \
-  }                                                                            \
-  }
-
-#define Naive_WHERE_IS_REF_OF(T, R)                                            \
-  typename ::std::enable_if<                                                   \
-      ::std::is_same<typename ::std::remove_reference<T>::type, R>::value,     \
-      void>::type
-
 template <typename T> using Naive_List = ::std::vector<T>;
 template <typename T> using Naive_List2 = ::std::vector<::std::vector<T>>;
 template <typename T> using Naive_Stack = ::std::stack<T>;

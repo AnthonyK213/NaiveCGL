@@ -46,7 +46,9 @@ public:
                                  Transform3d &theTrsf) const;
 
 private:
-  void initByXY();
+  void initInvalid();
+
+  Naive_Bool initByXY();
 
 private:
   Naive_Point3d myLocation;
