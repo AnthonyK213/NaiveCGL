@@ -86,80 +86,75 @@ const Vector3d &Vector3d::Unset() {
   return aVector;
 }
 
-void Vector3d::Add(const Vector3d &theVec) {
-  if (!IsValid() || !theVec.IsValid())
-    return;
-  myXYZ += theVec.myXYZ;
+Naive_Bool Vector3d::Add(const Vector3d &theVec) {
+  if (IsValid() && theVec.IsValid()) {
+    myXYZ += theVec.myXYZ;
+    return true;
+  }
+  return false;
 }
 
 Vector3d Vector3d::Added(const Vector3d &theVec) const {
-  if (!IsValid() || !theVec.IsValid())
-    return Unset();
-  return {myXYZ + theVec.myXYZ};
+  Vector3d aVec(*this);
+  return aVec.Add(theVec) ? aVec : Unset();
 }
 
-void Vector3d::Subtract(const Vector3d &theVec) {
-  if (!IsValid() || !theVec.IsValid())
-    return;
-  myXYZ -= theVec.myXYZ;
+Naive_Bool Vector3d::Subtract(const Vector3d &theVec) {
+  if (IsValid() && theVec.IsValid()) {
+    myXYZ -= theVec.myXYZ;
+    return true;
+  }
+  return false;
 }
 
 Vector3d Vector3d::Subtracted(const Vector3d &theVec) const {
-  if (!IsValid() || !theVec.IsValid())
-    return Unset();
-  return {myXYZ - theVec.myXYZ};
+  Vector3d aVec(*this);
+  return aVec.Subtract(theVec) ? aVec : Unset();
 }
 
-void Vector3d::Multiply(const Naive_Real theT) {
-  if (IsValid())
+Naive_Bool Vector3d::Multiply(const Naive_Real theT) {
+  if (IsValid() && math::Util::IsValidReal(theT)) {
     myXYZ *= theT;
+    return true;
+  }
+  return false;
 }
 
 Vector3d Vector3d::Multiplied(const Naive_Real theT) const {
-  if (!IsValid())
-    return Unset();
-  return {myXYZ * theT};
+  Vector3d aVec(*this);
+  return aVec.Multiply(theT) ? aVec : Unset();
 }
 
-void Vector3d::Divide(const Naive_Real theT) {
-  if (!IsValid() || ::std::abs(theT) < math::Constant::ZeroTolerance())
-    return;
-  myXYZ /= theT;
+Naive_Bool Vector3d::Divide(const Naive_Real theT) {
+  if (IsValid() && !math::Util::IsValidReal(theT) &&
+      !math::Util::EpsilonEquals(theT, 0.0)) {
+    myXYZ /= theT;
+    return true;
+  }
+  return false;
 }
 
 Vector3d Vector3d::Divided(const Naive_Real theT) const {
-  if (!IsValid() || ::std::abs(theT) < math::Constant::ZeroTolerance())
-    return Unset();
-  return {myXYZ / theT};
+  Vector3d aVec(*this);
+  return aVec.Divide(theT) ? aVec : Unset();
 }
 
-void Vector3d::Negate() {
-  if (IsValid())
-    myXYZ = -myXYZ;
-}
+void Vector3d::Negate() { myXYZ = -myXYZ; }
 
-Vector3d Vector3d::Negated() const {
-  if (!IsValid())
-    return Unset();
-  return {-myXYZ};
-}
+Vector3d Vector3d::Negated() const { return {-myXYZ}; }
 
 Naive_Real Vector3d::Dot(const Vector3d &theVec) const {
-  if (!IsValid() || !theVec.IsValid())
-    return math::Constant::UnsetReal();
-  return myXYZ.dot(theVec.myXYZ);
+  return (IsValid() && theVec.IsValid()) ? myXYZ.dot(theVec.myXYZ)
+                                         : math::Constant::UnsetReal();
 }
 
 void Vector3d::Cross(const Vector3d &theVec) {
-  if (!IsValid() || !theVec.IsValid())
-    return;
-  myXYZ = myXYZ.cross(theVec.myXYZ);
+  if (IsValid() && theVec.IsValid())
+    myXYZ = myXYZ.cross(theVec.myXYZ);
 }
 
 Vector3d Vector3d::Crossed(const Vector3d &theVec) const {
-  if (!IsValid() || !theVec.IsValid())
-    return Unset();
-  return myXYZ.cross(theVec.myXYZ);
+  return (IsValid() && theVec.IsValid()) ? myXYZ.cross(theVec.myXYZ) : Unset();
 }
 
 Naive_Bool Vector3d::EpsilonEquals(const Vector3d &theVec,
@@ -181,17 +176,16 @@ Naive_Bool Vector3d::Equals(const Vector3d &theVec) {
 }
 
 Naive_Bool Vector3d::Transform(const Transform3d &theTrsf) {
-  if (!IsValid() || !theTrsf.IsValid())
-    return false;
-  myXYZ = theTrsf.Trsf().rotation() * myXYZ;
-  return true;
+  if (IsValid() && theTrsf.IsValid()) {
+    myXYZ = theTrsf.Trsf().rotation() * myXYZ;
+    return true;
+  }
+  return false;
 }
 
 Vector3d Vector3d::Transformed(const Transform3d &theTrsf) const {
   Vector3d aVec(myXYZ);
-  if (aVec.Transform(theTrsf))
-    return aVec;
-  return Unset();
+  return aVec.Transform(theTrsf) ? aVec : Unset();
 }
 
 bool Vector3d::Dump(Naive_Vector3d_T &theVec) const {
@@ -201,6 +195,32 @@ bool Vector3d::Dump(Naive_Vector3d_T &theVec) const {
   theVec.y = Y();
   theVec.z = Z();
   return true;
+}
+
+const Vector3d operator+(const Vector3d &theVec1, const Vector3d &theVec2) {
+  return theVec1.Added(theVec2);
+}
+
+const Vector3d operator-(const Vector3d &theVec1, const Vector3d &theVec2) {
+  return theVec1.Subtracted(theVec2);
+}
+
+const Vector3d operator-(const Vector3d &theVec) { return theVec.Negated(); }
+
+const Vector3d operator*(const Vector3d &theVec, const Naive_Real theT) {
+  return theVec.Multiplied(theT);
+}
+
+const Vector3d operator*(const Naive_Real theT, const Vector3d &theVec) {
+  return theVec.Multiplied(theT);
+}
+
+const Naive_Real operator*(const Vector3d theVec1, const Vector3d &theVec2) {
+  return theVec1.Dot(theVec2);
+}
+
+const Vector3d operator/(const Vector3d &theVec, const Naive_Real theT) {
+  return theVec.Divided(theT);
 }
 
 Naive_NAMESPACE_END(geometry);

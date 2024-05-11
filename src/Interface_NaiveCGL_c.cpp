@@ -37,7 +37,21 @@
 
 /// Math_Constant {{{
 
-double Naive_Math_Constant_UnsetReal() {
+double Naive_Math_Constant_PI(void) { return ::naivecgl::math::Constant::PI(); }
+
+double Naive_Math_Constant_Epsilon(void) {
+  return ::naivecgl::math::Constant::Epsilon();
+}
+
+double Naive_Math_Constant_MinReal(void) {
+  return ::naivecgl::math::Constant::MinReal();
+}
+
+double Naive_Math_Constant_MaxReal(void) {
+  return ::naivecgl::math::Constant::MaxReal();
+}
+
+double Naive_Math_Constant_UnsetReal(void) {
   return ::naivecgl::math::Constant::UnsetReal();
 }
 

@@ -15,7 +15,15 @@
 
 /// Math_Constant {{{
 
-Naive_CAPI double Naive_Math_Constant_UnsetReal();
+Naive_CAPI double Naive_Math_Constant_PI(void);
+
+Naive_CAPI double Naive_Math_Constant_Epsilon(void);
+
+Naive_CAPI double Naive_Math_Constant_MinReal(void);
+
+Naive_CAPI double Naive_Math_Constant_MaxReal(void);
+
+Naive_CAPI double Naive_Math_Constant_UnsetReal(void);
 
 // }}}
 
@@ -264,6 +272,11 @@ Naive_CAPI bool Naive_Intersect_Intersection_LinePlane(const Naive_H theLine,
 
 /// Tessellation {{{
 
+/// @brief Generate a tetrasphere.
+/// @param theCenter Center of the sphere.
+/// @param theRadius Radius of the sphere.
+/// @param theLevel The tessellation level.
+/// @return Handle of |Naive_Poly|.
 Naive_CAPI Naive_H Naive_Tessellation_TetraSphere(
     const Naive_Point3d_T *theCenter, double theRadius, int32_t theLevel);
 

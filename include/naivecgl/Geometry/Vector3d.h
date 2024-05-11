@@ -55,19 +55,19 @@ public:
 
   Naive_EXPORT Vector3d Normalized() const;
 
-  Naive_EXPORT void Add(const Vector3d &theVec);
+  Naive_EXPORT Naive_Bool Add(const Vector3d &theVec);
 
   Naive_EXPORT Vector3d Added(const Vector3d &theVec) const;
 
-  Naive_EXPORT void Subtract(const Vector3d &theVec);
+  Naive_EXPORT Naive_Bool Subtract(const Vector3d &theVec);
 
   Naive_EXPORT Vector3d Subtracted(const Vector3d &theVec) const;
 
-  Naive_EXPORT void Multiply(const Naive_Real theT);
+  Naive_EXPORT Naive_Bool Multiply(const Naive_Real theT);
 
   Naive_EXPORT Vector3d Multiplied(const Naive_Real theT) const;
 
-  Naive_EXPORT void Divide(const Naive_Real theT);
+  Naive_EXPORT Naive_Bool Divide(const Naive_Real theT);
 
   Naive_EXPORT Vector3d Divided(const Naive_Real theT) const;
 
@@ -98,6 +98,26 @@ public:
 private:
   Naive_XYZ myXYZ;
 };
+
+Naive_EXPORT const Vector3d operator+(const Vector3d &theVec1,
+                                      const Vector3d &theVec2);
+
+Naive_EXPORT const Vector3d operator-(const Vector3d &theVec1,
+                                      const Vector3d &theVec2);
+
+Naive_EXPORT const Vector3d operator-(const Vector3d &theVec);
+
+Naive_EXPORT const Vector3d operator*(const Vector3d &theVec,
+                                      const Naive_Real theT);
+
+Naive_EXPORT const Vector3d operator*(const Naive_Real theT,
+                                      const Vector3d &theVec);
+
+Naive_EXPORT const Naive_Real operator*(const Vector3d theVec1,
+                                        const Vector3d &theVec2);
+
+Naive_EXPORT const Vector3d operator/(const Vector3d &theVec,
+                                      const Naive_Real theT);
 
 Naive_NAMESPACE_END(geometry);
 

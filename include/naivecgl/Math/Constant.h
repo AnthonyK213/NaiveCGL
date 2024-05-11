@@ -34,11 +34,19 @@ public:
     return 2.3283064365386962890625e-10;
   }
 
-  static constexpr Naive_Real UnsetReal() { return -1.23432101234321e+308; }
+  static constexpr Naive_Real MaxReal() { return 1.7976931348623158e+308; }
+
+  static constexpr Naive_Real MinReal() { return 2.22507385850720200e-308; }
+
+  static constexpr Naive_Real UnsetPositiveReal() {
+    return 1.23432101234321e+308;
+  }
+
+  static constexpr Naive_Real UnsetReal() { return -UnsetPositiveReal(); }
 
   static constexpr Naive_ShortReal UnsetShortReal() { return -1.234321e+38f; }
 
-  static constexpr Naive_Integer UnsetIntIndex() { return INT_MIN + 1; }
+  static constexpr Naive_Integer UnsetIntIndex() { return -2147483647; }
 };
 
 Naive_NAMESPACE_END(math);

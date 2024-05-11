@@ -23,10 +23,8 @@ Naive_Bool Util::EpsilonEquals(Naive_Real theX, Naive_Real theY,
 }
 
 Naive_Bool Util::IsValidReal(Naive_Real theX) {
-  if (theX != Constant::UnsetReal() && !::std::isinf(theX))
-    return !::std::isnan(theX);
-
-  return false;
+  return ::std::abs(theX) != Constant::UnsetPositiveReal() &&
+         !::std::isinf(theX) && !::std::isnan(theX);
 }
 
 Naive_Real Util::ToDegrees(Naive_Real theRadians) {
