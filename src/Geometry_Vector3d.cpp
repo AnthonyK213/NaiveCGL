@@ -126,8 +126,7 @@ Vector3d Vector3d::Multiplied(const Naive_Real theT) const {
 }
 
 Naive_Bool Vector3d::Divide(const Naive_Real theT) {
-  if (IsValid() && !math::Util::IsValidReal(theT) &&
-      !math::Util::EpsilonEquals(theT, 0.0)) {
+  if (IsValid() && !math::Util::EpsilonEquals(theT, 0.0)) {
     myXYZ /= theT;
     return true;
   }

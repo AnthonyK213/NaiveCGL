@@ -4,7 +4,7 @@ Naive_NAMESPACE_BEGIN(math);
 
 Naive_Bool Util::EpsilonEquals(Naive_Real theX, Naive_Real theY,
                                Naive_Real theEpsilon) {
-  if (::std::isnan(theX) || ::std::isnan(theY))
+  if (!IsValidReal(theX) || !IsValidReal(theY))
     return false;
 
   if (theX == ::std::numeric_limits<double>::infinity())

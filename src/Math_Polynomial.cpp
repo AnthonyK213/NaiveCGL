@@ -2,9 +2,9 @@
 
 Naive_NAMESPACE_BEGIN(math);
 
-Polynomial::Polynomial() : myA() {}
+Polynomial::Polynomial() : myA({0.}), myIsValid(true) {}
 
-Polynomial::Polynomial(const Naive_RealList &theA) : myA(theA) {}
+Polynomial::Polynomial(const Naive_RealList &theA) : myA(theA) { validate(); }
 
 const Polynomial &Polynomial::Unset() {
   static Polynomial aP(Naive_RealList{});
@@ -12,25 +12,13 @@ const Polynomial &Polynomial::Unset() {
 }
 
 const Polynomial &Polynomial::Zero() {
-  static Polynomial aP(Naive_RealList{0.});
+  static Polynomial aP{};
   return aP;
 }
 
 const Polynomial &Polynomial::Identity() {
   static Polynomial aP(Naive_RealList{1.});
   return aP;
-}
-
-Naive_Bool Polynomial::IsValid() const {
-  if (Degree() < 0)
-    return false;
-
-  for (Naive_Integer i = 0; i <= Degree(); ++i) {
-    if (!Util::IsValidReal(Coefficient(i)))
-      return false;
-  }
-
-  return true;
 }
 
 Naive_Bool Polynomial::IsZero() const { return IsEqual(Zero()); }
@@ -113,6 +101,9 @@ Polynomial Polynomial::Negated() const {
 }
 
 void Polynomial::Add(const Polynomial &theOther) {
+  if (!IsValid() || !theOther.IsValid())
+    return;
+
   Naive_Integer d = theOther.Degree();
   if (d > Degree())
     myA.resize(d + 1);
@@ -125,12 +116,18 @@ void Polynomial::Add(const Polynomial &theOther) {
 }
 
 Polynomial Polynomial::Added(const Polynomial &theOther) const {
-  Polynomial aP{*this};
-  aP.Add(theOther);
-  return aP;
+  if (IsValid() && theOther.IsValid()) {
+    Polynomial aP{*this};
+    aP.Add(theOther);
+    return aP;
+  }
+  return Unset();
 }
 
 void Polynomial::Subtract(const Polynomial &theOther) {
+  if (!IsValid() || !theOther.IsValid())
+    return;
+
   Naive_Integer d = theOther.Degree();
   if (d > Degree())
     myA.resize(d + 1);
@@ -143,14 +140,22 @@ void Polynomial::Subtract(const Polynomial &theOther) {
 }
 
 Polynomial Polynomial::Subtracted(const Polynomial &theOther) const {
-  Polynomial aP{*this};
-  aP.Subtract(theOther);
-  return aP;
+  if (IsValid() && theOther.IsValid()) {
+    Polynomial aP{*this};
+    aP.Subtract(theOther);
+    return aP;
+  }
+  return Unset();
 }
 
 void Polynomial::Multiply(const Naive_Real theT) {
-  if (theT == 0.)
+  if (!IsValid() || !math::Util::IsValidReal(theT))
+    return;
+
+  if (theT == 0.) {
     myA = {0.};
+    return;
+  }
 
   for (Naive_Integer i = 0; i <= Degree(); ++i) {
     myA[i] *= theT;
@@ -158,11 +163,14 @@ void Polynomial::Multiply(const Naive_Real theT) {
 }
 
 Polynomial Polynomial::Multiplied(const Naive_Real theT) const {
-  if (theT == 0.)
-    return Zero();
-  Polynomial aP{*this};
-  aP.Multiply(theT);
-  return aP;
+  if (IsValid() && math::Util::IsValidReal(theT)) {
+    if (theT == 0.)
+      return Zero();
+    Polynomial aP{*this};
+    aP.Multiply(theT);
+    return aP;
+  }
+  return Unset();
 }
 
 void Polynomial::Multiply(const Polynomial &theOther) {
@@ -180,32 +188,30 @@ void Polynomial::Multiply(const Polynomial &theOther) {
 }
 
 Polynomial Polynomial::Multiplied(const Polynomial &theOther) const {
-  if (!IsValid() || !theOther.IsValid())
-    return Unset();
-  Polynomial aP{*this};
-  aP.Multiply(theOther);
-  return aP;
+  if (IsValid() && theOther.IsValid()) {
+    Polynomial aP{*this};
+    aP.Multiply(theOther);
+    return aP;
+  }
+  return Unset();
 }
 
-Naive_Bool Polynomial::Divide(const Naive_Real theT) {
-  if (!IsValid())
-    return false;
-
-  if (Util::EpsilonEquals(::std::abs(theT), Constant::ZeroTolerance()))
-    return false;
+void Polynomial::Divide(const Naive_Real theT) {
+  if (!IsValid() || Util::EpsilonEquals(theT, 0.0))
+    return;
 
   for (Naive_Integer i = 0; i <= Degree(); ++i) {
     myA[i] /= theT;
   }
-
-  return true;
 }
 
 Polynomial Polynomial::Divided(const Naive_Real theT) const {
-  Polynomial aP{*this};
-  if (!aP.Divide(theT))
-    return Unset();
-  return aP;
+  if (IsValid() && !Util::EpsilonEquals(theT, 0.0)) {
+    Polynomial aP{*this};
+    aP.Divide(theT);
+    return aP;
+  }
+  return Unset();
 }
 
 Naive_Bool Polynomial::Divided(const Polynomial &theOther, Polynomial &theQ,
@@ -214,6 +220,20 @@ Naive_Bool Polynomial::Divided(const Polynomial &theOther, Polynomial &theQ,
     return false;
   // TODO: Divided by another polynomial.
   return true;
+}
+
+void Polynomial::validate() {
+  if (myA.size() < 1)
+    myIsValid = false;
+
+  for (Naive_Integer i = 0; i <= myA.size(); ++i) {
+    if (!Util::IsValidReal(Coefficient(i))) {
+      myIsValid = false;
+      return;
+    }
+  }
+
+  myIsValid = true;
 }
 
 Naive_NAMESPACE_END(math);

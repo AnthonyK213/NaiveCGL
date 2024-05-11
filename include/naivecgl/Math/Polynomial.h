@@ -17,7 +17,7 @@ public:
 
   Naive_EXPORT static const Polynomial &Identity();
 
-  Naive_EXPORT Naive_Bool IsValid() const;
+  Naive_EXPORT Naive_Bool IsValid() const { return myIsValid; }
 
   Naive_EXPORT Naive_Bool IsZero() const;
 
@@ -53,7 +53,7 @@ public:
 
   Naive_EXPORT Polynomial Multiplied(const Polynomial &theOther) const;
 
-  Naive_EXPORT Naive_Bool Divide(const Naive_Real theT);
+  Naive_EXPORT void Divide(const Naive_Real theT);
 
   Naive_EXPORT Polynomial Divided(const Naive_Real theT) const;
 
@@ -61,7 +61,11 @@ public:
                                   Polynomial &theR) const;
 
 private:
+  void validate();
+
+private:
   Naive_RealList myA;
+  Naive_Bool myIsValid;
 };
 
 Naive_NAMESPACE_END(math);
