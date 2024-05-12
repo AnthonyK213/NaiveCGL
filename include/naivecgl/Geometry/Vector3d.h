@@ -93,7 +93,7 @@ public:
 
   Naive_EXPORT Vector3d Transformed(const Transform3d &theTrsf) const;
 
-  Naive_EXPORT bool Dump(Naive_Vector3d_T &theVec) const;
+  Naive_EXPORT Naive_Bool Dump(Naive_Vector3d_T &theVec) const;
 
 private:
   Naive_XYZ myXYZ;

@@ -2,6 +2,7 @@
 #define _NaiveCGL_Geometry_Box_HeaderFile
 
 #include "Point3d.h"
+#include "Transform3d.h"
 #include "Vector3d.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
@@ -30,6 +31,31 @@ public:
 
   Naive_EXPORT Naive_Point3d Center() const { return 0.5 * (myMax + myMin); }
 
+  Naive_EXPORT Naive_Point3d Corner(Naive_Bool theMinX, Naive_Bool theMinY,
+                                    Naive_Bool theMinZ) const;
+
+  /// @brief Get corners of the box.
+  /// [0] {Min.X, Min.Y, Min.Z};
+  /// [1] {Max.X, Min.Y, Min.Z};
+  /// [2] {Max.X, Max.Y, Min.Z};
+  /// [3] {Min.X, Max.Y, Min.Z};
+  /// [4] {Min.X, Min.Y, Max.Z};
+  /// [5] {Max.X, Min.Y, Max.Z};
+  /// [6] {Max.X, Max.Y, Max.Z};
+  /// [7] {Min.X, Max.Y, Max.Z}.
+  /// @return
+  Naive_EXPORT Naive_Point3dList Corners() const;
+
+  Naive_EXPORT Naive_Bool Contains(const Box &theBox) const;
+
+  Naive_EXPORT Naive_Bool Contains(const Box &theBox,
+                                   const Naive_Bool theStrict) const;
+
+  Naive_EXPORT Naive_Bool Contains(const Naive_Point3d &thePoint) const;
+
+  Naive_EXPORT Naive_Bool Contains(const Naive_Point3d &thePoint,
+                                   const Naive_Bool theStrict) const;
+
   Naive_EXPORT void Update(const Naive_Real theXMin, const Naive_Real theYMin,
                            const Naive_Real theZMin, const Naive_Real theXMax,
                            const Naive_Real theYMax, const Naive_Real theZMax);
@@ -40,6 +66,20 @@ public:
   Naive_EXPORT void Add(const Box &theOther);
 
   Naive_EXPORT void Add(const Naive_Point3d &thePoint);
+
+  Naive_EXPORT Naive_Point3d PointAt(const Naive_Real theTx,
+                                     const Naive_Real theTy,
+                                     const Naive_Real theTz) const;
+
+  Naive_EXPORT Naive_Bool Transform(const Naive_Transform3d &theTrsf);
+
+  Naive_EXPORT Box Transformed(const Naive_Transform3d &theTrsf) const;
+
+  Naive_EXPORT static Box Intersection(const Box theA, const Box theB);
+
+  Naive_EXPORT static Box Union(const Box theA, const Box theB);
+
+  Naive_EXPORT static Box Union(const Box theBox, const Naive_Point3d &thePnt);
 
 private:
   Naive_Bool isSet() const;

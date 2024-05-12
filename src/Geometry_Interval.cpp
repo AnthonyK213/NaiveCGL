@@ -56,21 +56,17 @@ Interval Interval::FromUnion(const Interval &theA, const Interval &theB) {
 }
 
 int32_t Interval::CompareTo(const Interval &theOther) const {
-  if (myT0 < theOther.myT0) {
+  if (myT0 < theOther.myT0)
     return -1;
-  }
 
-  if (myT0 > theOther.myT0) {
+  if (myT0 > theOther.myT0)
     return 1;
-  }
 
-  if (myT1 < theOther.myT1) {
+  if (myT1 < theOther.myT1)
     return -1;
-  }
 
-  if (myT1 > theOther.myT1) {
+  if (myT1 > theOther.myT1)
     return 1;
-  }
 
   return 0;
 }
@@ -100,7 +96,8 @@ void Interval::Grow(Naive_Real theValue) {
 }
 
 Naive_Bool Interval::IncludesInterval(const Interval &theInterval) const {
-  return IncludesInterval(theInterval, false);
+  return IncludesParameter(theInterval.myT0) &&
+         IncludesParameter(theInterval.myT1);
 }
 
 Naive_Bool Interval::IncludesInterval(const Interval &theInterval,
@@ -110,21 +107,19 @@ Naive_Bool Interval::IncludesInterval(const Interval &theInterval,
 }
 
 Naive_Bool Interval::IncludesParameter(Naive_Real theT) const {
-  return IncludesParameter(theT, false);
+  return IsValid() && math::Util::IsValidReal(theT) &&
+         ((myT0 <= myT1 && myT0 <= theT && theT <= myT1) ||
+          (myT1 <= myT0 && myT1 <= theT && theT <= myT0));
 }
 
 Naive_Bool Interval::IncludesParameter(Naive_Real theT,
                                        Naive_Bool theStrict) const {
-  if (!math::Util::IsValidReal(theT)) {
-    return false;
-  }
-  if (theStrict) {
-    return (myT0 <= myT1 && myT0 < theT && theT < myT1) ||
-           (myT1 <= myT0 && myT1 < theT && theT < myT0);
-  } else {
-    return (myT0 <= myT1 && myT0 <= theT && theT <= myT1) ||
-           (myT1 <= myT0 && myT1 <= theT && theT <= myT0);
-  }
+  if (theStrict)
+    return IsValid() && math::Util::IsValidReal(theT) &&
+           ((myT0 <= myT1 && myT0 < theT && theT < myT1) ||
+            (myT1 <= myT0 && myT1 < theT && theT < myT0));
+  else
+    return IncludesParameter(theT);
 }
 
 void Interval::MakeIncreasing() {

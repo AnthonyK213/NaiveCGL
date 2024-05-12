@@ -3,6 +3,7 @@
 
 #include <naivecgl/Common/Macro.h>
 #include <naivecgl/Common/Type.h>
+#include <naivecgl/Math/Constant.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
@@ -19,6 +20,9 @@ public:
   Naive_EXPORT Naive_Trsf &ChangeTrsf() { return myTrsf; }
 
   Naive_EXPORT Naive_Bool IsValid() const;
+
+  Naive_EXPORT Naive_Bool
+  IsIdentity(const Naive_Real theTol = math::Constant::Epsilon()) const;
 
   Naive_EXPORT static const Transform3d &Unset();
 

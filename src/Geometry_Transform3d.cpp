@@ -11,6 +11,10 @@ Naive_Bool Transform3d::IsValid() const {
   return Vector3d(myTrsf.translation()).IsValid();
 }
 
+Naive_Bool Transform3d::IsIdentity(const Naive_Real theTol) const {
+  return myTrsf.matrix().isIdentity(theTol);
+}
+
 const Transform3d &Transform3d::Unset() {
   static Transform3d aTrsf =
       Naive_Trsf{::Eigen::Translation3d{Vector3d::Unset().XYZ()}};

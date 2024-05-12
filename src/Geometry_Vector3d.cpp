@@ -187,7 +187,7 @@ Vector3d Vector3d::Transformed(const Transform3d &theTrsf) const {
   return aVec.Transform(theTrsf) ? aVec : Unset();
 }
 
-bool Vector3d::Dump(Naive_Vector3d_T &theVec) const {
+Naive_Bool Vector3d::Dump(Naive_Vector3d_T &theVec) const {
   if (!IsValid())
     return false;
   theVec.x = X();
