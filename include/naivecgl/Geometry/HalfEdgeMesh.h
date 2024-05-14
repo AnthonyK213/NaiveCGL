@@ -6,8 +6,6 @@
 
 #include <naivecgl/Common/Handle.h>
 
-#include <stack>
-
 Naive_NAMESPACE_BEGIN(geometry);
 
 /// @brief Manifold mesh described by half-edges.
@@ -77,7 +75,7 @@ public:
 
     Naive_EXPORT HalfEdge();
 
-    Naive_EXPORT HalfEdge(VertexId theOrigin, VertexId theNext);
+    Naive_EXPORT HalfEdge(const VertexId theOrigin, const VertexId theNext);
 
     Naive_EXPORT VertexId Origin() const { return myOrigin; }
 

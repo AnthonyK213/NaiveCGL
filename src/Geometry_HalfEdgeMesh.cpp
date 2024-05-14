@@ -90,7 +90,8 @@ HalfEdgeMesh::Vertex::Vertex(Naive_Real theX, Naive_Real theY, Naive_Real theZ)
 HalfEdgeMesh::HalfEdge::HalfEdge()
     : myOrigin(-1), myFace(-1), myTwin(), myPrev(), myNext(), myId() {}
 
-HalfEdgeMesh::HalfEdge::HalfEdge(VertexId theOrigin, VertexId theNext)
+HalfEdgeMesh::HalfEdge::HalfEdge(const VertexId theOrigin,
+                                 const VertexId theNext)
     : myOrigin(theOrigin), myFace(-1), myTwin(), myPrev(), myNext(),
       myId(theOrigin, theNext) {}
 
