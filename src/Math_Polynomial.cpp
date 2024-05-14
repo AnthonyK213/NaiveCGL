@@ -55,10 +55,10 @@ Naive_Real Polynomial::Evaluate(const Naive_Real theT) const {
   if (!IsValid())
     return Constant::UnsetReal();
 
-  Naive_Real aRes = Coefficient(Degree());
-  for (Naive_Integer i = Degree() - 1; i >= 0; --i) {
+  Naive_Real aRes = myA[myA.size() - 1];
+  for (Naive_Integer i = myA.size() - 2; i >= 0; --i) {
     aRes *= theT;
-    aRes += Coefficient(i);
+    aRes += myA[i];
   }
 
   return aRes;
@@ -68,16 +68,16 @@ Polynomial Polynomial::Derivative(const Naive_Integer theN) const {
   if (!IsValid() || theN < 0)
     return Unset();
 
-  if (Degree() <= theN - 1)
+  if (myA.size() <= theN)
     return Zero();
 
   if (theN == 0)
     return *this;
 
   Naive_RealList a{};
-  a.reserve(Degree() - theN + 1);
+  a.reserve(myA.size() - theN);
 
-  for (Naive_Integer i = theN; i <= Degree(); ++i) {
+  for (Naive_Integer i = theN; i < myA.size(); ++i) {
     Naive_Integer k = i;
     for (Naive_Integer j = 1; j < theN; ++j) {
       k *= i - j;
@@ -89,7 +89,7 @@ Polynomial Polynomial::Derivative(const Naive_Integer theN) const {
 }
 
 void Polynomial::Negate() {
-  for (Naive_Integer i = 0; i <= Degree(); ++i) {
+  for (Naive_Integer i = 0; i < myA.size(); ++i) {
     myA[i] = -myA[i];
   }
 }
