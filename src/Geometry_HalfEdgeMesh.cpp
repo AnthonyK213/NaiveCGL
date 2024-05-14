@@ -5,42 +5,21 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-/* HalfEdgeMesh::Vertex */
-
-HalfEdgeMesh::Vertex::Vertex() : myCoord(), myEdge(nullptr), myId(-1) {}
-
-HalfEdgeMesh::Vertex::Vertex(const Naive_Point3d &theCoord)
-    : myCoord(theCoord), myEdge(nullptr), myId(-1) {}
-
-HalfEdgeMesh::Vertex::Vertex(Naive_Real theX, Naive_Real theY, Naive_Real theZ)
-    : myCoord(theX, theY, theZ), myEdge(nullptr), myId(-1) {}
-
-HalfEdgeMesh::Vertex::Vertex(Vertex &&theOther) noexcept {
-  myCoord = ::std::move(theOther.myCoord);
-  myEdge = theOther.myEdge;
-  theOther.myEdge = nullptr;
-  myId = theOther.myId;
-}
-
-HalfEdgeMesh::Vertex &
-HalfEdgeMesh::Vertex::operator=(Vertex &&theOther) noexcept {
-  myCoord = ::std::move(theOther.myCoord);
-  myEdge = theOther.myEdge;
-  theOther.myEdge = nullptr;
-  myId = theOther.myId;
-
-  return *this;
-}
-
-HalfEdgeMesh::Vertex::~Vertex() {}
-
 /* HalfEdgeMesh::HalfEdgeId */
 
 HalfEdgeMesh::HalfEdgeId::HalfEdgeId() : myA(-1), myB(-1) {}
 
-HalfEdgeMesh::HalfEdgeId::HalfEdgeId(const Naive_Integer theA,
-                                     const Naive_Integer theB)
+HalfEdgeMesh::HalfEdgeId::HalfEdgeId(const VertexId theA, const VertexId theB)
     : myA(theA), myB(theB) {}
+
+const HalfEdgeMesh::HalfEdgeId &HalfEdgeMesh::HalfEdgeId::Unset() {
+  static HalfEdgeMesh::HalfEdgeId anId{};
+  return anId;
+}
+
+Naive_Bool HalfEdgeMesh::HalfEdgeId::IsValid() const {
+  return myA >= 0 && myB >= 0;
+}
 
 Naive_Bool
 HalfEdgeMesh::HalfEdgeId::operator!=(const HalfEdgeId &theOther) const {
@@ -50,10 +29,6 @@ HalfEdgeMesh::HalfEdgeId::operator!=(const HalfEdgeId &theOther) const {
 Naive_Bool
 HalfEdgeMesh::HalfEdgeId::operator==(const HalfEdgeId &theOther) const {
   return myA == theOther.myA && myB == theOther.myB;
-}
-
-Naive_Bool HalfEdgeMesh::HalfEdgeId::IsValid() const {
-  return myA >= 0 && myB >= 0;
 }
 
 Naive_Bool
@@ -100,97 +75,59 @@ HalfEdgeMesh::HalfEdgeId::operator>=(const HalfEdgeId &theOther) const {
   }
 }
 
+/* HalfEdgeMesh::Vertex */
+
+HalfEdgeMesh::Vertex::Vertex() : myCoord(), myEdge(), myId(-1) {}
+
+HalfEdgeMesh::Vertex::Vertex(const Naive_Point3d &theCoord)
+    : myCoord(theCoord), myEdge(), myId(-1) {}
+
+HalfEdgeMesh::Vertex::Vertex(Naive_Real theX, Naive_Real theY, Naive_Real theZ)
+    : myCoord(theX, theY, theZ), myEdge(), myId(-1) {}
+
 /* HalfEdgeMesh::HalfEdge */
 
 HalfEdgeMesh::HalfEdge::HalfEdge()
-    : myOrigin(nullptr), myTwin(nullptr), myFace(nullptr), myPrev(nullptr),
-      myNext(nullptr), myId() {}
+    : myOrigin(-1), myFace(-1), myTwin(), myPrev(), myNext(), myId() {}
 
-HalfEdgeMesh::HalfEdge::HalfEdge(Vertex *theOrigin, Vertex *theNext)
-    : myOrigin(theOrigin), myTwin(nullptr), myFace(nullptr), myPrev(nullptr),
-      myNext(nullptr), myId(theOrigin->Id(), theNext->Id()) {}
-
-HalfEdgeMesh::HalfEdge::HalfEdge(HalfEdge &&theOther) noexcept {
-  myOrigin = theOther.myOrigin;
-  myTwin = theOther.myTwin;
-  myFace = theOther.myFace;
-  myPrev = theOther.myPrev;
-  myNext = theOther.myNext;
-  theOther.myOrigin = nullptr;
-  theOther.myTwin = nullptr;
-  theOther.myFace = nullptr;
-  theOther.myPrev = nullptr;
-  theOther.myNext = nullptr;
-  myId = ::std::move(theOther.myId);
-}
-
-HalfEdgeMesh::HalfEdge &
-HalfEdgeMesh::HalfEdge::operator=(HalfEdge &&theOther) noexcept {
-  myOrigin = theOther.myOrigin;
-  myTwin = theOther.myTwin;
-  myFace = theOther.myFace;
-  myPrev = theOther.myPrev;
-  myNext = theOther.myNext;
-  theOther.myOrigin = nullptr;
-  theOther.myTwin = nullptr;
-  theOther.myFace = nullptr;
-  theOther.myPrev = nullptr;
-  theOther.myNext = nullptr;
-  myId = ::std::move(theOther.myId);
-
-  return *this;
-}
-
-HalfEdgeMesh::HalfEdge::~HalfEdge() {}
+HalfEdgeMesh::HalfEdge::HalfEdge(VertexId theOrigin, VertexId theNext)
+    : myOrigin(theOrigin), myFace(-1), myTwin(), myPrev(), myNext(),
+      myId(theOrigin, theNext) {}
 
 /* HalfEdgeMesh::Face */
 
 HalfEdgeMesh::Face::Face() : myOuterEdge(), myNormal(), myId(-1) {}
 
-HalfEdgeMesh::Face::Face(HalfEdge *theOuterEdge)
+HalfEdgeMesh::Face::Face(const HalfEdgeId theOuterEdge)
     : myOuterEdge(theOuterEdge), myNormal(0., 0., 0.), myId(-1) {}
-
-HalfEdgeMesh::Face::Face(Face &&theOther) noexcept {
-  myOuterEdge = theOther.myOuterEdge;
-  theOther.myOuterEdge = nullptr;
-  myNormal = ::std::move(theOther.myNormal);
-  myId = theOther.myId;
-}
-
-HalfEdgeMesh::Face &HalfEdgeMesh::Face::operator=(Face &&theOther) noexcept {
-  myOuterEdge = theOther.myOuterEdge;
-  theOther.myOuterEdge = nullptr;
-  myNormal = ::std::move(theOther.myNormal);
-  myId = theOther.myId;
-
-  return *this;
-}
-
-HalfEdgeMesh::Face::~Face() {}
 
 /* HalfEdgeMesh::Face::EdgeIterator */
 
-HalfEdgeMesh::Face::EdgeIterator::EdgeIterator(const Face *theFace) {
-  myOwner = theFace;
-  myCurrent = theFace->myOuterEdge;
+HalfEdgeMesh::EdgeIterator::EdgeIterator(const HalfEdgeMesh &theMesh,
+                                         const FaceId theFace)
+    : myMesh(&theMesh), myCurrent() {
+  myOwner = myMesh->GetFace(theFace);
+  if (myOwner)
+    myCurrent = myOwner->Edge();
   myFirstTime = true;
 }
 
-Naive_Bool HalfEdgeMesh::Face::EdgeIterator::More() const {
-  if (myCurrent == nullptr) {
+Naive_Bool HalfEdgeMesh::EdgeIterator::More() const {
+  if (!myOwner || !myCurrent.IsValid())
     return false;
-  }
 
   if (myFirstTime) {
     myFirstTime = false;
     return true;
   }
 
-  if (myCurrent == myOwner->myOuterEdge) {
-    return false;
-  }
+  return myCurrent != myOwner->Edge();
+}
 
-  return true;
+void HalfEdgeMesh::EdgeIterator::Next() {
+  const HalfEdge *anCrt = myMesh->GetHalfEdge(myCurrent);
+  if (anCrt)
+    myCurrent = anCrt->Next();
 }
 
 /* HalfEdgeMesh */
@@ -214,34 +151,27 @@ HalfEdgeMesh::HalfEdgeMesh(const TriangleSoup &theTriangleSoup)
   myIsValid = true;
 }
 
-HalfEdgeMesh::~HalfEdgeMesh() {}
-
-const HalfEdgeMesh::Vertex *HalfEdgeMesh::GetVertex(Naive_Integer theId) const {
-  auto ret = myVertices.find(theId);
-
-  if (ret == myVertices.end())
+const HalfEdgeMesh::Vertex *
+HalfEdgeMesh::GetVertex(const VertexId theId) const {
+  if (theId < 0)
     return nullptr;
-
-  return &ret->second;
+  auto ret = myVertices.find(theId);
+  return (ret == myVertices.end()) ? nullptr : &ret->second;
 }
 
 const HalfEdgeMesh::HalfEdge *
-HalfEdgeMesh::GetHalfEdge(const HalfEdgeId &theId) const {
-  auto ret = myHalfEdges.find(theId);
-
-  if (ret == myHalfEdges.end())
+HalfEdgeMesh::GetHalfEdge(const HalfEdgeId theId) const {
+  if (!theId.IsValid())
     return nullptr;
-
-  return &ret->second;
+  auto ret = myHalfEdges.find(theId);
+  return (ret == myHalfEdges.end()) ? nullptr : &ret->second;
 }
 
-const HalfEdgeMesh::Face *HalfEdgeMesh::GetFace(Naive_Integer theId) const {
-  auto ret = myFaces.find(theId);
-
-  if (ret == myFaces.end())
+const HalfEdgeMesh::Face *HalfEdgeMesh::GetFace(const FaceId theId) const {
+  if (theId < 0)
     return nullptr;
-
-  return &ret->second;
+  auto ret = myFaces.find(theId);
+  return (ret == myFaces.end()) ? nullptr : &ret->second;
 }
 
 Naive_IntegerList HalfEdgeMesh::GetAllVertices() const {
@@ -290,7 +220,7 @@ Handle_Naive_Poly HalfEdgeMesh::Soup(Naive_Bool theCompat) const {
        ++anIter) {
     const Vertex &aVertex = anIter->second;
 
-    if (theCompat && !aVertex.myEdge)
+    if (theCompat && !aVertex.Edge().IsValid())
       continue;
 
     aVertices.push_back(aVertex.Coord());
@@ -303,13 +233,13 @@ Handle_Naive_Poly HalfEdgeMesh::Soup(Naive_Bool theCompat) const {
     Naive_Triangle aTriangle{0, 0, 0};
     Naive_Integer anIdx = 0;
 
-    for (auto itEdge = aFace.EdgeIter(); itEdge.More(); itEdge.Next()) {
+    for (auto itEdge = EdgeIter(aFace.Id()); itEdge.More(); itEdge.Next()) {
       // TODO: Ngon?
       if (anIdx >= 3)
         return nullptr;
 
-      auto ret = aVertIdMap.find(itEdge.Current()->Origin()->Id());
-
+      const HalfEdge *crtEdge = GetHalfEdge(itEdge.Current());
+      auto ret = aVertIdMap.find(crtEdge->Origin());
       if (ret == aVertIdMap.end())
         return nullptr;
 
@@ -323,7 +253,7 @@ Handle_Naive_Poly HalfEdgeMesh::Soup(Naive_Bool theCompat) const {
   return new TriangleSoup(::std::move(aVertices), ::std::move(aTriangles));
 }
 
-Naive_Bool HalfEdgeMesh::addVertex(Naive_Integer theId,
+Naive_Bool HalfEdgeMesh::addVertex(const VertexId theId,
                                    const Naive_Point3d &thePoint) {
   Vertex anVertex{thePoint};
   anVertex.myId = theId;
@@ -348,23 +278,23 @@ Naive_Integer HalfEdgeMesh::AddVertex(const Naive_Point3d &thePoint) {
   return anId;
 }
 
-Naive_Bool HalfEdgeMesh::RemoveVertex(Naive_Integer theId) {
+Naive_Bool HalfEdgeMesh::RemoveVertex(const VertexId theId) {
   const Vertex *aVertex = GetVertex(theId);
 
   if (!aVertex)
     return false;
 
-  const HalfEdge *aPrev = aVertex->myEdge;
-  const HalfEdgeId aNextId = aVertex->myEdge->Twin()->Id();
+  const HalfEdge *aPrev = GetHalfEdge(aVertex->myEdge);
+  const HalfEdgeId aNextId = aVertex->myEdge.Twin();
 
   do {
     if (!aPrev)
       break;
 
-    Naive_Integer aFaceId = aPrev->Owner()->Id();
-    aPrev = aPrev->Prev()->Twin();
+    FaceId aFaceId = aPrev->Owner();
+    aPrev = GetHalfEdge(aPrev->Prev().Twin());
     RemoveFace(aFaceId);
-  } while (aVertex->myEdge);
+  } while (GetHalfEdge(aVertex->myEdge));
 
   const HalfEdge *aNext = GetHalfEdge(aNextId);
 
@@ -372,10 +302,10 @@ Naive_Bool HalfEdgeMesh::RemoveVertex(Naive_Integer theId) {
     if (!aNext)
       break;
 
-    Naive_Integer aFaceId = aNext->Owner()->Id();
-    aNext = aNext->Next()->Twin();
+    FaceId aFaceId = aNext->Owner();
+    aNext = GetHalfEdge(aNext->Next().Twin());
     RemoveFace(aFaceId);
-  } while (aVertex->myEdge);
+  } while (GetHalfEdge(aVertex->myEdge));
 
   myVertices.erase(theId);
   myVertexSlots.push(theId);
@@ -383,8 +313,9 @@ Naive_Bool HalfEdgeMesh::RemoveVertex(Naive_Integer theId) {
   return true;
 }
 
-Naive_Integer HalfEdgeMesh::AddFace(Naive_Integer theV1, Naive_Integer theV2,
-                                    Naive_Integer theV3) {
+HalfEdgeMesh::FaceId HalfEdgeMesh::AddFace(const VertexId theV1,
+                                           const VertexId theV2,
+                                           const VertexId theV3) {
   /* If there are duplicate points, quit. */
 
   if (theV1 == theV2 || theV2 == theV3 || theV3 == theV1)
@@ -420,9 +351,12 @@ Naive_Integer HalfEdgeMesh::AddFace(Naive_Integer theV1, Naive_Integer theV2,
   Vertex *anV2 = &myVertices[theV2];
   Vertex *anV3 = &myVertices[theV3];
 
-  auto edgeRet1 = myHalfEdges.emplace(anEdgeId1, HalfEdge{anV1, anV2});
-  auto edgeRet2 = myHalfEdges.emplace(anEdgeId2, HalfEdge{anV2, anV3});
-  auto edgeRet3 = myHalfEdges.emplace(anEdgeId3, HalfEdge{anV3, anV1});
+  auto edgeRet1 =
+      myHalfEdges.emplace(anEdgeId1, HalfEdge{anV1->Id(), anV2->Id()});
+  auto edgeRet2 =
+      myHalfEdges.emplace(anEdgeId2, HalfEdge{anV2->Id(), anV3->Id()});
+  auto edgeRet3 =
+      myHalfEdges.emplace(anEdgeId3, HalfEdge{anV3->Id(), anV1->Id()});
 
   HalfEdge *anEdge1 = &edgeRet1.first->second;
   HalfEdge *anEdge2 = &edgeRet2.first->second;
@@ -430,54 +364,54 @@ Naive_Integer HalfEdgeMesh::AddFace(Naive_Integer theV1, Naive_Integer theV2,
 
   /* If a vertex has no edge, register it. */
 
-  if (anV1->myEdge == nullptr)
-    anV1->myEdge = anEdge1;
+  if (!GetHalfEdge(anV1->myEdge))
+    anV1->myEdge = anEdge1->Id();
 
-  if (anV2->myEdge == nullptr)
-    anV2->myEdge = anEdge2;
+  if (!GetHalfEdge(anV2->myEdge))
+    anV2->myEdge = anEdge2->Id();
 
-  if (anV3->myEdge == nullptr)
-    anV3->myEdge = anEdge3;
+  if (!GetHalfEdge(anV3->myEdge))
+    anV3->myEdge = anEdge3->Id();
 
   /* Set the origin of the edges. */
 
-  anEdge1->myOrigin = anV1;
-  anEdge2->myOrigin = anV2;
-  anEdge3->myOrigin = anV3;
+  anEdge1->myOrigin = anV1->Id();
+  anEdge2->myOrigin = anV2->Id();
+  anEdge3->myOrigin = anV3->Id();
 
   /* Set the previous edge of the edges. */
 
-  anEdge1->myPrev = anEdge3;
-  anEdge2->myPrev = anEdge1;
-  anEdge3->myPrev = anEdge2;
+  anEdge1->myPrev = anEdge3->Id();
+  anEdge2->myPrev = anEdge1->Id();
+  anEdge3->myPrev = anEdge2->Id();
 
   /* Set the next edge of the edges. */
 
-  anEdge1->myNext = anEdge2;
-  anEdge2->myNext = anEdge3;
-  anEdge3->myNext = anEdge1;
+  anEdge1->myNext = anEdge2->Id();
+  anEdge2->myNext = anEdge3->Id();
+  anEdge3->myNext = anEdge1->Id();
 
   /* Find twin edge and register it. */
 
   auto twin1 = myHalfEdges.find(anEdgeId1.Twin());
   if (twin1 != myHalfEdges.end()) {
     HalfEdge *anTwin = &twin1->second;
-    anEdge1->myTwin = anTwin;
-    anTwin->myTwin = anEdge1;
+    anEdge1->myTwin = anTwin->Id();
+    anTwin->myTwin = anEdge1->Id();
   }
 
   auto twin2 = myHalfEdges.find(anEdgeId2.Twin());
   if (twin2 != myHalfEdges.end()) {
     HalfEdge *anTwin = &twin2->second;
-    anEdge2->myTwin = anTwin;
-    anTwin->myTwin = anEdge2;
+    anEdge2->myTwin = anTwin->Id();
+    anTwin->myTwin = anEdge2->Id();
   }
 
   auto twin3 = myHalfEdges.find(anEdgeId3.Twin());
   if (twin3 != myHalfEdges.end()) {
     HalfEdge *anTwin = &twin3->second;
-    anEdge3->myTwin = anTwin;
-    anTwin->myTwin = anEdge3;
+    anEdge3->myTwin = anTwin->Id();
+    anTwin->myTwin = anEdge3->Id();
   }
 
   /* Insert the face. */
@@ -486,12 +420,12 @@ Naive_Integer HalfEdgeMesh::AddFace(Naive_Integer theV1, Naive_Integer theV2,
   Face *anFace = nullptr;
 
   if (myFaceSlots.empty()) {
-    auto faceRet = myFaces.emplace(anFaceId, Face{anEdge1});
+    auto faceRet = myFaces.emplace(anFaceId, Face{anEdge1->Id()});
     anFace = &faceRet.first->second;
     myFaceIndex++;
   } else {
     anFaceId = myFaceSlots.top();
-    auto faceRet = myFaces.emplace(anFaceId, Face{anEdge1});
+    auto faceRet = myFaces.emplace(anFaceId, Face{anEdge1->Id()});
     anFace = &faceRet.first->second;
     myFaceSlots.pop();
   }
@@ -502,9 +436,9 @@ Naive_Integer HalfEdgeMesh::AddFace(Naive_Integer theV1, Naive_Integer theV2,
 
   /* Set the face of the edges. */
 
-  anEdge1->myFace = anFace;
-  anEdge2->myFace = anFace;
-  anEdge3->myFace = anFace;
+  anEdge1->myFace = anFace->Id();
+  anEdge2->myFace = anFace->Id();
+  anEdge3->myFace = anFace->Id();
 
   return anFaceId;
 }
@@ -514,22 +448,24 @@ Naive_Bool HalfEdgeMesh::removeHalfEdge(const HalfEdge *theEdge,
   if (!theEdge)
     return false;
 
-  Vertex *anOrigin = theEdge->myOrigin;
+  Vertex *anOrigin = const_cast<Vertex *>(GetVertex(theEdge->myOrigin));
 
   /* To find anther edge for |anOrigin|... */
 
-  if (anOrigin->myEdge == theEdge) {
-    anOrigin->myEdge = nullptr;
+  if (anOrigin->myEdge == theEdge->Id()) {
+    anOrigin->myEdge = HalfEdgeId::Unset();
 
-    if (theEdge->myTwin) {
-      anOrigin->myEdge = theEdge->myTwin->myNext;
+    const HalfEdge *e = GetHalfEdge(theEdge->myTwin);
+    if (e) {
+      anOrigin->myEdge = e->myNext;
     }
 
-    if (!anOrigin->myEdge && theEdge->myPrev) {
-      anOrigin->myEdge = theEdge->myPrev->myTwin;
+    e = GetHalfEdge(theEdge->myPrev);
+    if (!anOrigin->myEdge.IsValid() && e) {
+      anOrigin->myEdge = e->myTwin;
     }
 
-    if (!anOrigin->myEdge) {
+    if (!anOrigin->myEdge.IsValid()) {
       // FIXME: What if the mesh became non-manifold after deleting the face?
       //  Here!
       //    |
@@ -545,33 +481,35 @@ Naive_Bool HalfEdgeMesh::removeHalfEdge(const HalfEdge *theEdge,
     }
   }
 
-  if (theEdge->myTwin) {
-    theEdge->myTwin->myTwin = nullptr;
-  }
+  HalfEdge *e;
 
-  if (theEdge->myNext) {
-    theEdge->myNext->myPrev = nullptr;
-  }
+  e = const_cast<HalfEdge *>(GetHalfEdge(theEdge->myTwin));
+  if (e)
+    e->myTwin = HalfEdgeId::Unset();
 
-  if (theEdge->myPrev) {
-    theEdge->myPrev->myNext = nullptr;
-  }
+  e = const_cast<HalfEdge *>(GetHalfEdge(theEdge->myNext));
+  if (e)
+    e->myPrev = HalfEdgeId::Unset();
+
+  e = const_cast<HalfEdge *>(GetHalfEdge(theEdge->myPrev));
+  if (e)
+    e->myNext = HalfEdgeId::Unset();
 
   myHalfEdges.erase(theEdge->Id());
 
   return true;
 }
 
-Naive_Bool HalfEdgeMesh::RemoveFace(Naive_Integer theId, Naive_Bool theCompat) {
+Naive_Bool HalfEdgeMesh::RemoveFace(const FaceId theId, Naive_Bool theCompat) {
   const Face *aFace = GetFace(theId);
 
   if (!aFace)
     return false;
 
-  const HalfEdge *anEdge = aFace->myOuterEdge;
+  const HalfEdge *anEdge = GetHalfEdge(aFace->myOuterEdge);
 
   while (anEdge) {
-    HalfEdge *anEdgeNext = anEdge->myNext;
+    HalfEdge *anEdgeNext = const_cast<HalfEdge *>(GetHalfEdge(anEdge->myNext));
     removeHalfEdge(anEdge, theCompat);
     anEdge = anEdgeNext;
   }

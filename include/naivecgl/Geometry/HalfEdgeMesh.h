@@ -13,54 +13,20 @@ Naive_NAMESPACE_BEGIN(geometry);
 /// @brief Manifold mesh described by half-edges.
 class HalfEdgeMesh : public Naive_Transient {
 public:
-  class Vertex;
-  class HalfEdge;
-  class Face;
-
-  class Vertex {
-    friend class HalfEdgeMesh;
-
-  public:
-    Naive_EXPORT Vertex();
-
-    Naive_EXPORT Vertex(const Naive_Point3d &theCoord);
-
-    Naive_EXPORT Vertex(Naive_Real theX, Naive_Real theY, Naive_Real theZ);
-
-    Vertex(const Vertex &theOther) = delete;
-
-    Naive_EXPORT Vertex(Vertex &&theOther) noexcept;
-
-    Vertex &operator=(const Vertex &theOther) = delete;
-
-    Naive_EXPORT Vertex &operator=(Vertex &&theOther) noexcept;
-
-    Naive_EXPORT ~Vertex();
-
-  public:
-    const Naive_Point3d &Coord() const { return myCoord; }
-
-    Naive_Point3d &ChangeCoord() { return myCoord; }
-
-    // HalfEdge *Edge() const { return myEdge; }
-
-    Naive_Integer Id() const { return myId; }
-
-  private:
-    Naive_Point3d myCoord; // Vertex coordinates.
-    HalfEdge *myEdge;      // An half-edge starts with the vertex.
-    Naive_Integer myId;    // The ID(key) in the vertex map.
-  };
+  typedef Naive_Integer VertexId;
+  typedef Naive_Integer FaceId;
 
   class HalfEdgeId {
   public:
     Naive_EXPORT HalfEdgeId();
 
-    Naive_EXPORT HalfEdgeId(const Naive_Integer theA, const Naive_Integer theB);
+    Naive_EXPORT HalfEdgeId(const VertexId theA, const VertexId theB);
 
-    Naive_EXPORT Naive_Integer A() const { return myA; }
+    Naive_EXPORT static const HalfEdgeId &Unset();
 
-    Naive_EXPORT Naive_Integer B() const { return myB; }
+    Naive_EXPORT VertexId A() const { return myA; }
+
+    Naive_EXPORT VertexId B() const { return myB; }
 
     Naive_EXPORT Naive_Bool IsValid() const;
 
@@ -79,96 +45,96 @@ public:
     Naive_EXPORT Naive_Bool operator>=(const HalfEdgeId &theOther) const;
 
   private:
-    Naive_Integer myA;
-    Naive_Integer myB;
+    VertexId myA;
+    VertexId myB;
   };
 
-  class HalfEdge {
+  struct Vertex {
     friend class HalfEdgeMesh;
 
-  public:
+    Naive_EXPORT Vertex();
+
+    Naive_EXPORT Vertex(const Naive_Point3d &theCoord);
+
+    Naive_EXPORT Vertex(Naive_Real theX, Naive_Real theY, Naive_Real theZ);
+
+    Naive_EXPORT const Naive_Point3d &Coord() const { return myCoord; }
+
+    Naive_EXPORT Naive_Point3d &ChangeCoord() { return myCoord; }
+
+    Naive_EXPORT HalfEdgeId Edge() const { return myEdge; }
+
+    Naive_EXPORT VertexId Id() const { return myId; }
+
+  private:
+    Naive_Point3d myCoord; // Vertex coordinates.
+    HalfEdgeId myEdge;     // An half-edge starts with the vertex.
+    VertexId myId;         // The ID(key) in the vertex map.
+  };
+
+  struct HalfEdge {
+    friend class HalfEdgeMesh;
+
     Naive_EXPORT HalfEdge();
 
-    Naive_EXPORT HalfEdge(Vertex *theOrigin, Vertex *theNext);
+    Naive_EXPORT HalfEdge(VertexId theOrigin, VertexId theNext);
 
-    HalfEdge(const HalfEdge &theOther) = delete;
+    Naive_EXPORT VertexId Origin() const { return myOrigin; }
 
-    Naive_EXPORT HalfEdge(HalfEdge &&theOther) noexcept;
+    Naive_EXPORT FaceId Owner() const { return myFace; }
 
-    HalfEdge &operator=(const HalfEdge &theOther) = delete;
+    Naive_EXPORT HalfEdgeId Twin() const { return myTwin; }
 
-    Naive_EXPORT HalfEdge &operator=(HalfEdge &&theOther) noexcept;
+    Naive_EXPORT HalfEdgeId Next() const { return myNext; }
 
-    Naive_EXPORT ~HalfEdge();
+    Naive_EXPORT HalfEdgeId Prev() const { return myPrev; }
 
-  public:
-    Naive_EXPORT const Vertex *Origin() const { return myOrigin; }
-
-    Naive_EXPORT const HalfEdge *Twin() const { return myTwin; }
-
-    Naive_EXPORT const Face *Owner() const { return myFace; }
-
-    Naive_EXPORT const HalfEdge *Next() const { return myNext; }
-
-    Naive_EXPORT const HalfEdge *Prev() const { return myPrev; }
-
-    Naive_EXPORT const HalfEdgeId &Id() const { return myId; }
+    Naive_EXPORT HalfEdgeId Id() const { return myId; }
 
   private:
-    Vertex *myOrigin; // Start vertex of the half-edge.
-    HalfEdge *myTwin; // The twin half-edge.
-    Face *myFace;     // The face the half-edge bounds.
-    HalfEdge *myPrev; // Previous edge on the boundary of the incident face.
-    HalfEdge *myNext; // Next edge on the boundary of the incident face.
-    HalfEdgeId myId;  // The ID(key) in the half-edge map.
+    VertexId myOrigin; // Start vertex of the half-edge.
+    FaceId myFace;     // The face the half-edge bounds.
+    HalfEdgeId myTwin; // The twin half-edge.
+    HalfEdgeId myPrev; // Previous edge on the boundary of the incident face.
+    HalfEdgeId myNext; // Next edge on the boundary of the incident face.
+    HalfEdgeId myId;   // The ID(key) in the half-edge map.
   };
 
-  class Face {
+  struct Face {
     friend class HalfEdgeMesh;
 
-  public:
     Naive_EXPORT Face();
 
-    Naive_EXPORT Face(HalfEdge *theOuterEdge);
+    Naive_EXPORT Face(const HalfEdgeId theOuterEdge);
 
-    Face(const Face &theOther) = delete;
+    Naive_EXPORT HalfEdgeId Edge() const { return myOuterEdge; }
 
-    Naive_EXPORT Face(Face &&theOther) noexcept;
+    Naive_EXPORT Naive_Vector3d Normal() const { return myNormal; }
 
-    Face &operator=(const Face &theOther) = delete;
-
-    Naive_EXPORT Face &operator=(Face &&theOther) noexcept;
-
-    Naive_EXPORT ~Face();
-
-  public:
-    class EdgeIterator {
-    public:
-      Naive_EXPORT EdgeIterator(const Face *theFace);
-
-      Naive_EXPORT Naive_Bool More() const;
-
-      Naive_EXPORT void Next() { myCurrent = myCurrent->Next(); }
-
-      Naive_EXPORT const HalfEdge *Current() const { return myCurrent; }
-
-    private:
-      const Face *myOwner;
-      const HalfEdge *myCurrent;
-      mutable Naive_Bool myFirstTime;
-    };
-
-  public:
-    EdgeIterator EdgeIter() const { return EdgeIterator(this); }
-
-    Naive_Vector3d Normal() const { return myNormal; }
-
-    Naive_Integer Id() const { return myId; }
+    Naive_EXPORT FaceId Id() const { return myId; }
 
   private:
-    HalfEdge *myOuterEdge;   // A half-edge on the outer boundary.
+    HalfEdgeId myOuterEdge;  // A half-edge on the outer boundary.
     Naive_Vector3d myNormal; // Face normal.
-    Naive_Integer myId;      // The ID(key) in the face map.
+    FaceId myId;             // The ID(key) in the face map.
+  };
+
+  class EdgeIterator {
+  public:
+    Naive_EXPORT EdgeIterator(const HalfEdgeMesh &theMesh,
+                              const FaceId theFace);
+
+    Naive_EXPORT Naive_Bool More() const;
+
+    Naive_EXPORT void Next();
+
+    Naive_EXPORT HalfEdgeId Current() const { return myCurrent; }
+
+  private:
+    const HalfEdgeMesh *myMesh;
+    const Face *myOwner;
+    HalfEdgeId myCurrent;
+    mutable Naive_Bool myFirstTime;
   };
 
 public:
@@ -177,29 +143,21 @@ public:
   /// @brief Construct a half-edge mesh from a trangle soup.
   Naive_EXPORT explicit HalfEdgeMesh(const TriangleSoup &theTriangleSoup);
 
-  HalfEdgeMesh(const HalfEdgeMesh &theOther) = delete;
-
-  Naive_EXPORT HalfEdgeMesh(HalfEdgeMesh &&theOther) noexcept = default;
-
-  HalfEdgeMesh &operator=(const HalfEdgeMesh &theOther) = delete;
-
-  Naive_EXPORT HalfEdgeMesh &
-  operator=(HalfEdgeMesh &&theOther) noexcept = default;
-
-  Naive_EXPORT ~HalfEdgeMesh();
-
-public:
   Naive_EXPORT Naive_Bool IsValid() const { return myIsValid; }
 
   Naive_EXPORT Naive_Size NbVertices() const { return myVertices.size(); }
 
   Naive_EXPORT Naive_Size NbFaces() const { return myFaces.size(); }
 
-  Naive_EXPORT const Vertex *GetVertex(Naive_Integer theId) const;
+  Naive_EXPORT const Vertex *GetVertex(const VertexId theId) const;
 
-  Naive_EXPORT const HalfEdge *GetHalfEdge(const HalfEdgeId &theId) const;
+  Naive_EXPORT const HalfEdge *GetHalfEdge(const HalfEdgeId theId) const;
 
-  Naive_EXPORT const Face *GetFace(Naive_Integer theId) const;
+  Naive_EXPORT const Face *GetFace(const FaceId theId) const;
+
+  Naive_EXPORT EdgeIterator EdgeIter(const FaceId theFace) const {
+    return {*this, theFace};
+  }
 
   Naive_EXPORT Naive_IntegerList GetAllVertices() const;
 
@@ -209,16 +167,16 @@ public:
 
   Naive_EXPORT Naive_Integer AddVertex(const Naive_Point3d &thePoint);
 
-  Naive_EXPORT Naive_Bool RemoveVertex(Naive_Integer theId);
+  Naive_EXPORT Naive_Bool RemoveVertex(const VertexId theId);
 
-  Naive_EXPORT Naive_Integer AddFace(Naive_Integer theV1, Naive_Integer theV2,
-                                     Naive_Integer theV3);
+  Naive_EXPORT FaceId AddFace(const VertexId theV1, const VertexId theV2,
+                              const VertexId theV3);
 
-  Naive_EXPORT Naive_Bool RemoveFace(Naive_Integer theId,
+  Naive_EXPORT Naive_Bool RemoveFace(const FaceId theId,
                                      Naive_Bool theCompat = false);
 
 private:
-  Naive_Bool addVertex(Naive_Integer theId, const Naive_Point3d &thePoint);
+  Naive_Bool addVertex(const VertexId theId, const Naive_Point3d &thePoint);
 
   Naive_Bool removeHalfEdge(const HalfEdge *theEdge, Naive_Bool theCompat);
 
