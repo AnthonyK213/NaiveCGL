@@ -14,6 +14,8 @@ public:
 
   Naive_EXPORT virtual Naive_Bool IsValid() const override;
 
+  Naive_EXPORT virtual Handle_Naive_Geometry Clone() const override;
+
   Naive_EXPORT virtual Naive_Real FirstParameter() const override;
 
   Naive_EXPORT virtual Naive_Real LastParameter() const override;

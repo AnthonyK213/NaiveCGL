@@ -14,6 +14,10 @@ NurbsCurve::NurbsCurve(const Naive_Point3dList &thePoles,
 
 Naive_Bool NurbsCurve::IsValid() const { return myDegree > 0; }
 
+Handle_Naive_Geometry NurbsCurve::Clone() const {
+  return new NurbsCurve(*this);
+}
+
 Naive_Integer NurbsCurve::NbPoles() const {
   if (!IsValid())
     return 0;

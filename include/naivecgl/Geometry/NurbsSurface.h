@@ -20,6 +20,8 @@ public:
 
   Naive_EXPORT virtual Naive_Bool IsValid() const override;
 
+  Naive_EXPORT virtual Handle_Naive_Geometry Clone() const override;
+
   Naive_EXPORT Naive_Integer UDegree() const { return myUDegree; }
 
   Naive_EXPORT Naive_Integer VDegree() const { return myVDegree; }

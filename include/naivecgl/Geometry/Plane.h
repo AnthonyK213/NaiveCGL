@@ -1,13 +1,14 @@
 ﻿#ifndef _NaiveCGL_Geometry_Plane_HeaderFile
 #define _NaiveCGL_Geometry_Plane_HeaderFile
 
+#include "Geometry.h"
 #include "Point3d.h"
 #include "Transform3d.h"
 #include "Vector3d.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-class Plane final {
+class Plane final : public Geometry {
 public:
   Naive_EXPORT Plane();
 
@@ -18,7 +19,11 @@ public:
   Naive_EXPORT Plane(const Naive_Point3d &thePoint,
                      const Naive_Vector3d &theNormal);
 
-  Naive_EXPORT Naive_Bool IsValid() const;
+  Naive_EXPORT Plane(const Naive_Plane_T &thePlaneT);
+
+  Naive_EXPORT virtual Naive_Bool IsValid() const override;
+
+  Naive_EXPORT virtual Handle_Naive_Geometry Clone() const override;
 
   Naive_EXPORT const Naive_Point3d &Location() const { return myLocation; }
 
@@ -50,6 +55,8 @@ private:
 
   Naive_Bool initByXY();
 
+  Naive_Bool initByZX();
+
 private:
   Naive_Point3d myLocation;
   Naive_Vector3d myXAxis;
@@ -60,5 +67,6 @@ private:
 Naive_NAMESPACE_END(geometry);
 
 using Naive_Plane = ::naivecgl::geometry::Plane;
+Naive_DEFINE_HANDLE(Naive_Plane);
 
 #endif

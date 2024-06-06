@@ -28,6 +28,8 @@ Naive_Bool Line::IsValid() const {
          Length() > math::Constant::ZeroTolerance();
 }
 
+Handle_Naive_Geometry Line::Clone() const { return new Line(*this); }
+
 Naive_Real Line::DistanceTo(const Naive_Point3d &thePnt,
                             const Naive_Bool theFinite) const {
   Naive_XYZ v = thePnt.XYZ() - myFrom.XYZ();

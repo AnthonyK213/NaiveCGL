@@ -18,6 +18,10 @@ Naive_Bool NurbsSurface::IsValid() const {
   return myUDegree > 0 && myVDegree > 0;
 }
 
+Handle_Naive_Geometry NurbsSurface::Clone() const {
+  return new NurbsSurface(*this);
+}
+
 Naive_Bool NurbsSurface::Bounds(Naive_Real &theU0, Naive_Real &theU1,
                                 Naive_Real &theV0, Naive_Real &theV1) const {
   if (!IsValid())

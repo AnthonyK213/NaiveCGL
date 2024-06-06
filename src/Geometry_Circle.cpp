@@ -12,6 +12,8 @@ Naive_Bool Circle::IsValid() const {
   return myPlane.IsValid() && math::Util::IsValidReal(myRadius) && myRadius > 0;
 }
 
+Handle_Naive_Geometry Circle::Clone() const { return new Circle(*this); }
+
 Naive_Real Circle::FirstParameter() const { return 0.0; }
 
 Naive_Real Circle::LastParameter() const { return math::Constant::TwoPI(); }

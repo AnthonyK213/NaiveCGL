@@ -27,11 +27,21 @@ Plane::Plane(const Naive_Point3d &thePoint, const Naive_Vector3d &theNormal)
   myYAxis.Normalize();
 }
 
+Plane::Plane(const Naive_Plane_T &thePlaneT)
+    : myLocation(thePlaneT.basis_set.location),
+      myXAxis(thePlaneT.basis_set.ref_direction),
+      myZAxis(thePlaneT.basis_set.axis) {
+  if (!initByZX())
+    initInvalid();
+}
+
 Naive_Bool Plane::IsValid() const {
   return myLocation.IsValid() && myXAxis.IsValid() && !myXAxis.IsZero() &&
          myYAxis.IsValid() && !myYAxis.IsZero() && myZAxis.IsValid() &&
          !myZAxis.IsZero();
 }
+
+Handle_Naive_Geometry Plane::Clone() const { return new Plane(*this); }
 
 Naive_Real Plane::Distance(const Naive_Point3d &thePoint) const {
   Naive_Real aDist = (myZAxis.X() * (thePoint.X() - myLocation.X()) +
@@ -123,6 +133,21 @@ Naive_Bool Plane::initByXY() {
 
   myYAxis = myZAxis.Crossed(myXAxis);
   if (!myYAxis.Normalize())
+    return false;
+
+  return true;
+}
+
+Naive_Bool Plane::initByZX() {
+  if (!myZAxis.Normalize())
+    return false;
+
+  myYAxis = myZAxis.Crossed(myXAxis);
+  if (!myYAxis.Normalize())
+    return false;
+
+  myXAxis = myYAxis.Crossed(myZAxis);
+  if (!myXAxis.Normalize())
     return false;
 
   return true;

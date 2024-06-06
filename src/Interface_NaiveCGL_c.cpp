@@ -35,6 +35,19 @@
     __h__->Delete();                                                           \
   }
 
+template <typename T>
+static Naive_Code_T
+transient_handle_cast(const Naive_H theHandle,
+                      ::naivecgl::common::handle<T> &theResult) {
+  Naive_H_CAST(const Naive_Transient, theHandle, H);
+  ::naivecgl::common::handle<T> aResult =
+      ::naivecgl::common::handle<T>::DownCast(H);
+  if (!aResult)
+    return Naive_InvalidHandle;
+  theResult = aResult;
+  return Naive_Ok;
+}
+
 /// Math_Constant {{{
 
 double Naive_Math_Constant_PI(void) { return ::naivecgl::math::Constant::PI(); }
@@ -65,30 +78,51 @@ bool Naive_Math_Util_IsValidReal(const double theR) {
 
 /// }}}
 
-/// Naive_Plane {{{
+/// Naive_Geometry {{{
 
-Naive_H Naive_Plane_New(void) { return new Naive_Plane; }
+Naive_Code_T Naive_Geometry_IsValid(const Naive_H theHandle,
+                                    bool *const theIsValid) {
+  if (!theIsValid)
+    return Naive_NullException;
 
-Naive_H Naive_Plane_FromOXY(const Naive_Point3d_T *thePoint,
-                            const Naive_Vector3d_T *theXAxis,
-                            const Naive_Vector3d_T *theYAxis) {
-  if (!thePoint || !theXAxis || !theYAxis)
-    return nullptr;
+  Handle_Naive_Geometry aGeom;
+  Naive_Code_T aCode = transient_handle_cast(theHandle, aGeom);
+  if (aCode)
+    return aCode;
 
-  Naive_Point3d aPoint{*thePoint};
-  Naive_Vector3d aXAxis{*theXAxis};
-  Naive_Vector3d aYAxis{*theYAxis};
-  return new Naive_Plane(aPoint, aXAxis, aYAxis);
+  *theIsValid = aGeom->IsValid();
+  return aCode;
 }
 
-Naive_H Naive_Plane_FromON(const Naive_Point3d_T *thePoint,
-                           const Naive_Vector3d_T *theNormal) {
-  if (!thePoint || !theNormal)
-    return nullptr;
+Naive_Code_T Naive_Geometry_Clone(const Naive_H theHandle,
+                                  Naive_H *const theClone) {
+  if (!theClone)
+    return Naive_NullException;
 
-  Naive_Point3d aPoint{*thePoint};
-  Naive_Vector3d aNormal{*theNormal};
-  return new Naive_Plane(aPoint, aNormal);
+  Handle_Naive_Geometry aGeom;
+  Naive_Code_T aCode = transient_handle_cast(theHandle, aGeom);
+  if (aCode)
+    return aCode;
+
+  Handle_Naive_Geometry aClone = aGeom->Clone();
+  aClone->IncrementRefCounter();
+  *theClone = aClone.get();
+  return Naive_Ok;
+}
+
+/// }}}
+
+/// Naive_Plane {{{
+
+Naive_Code_T Naive_Plane_New(const Naive_Plane_T *thePlaneT,
+                             Naive_H *const thePlane) {
+  if (!thePlaneT || !thePlane)
+    return Naive_NullException;
+
+  Handle_Naive_Plane aPlane = new Naive_Plane(*thePlaneT);
+  aPlane->IncrementRefCounter();
+  *thePlane = aPlane.get();
+  return Naive_Ok;
 }
 
 Naive_H Naive_Plane_Clone(const Naive_H theHandle) {
@@ -101,22 +135,24 @@ bool Naive_Plane_IsValid(const Naive_H theHandle) {
 }
 
 bool Naive_Plane_Location(const Naive_H theHandle,
-                          Naive_Point3d_T *theLocation) {
+                          Naive_Point3d_T *const theLocation) {
   Naive_H_CAST(const Naive_Plane, theHandle, H);
   return (H && theLocation) ? H->Location().Dump(*theLocation) : false;
 }
 
-bool Naive_Plane_XAxis(const Naive_H theHandle, Naive_Point3d_T *theXAxis) {
+bool Naive_Plane_XAxis(const Naive_H theHandle,
+                       Naive_Point3d_T *const theXAxis) {
   Naive_H_CAST(const Naive_Plane, theHandle, H);
   return (H && theXAxis) ? H->XAxis().Dump(*theXAxis) : false;
 }
 
-bool Naive_Plane_YAxis(const Naive_H theHandle, Naive_Point3d_T *theYAxis) {
+bool Naive_Plane_YAxis(const Naive_H theHandle,
+                       Naive_Point3d_T *const theYAxis) {
   Naive_H_CAST(const Naive_Plane, theHandle, H);
   return (H && theYAxis) ? H->YAxis().Dump(*theYAxis) : false;
 }
 
-bool Naive_Plane_Axis(const Naive_H theHandle, Naive_Point3d_T *theAxis) {
+bool Naive_Plane_Axis(const Naive_H theHandle, Naive_Point3d_T *const theAxis) {
   Naive_H_CAST(const Naive_Plane, theHandle, H);
   return (H && theAxis) ? H->Axis().Dump(*theAxis) : false;
 }
@@ -171,18 +207,18 @@ void Naive_Line_Release(Naive_H theHandle) {
 
 /// Naive_NurbsCurve {{{
 
-Naive_H Naive_NurbsCurve_New(const int32_t nbPoles,
-                             const Naive_Point3d_T *thePoles,
-                             const int32_t nbWeights, const double *theWeights,
-                             const int32_t nbKnots, const double *theKnots,
-                             const int32_t nbMults, const int32_t *theMults,
-                             const int32_t theDegree) {
+Naive_Code_T
+Naive_NurbsCurve_New(const int32_t nbPoles, const Naive_Point3d_T *thePoles,
+                     const int32_t nbWeights, const double *theWeights,
+                     const int32_t nbKnots, const double *theKnots,
+                     const int32_t nbMults, const int32_t *theMults,
+                     const int32_t theDegree, Naive_H *const theNurbsCurve) {
   if (nbPoles < 2 || nbWeights < 2 || nbKnots < 2 || nbMults < 2 ||
       theDegree < 1)
-    return nullptr;
+    return Naive_Err;
 
   if (!thePoles || !theWeights || !theKnots || !theMults)
-    return nullptr;
+    return Naive_NullException;
 
   Naive_Point3dList aPoles(thePoles, thePoles + nbPoles);
   Naive_RealList aWeights(theWeights, theWeights + nbWeights);
@@ -191,7 +227,8 @@ Naive_H Naive_NurbsCurve_New(const int32_t nbPoles,
   Handle_Naive_NurbsCurve aCrv =
       new Naive_NurbsCurve(aPoles, aWeights, aKnots, aMults, theDegree);
   aCrv->IncrementRefCounter();
-  return aCrv.get();
+  *theNurbsCurve = aCrv.get();
+  return Naive_Ok;
 }
 
 Naive_H Naive_NurbsCurve_Clone(const Naive_H theHandle) {
@@ -214,7 +251,7 @@ int32_t Naive_NurbsCurve_NbPoles(const Naive_H theHandle) {
 }
 
 bool Naive_NurbsCurve_Pole(const Naive_H theHandle, const int32_t theI,
-                           Naive_Point3d_T *thePole) {
+                           Naive_Point3d_T *const thePole) {
   Naive_H_CAST(const Naive_NurbsCurve, theHandle, H);
   return (H && thePole) ? H->Pole(theI).Dump(*thePole) : false;
 }
@@ -251,20 +288,20 @@ double Naive_NurbsCurve_LastParameter(const Naive_H theHandle) {
 }
 
 bool Naive_NurbsCurve_PointAt(const Naive_H theHandle, const double theT,
-                              Naive_Point3d_T *theP) {
+                              Naive_Point3d_T *const theP) {
   Naive_H_CAST(const Naive_NurbsCurve, theHandle, H);
   return (H && theP) ? H->PointAt(theT).Dump(*theP) : false;
 }
 
 bool Naive_NurbsCurve_TangentAt(const Naive_H theHandle, const double theT,
-                                Naive_Vector3d_T *theV) {
+                                Naive_Vector3d_T *const theV) {
   Naive_H_CAST(const Naive_NurbsCurve, theHandle, H);
   return (H && theV) ? H->TangentAt(theT).Dump(*theV) : false;
 }
 
 bool Naive_NurbsCurve_DerivativeAt(const Naive_H theHandle, const double theT,
-                                   int32_t theN, int32_t *nbD,
-                                   Naive_Vector3d_T *theD) {
+                                   int32_t theN, int32_t *const nbD,
+                                   Naive_Vector3d_T *const theD) {
   if (!theHandle || theN < 0 || !nbD)
     return false;
 
@@ -285,7 +322,7 @@ bool Naive_NurbsCurve_DerivativeAt(const Naive_H theHandle, const double theT,
 }
 
 bool Naive_NurbsCurve_CurvatureAt(const Naive_H theHandle, const double theT,
-                                  Naive_Vector3d_T *theV) {
+                                  Naive_Vector3d_T *const theV) {
   Naive_H_CAST(const Naive_NurbsCurve, theHandle, H);
   return (H && theV) ? H->CurvatureAt(theT).Dump(*theV) : false;
 }
@@ -323,22 +360,22 @@ void Naive_NurbsCurve_Release(Naive_H theHandle) {
 
 /// Naive_NurbsSurface {{{
 
-Naive_H Naive_NurbsSurface_New(
+Naive_Code_T Naive_NurbsSurface_New(
     const int32_t nbUPoles, const int32_t nbVPoles,
     const Naive_Point3d_T *thePoles, const int32_t nbUWeights,
     const int32_t nbVWeights, const double *theWeights, const int32_t nbUKnots,
     const double *theUKnots, const int32_t nbVKnots, const double *theVKnots,
     const int32_t nbUMults, const int32_t *theUMults, const int32_t nbVMults,
     const int32_t *theVMults, const int32_t theUDegree,
-    const int32_t theVDegree) {
+    const int32_t theVDegree, Naive_H *const theNurbsSurface) {
   if (nbUPoles < 2 || nbVPoles < 2 || nbUWeights < 2 || nbVWeights < 2 ||
       nbUKnots < 2 || nbVKnots < 2 || nbUMults < 2 || nbVMults < 2 ||
       theUDegree < 1 || theVDegree < 1)
-    return nullptr;
+    return Naive_Err;
 
   if (!thePoles || !theWeights || !theUKnots || !theVKnots || !theUMults ||
       !theVMults)
-    return nullptr;
+    return Naive_NullException;
 
   Naive_Point3dList2 aPoles{};
   aPoles.reserve(nbUPoles);
@@ -362,7 +399,8 @@ Naive_H Naive_NurbsSurface_New(
       new Naive_NurbsSurface(aPoles, aWeights, aUKnots, aVKnots, aUMults,
                              aVMults, theUDegree, theVDegree);
   aSrf->IncrementRefCounter();
-  return aSrf.get();
+  *theNurbsSurface = aSrf.get();
+  return Naive_Ok;
 }
 
 Naive_H Naive_NurbsSurface_Clone(const Naive_H theHandle) {
@@ -385,14 +423,16 @@ int32_t Naive_NurbsSurface_VDegree(const Naive_H theHandle) {
 }
 
 bool Naive_NurbsSurface_PointAt(const Naive_H theHandle, const double theU,
-                                const double theV, Naive_Point3d_T *theP) {
+                                const double theV,
+                                Naive_Point3d_T *const theP) {
   Naive_H_CAST(const Naive_NurbsSurface, theHandle, H);
   return (H && theP) ? H->PointAt(theU, theV).Dump(*theP) : false;
 }
 
 bool Naive_NurbsSurface_Evaluate(const Naive_H theHandle, const double theU,
-                                 const double theV, int32_t theN, int32_t *nbD,
-                                 Naive_Vector3d_T *theD) {
+                                 const double theV, int32_t theN,
+                                 int32_t *const nbD,
+                                 Naive_Vector3d_T *const theD) {
   if (!theHandle || theN < 0 || !nbD)
     return false;
 
@@ -420,12 +460,16 @@ void Naive_NurbsSurface_Release(Naive_H theHandle) {
 
 /// Naive_Poly {{{
 
-Naive_H Naive_Poly_New(const int32_t nbVertices,
-                       const Naive_Point3d_T *theVertices,
-                       const int32_t nbTriangles,
-                       const Naive_Triangle_T *theTriangles) {
-  if (nbVertices < 0 || !theVertices || nbTriangles < 0 || !theTriangles)
-    return nullptr;
+Naive_Code_T Naive_Poly_New(const int32_t nbVertices,
+                            const Naive_Point3d_T *theVertices,
+                            const int32_t nbTriangles,
+                            const Naive_Triangle_T *theTriangles,
+                            Naive_H *const thePoly) {
+  if (!theVertices || !theTriangles)
+    return Naive_NullException;
+
+  if (nbVertices < 0 || nbTriangles < 0)
+    return Naive_Err;
 
   Naive_Point3dList aVerts(nbVertices);
   for (int i = 0; i < nbVertices; ++i) {
@@ -442,7 +486,8 @@ Naive_H Naive_Poly_New(const int32_t nbVertices,
   Handle_Naive_Poly aPoly =
       new Naive_Poly(::std::move(aVerts), ::std::move(aTris));
   aPoly->IncrementRefCounter();
-  return aPoly.get();
+  *thePoly = aPoly.get();
+  return Naive_Ok;
 }
 
 Naive_H Naive_Poly_Clone(const Naive_H theHandle) {
@@ -455,7 +500,7 @@ int32_t Naive_Poly_NbVertices(const Naive_H theHandle) {
 }
 
 void Naive_Poly_Vertices(const Naive_H theHandle,
-                         Naive_Point3d_T *theVertices) {
+                         Naive_Point3d_T *const theVertices) {
   Naive_H_CAST(const Naive_Poly, theHandle, H);
   if (H && theVertices) {
     Naive_Size nbVertices = H->Vertices().size();
@@ -472,7 +517,7 @@ int32_t Naive_Poly_NbTriangles(const Naive_H theHandle) {
 }
 
 void Naive_Poly_Triangles(const Naive_H theHandle,
-                          Naive_Triangle_T *theTriangles) {
+                          Naive_Triangle_T *const theTriangles) {
   Naive_H_CAST(const Naive_Poly, theHandle, H);
   if (H && theTriangles) {
     Naive_Size nbTriangles = H->Triangles().size();
@@ -493,11 +538,14 @@ void Naive_Poly_Release(Naive_H theHandle) {
 
 /// BndShape_ConvexHull2D {{{
 
-Naive_H Naive_BndShape_ConvexHull2D_New(int32_t nbPoints,
-                                        const Naive_Point2d_T *thePoints,
-                                        Naive_ConvexHull2D_Algorithm theAlgo) {
-  if (!thePoints || nbPoints < 0)
-    return nullptr;
+Naive_Code_T Naive_BndShape_ConvexHull2D_New(
+    int32_t nbPoints, const Naive_Point2d_T *thePoints,
+    Naive_ConvexHull2D_Algorithm theAlgo, Naive_H *const theConvexHull2D) {
+  if (!thePoints)
+    return Naive_NullException;
+
+  if (nbPoints < 0)
+    return Naive_Err;
 
   Naive_Point2dList aPoints(nbPoints);
 
@@ -505,7 +553,9 @@ Naive_H Naive_BndShape_ConvexHull2D_New(int32_t nbPoints,
     aPoints[i] = thePoints[i];
   }
 
-  return new ::naivecgl::bndshape::ConvexHull2D(::std::move(aPoints), theAlgo);
+  *theConvexHull2D =
+      new ::naivecgl::bndshape::ConvexHull2D(::std::move(aPoints), theAlgo);
+  return Naive_Ok;
 }
 
 void Naive_BndShape_ConvexHull2D_SetAlgorithm(
@@ -529,7 +579,7 @@ void Naive_BndShape_ConvexHull2D_Add(Naive_H theHandle,
     H->Add({thePoint.x, thePoint.y}, thePerform);
 }
 
-Naive_Code Naive_BndShape_ConvexHull2D_Status(const Naive_H theHandle) {
+Naive_Code_T Naive_BndShape_ConvexHull2D_Status(const Naive_H theHandle) {
   Naive_H_CAST(const ::naivecgl::bndshape::ConvexHull2D, theHandle, H);
   return H ? H->Status() : Naive_NullException;
 }
@@ -539,9 +589,9 @@ int32_t Naive_BndShape_ConvexHull2D_NbConvexPoints(const Naive_H theHandle) {
   return H ? H->NbConvexPoints() : 0;
 }
 
-Naive_Code
+Naive_Code_T
 Naive_BndShape_ConvexHull2D_ConvexIndices(const Naive_H theHandle,
-                                          int32_t *theConvexIndices) {
+                                          int32_t *const theConvexIndices) {
   Naive_H_CAST(const ::naivecgl::bndshape::ConvexHull2D, theHandle, H);
   if (!H || !theConvexIndices)
     return Naive_NullException;
@@ -551,9 +601,8 @@ Naive_BndShape_ConvexHull2D_ConvexIndices(const Naive_H theHandle,
   return Naive_Ok;
 }
 
-Naive_Code
-Naive_BndShape_ConvexHull2D_ConvexPoints(const Naive_H theHandle,
-                                         Naive_Point2d_T *theConvexPoints) {
+Naive_Code_T Naive_BndShape_ConvexHull2D_ConvexPoints(
+    const Naive_H theHandle, Naive_Point2d_T *const theConvexPoints) {
   Naive_H_CAST(const ::naivecgl::bndshape::ConvexHull2D, theHandle, H);
   if (!H || !theConvexPoints)
     return Naive_NullException;
@@ -574,8 +623,9 @@ void Naive_BndShape_ConvexHull2D_Release(const Naive_H theHandle) {
 
 /// BndShape_EnclosingDisc {{{
 
-Naive_H Naive_BndShape_EnclosingDisc_New(void) {
-  return new ::naivecgl::bndshape::EnclosingDisc();
+Naive_Code_T Naive_BndShape_EnclosingDisc_New(Naive_H *const theEnclosingDisc) {
+  *theEnclosingDisc = new ::naivecgl::bndshape::EnclosingDisc();
+  return Naive_Ok;
 }
 
 void Naive_BndShape_EnclosingDisc_Rebuild(Naive_H theHandle, int32_t nbPoints,
@@ -593,8 +643,8 @@ void Naive_BndShape_EnclosingDisc_Rebuild(Naive_H theHandle, int32_t nbPoints,
 }
 
 bool Naive_BndShape_EnclosingDisc_Circle(const Naive_H theHandle,
-                                         Naive_Point2d_T *theOrigin,
-                                         double *theR) {
+                                         Naive_Point2d_T *const theOrigin,
+                                         double *const theR) {
   Naive_H_CAST(const ::naivecgl::bndshape::EnclosingDisc, theHandle, H);
   if (!H || !theOrigin || !theR)
     return false;
@@ -620,7 +670,7 @@ void Naive_BndShape_EnclosingDisc_Release(const Naive_H theHandle) {
 
 bool Naive_Intersect_Intersection_LinePlane(const Naive_H theLine,
                                             const Naive_H thePlane,
-                                            double *theT) {
+                                            double *const theT) {
   Naive_H_CAST(const Naive_Line, theLine, HL);
   Naive_H_CAST(const Naive_Plane, thePlane, HP);
   if (!HL || !HP || !theT)

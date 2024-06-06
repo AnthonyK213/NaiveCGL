@@ -32,6 +32,8 @@ public:
 
   Naive_EXPORT virtual Naive_Bool IsValid() const override;
 
+  Naive_EXPORT virtual Handle_Naive_Geometry Clone() const override;
+
   Naive_EXPORT Naive_Real Length() const { return myFrom.DistanceTo(myTo); }
 
   Naive_EXPORT Naive_Real DistanceTo(const Naive_Point3d &thePnt,
