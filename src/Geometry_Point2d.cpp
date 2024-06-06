@@ -10,7 +10,7 @@ Point2d::Point2d()
 Point2d::Point2d(const Naive_Real theX, const Naive_Real theY)
     : myXY(theX, theY) {}
 
-Point2d::Point2d(const Naive_Point2d_T &thePoint)
+Point2d::Point2d(const Naive_Point2d_t &thePoint)
     : myXY(thePoint.x, thePoint.y) {}
 
 Point2d::Point2d(const Naive_XY &theXY) : myXY(theXY) {}
@@ -36,7 +36,7 @@ const Point2d &Point2d::Unset() {
   return p;
 }
 
-Naive_Bool Point2d::Dump(Naive_Point2d_T &theP) const {
+Naive_Bool Point2d::Dump(Naive_Point2d_t &theP) const {
   if (!IsValid())
     return false;
 

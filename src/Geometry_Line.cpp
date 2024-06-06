@@ -11,6 +11,9 @@ Line::Line(const Naive_Point3d &theStart, const Naive_Vector3d &theDirection,
 
 Line::Line(const Naive_Point3d &theStart, const Naive_Vector3d &theSpan) {}
 
+Line::Line(const Naive_Line_t &theLineT)
+    : myFrom(theLineT.from), myTo(theLineT.to) {}
+
 Naive_Vector3d Line::UnitTangent() const {
   Naive_Vector3d aDir = Direction();
   if (aDir.Normalize())

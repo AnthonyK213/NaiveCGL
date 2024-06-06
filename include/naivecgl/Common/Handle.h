@@ -5,6 +5,8 @@
 
 Naive_NAMESPACE_BEGIN(common);
 
+class Transient;
+
 template <typename T> class handle {
 public:
   handle() : myEntity(nullptr) {}
@@ -133,5 +135,7 @@ struct hash<Naive_Handle<TheTransientType>> {
 };
 
 } // namespace std
+
+Naive_DEFINE_HANDLE(Naive_Transient);
 
 #endif

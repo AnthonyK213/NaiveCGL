@@ -4,6 +4,8 @@
 #include <naivecgl/Math/Polynomial.h>
 #include <naivecgl/Tessellation/Sphere.h>
 
+#include <naivecgl/Interface/NaiveCGL_c.h>
+
 #include <gtest/gtest.h>
 
 TEST(NaiveCGL_HalfEdgeMesh, CreateHalfEdgeMeshFromTriangleSoup) {
@@ -83,6 +85,44 @@ TEST(NaiveCGL_Math, Polynomial) {
   naivecgl::math::Polynomial aP1({2, 1});
   auto aP2 = aP.Multiplied(aP1);
   ASSERT_TRUE(aP2.IsEqual(naivecgl::math::Polynomial({6, 5, 9, 6, 11, 23, 9})));
+}
+
+TEST(NaiveCGL_CAPI, Geometry) {
+  Naive_Code_t code = Naive_Ok;
+
+  Naive_Plane_t plane_sf;
+  plane_sf.basis_set.location.x = 0.;
+  plane_sf.basis_set.location.y = 0.;
+  plane_sf.basis_set.location.z = 0.;
+  plane_sf.basis_set.ref_direction.x = 1.;
+  plane_sf.basis_set.ref_direction.y = 0.;
+  plane_sf.basis_set.ref_direction.z = 0.;
+  plane_sf.basis_set.axis.x = 0.;
+  plane_sf.basis_set.axis.y = 0.;
+  plane_sf.basis_set.axis.z = 1.;
+
+  Naive_H plane;
+  code = Naive_Plane_New(&plane_sf, &plane);
+  ASSERT_EQ(Naive_Ok, code);
+
+  Naive_H plane_clone;
+  code = Naive_Geometry_Clone(plane, &plane_clone);
+  ASSERT_EQ(Naive_Ok, code);
+
+  bool is_valid;
+  code = Naive_Geometry_IsValid(plane_clone, &is_valid);
+  ASSERT_EQ(Naive_Ok, code);
+  ASSERT_TRUE(is_valid);
+
+  Naive_Vector3d_t axis;
+  code = Naive_Plane_Axis(plane_clone, &axis);
+  ASSERT_EQ(Naive_Ok, code);
+  ASSERT_DOUBLE_EQ(1., axis.z);
+
+  ASSERT_EQ(Naive_InvalidHandle, Naive_Plane_YAxis(nullptr, &axis));
+
+  ASSERT_EQ(Naive_Ok, Naive_Transient_Release(plane));
+  ASSERT_EQ(Naive_Ok, Naive_Transient_Release(plane_clone));
 }
 
 int main(int argc, char **argv) {

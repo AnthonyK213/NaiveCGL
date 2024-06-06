@@ -62,8 +62,6 @@ ConvexHull3D::ConvexHull3D(Naive_Point3dList &&thePoints,
   SetAlgorithm(theAlgo);
 }
 
-ConvexHull3D::~ConvexHull3D() {}
-
 void ConvexHull3D::SetAlgorithm(Naive_ConvexHull3D_Algorithm theAlgo) {
   if (theAlgo == myAlgo && myImpl)
     return;

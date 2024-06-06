@@ -18,7 +18,7 @@ public:
 
   Naive_EXPORT Point3d(const Naive_XYZ &theXYZ);
 
-  Naive_EXPORT Point3d(const Naive_Point3d_T &thePnt);
+  Naive_EXPORT Point3d(const Naive_Point3d_t &thePnt);
 
   Naive_EXPORT static const Point3d &Origin();
 
@@ -77,7 +77,7 @@ public:
 
   Naive_EXPORT Naive_Integer CompareTo(const Point3d &thePoint) const;
 
-  Naive_EXPORT Naive_Bool Dump(Naive_Point3d_T &theP) const;
+  Naive_EXPORT Naive_Bool Dump(Naive_Point3d_t &theP) const;
 
 private:
   Naive_XYZ myXYZ;

@@ -225,8 +225,6 @@ ConvexHull2D::ConvexHull2D(Naive_Point2dList &&thePoints,
   SetAlgorithm(theAlgo);
 }
 
-ConvexHull2D::~ConvexHull2D() {}
-
 void ConvexHull2D::SetAlgorithm(Naive_ConvexHull2D_Algorithm theAlgo) {
   if (theAlgo == myAlgo && myImpl)
     return;

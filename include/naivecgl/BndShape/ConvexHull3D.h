@@ -1,6 +1,7 @@
 ﻿#ifndef _NaiveCGL_BndShape_ConvexHull3D_HeaderFile
 #define _NaiveCGL_BndShape_ConvexHull3D_HeaderFile
 
+#include <naivecgl/Common/Handle.h>
 #include <naivecgl/Geometry/HalfEdgeMesh.h>
 #include <naivecgl/Geometry/Point3d.h>
 #include <naivecgl/Geometry/TriangleSoup.h>
@@ -8,7 +9,7 @@
 Naive_NAMESPACE_BEGIN(bndshape);
 
 /// @brief Calculates the convex hull of a set of 3d points.
-class ConvexHull3D {
+class ConvexHull3D final : public Naive_Transient {
 public:
   Naive_EXPORT ConvexHull3D(
       const Naive_Point3dList &thePoints,
@@ -21,8 +22,6 @@ public:
   Naive_EXPORT ConvexHull3D(const ConvexHull3D &theOther) = delete;
 
   Naive_EXPORT ConvexHull3D(ConvexHull3D &&theOther) = delete;
-
-  Naive_EXPORT ~ConvexHull3D();
 
   Naive_EXPORT void SetAlgorithm(Naive_ConvexHull3D_Algorithm theAlgo);
 

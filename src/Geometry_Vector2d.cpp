@@ -10,7 +10,7 @@ Vector2d::Vector2d()
 Vector2d::Vector2d(const Naive_Real theX, const Naive_Real theY)
     : myXY(theX, theY) {}
 
-Vector2d::Vector2d(const Naive_Vector2d_T &theVec) : myXY(theVec.x, theVec.y) {}
+Vector2d::Vector2d(const Naive_Vector2d_t &theVec) : myXY(theVec.x, theVec.y) {}
 
 Vector2d::Vector2d(const Naive_XY &theXY) : myXY(theXY) {}
 
@@ -23,7 +23,7 @@ const Vector2d &Vector2d::Unset() {
   return p;
 }
 
-Naive_Bool Vector2d::Dump(Naive_Vector2d_T &theV) const {
+Naive_Bool Vector2d::Dump(Naive_Vector2d_t &theV) const {
   if (!IsValid())
     return false;
 

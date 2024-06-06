@@ -18,6 +18,8 @@ public:
   Naive_EXPORT Line(const Naive_Point3d &theStart,
                     const Naive_Vector3d &theSpan);
 
+  Naive_EXPORT Line(const Naive_Line_t &theLineT);
+
   Naive_EXPORT Naive_Vector3d Direction() const { return myTo - myFrom; }
 
   Naive_EXPORT Naive_Vector3d UnitTangent() const;

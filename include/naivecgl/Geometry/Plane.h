@@ -19,7 +19,7 @@ public:
   Naive_EXPORT Plane(const Naive_Point3d &thePoint,
                      const Naive_Vector3d &theNormal);
 
-  Naive_EXPORT Plane(const Naive_Plane_T &thePlaneT);
+  Naive_EXPORT Plane(const Naive_Plane_t &thePlaneT);
 
   Naive_EXPORT virtual Naive_Bool IsValid() const override;
 

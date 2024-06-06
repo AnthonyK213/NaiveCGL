@@ -1,13 +1,14 @@
 ﻿#ifndef _NaiveCGL_BndShape_ConvexHull2D_HeaderFile
 #define _NaiveCGL_BndShape_ConvexHull2D_HeaderFile
 
+#include <naivecgl/Common/Handle.h>
 #include <naivecgl/Geometry/Point2d.h>
 #include <naivecgl/Geometry/Vector2d.h>
 
 Naive_NAMESPACE_BEGIN(bndshape);
 
 /// @brief Calculates the convex hull of a set of 2d points.
-class ConvexHull2D {
+class ConvexHull2D final : public Naive_Transient {
 public:
   Naive_EXPORT explicit ConvexHull2D(
       const Naive_Point2dList &thePoints,
@@ -20,8 +21,6 @@ public:
   Naive_EXPORT ConvexHull2D(const ConvexHull2D &theOther) = delete;
 
   Naive_EXPORT ConvexHull2D(ConvexHull2D &&theOther) = delete;
-
-  Naive_EXPORT ~ConvexHull2D();
 
   Naive_EXPORT void SetAlgorithm(Naive_ConvexHull2D_Algorithm theAlgo);
 

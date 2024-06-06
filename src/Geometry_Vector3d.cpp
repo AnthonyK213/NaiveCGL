@@ -17,7 +17,7 @@ Vector3d::Vector3d(const Naive_Real theX, const Naive_Real theY,
 
 Vector3d::Vector3d(const Naive_XYZ &theXYZ) : myXYZ(theXYZ) {}
 
-Vector3d::Vector3d(const Naive_Vector3d_T &theVec)
+Vector3d::Vector3d(const Naive_Vector3d_t &theVec)
     : myXYZ(theVec.x, theVec.y, theVec.z) {}
 
 Naive_Bool Vector3d::IsValid() const {
@@ -187,7 +187,7 @@ Vector3d Vector3d::Transformed(const Transform3d &theTrsf) const {
   return aVec.Transform(theTrsf) ? aVec : Unset();
 }
 
-Naive_Bool Vector3d::Dump(Naive_Vector3d_T &theVec) const {
+Naive_Bool Vector3d::Dump(Naive_Vector3d_t &theVec) const {
   if (!IsValid())
     return false;
   theVec.x = X();
