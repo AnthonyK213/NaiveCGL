@@ -546,25 +546,24 @@ Naive_Code_t Naive_Poly_Triangles(const Naive_Handle_t hd,
 /// Naive_BndShape_ConvexHull2D {{{
 
 Naive_Code_t
-Naive_BndShape_ConvexHull2D_New(int nbPoints, const Naive_Point2d_t *thePoints,
-                                Naive_ConvexHull2D_Algorithm theAlgo,
-                                Naive_Handle_t *const theConvexHull2D) {
-  if (!thePoints || !theConvexHull2D)
+Naive_BndShape_ConvexHull2D_New(int n_points, const Naive_Point2d_t *points,
+                                Naive_ConvexHull2D_Algorithm algo,
+                                Naive_Handle_t *const convex_hull_2d) {
+  if (!points || !convex_hull_2d)
     return Naive_NullException;
 
-  if (nbPoints < 0)
+  if (n_points < 0)
     return Naive_Err;
 
-  Naive_Point2dList aPoints(nbPoints);
-
-  for (Naive_Integer i = 0; i < nbPoints; ++i) {
-    aPoints[i] = thePoints[i];
+  Naive_Point2dList aPoints(n_points);
+  for (Naive_Integer i = 0; i < n_points; ++i) {
+    aPoints[i] = points[i];
   }
 
   Naive_Handle<::naivecgl::bndshape::ConvexHull2D> aCH2D =
-      new ::naivecgl::bndshape::ConvexHull2D(::std::move(aPoints), theAlgo);
+      new ::naivecgl::bndshape::ConvexHull2D(::std::move(aPoints), algo);
   aCH2D->IncrementRefCounter();
-  *theConvexHull2D = aCH2D.get();
+  *convex_hull_2d = aCH2D.get();
   return Naive_Ok;
 }
 
@@ -600,7 +599,7 @@ Naive_Code_t Naive_BndShape_ConvexHull2D_Result(
   if (H->Status() != Naive_Ok)
     return H->Status();
 
-  int nbPoints = H->NbConvexPoints();
+  *n_convex_points = H->NbConvexPoints();
 
   if (convex_indices) {
     Naive_IntegerList anIndices = H->ConvexIndices();
