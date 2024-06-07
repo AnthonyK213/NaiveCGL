@@ -329,7 +329,7 @@ Naive_Code_t Naive_NurbsCurve_CurvatureAt(const Naive_Handle_t hd,
   if (!curvature)
     return Naive_NullException;
 
-  Naive_H_CAST(const Naive_NurbsCurve, hd, H);
+  Naive_H_CAST_AND_CHECK(const Naive_NurbsCurve, hd, H);
   if (!H->CurvatureAt(t).Dump(*curvature))
     return Naive_InvalidValue;
   return Naive_Ok;
@@ -491,10 +491,7 @@ Naive_Code_t Naive_Poly_Clone(const Naive_Handle_t hd,
   if (!clone)
     return Naive_NullException;
 
-  Naive_H_CAST(const Naive_Poly, hd, H);
-  if (!H)
-    return Naive_InvalidHandle;
-
+  Naive_H_CAST_AND_CHECK(const Naive_Poly, hd, H);
   Handle_Naive_Poly aClone = new Naive_Poly(*H);
   aClone->IncrementRefCounter();
   *clone = aClone.get();
@@ -641,7 +638,7 @@ Naive_BndShape_EnclosingDisc_Rebuild(Naive_Handle_t hd, int n_points,
   if (n_points < 0)
     return Naive_InvalidValue;
 
-  Naive_H_CAST(::naivecgl::bndshape::EnclosingDisc, hd, H);
+  Naive_H_CAST_AND_CHECK(::naivecgl::bndshape::EnclosingDisc, hd, H);
   Naive_Point2dList aPoints(points, points + n_points);
   H->ReBuild(aPoints);
   return Naive_Ok;

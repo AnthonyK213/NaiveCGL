@@ -28,7 +28,7 @@ public:
   Naive_EXPORT void Perform();
 
   Naive_EXPORT void Add(const Naive_Point3d &thePoint,
-                        const Naive_Bool thePerform = false);
+                        const Naive_Bool thePerform = Naive_False);
 
   Naive_EXPORT Naive_Code Status() const;
 

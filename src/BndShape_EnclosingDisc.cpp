@@ -24,11 +24,11 @@ void EnclosingDisc::ReBuild(const Naive_Point2dList &thePoints) {
 Naive_Bool EnclosingDisc::Circle(Naive_Point2d &theOrigin,
                                  Naive_Real &theR) const {
   if (!myOrigin.IsValid())
-    return false;
+    return Naive_False;
 
   theOrigin = myOrigin;
   theR = myR;
-  return true;
+  return Naive_True;
 }
 
 inline Naive_Bool EnclosingDisc::isInsideCircle(const Naive_Point2d &theP) {

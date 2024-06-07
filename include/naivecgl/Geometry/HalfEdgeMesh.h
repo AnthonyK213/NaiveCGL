@@ -161,7 +161,7 @@ public:
 
   Naive_EXPORT Naive_IntegerList GetAllFaces() const;
 
-  Naive_EXPORT Handle_Naive_Poly Soup(Naive_Bool theCompat = false) const;
+  Naive_EXPORT Handle_Naive_Poly Soup(Naive_Bool theCompat = Naive_False) const;
 
   Naive_EXPORT Naive_Integer AddVertex(const Naive_Point3d &thePoint);
 
@@ -171,7 +171,7 @@ public:
                               const VertexId theV3);
 
   Naive_EXPORT Naive_Bool RemoveFace(const FaceId theId,
-                                     Naive_Bool theCompat = false);
+                                     Naive_Bool theCompat = Naive_False);
 
 private:
   Naive_Bool addVertex(const VertexId theId, const Naive_Point3d &thePoint);

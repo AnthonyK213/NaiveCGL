@@ -8,11 +8,11 @@ Naive_Bool NurbsCurve::update(P &&thePoles, Rw &&theWeights, Rk &&theKnots,
   if (!math::Nurbs::CheckParam(thePoles.size(), theWeights.size(), theKnots,
                                theMults, theDegree, myPeriodic, myFlatKnots,
                                mySpanIdx))
-    return false;
+    return Naive_False;
 
   for (Naive_Integer i = 1; i < theWeights.size(); ++i) {
     if (!math::Util::EpsilonEquals(theWeights[i], theWeights[0])) {
-      myRational = true;
+      myRational = Naive_True;
       break;
     }
   }
@@ -23,7 +23,7 @@ Naive_Bool NurbsCurve::update(P &&thePoles, Rw &&theWeights, Rk &&theKnots,
   myMults = ::std::forward<I>(theMults);
   myDegree = theDegree;
 
-  return true;
+  return Naive_True;
 }
 
 Naive_NAMESPACE_END(geometry);

@@ -10,11 +10,11 @@ Naive_Bool TriangleSoup::IsValid() const {
   for (const Naive_Triangle &aTriangle : myTriangles) {
     for (Naive_Integer i = 0; i < 3; ++i) {
       if (aTriangle(i) < 0 || aTriangle(i) >= nbVertices)
-        return false;
+        return Naive_False;
     }
   }
 
-  return true;
+  return Naive_True;
 }
 
 Naive_NAMESPACE_END(geometry);

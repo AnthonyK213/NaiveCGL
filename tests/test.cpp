@@ -32,7 +32,7 @@ TEST(NaiveCGL_HalfEdgeMesh, CreateHalfEdgeMeshFromTriangleSoup) {
   mesh->AddFace(id, 2, 4);
   mesh->RemoveFace(2);
 
-  Handle_Naive_Poly poly = mesh->Soup(true);
+  Handle_Naive_Poly poly = mesh->Soup(Naive_True);
 }
 
 TEST(NaiveCGL_Sphere, CreateOctasphere) {

@@ -38,11 +38,11 @@ const Point2d &Point2d::Unset() {
 
 Naive_Bool Point2d::Dump(Naive_Point2d_t &theP) const {
   if (!IsValid())
-    return false;
+    return Naive_False;
 
   theP.x = X();
   theP.y = Y();
-  return true;
+  return Naive_True;
 }
 
 Naive_NAMESPACE_END(geometry);

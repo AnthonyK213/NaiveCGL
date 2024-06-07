@@ -33,7 +33,7 @@ Naive_Vector3d Circle::TangentAt(const Naive_Real theT) const {
 Naive_Bool Circle::DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
                                 Naive_Vector3dList &theD) const {
   if (!IsValid() || theN < 0)
-    return false;
+    return Naive_False;
 
   Naive_Real s = ::std::sin(theT) * myRadius;
   Naive_Real c = ::std::cos(theT) * myRadius;
@@ -69,7 +69,7 @@ Naive_Bool Circle::DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
     }
   }
 
-  return true;
+  return Naive_True;
 }
 
 Naive_Vector3d Circle::CurvatureAt(const Naive_Real theT) const {

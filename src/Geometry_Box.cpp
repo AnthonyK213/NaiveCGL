@@ -191,10 +191,10 @@ Naive_Point3d Box::PointAt(const Naive_Real theTx, const Naive_Real theTy,
 
 Naive_Bool Box::Transform(const Naive_Transform3d &theTrsf) {
   if (!IsValid() || theTrsf.IsValid())
-    return false;
+    return Naive_False;
 
   if (theTrsf.IsIdentity())
-    return true;
+    return Naive_True;
 
   Naive_Point3dList aCorners = Corners();
   myMin.SetXYZ(1.0, 0.0, 0.0);
@@ -204,7 +204,7 @@ Naive_Bool Box::Transform(const Naive_Transform3d &theTrsf) {
     Add(aCorner);
   }
 
-  return true;
+  return Naive_True;
 }
 
 Box Box::Transformed(const Naive_Transform3d &theTrsf) const {

@@ -4,15 +4,19 @@
 Naive_NAMESPACE_BEGIN(geometry);
 
 Line::Line(const Naive_Point3d &theFrom, const Naive_Point3d &theTo)
-    : myFrom(theFrom), myTo(theTo) {}
+    : myLocation(theFrom), myAxis(theTo - theFrom) {
+  myAxis.Normalize();
+}
 
-Line::Line(const Naive_Point3d &theStart, const Naive_Vector3d &theDirection,
-           const Naive_Real theLength) {}
-
-Line::Line(const Naive_Point3d &theStart, const Naive_Vector3d &theSpan) {}
+Line::Line(const Naive_Point3d &theLocation, const Naive_Vector3d &theDirection)
+    : myLocation(theLocation), myAxis(theDirection) {
+  myAxis.Normalize();
+}
 
 Line::Line(const Naive_Line_t &theLineT)
-    : myFrom(theLineT.from), myTo(theLineT.to) {}
+    : myLocation(theLineT.basis_set.location), myAxis(theLineT.basis_set.axis) {
+  myAxis.Normalize();
+}
 
 Naive_Vector3d Line::UnitTangent() const {
   Naive_Vector3d aDir = Direction();
@@ -22,39 +26,29 @@ Naive_Vector3d Line::UnitTangent() const {
   return Naive_Vector3d::Unset();
 }
 
-Naive_Real Line::FirstParameter() const { return 0.0; }
+Naive_Real Line::FirstParameter() const { return -math::Constant::MaxReal(); }
 
-Naive_Real Line::LastParameter() const { return 1.0; }
+Naive_Real Line::LastParameter() const { return math::Constant::MaxReal(); }
 
 Naive_Bool Line::IsValid() const {
-  return myFrom.IsValid() && myFrom.IsValid() &&
-         Length() > math::Constant::ZeroTolerance();
+  return myLocation.IsValid() && myAxis.IsValid();
 }
 
 Handle_Naive_Geometry Line::Clone() const { return new Line(*this); }
 
-Naive_Real Line::DistanceTo(const Naive_Point3d &thePnt,
-                            const Naive_Bool theFinite) const {
-  Naive_XYZ v = thePnt.XYZ() - myFrom.XYZ();
+Naive_Real Line::DistanceTo(const Naive_Point3d &thePnt) const {
+  Naive_XYZ v = thePnt.XYZ() - myLocation.XYZ();
   Naive_Vector3d d = UnitTangent();
-  if (!d.IsValid()) {
+  if (!d.IsValid())
     return v.norm();
-  }
 
   Naive_Real t = v.dot(d.XYZ());
-
-  if (theFinite && (t < 0. || t > Length())) {
-    Naive_Real d1 = v.norm();
-    Naive_Real d2 = (thePnt.XYZ() - myTo.XYZ()).norm();
-    return (::std::min)(d1, d2);
-  } else {
-    Naive_XYZ p = myFrom.XYZ() - t * d.XYZ();
-    return p.norm();
-  }
+  Naive_XYZ p = myLocation.XYZ() - t * d.XYZ();
+  return p.norm();
 }
 
 Naive_Point3d Line::PointAt(const Naive_Real theT) const {
-  return {myFrom.XYZ() * (1 - theT) + myTo.XYZ() * theT};
+  return {myLocation.XYZ() + myAxis.XYZ() * theT};
 }
 
 Naive_Vector3d Line::TangentAt(const Naive_Real theT) const {
@@ -64,7 +58,7 @@ Naive_Vector3d Line::TangentAt(const Naive_Real theT) const {
 Naive_Bool Line::DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
                               Naive_Vector3dList &theD) const {
   if (!IsValid() || theN < 0)
-    return false;
+    return Naive_False;
 
   theD.resize(theN + 1, Naive_Vector3d::Zero());
   if (theN >= 0)
@@ -72,19 +66,11 @@ Naive_Bool Line::DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
   if (theN >= 1)
     theD[1] = TangentAt(theT);
 
-  return true;
+  return Naive_True;
 }
 
 Naive_Vector3d Line::CurvatureAt(const Naive_Real theT) const {
   return Naive_Vector3d::Zero();
-}
-
-Naive_Point3d Line::PointAtLength(const Naive_Real theLength) const {
-  Naive_Vector3d aTan = UnitTangent();
-  if (!aTan.IsValid())
-    return Naive_Point3d::Unset();
-
-  return {myFrom.XYZ() + aTan.XYZ() * theLength};
 }
 
 Naive_NAMESPACE_END(geometry);

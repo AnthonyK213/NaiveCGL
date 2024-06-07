@@ -25,11 +25,11 @@ const Vector2d &Vector2d::Unset() {
 
 Naive_Bool Vector2d::Dump(Naive_Vector2d_t &theV) const {
   if (!IsValid())
-    return false;
+    return Naive_False;
 
   theV.x = X();
   theV.y = Y();
-  return true;
+  return Naive_True;
 }
 
 Naive_NAMESPACE_END(geometry);

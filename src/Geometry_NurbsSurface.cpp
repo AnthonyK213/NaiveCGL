@@ -8,8 +8,9 @@ NurbsSurface::NurbsSurface(
     const Naive_RealList &theUKnots, const Naive_RealList &theVKnots,
     const Naive_IntegerList &theUMults, const Naive_IntegerList &theVMults,
     const Naive_Integer theUDegree, const Naive_Integer theVDegree)
-    : myUDegree(0), myVDegree(0), myURational(false), myVRational(false),
-      myUPeriodic(false), myVPeriodic(false), myUFlatKnots(), myVFlatKnots() {
+    : myUDegree(0), myVDegree(0), myURational(Naive_False),
+      myVRational(Naive_False), myUPeriodic(Naive_False),
+      myVPeriodic(Naive_False), myUFlatKnots(), myVFlatKnots() {
   update(thePoles, theWeights, theUKnots, theVKnots, theUMults, theVMults,
          theUDegree, theVDegree);
 }
@@ -25,14 +26,14 @@ Handle_Naive_Geometry NurbsSurface::Clone() const {
 Naive_Bool NurbsSurface::Bounds(Naive_Real &theU0, Naive_Real &theU1,
                                 Naive_Real &theV0, Naive_Real &theV1) const {
   if (!IsValid())
-    return false;
+    return Naive_False;
 
   theU0 = myUKnots[0];
   theU1 = myUKnots[myUKnots.size() - 1];
   theV0 = myVKnots[0];
   theV1 = myVKnots[myVKnots.size() - 1];
 
-  return true;
+  return Naive_True;
 }
 
 Naive_Point3d NurbsSurface::PointAt(const Naive_Real theU,
@@ -47,14 +48,14 @@ Naive_Bool NurbsSurface::Evaluate(const Naive_Real theU, const Naive_Real theV,
                                   const Naive_Integer theN,
                                   Naive_Vector3dList &theD) const {
   if (!IsValid())
-    return false;
+    return Naive_False;
 
   Naive_Integer iUSpan = math::Nurbs::FindFlatSpan(myUKnots, myUSpanIdx, theU);
   if (iUSpan < 0)
-    return false;
+    return Naive_False;
   Naive_Integer iVSpan = math::Nurbs::FindFlatSpan(myVKnots, myVSpanIdx, theV);
   if (iVSpan < 0)
-    return false;
+    return Naive_False;
 
   Naive_IntegerList aHead(theN + 1, 0);
   for (Naive_Integer i = 1; i <= theN; ++i) {
@@ -121,7 +122,7 @@ Naive_Bool NurbsSurface::Evaluate(const Naive_Real theU, const Naive_Real theV,
     }
   }
 
-  return true;
+  return Naive_True;
 }
 
 Naive_NAMESPACE_END(geometry);

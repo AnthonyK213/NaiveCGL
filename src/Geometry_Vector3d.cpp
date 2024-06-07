@@ -48,10 +48,10 @@ Naive_Real Vector3d::SquareLength() const {
 Naive_Bool Vector3d::Normalize() {
   if (IsValid() && !IsZero()) {
     myXYZ.normalize();
-    return true;
+    return Naive_True;
   }
 
-  return false;
+  return Naive_False;
 }
 
 Naive_EXPORT Vector3d Vector3d::Normalized() const {
@@ -89,9 +89,9 @@ const Vector3d &Vector3d::Unset() {
 Naive_Bool Vector3d::Add(const Vector3d &theVec) {
   if (IsValid() && theVec.IsValid()) {
     myXYZ += theVec.myXYZ;
-    return true;
+    return Naive_True;
   }
-  return false;
+  return Naive_False;
 }
 
 Vector3d Vector3d::Added(const Vector3d &theVec) const {
@@ -102,9 +102,9 @@ Vector3d Vector3d::Added(const Vector3d &theVec) const {
 Naive_Bool Vector3d::Subtract(const Vector3d &theVec) {
   if (IsValid() && theVec.IsValid()) {
     myXYZ -= theVec.myXYZ;
-    return true;
+    return Naive_True;
   }
-  return false;
+  return Naive_False;
 }
 
 Vector3d Vector3d::Subtracted(const Vector3d &theVec) const {
@@ -115,9 +115,9 @@ Vector3d Vector3d::Subtracted(const Vector3d &theVec) const {
 Naive_Bool Vector3d::Multiply(const Naive_Real theT) {
   if (IsValid() && math::Util::IsValidReal(theT)) {
     myXYZ *= theT;
-    return true;
+    return Naive_True;
   }
-  return false;
+  return Naive_False;
 }
 
 Vector3d Vector3d::Multiplied(const Naive_Real theT) const {
@@ -128,9 +128,9 @@ Vector3d Vector3d::Multiplied(const Naive_Real theT) const {
 Naive_Bool Vector3d::Divide(const Naive_Real theT) {
   if (IsValid() && !math::Util::EpsilonEquals(theT, 0.0)) {
     myXYZ /= theT;
-    return true;
+    return Naive_True;
   }
-  return false;
+  return Naive_False;
 }
 
 Vector3d Vector3d::Divided(const Naive_Real theT) const {
@@ -165,9 +165,9 @@ Naive_Bool Vector3d::EpsilonEquals(const Vector3d &theVec,
 
 Naive_Bool Vector3d::Reverse() {
   if (!IsValid())
-    return false;
+    return Naive_False;
   Negate();
-  return true;
+  return Naive_True;
 }
 
 Naive_Bool Vector3d::Equals(const Vector3d &theVec) {
@@ -177,9 +177,9 @@ Naive_Bool Vector3d::Equals(const Vector3d &theVec) {
 Naive_Bool Vector3d::Transform(const Transform3d &theTrsf) {
   if (IsValid() && theTrsf.IsValid()) {
     myXYZ = theTrsf.Trsf().rotation() * myXYZ;
-    return true;
+    return Naive_True;
   }
-  return false;
+  return Naive_False;
 }
 
 Vector3d Vector3d::Transformed(const Transform3d &theTrsf) const {
@@ -189,11 +189,11 @@ Vector3d Vector3d::Transformed(const Transform3d &theTrsf) const {
 
 Naive_Bool Vector3d::Dump(Naive_Vector3d_t &theVec) const {
   if (!IsValid())
-    return false;
+    return Naive_False;
   theVec.x = X();
   theVec.y = Y();
   theVec.z = Z();
-  return true;
+  return Naive_True;
 }
 
 const Vector3d operator+(const Vector3d &theVec1, const Vector3d &theVec2) {

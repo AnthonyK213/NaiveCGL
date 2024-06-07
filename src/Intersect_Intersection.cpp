@@ -8,7 +8,7 @@ Naive_Code Intersection::LinePlane(const Naive_Line &theLine,
   if (!theLine.IsValid() || !thePlane.IsValid())
     return Naive_InvalidValue;
 
-  Naive_XYZ LP = thePlane.Location().XYZ() - theLine.From().XYZ();
+  Naive_XYZ LP = thePlane.Location().XYZ() - theLine.Location().XYZ();
   const Naive_XYZ &l = theLine.Direction().XYZ();
   const Naive_XYZ &n = thePlane.Axis().XYZ();
   Naive_Real d = l.dot(n);

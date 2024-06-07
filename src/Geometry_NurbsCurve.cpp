@@ -7,8 +7,8 @@ NurbsCurve::NurbsCurve(const Naive_Point3dList &thePoles,
                        const Naive_RealList &theKnots,
                        const Naive_IntegerList &theMults,
                        const Naive_Integer theDegree)
-    : myDegree(0), myRational(false), myPeriodic(false), myFlatKnots(),
-      mySpanIdx() {
+    : myDegree(0), myRational(Naive_False), myPeriodic(Naive_False),
+      myFlatKnots(), mySpanIdx() {
   update(thePoles, theWeights, theKnots, theMults, theDegree);
 }
 
@@ -84,14 +84,14 @@ Naive_Bool NurbsCurve::DerivativeAt(const Naive_Real theT,
                                     const Naive_Integer theN,
                                     Naive_Vector3dList &theD) const {
   if (!IsValid())
-    return false;
+    return Naive_False;
 
   if (theN < 0)
-    return false;
+    return Naive_False;
 
   Naive_Integer iSpan = math::Nurbs::FindFlatSpan(myKnots, mySpanIdx, theT);
   if (iSpan < 0)
-    return false;
+    return Naive_False;
 
   Naive_RealList aWBuf(theN + 1, math::Constant::UnsetReal());
   theD.resize(theN + 1, Naive_Vector3d::Unset());
@@ -124,7 +124,7 @@ Naive_Bool NurbsCurve::DerivativeAt(const Naive_Real theT,
     theD[I].ChangeXYZ() = A / aWBuf[0];
   }
 
-  return true;
+  return Naive_True;
 }
 
 Naive_Vector3d NurbsCurve::CurvatureAt(const Naive_Real theT) const {
@@ -142,27 +142,27 @@ Naive_Vector3d NurbsCurve::CurvatureAt(const Naive_Real theT) const {
 
 Naive_Bool NurbsCurve::IncreaseDegree(const Naive_Integer theDegree) {
   if (!IsValid() || theDegree < 0)
-    return false;
+    return Naive_False;
 
-  return true;
+  return Naive_True;
 }
 
 Naive_Bool NurbsCurve::IncreaseMultiplicity(const Naive_Integer theI,
                                             const Naive_Integer theM) {
   if (theI < 0 || theI >= myMults.size() || theM < 0)
-    return false;
+    return Naive_False;
 
   if (theM == 0)
-    return true;
+    return Naive_True;
 
   Naive_Real T = myKnots[theI];
   Naive_Integer S = myMults[theI];
 
   if (theI != 0 && theI != myMults.size() - 1) {
     if (theM + S > myDegree)
-      return false;
+      return Naive_False;
   } else if (theM + S > myDegree + 1)
-    return false;
+    return Naive_False;
 
   /* The last knot belongs to the last span. */
   Naive_Integer iSpan = (theI == myMults.size() - 1) ? theI - 1 : theI;
@@ -187,15 +187,15 @@ Naive_Bool NurbsCurve::IncreaseMultiplicity(const Naive_Integer theI,
 Naive_Bool NurbsCurve::InsertKnot(const Naive_Real theT,
                                   const Naive_Integer theM) {
   if (theM < 0 || theM > Degree())
-    return false;
+    return Naive_False;
 
   Naive_Integer iSpan = math::Nurbs::FindSpan(myKnots, theT);
   if (iSpan < 0)
-    return false;
+    return Naive_False;
   Naive_Integer K = mySpanIdx[iSpan] - 1;
 
   if (theM == 0)
-    return true;
+    return Naive_True;
 
   /* If |theT| is already in the |myKnots|, the operation would be a
    * multiplicity increase. */
@@ -213,9 +213,9 @@ Naive_Bool NurbsCurve::InsertKnot(const Naive_Real theT,
 
   if (iSpan != 0 && iSpan != myMults.size() - 1) {
     if (theM > myDegree)
-      return false;
+      return Naive_False;
   } else if (theM > myDegree + 1)
-    return false;
+    return Naive_False;
 
   Naive_Point3dList aPoles(myPoles.size() + theM, Naive_Point3d::Unset());
   Naive_RealList aWeights(myWeights.size() + theM, math::Constant::UnsetReal());
@@ -239,17 +239,17 @@ Naive_Bool NurbsCurve::RemoveKnot(const Naive_Integer theI,
                                   const Naive_Integer theM) {
   Naive_Integer S = Multiplicity(theI);
   if (S == 0)
-    return false;
+    return Naive_False;
 
   Naive_Integer R = mySpanIdx[theI] - 1;
   Naive_Integer N = S - theM;
 
   if (theM < 0 || N < 0)
-    return false;
+    return Naive_False;
 
   /* Nothing to do... */
   if (N == 0)
-    return true;
+    return Naive_True;
 
   Naive_Integer aFirst = R - S;
   Naive_Integer aLast = R - Degree();
@@ -257,7 +257,7 @@ Naive_Bool NurbsCurve::RemoveKnot(const Naive_Integer theI,
   for (Naive_Integer t = 0; t < N; ++t) {
   }
 
-  return true;
+  return Naive_True;
 }
 
 Naive_NAMESPACE_END(geometry);

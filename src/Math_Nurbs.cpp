@@ -12,31 +12,31 @@ Nurbs::CheckParam(const Naive_Integer nbPoles, const Naive_Integer nbWeights,
                   Naive_RealList &theFlatKnots, Naive_IntegerList &theSpanIdx) {
   /* 1 <= Degree <= 9 */
   if (theDegree < 1 || theDegree > 9)
-    return false;
+    return Naive_False;
 
   if (nbPoles < 2 || nbPoles != nbWeights)
-    return false;
+    return Naive_False;
 
   if (theKnots.size() < 2 || theKnots.size() != theMults.size())
-    return false;
+    return Naive_False;
 
   /* 1 <= Mults <= Degree */
   for (Naive_Integer i = 0; i < theMults.size(); ++i) {
     if (theMults[i] < 1)
-      return false;
+      return Naive_False;
 
     if (i != 0 && i != theMults.size() - 1) {
       if (theMults[i] > theDegree)
-        return false;
+        return Naive_False;
     } else if (theMults[i] > theDegree + 1) {
-      return false;
+      return Naive_False;
     }
   }
 
   /* The knots must be strictly increasing. */
   for (Naive_Integer i = 1; i < theKnots.size(); ++i) {
     if (theKnots[i] <= theKnots[i - 1])
-      return false;
+      return Naive_False;
   }
 
   theSpanIdx.reserve(theMults.size() - 1);
@@ -48,12 +48,12 @@ Nurbs::CheckParam(const Naive_Integer nbPoles, const Naive_Integer nbWeights,
   }
 
   if (nbPoles + theDegree + 1 == nbFlatKnots)
-    myPeriodic = false;
+    myPeriodic = Naive_False;
   else if (nbPoles == nbFlatKnots)
     // TODO: What is periodic?
-    myPeriodic = true;
+    myPeriodic = Naive_True;
   else
-    return false;
+    return Naive_False;
 
   theFlatKnots.reserve(nbFlatKnots);
   theFlatKnots.clear();
@@ -63,7 +63,7 @@ Nurbs::CheckParam(const Naive_Integer nbPoles, const Naive_Integer nbWeights,
     }
   }
 
-  return true;
+  return Naive_True;
 }
 
 Naive_Integer Nurbs::FindSpan(const Naive_RealList &theKnots,

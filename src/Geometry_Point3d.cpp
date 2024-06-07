@@ -57,9 +57,9 @@ Naive_Real Point3d::DistanceToSquared(const Point3d &thePoint) const {
 Naive_Bool Point3d::Add(const Point3d &thePoint) {
   if (IsValid() && thePoint.IsValid()) {
     myXYZ += thePoint.XYZ();
-    return true;
+    return Naive_True;
   }
-  return false;
+  return Naive_False;
 }
 
 Point3d Point3d::Added(const Point3d &thePoint) const {
@@ -70,9 +70,9 @@ Point3d Point3d::Added(const Point3d &thePoint) const {
 Naive_Bool Point3d::Add(const Vector3d &theVector) {
   if (IsValid() && theVector.IsValid()) {
     myXYZ += theVector.XYZ();
-    return true;
+    return Naive_True;
   }
-  return false;
+  return Naive_False;
 }
 
 Point3d Point3d::Added(const Vector3d &theVector) const {
@@ -89,9 +89,9 @@ Vector3d Point3d::Subtracted(const Point3d &thePoint) const {
 Naive_Bool Point3d::Multiply(const Naive_Real &theT) {
   if (IsValid() && math::Util::IsValidReal(theT)) {
     myXYZ *= theT;
-    return true;
+    return Naive_True;
   }
-  return false;
+  return Naive_False;
 }
 
 Point3d Point3d::Multiplied(const Naive_Real &theT) const {
@@ -102,9 +102,9 @@ Point3d Point3d::Multiplied(const Naive_Real &theT) const {
 Naive_Bool Point3d::Divide(const Naive_Real &theT) {
   if (IsValid() && !math::Util::EpsilonEquals(theT, 0.0)) {
     myXYZ *= theT;
-    return true;
+    return Naive_True;
   }
-  return false;
+  return Naive_False;
 }
 
 Point3d Point3d::Divided(const Naive_Real &theT) const {
@@ -118,9 +118,9 @@ Point3d Point3d::Negated() const { return {-myXYZ}; }
 
 Naive_Bool Point3d::Transform(const Transform3d &theTrsf) {
   if (!IsValid() || !theTrsf.IsValid())
-    return false;
+    return Naive_False;
   myXYZ = theTrsf.Trsf() * myXYZ;
-  return true;
+  return Naive_True;
 }
 
 Point3d Point3d::Transformed(const Transform3d &theTrsf) const {
@@ -146,11 +146,11 @@ Naive_Integer Point3d::CompareTo(const Point3d &thePoint) const {
 
 Naive_Bool Point3d::Dump(Naive_Point3d_t &theP) const {
   if (!IsValid())
-    return false;
+    return Naive_False;
   theP.x = X();
   theP.y = Y();
   theP.z = Z();
-  return true;
+  return Naive_True;
 }
 
 const Point3d operator+(const Point3d &thePnt1, const Point3d &thePnt2) {

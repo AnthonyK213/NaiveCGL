@@ -34,44 +34,44 @@ HalfEdgeMesh::HalfEdgeId::operator==(const HalfEdgeId &theOther) const {
 Naive_Bool
 HalfEdgeMesh::HalfEdgeId::operator<(const HalfEdgeId &theOther) const {
   if (myA < theOther.myA) {
-    return true;
+    return Naive_True;
   } else if (myA == theOther.myA) {
     return myB < theOther.myB;
   } else {
-    return false;
+    return Naive_False;
   }
 }
 
 Naive_Bool
 HalfEdgeMesh::HalfEdgeId::operator>(const HalfEdgeId &theOther) const {
   if (myA > theOther.myA) {
-    return true;
+    return Naive_True;
   } else if (myA == theOther.myA) {
     return myB > theOther.myB;
   } else {
-    return false;
+    return Naive_False;
   }
 }
 
 Naive_Bool
 HalfEdgeMesh::HalfEdgeId::operator<=(const HalfEdgeId &theOther) const {
   if (myA < theOther.myA) {
-    return true;
+    return Naive_True;
   } else if (myA == theOther.myA) {
     return myB <= theOther.myB;
   } else {
-    return false;
+    return Naive_False;
   }
 }
 
 Naive_Bool
 HalfEdgeMesh::HalfEdgeId::operator>=(const HalfEdgeId &theOther) const {
   if (myA > theOther.myA) {
-    return true;
+    return Naive_True;
   } else if (myA == theOther.myA) {
     return myB >= theOther.myB;
   } else {
-    return false;
+    return Naive_False;
   }
 }
 
@@ -110,16 +110,16 @@ HalfEdgeMesh::EdgeIterator::EdgeIterator(const HalfEdgeMesh &theMesh,
   myOwner = myMesh->GetFace(theFace);
   if (myOwner)
     myCurrent = myOwner->Edge();
-  myFirstTime = true;
+  myFirstTime = Naive_True;
 }
 
 Naive_Bool HalfEdgeMesh::EdgeIterator::More() const {
   if (!myOwner || !myCurrent.IsValid())
-    return false;
+    return Naive_False;
 
   if (myFirstTime) {
-    myFirstTime = false;
-    return true;
+    myFirstTime = Naive_False;
+    return Naive_True;
   }
 
   return myCurrent != myOwner->Edge();
@@ -135,11 +135,11 @@ void HalfEdgeMesh::EdgeIterator::Next() {
 
 HalfEdgeMesh::HalfEdgeMesh()
     : myVertexIndex(0), myFaceIndex(0), myVertexSlots(), myFaceSlots(),
-      myVertices(), myHalfEdges(), myFaces(), myIsValid(false) {}
+      myVertices(), myHalfEdges(), myFaces(), myIsValid(Naive_False) {}
 
 HalfEdgeMesh::HalfEdgeMesh(const TriangleSoup &theTriangleSoup)
     : myVertexIndex(0), myFaceIndex(0), myVertexSlots(), myFaceSlots(),
-      myVertices(), myHalfEdges(), myFaces(), myIsValid(false) {
+      myVertices(), myHalfEdges(), myFaces(), myIsValid(Naive_False) {
   for (const Naive_Point3d &aVertex : theTriangleSoup.Vertices()) {
     AddVertex(aVertex);
   }
@@ -149,7 +149,7 @@ HalfEdgeMesh::HalfEdgeMesh(const TriangleSoup &theTriangleSoup)
       return;
   }
 
-  myIsValid = true;
+  myIsValid = Naive_True;
 }
 
 const HalfEdgeMesh::Vertex *
@@ -283,7 +283,7 @@ Naive_Bool HalfEdgeMesh::RemoveVertex(const VertexId theId) {
   const Vertex *aVertex = GetVertex(theId);
 
   if (!aVertex)
-    return false;
+    return Naive_False;
 
   const HalfEdge *aPrev = GetHalfEdge(aVertex->myEdge);
   const HalfEdgeId aNextId = aVertex->myEdge.Twin();
@@ -311,7 +311,7 @@ Naive_Bool HalfEdgeMesh::RemoveVertex(const VertexId theId) {
   myVertices.erase(theId);
   myVertexSlots.push(theId);
 
-  return true;
+  return Naive_True;
 }
 
 HalfEdgeMesh::FaceId HalfEdgeMesh::AddFace(const VertexId theV1,
@@ -447,7 +447,7 @@ HalfEdgeMesh::FaceId HalfEdgeMesh::AddFace(const VertexId theV1,
 Naive_Bool HalfEdgeMesh::removeHalfEdge(const HalfEdge *theEdge,
                                         Naive_Bool theCompat) {
   if (!theEdge)
-    return false;
+    return Naive_False;
 
   Vertex *anOrigin = const_cast<Vertex *>(GetVertex(theEdge->myOrigin));
 
@@ -498,14 +498,14 @@ Naive_Bool HalfEdgeMesh::removeHalfEdge(const HalfEdge *theEdge,
 
   myHalfEdges.erase(theEdge->Id());
 
-  return true;
+  return Naive_True;
 }
 
 Naive_Bool HalfEdgeMesh::RemoveFace(const FaceId theId, Naive_Bool theCompat) {
   const Face *aFace = GetFace(theId);
 
   if (!aFace)
-    return false;
+    return Naive_False;
 
   const HalfEdge *anEdge = GetHalfEdge(aFace->myOuterEdge);
 
@@ -518,7 +518,7 @@ Naive_Bool HalfEdgeMesh::RemoveFace(const FaceId theId, Naive_Bool theCompat) {
   myFaces.erase(theId);
   myFaceSlots.push(theId);
 
-  return true;
+  return Naive_True;
 }
 
 Naive_NAMESPACE_END(geometry);

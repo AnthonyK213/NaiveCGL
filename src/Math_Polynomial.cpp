@@ -2,7 +2,7 @@
 
 Naive_NAMESPACE_BEGIN(math);
 
-Polynomial::Polynomial() : myA({0.}), myIsValid(true) {}
+Polynomial::Polynomial() : myA({0.}), myIsValid(Naive_True) {}
 
 Polynomial::Polynomial(const Naive_RealList &theA) : myA(theA) { validate(); }
 
@@ -27,18 +27,18 @@ Naive_Bool Polynomial::IsIdentity() const { return IsEqual(Identity()); }
 
 Naive_Bool Polynomial::IsEqual(const Polynomial &theOther) const {
   if (!IsValid() || !theOther.IsValid())
-    return false;
+    return Naive_False;
 
   if (Degree() != theOther.Degree())
-    return false;
+    return Naive_False;
 
   for (Naive_Integer i = 0; i <= Degree(); ++i) {
     // FIXME: Equality of float?
     if (Coefficient(i) != theOther.Coefficient(i))
-      return false;
+      return Naive_False;
   }
 
-  return true;
+  return Naive_True;
 }
 
 Naive_Integer Polynomial::Degree() const {
@@ -217,23 +217,23 @@ Polynomial Polynomial::Divided(const Naive_Real theT) const {
 Naive_Bool Polynomial::Divided(const Polynomial &theOther, Polynomial &theQ,
                                Polynomial &theR) const {
   if (theOther.Degree() > Degree() || !IsValid() || !theOther.IsValid())
-    return false;
+    return Naive_False;
   // TODO: Divided by another polynomial.
-  return true;
+  return Naive_True;
 }
 
 void Polynomial::validate() {
   if (myA.size() < 1)
-    myIsValid = false;
+    myIsValid = Naive_False;
 
   for (Naive_Integer i = 0; i <= myA.size(); ++i) {
     if (!Util::IsValidReal(Coefficient(i))) {
-      myIsValid = false;
+      myIsValid = Naive_False;
       return;
     }
   }
 
-  myIsValid = true;
+  myIsValid = Naive_True;
 }
 
 Naive_NAMESPACE_END(math);

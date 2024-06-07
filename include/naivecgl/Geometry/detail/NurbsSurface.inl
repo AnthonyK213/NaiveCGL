@@ -8,31 +8,31 @@ Naive_Bool NurbsSurface::update(P2 &&thePoles, R2 &&theWeights, R &&theUKnots,
                                 const Naive_Integer theUDegree,
                                 const Naive_Integer theVDegree) {
   if (theUDegree < 1 || theVDegree < 1)
-    return false;
+    return Naive_False;
 
   Naive_Integer aPU, aPV, aWU, aWV;
   if (!math::Util::List2CheckBound(thePoles, aPU, aPV) ||
       !math::Util::List2CheckBound(theWeights, aWU, aWV))
-    return false;
+    return Naive_False;
 
   if (aPU < 2 || aPV < 2)
-    return false;
+    return Naive_False;
 
   if (aPU != aWU || aPV != aWV)
-    return false;
+    return Naive_False;
 
   if (!math::Nurbs::CheckParam(aPU, aWU, theUKnots, theUMults, theUDegree,
                                myUPeriodic, myUFlatKnots, myUSpanIdx))
-    return false;
+    return Naive_False;
 
   if (!math::Nurbs::CheckParam(aPV, aWV, theVKnots, theVMults, theVDegree,
                                myVPeriodic, myVFlatKnots, myVSpanIdx))
-    return false;
+    return Naive_False;
 
   for (Naive_Integer j = 0; j < aWV; ++j) {
     for (Naive_Integer i = 1; i < aWU; ++i) {
       if (!math::Util::EpsilonEquals(theWeights[i][j], theWeights[0][j])) {
-        myURational = true;
+        myURational = Naive_True;
         break;
       }
     }
@@ -41,7 +41,7 @@ Naive_Bool NurbsSurface::update(P2 &&thePoles, R2 &&theWeights, R &&theUKnots,
   for (Naive_Integer i = 0; i < aWU; ++i) {
     for (Naive_Integer j = 1; j < aWV; ++j) {
       if (!math::Util::EpsilonEquals(theWeights[i][j], theWeights[i][0])) {
-        myVRational = true;
+        myVRational = Naive_True;
         break;
       }
     }
@@ -56,7 +56,7 @@ Naive_Bool NurbsSurface::update(P2 &&thePoles, R2 &&theWeights, R &&theUKnots,
   myUDegree = theUDegree;
   myVDegree = theVDegree;
 
-  return true;
+  return Naive_True;
 }
 
 Naive_NAMESPACE_END(geometry);

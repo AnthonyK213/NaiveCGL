@@ -77,10 +77,10 @@ const Plane &Plane::WorldZX() {
 Naive_Bool Plane::Transform(const Transform3d &theTrsf) {
   if (!myLocation.Transform(theTrsf) || !myXAxis.Transform(theTrsf) ||
       !myYAxis.Transform(theTrsf))
-    return false;
+    return Naive_False;
 
   initByXY();
-  return true;
+  return Naive_True;
 }
 
 Plane Plane::Transformed(const Transform3d &theTrsf) const {
@@ -92,7 +92,7 @@ Plane Plane::Transformed(const Transform3d &theTrsf) const {
 
 Naive_Bool Plane::Orient(const Plane &thePln, Transform3d &theTrsf) const {
   if (!IsValid() || !thePln.IsValid())
-    return false;
+    return Naive_False;
 
   Naive_Trsf aT1{};
   aT1.setIdentity();
@@ -113,7 +113,7 @@ Naive_Bool Plane::Orient(const Plane &thePln, Transform3d &theTrsf) const {
   aT2.translation() = thePln.myLocation.XYZ();
 
   theTrsf = {aT2 * aT1.inverse()};
-  return true;
+  return Naive_True;
 }
 
 void Plane::initInvalid() {
@@ -125,32 +125,32 @@ void Plane::initInvalid() {
 
 Naive_Bool Plane::initByXY() {
   if (!myXAxis.Normalize())
-    return false;
+    return Naive_False;
 
   myZAxis = myXAxis.Crossed(myYAxis);
   if (!myZAxis.Normalize())
-    return false;
+    return Naive_False;
 
   myYAxis = myZAxis.Crossed(myXAxis);
   if (!myYAxis.Normalize())
-    return false;
+    return Naive_False;
 
-  return true;
+  return Naive_True;
 }
 
 Naive_Bool Plane::initByZX() {
   if (!myZAxis.Normalize())
-    return false;
+    return Naive_False;
 
   myYAxis = myZAxis.Crossed(myXAxis);
   if (!myYAxis.Normalize())
-    return false;
+    return Naive_False;
 
   myXAxis = myYAxis.Crossed(myZAxis);
   if (!myXAxis.Normalize())
-    return false;
+    return Naive_False;
 
-  return true;
+  return Naive_True;
 }
 
 Naive_NAMESPACE_END(geometry);

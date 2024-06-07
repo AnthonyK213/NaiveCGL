@@ -82,6 +82,13 @@ typedef struct {
   int n0, n1, n2;
 } Naive_Triangle_t;
 
+/* Naive_Axis1_t */
+
+typedef struct {
+  Naive_Point3d_t location;
+  Naive_Vector3d_t axis;
+} Naive_Axis1_t;
+
 /* Naive_Axis2_t */
 
 typedef struct {
@@ -90,17 +97,16 @@ typedef struct {
   Naive_Vector3d_t ref_direction;
 } Naive_Axis2_t;
 
+/* Naive_Line_t */
+
+typedef struct {
+  Naive_Axis1_t basis_set;
+} Naive_Line_t;
+
 /* Naive_Plane_t */
 
 typedef struct {
   Naive_Axis2_t basis_set;
 } Naive_Plane_t;
-
-/* Naive_Line_t */
-
-typedef struct {
-  Naive_Point3d_t from;
-  Naive_Point3d_t to;
-} Naive_Line_t;
 
 #endif
