@@ -5,13 +5,13 @@ Naive_NAMESPACE_BEGIN(math);
 Naive_Bool Util::EpsilonEquals(Naive_Real theX, Naive_Real theY,
                                Naive_Real theEpsilon) {
   if (!IsValidReal(theX) || !IsValidReal(theY))
-    return false;
+    return Naive_False;
 
-  if (theX == ::std::numeric_limits<double>::infinity())
-    return theY == ::std::numeric_limits<double>::infinity();
+  if (theX == ::std::numeric_limits<Naive_Real>::infinity())
+    return theY == ::std::numeric_limits<Naive_Real>::infinity();
 
-  if (theX == -::std::numeric_limits<double>::infinity())
-    return theY == -::std::numeric_limits<double>::infinity();
+  if (theX == -::std::numeric_limits<Naive_Real>::infinity())
+    return theY == -::std::numeric_limits<Naive_Real>::infinity();
 
   if (::std::abs(theX) < theEpsilon && ::std::abs(theY) < theEpsilon)
     return ::std::abs(theX - theY) < theEpsilon;
@@ -19,7 +19,7 @@ Naive_Bool Util::EpsilonEquals(Naive_Real theX, Naive_Real theY,
   if (theX >= theY - theEpsilon)
     return theX <= theY + theEpsilon;
 
-  return false;
+  return Naive_False;
 }
 
 Naive_Bool Util::IsValidReal(Naive_Real theX) {

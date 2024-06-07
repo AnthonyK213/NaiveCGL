@@ -4,267 +4,221 @@
 #include "NaiveCGL_c_types.h"
 
 #ifndef __cplusplus
-#define Naive_CAPI
+#define Naive_API
 #else
 #ifdef _WIN32
-#define Naive_CAPI extern "C" __declspec(dllexport)
+#define Naive_API extern "C" __declspec(dllexport)
 #else
-#define Naive_CAPI extern "C"
+#define Naive_API extern "C"
 #endif
 #endif
 
-/// Math_Constant {{{
+/* Naive_Math_Constant */
 
-Naive_CAPI double Naive_Math_Constant_PI(void);
+Naive_API double Naive_Math_Constant_PI(void);
 
-Naive_CAPI double Naive_Math_Constant_Epsilon(void);
+Naive_API double Naive_Math_Constant_Epsilon(void);
 
-Naive_CAPI double Naive_Math_Constant_MinReal(void);
+Naive_API double Naive_Math_Constant_MinReal(void);
 
-Naive_CAPI double Naive_Math_Constant_MaxReal(void);
+Naive_API double Naive_Math_Constant_MaxReal(void);
 
-Naive_CAPI double Naive_Math_Constant_UnsetReal(void);
+Naive_API double Naive_Math_Constant_UnsetReal(void);
 
-// }}}
+/* Naive_Math_Util */
 
-/// Math_Util {{{
+Naive_API Naive_Logical_t Naive_Math_Util_IsValidReal(const double /* real */);
 
-Naive_CAPI bool Naive_Math_Util_IsValidReal(const double theR);
+/* Naive_Transient */
 
-/// }}}
+Naive_API Naive_Code_t Naive_Transient_Release(Naive_Handle_t /* handle */);
 
-/// Naive_Transient {{{
+/* Naive_Geometry */
 
-Naive_CAPI Naive_Code_t Naive_Transient_Release(Naive_H theHandle);
+Naive_API Naive_Code_t Naive_Geometry_IsValid(
+    const Naive_Handle_t /* handle */, Naive_Logical_t *const /* is_valid */);
 
-/// }}}
+Naive_API Naive_Code_t Naive_Geometry_Clone(const Naive_Handle_t /* handle */,
+                                            Naive_Handle_t *const /* clone */);
 
-/// Naive_Geometry {{{
+/* Naive_Plane */
 
-Naive_CAPI Naive_Code_t Naive_Geometry_IsValid(const Naive_H theHandle,
-                                               bool *const theIsValid);
+Naive_API Naive_Code_t Naive_Plane_New(const Naive_Plane_t * /* plane_sf */,
+                                       Naive_Handle_t *const /* plane */);
 
-Naive_CAPI Naive_Code_t Naive_Geometry_Clone(const Naive_H theHandle,
-                                             Naive_H *const theClone);
+Naive_API Naive_Code_t Naive_Plane_Location(
+    const Naive_Handle_t /* handle */, Naive_Point3d_t *const /* location */);
 
-/// }}}
+Naive_API Naive_Code_t Naive_Plane_XAxis(const Naive_Handle_t /* handle */,
+                                         Naive_Point3d_t *const /* x_axis */);
 
-/// Naive_Plane {{{
+Naive_API Naive_Code_t Naive_Plane_YAxis(const Naive_Handle_t /* handle */,
+                                         Naive_Point3d_t *const /* y_axis */);
 
-Naive_CAPI Naive_Code_t Naive_Plane_New(const Naive_Plane_t *thePlaneT,
-                                        Naive_H *const thePlane);
+Naive_API Naive_Code_t Naive_Plane_Axis(const Naive_Handle_t /* handle */,
+                                        Naive_Point3d_t *const /* axis */);
 
-Naive_CAPI Naive_Code_t Naive_Plane_Location(
-    const Naive_H theHandle, Naive_Point3d_t *const theLocation);
+Naive_API Naive_Code_t Naive_Plane_Distance(const Naive_Handle_t /* handle */,
+                                            const Naive_Point3d_t * /* point */,
+                                            double *const /* distance */);
 
-Naive_CAPI Naive_Code_t Naive_Plane_XAxis(const Naive_H theHandle,
-                                          Naive_Point3d_t *const theXAxis);
+/* Naive_Line */
 
-Naive_CAPI Naive_Code_t Naive_Plane_YAxis(const Naive_H theHandle,
-                                          Naive_Point3d_t *const theYAxis);
+Naive_API Naive_Code_t Naive_Line_New(const Naive_Line_t * /* line_sf */,
+                                      Naive_Handle_t *const /* line */);
 
-Naive_CAPI Naive_Code_t Naive_Plane_Axis(const Naive_H theHandle,
-                                         Naive_Point3d_t *const theAxis);
+/* Naive_NurbsCurve */
 
-Naive_CAPI Naive_Code_t Naive_Plane_Distance(const Naive_H theHandle,
-                                             const Naive_Point3d_t *thePoint,
-                                             double *const theDistance);
+Naive_API Naive_Code_t Naive_NurbsCurve_New(
+    const int /* n_poles */, const Naive_Point3d_t * /* poles */,
+    const int /* n_weights */, const double * /* weights */,
+    const int /* n_knots */, const double * /* knots */,
+    const int /* n_mults */, const int * /* mults */, const int /* degree */,
+    Naive_Handle_t *const /* nurbs_curve */);
 
-/// }}}
+Naive_API Naive_Code_t Naive_NurbsCurve_Degree(
+    const Naive_Handle_t /* handle */, int *const /* degree */);
 
-/// Naive_Line {{{
+Naive_API Naive_Code_t Naive_NurbsCurve_NbPoles(
+    const Naive_Handle_t /* handle */, int *const /* n_poles */);
 
-Naive_CAPI Naive_Code_t Naive_Line_New(const Naive_Line_t *theLineT,
-                                       Naive_H *const theLine);
+Naive_API Naive_Code_t Naive_NurbsCurve_Pole(const Naive_Handle_t /* handle */,
+                                             const int /* index */,
+                                             Naive_Point3d_t *const /* pole */);
 
-/// }}}
+Naive_API Naive_Code_t
+Naive_NurbsCurve_Weight(const Naive_Handle_t /* handle */,
+                        const int /* index */, double *const /* weight */);
 
-/// Naive_NurbsCurve {{{
+Naive_API Naive_Code_t Naive_NurbsCurve_NbKnots(
+    const Naive_Handle_t /* handle */, int *const /* n_knots */);
 
-Naive_CAPI Naive_Code_t Naive_NurbsCurve_New(
-    const int32_t nbPoles, const Naive_Point3d_t *thePoles,
-    const int32_t nbWeights, const double *theWeights, const int32_t nbKnots,
-    const double *theKnots, const int32_t nbMults, const int32_t *theMults,
-    const int32_t theDegree, Naive_H *const theNurbsCurve);
+Naive_API Naive_Code_t Naive_NurbsCurve_Knot(const Naive_Handle_t /* handle */,
+                                             const int /* index */,
+                                             double *const /* knot */);
 
-Naive_CAPI int32_t Naive_NurbsCurve_Degree(const Naive_H theHandle);
+Naive_API Naive_Code_t
+Naive_NurbsCurve_Multiplicity(const Naive_Handle_t /* handle */,
+                              const int /* index */, int *const /* mult */);
 
-Naive_CAPI int32_t Naive_NurbsCurve_NbPoles(const Naive_H theHandle);
+Naive_API Naive_Code_t Naive_NurbsCurve_Bound(
+    const Naive_Handle_t /* handle */, Naive_Interval_t *const /* bound */);
 
-Naive_CAPI bool Naive_NurbsCurve_Pole(const Naive_H theHandle,
-                                      const int32_t theI,
-                                      Naive_Point3d_t *const thePole);
+Naive_API Naive_Code_t Naive_NurbsCurve_Evaluate(
+    const Naive_Handle_t /* handle */, const double /* t */,
+    const int /* n_derivative */, int *const /* n_result */,
+    Naive_Vector3d_t *const /* result */);
 
-Naive_CAPI double Naive_NurbsCurve_Weight(const Naive_H theHandle,
-                                          const int32_t theI);
+Naive_API Naive_Code_t Naive_NurbsCurve_CurvatureAt(
+    const Naive_Handle_t /* handle */, const double /* t */,
+    Naive_Vector3d_t *const /* curvature */);
 
-Naive_CAPI int32_t Naive_NurbsCurve_NbKnots(const Naive_H theHandle);
+Naive_API Naive_Code_t Naive_NurbsCurve_IncreaseDegree(
+    Naive_Handle_t /* handle */, const int /* degree */);
 
-Naive_CAPI double Naive_NurbsCurve_Knot(const Naive_H theHandle,
-                                        const int32_t theI);
+Naive_API Naive_Code_t Naive_NurbsCurve_IncreaseMultiplicity(
+    Naive_Handle_t /* handle */, const int /* index */, const int /* mult */);
 
-Naive_CAPI int32_t Naive_NurbsCurve_Multiplicity(const Naive_H theHandle,
-                                                 const int32_t theI);
+Naive_API Naive_Code_t Naive_NurbsCurve_InsertKnot(Naive_Handle_t /* handle */,
+                                                   const double /* t */,
+                                                   const int /* mult */);
 
-Naive_CAPI double Naive_NurbsCurve_FirstParameter(const Naive_H theHandle);
+/* Reduces the multiplicity of the knot of index |index| to |mult|. */
+Naive_API Naive_Code_t Naive_NurbsCurve_RemoveKnot(Naive_Handle_t /* handle */,
+                                                   const int /* index */,
+                                                   const int /* mult */);
 
-Naive_CAPI double Naive_NurbsCurve_LastParameter(const Naive_H theHandle);
+/* Naive_NurbsSurface */
 
-Naive_CAPI bool Naive_NurbsCurve_PointAt(const Naive_H theHandle,
-                                         const double theT,
-                                         Naive_Point3d_t *const theP);
+Naive_API Naive_Code_t Naive_NurbsSurface_New(
+    const int /* n_poles_u */, const int /* n_poles_v */,
+    const Naive_Point3d_t * /* poles */, const int /* n_weights_u */,
+    const int /* n_weights_v */, const double * /* weights */,
+    const int /* n_knots_u */, const double * /* knots_u */,
+    const int /* n_knots_v */, const double * /* knots_v */,
+    const int /* n_mults_u */, const int * /* mults_u */,
+    const int /* n_mults_v */, const int * /* mults_v */,
+    const int /* degree_u */, const int /* degree_v */,
+    Naive_Handle_t *const /* nurbs_surface */);
 
-Naive_CAPI bool Naive_NurbsCurve_TangentAt(const Naive_H theHandle,
-                                           const double theT,
-                                           Naive_Vector3d_t *const theV);
+Naive_API Naive_Code_t
+Naive_NurbsSurface_Degree(const Naive_Handle_t /* handle */,
+                          int *const /* degree_u */, int *const /* degree_v */);
 
-Naive_CAPI bool Naive_NurbsCurve_DerivativeAt(const Naive_H theHandle,
-                                              const double theT, int32_t theN,
-                                              int32_t *const nbD,
-                                              Naive_Vector3d_t *const theD);
+Naive_API Naive_Code_t Naive_NurbsSurface_Evaluate(
+    const Naive_Handle_t /* handle */, const double /* u */,
+    const double /* v */, int /* n_derivative */, int *const /* n_result */,
+    Naive_Vector3d_t *const /* result */);
 
-Naive_CAPI bool Naive_NurbsCurve_CurvatureAt(const Naive_H theHandle,
-                                             const double theT,
-                                             Naive_Vector3d_t *const theV);
+/* Naive_Poly */
 
-Naive_CAPI bool Naive_NurbsCurve_IncreaseDegree(Naive_H theHandle,
-                                                const int32_t theDegree);
+Naive_API Naive_Code_t Naive_Poly_New(const int /* n_vertices */,
+                                      const Naive_Point3d_t * /* vertices */,
+                                      const int /* n_triangles */,
+                                      const Naive_Triangle_t * /* triangles */,
+                                      Naive_Handle_t *const /* poly */);
 
-Naive_CAPI bool Naive_NurbsCurve_IncreaseMultiplicity(Naive_H theHandle,
-                                                      const int32_t theI,
-                                                      const int32_t theM);
+Naive_API Naive_Code_t Naive_Poly_IsValid(
+    const Naive_Handle_t /* handle */, Naive_Logical_t *const /* is_valid */);
 
-Naive_CAPI bool Naive_NurbsCurve_InsertKnot(Naive_H theHandle,
-                                            const double theT,
-                                            const int32_t theM);
+Naive_API Naive_Code_t Naive_Poly_Clone(const Naive_Handle_t /* handle */,
+                                        Naive_Handle_t *const /* clone */);
 
-/// @brief Reduces the multiplicity of the knot of index |I| to |M|.
-/// @param theHandle The handle of the NURBS curve.
-/// @param theI The knot index.
-/// @param theM The multiplicity to reduce to.
-/// @return If reduced successfully, true; otherwise, false.
-Naive_CAPI bool Naive_NurbsCurve_RemoveKnot(Naive_H theHandle,
-                                            const int32_t theI,
-                                            const int32_t theM);
+Naive_API Naive_Code_t Naive_Poly_Vertices(
+    const Naive_Handle_t /* handle */, int *const /* n_vertices */,
+    Naive_Point3d_t *const /* vertices */);
 
-/// }}}
+Naive_API Naive_Code_t Naive_Poly_Triangles(
+    const Naive_Handle_t /* handle */, int *const /* n_triangles */,
+    Naive_Triangle_t *const /* triangles */);
 
-/// Naive_NurbsSurface {{{
+/* Naive_BndShape_ConvexHull2D */
 
-Naive_CAPI Naive_Code_t Naive_NurbsSurface_New(
-    const int32_t nbUPoles, const int32_t nbVPoles,
-    const Naive_Point3d_t *thePoles, const int32_t nbUWeights,
-    const int32_t nbVWeights, const double *theWeights, const int32_t nbUKnots,
-    const double *theUKnots, const int32_t nbVKnots, const double *theVKnots,
-    const int32_t nbUMults, const int32_t *theUMults, const int32_t nbVMults,
-    const int32_t *theVMults, const int32_t theUDegree,
-    const int32_t theVDegree, Naive_H *const theNurbsSurface);
+Naive_API Naive_Code_t Naive_BndShape_ConvexHull2D_New(
+    int /* n_points */, const Naive_Point2d_t * /* points */,
+    Naive_ConvexHull2D_Algorithm /* algo */,
+    Naive_Handle_t *const /* covex_hull_2d */);
 
-Naive_CAPI int32_t Naive_NurbsSurface_UDegree(const Naive_H theHandle);
+Naive_API Naive_Code_t Naive_BndShape_ConvexHull2D_SetAlgorithm(
+    Naive_Handle_t /* handle */, Naive_ConvexHull2D_Algorithm /* algo */);
 
-Naive_CAPI int32_t Naive_NurbsSurface_VDegree(const Naive_H theHandle);
+Naive_API Naive_Code_t
+    Naive_BndShape_ConvexHull2D_Perform(Naive_Handle_t /* handle */);
 
-Naive_CAPI Naive_Code_t Naive_NurbsSurface_PointAt(const Naive_H theHandle,
-                                                   const double theU,
-                                                   const double theV,
-                                                   Naive_Point3d_t *const theP);
+Naive_API Naive_Code_t Naive_BndShape_ConvexHull2D_Add(
+    Naive_Handle_t /* handle */, Naive_Point2d_t /* point */,
+    Naive_Logical_t /* to_perform */);
 
-Naive_CAPI Naive_Code_t Naive_NurbsSurface_Evaluate(
-    const Naive_H theHandle, const double theU, const double theV, int32_t theN,
-    int32_t *const nbD, Naive_Vector3d_t *const theD);
+Naive_API Naive_Code_t Naive_BndShape_ConvexHull2D_Result(
+    const Naive_Handle_t /* handle */, int *const /* n_convex_points */,
+    int *const /* convex_indices */,
+    Naive_Point2d_t *const /* convex_points */);
 
-/// }}}
+/* Naive_BndShape_EnclosingDisc */
 
-/// Naive_Poly {{{
+Naive_API Naive_Code_t
+Naive_BndShape_EnclosingDisc_New(Naive_Handle_t *const /* enclosing_disc */);
 
-Naive_CAPI Naive_Code_t Naive_Poly_New(const int32_t nbVertices,
-                                       const Naive_Point3d_t *theVertices,
-                                       const int32_t nbTriangles,
-                                       const Naive_Triangle_t *theTriangles,
-                                       Naive_H *const thePoly);
+Naive_API Naive_Code_t Naive_BndShape_EnclosingDisc_Rebuild(
+    Naive_Handle_t /* handle */, int /* n_points */,
+    const Naive_Point2d_t * /* points */);
 
-Naive_CAPI Naive_Code_t Naive_Poly_Clone(const Naive_H theHandle,
-                                         Naive_H *const theClone);
+Naive_API Naive_Code_t Naive_BndShape_EnclosingDisc_Circle(
+    const Naive_Handle_t /* handle */, Naive_Point2d_t *const /* origin */,
+    double *const /* radius */);
 
-Naive_CAPI int32_t Naive_Poly_NbVertices(const Naive_H theHandle);
+/* Naive_Intersect_Intersection */
 
-Naive_CAPI void Naive_Poly_Vertices(const Naive_H theHandle,
-                                    Naive_Point3d_t *const theVertices);
+Naive_API Naive_Code_t Naive_Intersect_Intersection_LinePlane(
+    const Naive_Handle_t /* line */, const Naive_Handle_t /* plane */,
+    double *const /* t_line */);
 
-Naive_CAPI int32_t Naive_Poly_NbTriangles(const Naive_H theHandle);
+/* Naive_Tessellation_Sphere */
 
-Naive_CAPI void Naive_Poly_Triangles(const Naive_H theHandle,
-                                     Naive_Triangle_t *const theTriangles);
+Naive_API Naive_Code_t Naive_Tessellation_TetraSphere(
+    const Naive_Point3d_t * /* center */, const double /* radius */,
+    const int /* level */, Naive_Handle_t *const /* poly */);
 
-/// }}}
-
-/// BndShape_ConvexHull2D {{{
-
-Naive_CAPI Naive_Code_t Naive_BndShape_ConvexHull2D_New(
-    int32_t nbPoints, const Naive_Point2d_t *thePoints,
-    Naive_ConvexHull2D_Algorithm theAlgo, Naive_H *const theConvexHull2D);
-
-Naive_CAPI void
-Naive_BndShape_ConvexHull2D_SetAlgorithm(Naive_H theHandle,
-                                         Naive_ConvexHull2D_Algorithm theAlgo);
-
-Naive_CAPI void Naive_BndShape_ConvexHull2D_Perform(Naive_H theHandle);
-
-Naive_CAPI void Naive_BndShape_ConvexHull2D_Add(Naive_H theHandle,
-                                                Naive_Point2d_t thePoint,
-                                                bool thePerform);
-
-Naive_CAPI Naive_Code_t
-Naive_BndShape_ConvexHull2D_Status(const Naive_H theHandle);
-
-Naive_CAPI int32_t
-Naive_BndShape_ConvexHull2D_NbConvexPoints(const Naive_H theHandle);
-
-Naive_CAPI Naive_Code_t Naive_BndShape_ConvexHull2D_ConvexIndices(
-    const Naive_H theHandle, int32_t *const theConvexIndices);
-
-Naive_CAPI Naive_Code_t Naive_BndShape_ConvexHull2D_ConvexPoints(
-    const Naive_H theHandle, Naive_Point2d_t *const theConvexPoints);
-
-/// }}}
-
-/// BndShape_EnclosingDisc {{{
-
-Naive_CAPI Naive_Code_t
-Naive_BndShape_EnclosingDisc_New(Naive_H *const theEnclosingDisc);
-
-Naive_CAPI void
-Naive_BndShape_EnclosingDisc_Rebuild(Naive_H theHandle, int32_t nbPoints,
-                                     const Naive_Point2d_t *thePoints);
-
-Naive_CAPI bool
-Naive_BndShape_EnclosingDisc_Circle(const Naive_H theHandle,
-                                    Naive_Point2d_t *const theOrigin,
-                                    double *const theR);
-
-/// }}}
-
-/// Intersect_Intersection {{{
-
-Naive_CAPI Naive_Code_t Naive_Intersect_Intersection_LinePlane(
-    const Naive_H theLine, const Naive_H thePlane, double *const theT);
-
-/// }}}
-
-/// Tessellation {{{
-
-/// @brief Generate a tetrasphere.
-/// @param theCenter Center of the sphere.
-/// @param theRadius Radius of the sphere.
-/// @param theLevel The tessellation level.
-/// @return Handle of |Naive_Poly|.
-Naive_CAPI Naive_H Naive_Tessellation_TetraSphere(
-    const Naive_Point3d_t *theCenter, double theRadius, int32_t theLevel);
-
-/// }}}
-
-#undef Naive_CAPI
+#undef Naive_API
 
 #endif
-
-// vim: set foldmarker={{{,}}} foldmethod=marker foldlevel=0:

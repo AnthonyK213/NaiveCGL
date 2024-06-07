@@ -105,7 +105,7 @@ public:
 
   void Add(const Naive_Point2d &thePoint,
            const Naive_Bool thePerform) override {
-    bool aRealloc = myPoints->capacity() == myPoints->size();
+    Naive_Bool aRealloc = myPoints->capacity() == myPoints->size();
     myPoints->push_back(thePoint);
 
     if (aRealloc)

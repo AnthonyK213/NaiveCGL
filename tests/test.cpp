@@ -101,15 +101,15 @@ TEST(NaiveCGL_CAPI, Geometry) {
   plane_sf.basis_set.axis.y = 0.;
   plane_sf.basis_set.axis.z = 1.;
 
-  Naive_H plane;
+  Naive_Handle_t plane;
   code = Naive_Plane_New(&plane_sf, &plane);
   ASSERT_EQ(Naive_Ok, code);
 
-  Naive_H plane_clone;
+  Naive_Handle_t plane_clone;
   code = Naive_Geometry_Clone(plane, &plane_clone);
   ASSERT_EQ(Naive_Ok, code);
 
-  bool is_valid;
+  Naive_Logical_t is_valid;
   code = Naive_Geometry_IsValid(plane_clone, &is_valid);
   ASSERT_EQ(Naive_Ok, code);
   ASSERT_TRUE(is_valid);
