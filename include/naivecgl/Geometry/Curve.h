@@ -18,12 +18,12 @@ public:
   Naive_EXPORT virtual Naive_Vector3d
   TangentAt(const Naive_Real theT) const = 0;
 
-  Naive_EXPORT virtual Naive_Bool
+  Naive_EXPORT virtual Naive_Code
   DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
                Naive_Vector3dList &theD) const = 0;
 
-  Naive_EXPORT virtual Naive_Vector3d
-  CurvatureAt(const Naive_Real theT) const = 0;
+  Naive_EXPORT virtual Naive_Code CurvatureAt(const Naive_Real theT,
+                                              Naive_Vector3d &theV) const = 0;
 };
 
 Naive_NAMESPACE_END(geometry);

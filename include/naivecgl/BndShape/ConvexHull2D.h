@@ -12,17 +12,17 @@ class ConvexHull2D final : public Naive_Transient {
 public:
   Naive_EXPORT explicit ConvexHull2D(
       const Naive_Point2dList &thePoints,
-      Naive_ConvexHull2D_Algorithm theAlgo = Naive_ConvexHull2D_Quickhull);
+      Naive_Algorithm theAlgo = Naive_Algorithm_quick_hull);
 
-  Naive_EXPORT explicit ConvexHull2D(Naive_Point2dList &&thePoints,
-                                     Naive_ConvexHull2D_Algorithm theAlgo =
-                                         Naive_ConvexHull2D_Quickhull) noexcept;
+  Naive_EXPORT explicit ConvexHull2D(
+      Naive_Point2dList &&thePoints,
+      Naive_Algorithm theAlgo = Naive_Algorithm_quick_hull) noexcept;
 
   Naive_EXPORT ConvexHull2D(const ConvexHull2D &theOther) = delete;
 
   Naive_EXPORT ConvexHull2D(ConvexHull2D &&theOther) = delete;
 
-  Naive_EXPORT void SetAlgorithm(Naive_ConvexHull2D_Algorithm theAlgo);
+  Naive_EXPORT void SetAlgorithm(Naive_Algorithm theAlgo);
 
   Naive_EXPORT void Perform();
 
@@ -75,7 +75,7 @@ public:
 private:
   Naive_Point2dList myPoints;
   ::std::unique_ptr<Impl> myImpl;
-  Naive_ConvexHull2D_Algorithm myAlgo;
+  Naive_Algorithm myAlgo;
 };
 
 Naive_NAMESPACE_END(bndshape);

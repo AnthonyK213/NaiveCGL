@@ -55,10 +55,13 @@ Naive_Vector3d Line::TangentAt(const Naive_Real theT) const {
   return Direction();
 }
 
-Naive_Bool Line::DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
+Naive_Code Line::DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
                               Naive_Vector3dList &theD) const {
-  if (!IsValid() || theN < 0)
-    return Naive_False;
+  if (!IsValid())
+    return Naive_Code_invalid_handle;
+
+  if (theN < 0)
+    return Naive_Code_value_out_of_range;
 
   theD.resize(theN + 1, Naive_Vector3d::Zero());
   if (theN >= 0)
@@ -66,11 +69,16 @@ Naive_Bool Line::DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
   if (theN >= 1)
     theD[1] = TangentAt(theT);
 
-  return Naive_True;
+  return Naive_Code_ok;
 }
 
-Naive_Vector3d Line::CurvatureAt(const Naive_Real theT) const {
-  return Naive_Vector3d::Zero();
+Naive_Code Line::CurvatureAt(const Naive_Real theT,
+                             Naive_Vector3d &theV) const {
+  if (!IsValid())
+    return Naive_Code_invalid_handle;
+
+  theV = Naive_Vector3d::Zero();
+  return Naive_Code_ok;
 }
 
 Naive_NAMESPACE_END(geometry);

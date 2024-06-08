@@ -26,7 +26,7 @@ public:
                                                 Naive_Integer theR);
 
   template <typename T>
-  static Naive_Bool List2CheckBound(const Naive_List2<T> &theList2,
+  static Naive_Code List2CheckBound(const Naive_List2<T> &theList2,
                                     Naive_Integer &theU, Naive_Integer &theV);
 };
 

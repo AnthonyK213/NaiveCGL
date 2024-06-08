@@ -3,12 +3,15 @@
 Naive_NAMESPACE_BEGIN(geometry);
 
 template <typename P, typename Rw, typename Rk, typename I>
-Naive_Bool NurbsCurve::update(P &&thePoles, Rw &&theWeights, Rk &&theKnots,
+Naive_Code NurbsCurve::update(P &&thePoles, Rw &&theWeights, Rk &&theKnots,
                               I &&theMults, const Naive_Integer theDegree) {
-  if (!math::Nurbs::CheckParam(thePoles.size(), theWeights.size(), theKnots,
-                               theMults, theDegree, myPeriodic, myFlatKnots,
-                               mySpanIdx))
-    return Naive_False;
+  Naive_Code aCode = Naive_Code_ok;
+
+  aCode = math::Nurbs::CheckParam(thePoles.size(), theWeights.size(), theKnots,
+                                  theMults, theDegree, myPeriodic, myFlatKnots,
+                                  mySpanIdx);
+  if (aCode != Naive_Code_ok)
+    return aCode;
 
   for (Naive_Integer i = 1; i < theWeights.size(); ++i) {
     if (!math::Util::EpsilonEquals(theWeights[i], theWeights[0])) {
@@ -23,7 +26,7 @@ Naive_Bool NurbsCurve::update(P &&thePoles, Rw &&theWeights, Rk &&theKnots,
   myMults = ::std::forward<I>(theMults);
   myDegree = theDegree;
 
-  return Naive_True;
+  return aCode;
 }
 
 Naive_NAMESPACE_END(geometry);

@@ -4,7 +4,7 @@
 
 Naive_NAMESPACE_BEGIN(math);
 
-Naive_Bool
+Naive_Code
 Nurbs::CheckParam(const Naive_Integer nbPoles, const Naive_Integer nbWeights,
                   const Naive_RealList &theKnots,
                   const Naive_IntegerList &theMults,
@@ -12,31 +12,37 @@ Nurbs::CheckParam(const Naive_Integer nbPoles, const Naive_Integer nbWeights,
                   Naive_RealList &theFlatKnots, Naive_IntegerList &theSpanIdx) {
   /* 1 <= Degree <= 9 */
   if (theDegree < 1 || theDegree > 9)
-    return Naive_False;
+    return Naive_Code_value_out_of_range;
 
-  if (nbPoles < 2 || nbPoles != nbWeights)
-    return Naive_False;
+  if (nbPoles < 2)
+    return Naive_Code_insufficient_points;
 
-  if (theKnots.size() < 2 || theKnots.size() != theMults.size())
-    return Naive_False;
+  if (nbPoles != nbWeights)
+    return Naive_Code_poles_weights_not_match;
+
+  if (theKnots.size() < 2)
+    return Naive_Code_insufficient_knots;
+
+  if (theKnots.size() != theMults.size())
+    return Naive_Code_knots_mults_not_match;
 
   /* 1 <= Mults <= Degree */
   for (Naive_Integer i = 0; i < theMults.size(); ++i) {
     if (theMults[i] < 1)
-      return Naive_False;
+      return Naive_Code_invalid_mults;
 
     if (i != 0 && i != theMults.size() - 1) {
       if (theMults[i] > theDegree)
-        return Naive_False;
+        return Naive_Code_invalid_mults;
     } else if (theMults[i] > theDegree + 1) {
-      return Naive_False;
+      return Naive_Code_invalid_mults;
     }
   }
 
   /* The knots must be strictly increasing. */
   for (Naive_Integer i = 1; i < theKnots.size(); ++i) {
     if (theKnots[i] <= theKnots[i - 1])
-      return Naive_False;
+      return Naive_Code_zero_interval;
   }
 
   theSpanIdx.reserve(theMults.size() - 1);
@@ -53,7 +59,7 @@ Nurbs::CheckParam(const Naive_Integer nbPoles, const Naive_Integer nbWeights,
     // TODO: What is periodic?
     myPeriodic = Naive_True;
   else
-    return Naive_False;
+    return Naive_Code_cant_make_nurbs;
 
   theFlatKnots.reserve(nbFlatKnots);
   theFlatKnots.clear();
@@ -63,7 +69,7 @@ Nurbs::CheckParam(const Naive_Integer nbPoles, const Naive_Integer nbWeights,
     }
   }
 
-  return Naive_True;
+  return Naive_Code_ok;
 }
 
 Naive_Integer Nurbs::FindSpan(const Naive_RealList &theKnots,

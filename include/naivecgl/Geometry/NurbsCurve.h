@@ -26,13 +26,23 @@ public:
 
   Naive_EXPORT const Naive_Point3d &Pole(const Naive_Integer theIndex) const;
 
+  Naive_EXPORT const Naive_Point3dList &Poles() const { return myPoles; }
+
   Naive_EXPORT Naive_Real Weight(const Naive_Integer theIndex) const;
+
+  Naive_EXPORT const Naive_RealList &Weights() const { return myWeights; }
 
   Naive_EXPORT Naive_Integer NbKnots() const;
 
   Naive_EXPORT Naive_Real Knot(const Naive_Integer theIndex) const;
 
+  Naive_EXPORT const Naive_RealList &Knots() const { return myKnots; }
+
   Naive_EXPORT Naive_Integer Multiplicity(const Naive_Integer theIndex) const;
+
+  Naive_EXPORT const Naive_IntegerList &Multiplicities() const {
+    return myMults;
+  }
 
   Naive_EXPORT virtual Naive_Real FirstParameter() const override;
 
@@ -48,31 +58,31 @@ public:
   Naive_EXPORT virtual Naive_Vector3d
   TangentAt(const Naive_Real theT) const override;
 
-  Naive_EXPORT virtual Naive_Bool
+  Naive_EXPORT virtual Naive_Code
   DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
                Naive_Vector3dList &theD) const override;
 
-  Naive_EXPORT virtual Naive_Vector3d
-  CurvatureAt(const Naive_Real theT) const override;
+  Naive_EXPORT virtual Naive_Code
+  CurvatureAt(const Naive_Real theT, Naive_Vector3d &theV) const override;
 
-  Naive_EXPORT Naive_Bool IncreaseDegree(const Naive_Integer theDegree);
+  Naive_EXPORT Naive_Code IncreaseDegree(const Naive_Integer theDegree);
 
-  Naive_EXPORT Naive_Bool IncreaseMultiplicity(const Naive_Integer theI,
+  Naive_EXPORT Naive_Code IncreaseMultiplicity(const Naive_Integer theI,
                                                const Naive_Integer theM);
 
-  Naive_EXPORT Naive_Bool InsertKnot(const Naive_Real theT,
+  Naive_EXPORT Naive_Code InsertKnot(const Naive_Real theT,
                                      const Naive_Integer theM);
 
   /// @brief Reduces the multiplicity of the knot of index |I| to |M|.
   /// @param theI The knot index.
   /// @param theM The multiplicity to reduce to.
   /// @return If reduced successfully, true; otherwise, false.
-  Naive_EXPORT Naive_Bool RemoveKnot(const Naive_Integer theI,
+  Naive_EXPORT Naive_Code RemoveKnot(const Naive_Integer theI,
                                      const Naive_Integer theM);
 
 private:
   template <typename P, typename Rw, typename Rk, typename I>
-  Naive_Bool update(P &&thePoles, Rw &&theWeights, Rk &&theKnots, I &&theMults,
+  Naive_Code update(P &&thePoles, Rw &&theWeights, Rk &&theKnots, I &&theMults,
                     const Naive_Integer theDegree);
 
 private:

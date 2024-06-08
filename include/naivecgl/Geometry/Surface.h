@@ -12,7 +12,7 @@ public:
   Naive_EXPORT virtual Naive_Point3d PointAt(const Naive_Real theU,
                                              const Naive_Real theV) const = 0;
 
-  Naive_EXPORT virtual Naive_Bool Evaluate(const Naive_Real theU,
+  Naive_EXPORT virtual Naive_Code Evaluate(const Naive_Real theU,
                                            const Naive_Real theV,
                                            const Naive_Integer theN,
                                            Naive_Vector3dList &theD) const = 0;

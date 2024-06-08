@@ -47,6 +47,8 @@ public:
 
   Naive_EXPORT Plane Transformed(const Transform3d &theTrsf) const;
 
+  Naive_EXPORT Naive_Bool Dump(Naive_Plane_t &thePlaneT) const;
+
   Naive_EXPORT Naive_Bool Orient(const Plane &thePln,
                                  Transform3d &theTrsf) const;
 

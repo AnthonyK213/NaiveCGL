@@ -40,13 +40,13 @@ public:
   Naive_EXPORT virtual Naive_Point3d
   PointAt(const Naive_Real theU, const Naive_Real theV) const override;
 
-  Naive_EXPORT virtual Naive_Bool
+  Naive_EXPORT virtual Naive_Code
   Evaluate(const Naive_Real theU, const Naive_Real theV,
            const Naive_Integer theN, Naive_Vector3dList &theD) const override;
 
 private:
   template <typename P2, typename R2, typename R, typename I>
-  Naive_Bool update(P2 &&thePoles, R2 &&theWeights, R &&theUKnots,
+  Naive_Code update(P2 &&thePoles, R2 &&theWeights, R &&theUKnots,
                     R &&theVKnots, I &&theUMults, I &&theVMults,
                     const Naive_Integer theUDegree,
                     const Naive_Integer theVDegree);

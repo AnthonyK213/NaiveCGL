@@ -80,18 +80,18 @@ Naive_Vector3d NurbsCurve::TangentAt(const Naive_Real theT) const {
   return aD[1];
 }
 
-Naive_Bool NurbsCurve::DerivativeAt(const Naive_Real theT,
+Naive_Code NurbsCurve::DerivativeAt(const Naive_Real theT,
                                     const Naive_Integer theN,
                                     Naive_Vector3dList &theD) const {
   if (!IsValid())
-    return Naive_False;
+    return Naive_Code_invalid_handle;
 
   if (theN < 0)
-    return Naive_False;
+    return Naive_Code_value_out_of_range;
 
   Naive_Integer iSpan = math::Nurbs::FindFlatSpan(myKnots, mySpanIdx, theT);
   if (iSpan < 0)
-    return Naive_False;
+    return Naive_Code_value_out_of_range;
 
   Naive_RealList aWBuf(theN + 1, math::Constant::UnsetReal());
   theD.resize(theN + 1, Naive_Vector3d::Unset());
@@ -124,45 +124,53 @@ Naive_Bool NurbsCurve::DerivativeAt(const Naive_Real theT,
     theD[I].ChangeXYZ() = A / aWBuf[0];
   }
 
-  return Naive_True;
+  return Naive_Code_ok;
 }
 
-Naive_Vector3d NurbsCurve::CurvatureAt(const Naive_Real theT) const {
+Naive_Code NurbsCurve::CurvatureAt(const Naive_Real theT,
+                                   Naive_Vector3d &theV) const {
   if (!IsValid())
-    return Naive_Vector3d::Unset();
+    return Naive_Code_invalid_handle;
+
+  Naive_Code aCode = Naive_Code_ok;
 
   Naive_Vector3dList aD{};
-  if (!DerivativeAt(theT, 2, aD))
-    return Naive_Vector3d::Unset();
+  aCode = DerivativeAt(theT, 2, aD);
+  if (aCode)
+    return aCode;
 
   Naive_Vector3d b = aD[1].Crossed(aD[2]);
   Naive_Real k = b.Length() / ::std::pow(aD[1].Length(), 3);
-  return b.Crossed(aD[1]).Normalized().Multiplied(k);
+  theV = b.Crossed(aD[1]).Normalized().Multiplied(k);
+  return aCode;
 }
 
-Naive_Bool NurbsCurve::IncreaseDegree(const Naive_Integer theDegree) {
-  if (!IsValid() || theDegree < 0)
-    return Naive_False;
+Naive_Code NurbsCurve::IncreaseDegree(const Naive_Integer theDegree) {
+  if (!IsValid())
+    return Naive_Code_invalid_handle;
 
-  return Naive_True;
+  if (theDegree < 0)
+    return Naive_Code_value_out_of_range;
+
+  return Naive_Code_ok;
 }
 
-Naive_Bool NurbsCurve::IncreaseMultiplicity(const Naive_Integer theI,
+Naive_Code NurbsCurve::IncreaseMultiplicity(const Naive_Integer theI,
                                             const Naive_Integer theM) {
   if (theI < 0 || theI >= myMults.size() || theM < 0)
-    return Naive_False;
+    return Naive_Code_value_out_of_range;
 
   if (theM == 0)
-    return Naive_True;
+    return Naive_Code_ok;
 
   Naive_Real T = myKnots[theI];
   Naive_Integer S = myMults[theI];
 
   if (theI != 0 && theI != myMults.size() - 1) {
     if (theM + S > myDegree)
-      return Naive_False;
+      return Naive_Code_value_out_of_range;
   } else if (theM + S > myDegree + 1)
-    return Naive_False;
+    return Naive_Code_value_out_of_range;
 
   /* The last knot belongs to the last span. */
   Naive_Integer iSpan = (theI == myMults.size() - 1) ? theI - 1 : theI;
@@ -184,18 +192,18 @@ Naive_Bool NurbsCurve::IncreaseMultiplicity(const Naive_Integer theI,
                 ::std::move(aMults), myDegree);
 }
 
-Naive_Bool NurbsCurve::InsertKnot(const Naive_Real theT,
+Naive_Code NurbsCurve::InsertKnot(const Naive_Real theT,
                                   const Naive_Integer theM) {
   if (theM < 0 || theM > Degree())
-    return Naive_False;
+    return Naive_Code_value_out_of_range;
 
   Naive_Integer iSpan = math::Nurbs::FindSpan(myKnots, theT);
   if (iSpan < 0)
-    return Naive_False;
+    return Naive_Code_value_out_of_range;
   Naive_Integer K = mySpanIdx[iSpan] - 1;
 
   if (theM == 0)
-    return Naive_True;
+    return Naive_Code_ok;
 
   /* If |theT| is already in the |myKnots|, the operation would be a
    * multiplicity increase. */
@@ -213,9 +221,9 @@ Naive_Bool NurbsCurve::InsertKnot(const Naive_Real theT,
 
   if (iSpan != 0 && iSpan != myMults.size() - 1) {
     if (theM > myDegree)
-      return Naive_False;
+      return Naive_Code_value_out_of_range;
   } else if (theM > myDegree + 1)
-    return Naive_False;
+    return Naive_Code_value_out_of_range;
 
   Naive_Point3dList aPoles(myPoles.size() + theM, Naive_Point3d::Unset());
   Naive_RealList aWeights(myWeights.size() + theM, math::Constant::UnsetReal());
@@ -235,21 +243,21 @@ Naive_Bool NurbsCurve::InsertKnot(const Naive_Real theT,
                 ::std::move(aMults), myDegree);
 }
 
-Naive_Bool NurbsCurve::RemoveKnot(const Naive_Integer theI,
+Naive_Code NurbsCurve::RemoveKnot(const Naive_Integer theI,
                                   const Naive_Integer theM) {
   Naive_Integer S = Multiplicity(theI);
   if (S == 0)
-    return Naive_False;
+    return Naive_Code_index_out_of_range;
 
   Naive_Integer R = mySpanIdx[theI] - 1;
   Naive_Integer N = S - theM;
 
   if (theM < 0 || N < 0)
-    return Naive_False;
+    return Naive_Code_value_out_of_range;
 
   /* Nothing to do... */
   if (N == 0)
-    return Naive_True;
+    return Naive_Code_ok;
 
   Naive_Integer aFirst = R - S;
   Naive_Integer aLast = R - Degree();
@@ -257,7 +265,7 @@ Naive_Bool NurbsCurve::RemoveKnot(const Naive_Integer theI,
   for (Naive_Integer t = 0; t < N; ++t) {
   }
 
-  return Naive_True;
+  return Naive_Code_ok;
 }
 
 Naive_NAMESPACE_END(geometry);

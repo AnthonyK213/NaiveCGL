@@ -8,7 +8,7 @@ Naive_NAMESPACE_BEGIN(math);
 
 class Nurbs {
 public:
-  Naive_EXPORT static Naive_Bool
+  Naive_EXPORT static Naive_Code
   CheckParam(const Naive_Integer nbPoles, const Naive_Integer nbWeights,
              const Naive_RealList &theKnots, const Naive_IntegerList &theMults,
              const Naive_Integer theDegree, Naive_Bool &myPeriodic,

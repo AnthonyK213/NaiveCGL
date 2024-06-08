@@ -2,30 +2,37 @@
 #define _NaiveCGL_Interface_NaiveCGL_c_types_HeaderFile
 
 typedef enum {
-  Naive_Ok = 0,
-  Naive_Err,
-  Naive_NotImplemented,
-  Naive_Initialized = 1000,
-  Naive_NullException = 1500,
-  Naive_InvalidValue,
-  Naive_InvalidHandle,
-  Naive_NoIntersection,
-  Naive_ConvexHull_InsufficientPoint = 2000,
-  Naive_ConvexHull_PointsAreCollinear,
-  Naive_ConvexHull_PointsAreCoplanar,
+  Naive_Code_ok = 0,
+  Naive_Code_err,
+  Naive_Code_not_implemented,
+  Naive_Code_initialized = 1000,
+  Naive_Code_null_exception = 1500,
+  Naive_Code_invalid_value,
+  Naive_Code_invalid_handle,
+  Naive_Code_no_intersection,
+  Naive_Code_points_are_collinear = 2000,
+  Naive_Code_points_are_coplanar,
+  Naive_Code_index_out_of_range,
+  Naive_Code_value_out_of_range,
+  Naive_Code_insufficient_points,
+  Naive_Code_insufficient_knots,
+  Naive_Code_zero_interval,
+  Naive_Code_periodic_open,
+  Naive_Code_periodic_not_smooth,
+  Naive_Code_cant_make_nurbs,
+  Naive_Code_weight_le_0,
+  Naive_Code_bad_knots,
+  Naive_Code_poles_weights_not_match,
+  Naive_Code_knots_mults_not_match,
+  Naive_Code_invalid_mults,
 } Naive_Code;
 
 typedef enum {
-  Naive_ConvexHull2D_Quickhull = 0,
-  Naive_ConvexHull2D_Incremental,
-  Naive_ConvexHull2D_GrahamScan,
-} Naive_ConvexHull2D_Algorithm;
-
-typedef enum {
-  Naive_ConvexHull3D_Quickhull = 0,
-  Naive_ConvexHull3D_Incremental,
-  Naive_ConvexHull3D_DivideAndConquer,
-} Naive_ConvexHull3D_Algorithm;
+  Naive_Algorithm_quick_hull = 0,
+  Naive_Algorithm_incremental,
+  Naive_Algorithm_graham_scan,
+  Naive_Algorithm_divide_and_conquer,
+} Naive_Algorithm;
 
 /* Naive_H */
 

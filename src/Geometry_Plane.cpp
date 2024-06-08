@@ -90,6 +90,15 @@ Plane Plane::Transformed(const Transform3d &theTrsf) const {
   return Unset();
 }
 
+Naive_Bool Plane::Dump(Naive_Plane_t &thePlaneT) const {
+  if (!IsValid())
+    return Naive_False;
+
+  return myLocation.Dump(thePlaneT.basis_set.location) &&
+         myZAxis.Dump(thePlaneT.basis_set.axis) &&
+         myXAxis.Dump(thePlaneT.basis_set.ref_direction);
+}
+
 Naive_Bool Plane::Orient(const Plane &thePln, Transform3d &theTrsf) const {
   if (!IsValid() || !thePln.IsValid())
     return Naive_False;

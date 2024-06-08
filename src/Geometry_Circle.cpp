@@ -30,10 +30,14 @@ Naive_Vector3d Circle::TangentAt(const Naive_Real theT) const {
           myRadius};
 }
 
-Naive_Bool Circle::DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
+Naive_Code Circle::DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
                                 Naive_Vector3dList &theD) const {
-  if (!IsValid() || theN < 0)
-    return Naive_False;
+
+  if (!IsValid())
+    return Naive_Code_invalid_handle;
+
+  if (theN < 0)
+    return Naive_Code_value_out_of_range;
 
   Naive_Real s = ::std::sin(theT) * myRadius;
   Naive_Real c = ::std::cos(theT) * myRadius;
@@ -69,18 +73,21 @@ Naive_Bool Circle::DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
     }
   }
 
-  return Naive_True;
+  return Naive_Code_ok;
 }
 
-Naive_Vector3d Circle::CurvatureAt(const Naive_Real theT) const {
+Naive_Code Circle::CurvatureAt(const Naive_Real theT,
+                               Naive_Vector3d &theV) const {
   if (!IsValid())
-    return Naive_Vector3d::Unset();
+    return Naive_Code_invalid_handle;
 
   Naive_Vector3dList aD{};
-  if (!DerivativeAt(theT, 2, aD))
-    return Naive_Vector3d::Unset();
+  Naive_Code aCode = DerivativeAt(theT, 2, aD);
+  if (aCode)
+    return aCode;
 
-  return aD[2].Divided(myRadius * myRadius);
+  theV = aD[2].Divided(myRadius * myRadius);
+  return aCode;
 }
 
 Naive_NAMESPACE_END(geometry);

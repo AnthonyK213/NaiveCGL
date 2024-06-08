@@ -5,13 +5,13 @@ Naive_NAMESPACE_BEGIN(bndshape);
 /* ConvexHull3D::Impl */
 
 ConvexHull3D::Impl::Impl(Naive_Point3dList &thePoints)
-    : myPoints(&thePoints), myStatus(Naive_Err) {
+    : myPoints(&thePoints), myStatus(Naive_Code_err) {
   if (myPoints->size() < 4) {
-    myStatus = Naive_ConvexHull_InsufficientPoint;
+    myStatus = Naive_Code_insufficient_points;
     return;
   }
 
-  myStatus = Naive_Initialized;
+  myStatus = Naive_Code_initialized;
 }
 
 ConvexHull3D::Impl::~Impl() {}
@@ -33,10 +33,10 @@ public:
 
 public:
   void Perform() override {
-    if (myStatus != Naive_Initialized)
+    if (myStatus != Naive_Code_initialized)
       return;
 
-    myStatus = Naive_Ok;
+    myStatus = Naive_Code_ok;
   }
 
   void Add(const Naive_Point3d &thePoint,
@@ -51,35 +51,35 @@ public:
 /* ConvexHull3D */
 
 ConvexHull3D::ConvexHull3D(const Naive_Point3dList &thePoints,
-                           Naive_ConvexHull3D_Algorithm theAlgo) {
+                           Naive_Algorithm theAlgo) {
   myPoints = thePoints;
   SetAlgorithm(theAlgo);
 }
 
 ConvexHull3D::ConvexHull3D(Naive_Point3dList &&thePoints,
-                           Naive_ConvexHull3D_Algorithm theAlgo) noexcept {
+                           Naive_Algorithm theAlgo) noexcept {
   myPoints = ::std::move(thePoints);
   SetAlgorithm(theAlgo);
 }
 
-void ConvexHull3D::SetAlgorithm(Naive_ConvexHull3D_Algorithm theAlgo) {
+void ConvexHull3D::SetAlgorithm(Naive_Algorithm theAlgo) {
   if (theAlgo == myAlgo && myImpl)
     return;
 
   myAlgo = theAlgo;
 
   switch (myAlgo) {
-  case Naive_ConvexHull3D_Quickhull: {
+  case Naive_Algorithm_quick_hull: {
     myImpl = ::std::make_unique<QuickHull3D>(myPoints);
     break;
   }
 
-  case Naive_ConvexHull3D_Incremental: {
+  case Naive_Algorithm_incremental: {
     myImpl = nullptr;
     break;
   }
 
-  case Naive_ConvexHull3D_DivideAndConquer: {
+  case Naive_Algorithm_divide_and_conquer: {
     myImpl = nullptr;
     break;
   }
@@ -107,7 +107,7 @@ void ConvexHull3D::Add(const Naive_Point3d &thePoint,
 
 Naive_Code ConvexHull3D::Status() const {
   if (!myImpl)
-    return Naive_NotImplemented;
+    return Naive_Code_not_implemented;
 
   return myImpl->Status();
 }

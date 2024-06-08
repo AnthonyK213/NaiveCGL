@@ -11,19 +11,19 @@ Naive_NAMESPACE_BEGIN(bndshape);
 /// @brief Calculates the convex hull of a set of 3d points.
 class ConvexHull3D final : public Naive_Transient {
 public:
-  Naive_EXPORT ConvexHull3D(
-      const Naive_Point3dList &thePoints,
-      Naive_ConvexHull3D_Algorithm theAlgo = Naive_ConvexHull3D_Quickhull);
+  Naive_EXPORT
+  ConvexHull3D(const Naive_Point3dList &thePoints,
+               Naive_Algorithm theAlgo = Naive_Algorithm_quick_hull);
 
-  Naive_EXPORT ConvexHull3D(Naive_Point3dList &&thePoints,
-                            Naive_ConvexHull3D_Algorithm theAlgo =
-                                Naive_ConvexHull3D_Quickhull) noexcept;
+  Naive_EXPORT
+  ConvexHull3D(Naive_Point3dList &&thePoints,
+               Naive_Algorithm theAlgo = Naive_Algorithm_quick_hull) noexcept;
 
   Naive_EXPORT ConvexHull3D(const ConvexHull3D &theOther) = delete;
 
   Naive_EXPORT ConvexHull3D(ConvexHull3D &&theOther) = delete;
 
-  Naive_EXPORT void SetAlgorithm(Naive_ConvexHull3D_Algorithm theAlgo);
+  Naive_EXPORT void SetAlgorithm(Naive_Algorithm theAlgo);
 
   Naive_EXPORT void Perform();
 
@@ -60,7 +60,7 @@ public:
 private:
   Naive_Point3dList myPoints;
   ::std::unique_ptr<Impl> myImpl;
-  Naive_ConvexHull3D_Algorithm myAlgo;
+  Naive_Algorithm myAlgo;
 };
 
 Naive_NAMESPACE_END(bndshape);

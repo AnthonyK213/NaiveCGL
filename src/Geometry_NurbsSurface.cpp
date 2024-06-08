@@ -44,18 +44,18 @@ Naive_Point3d NurbsSurface::PointAt(const Naive_Real theU,
   return aD[0].XYZ();
 }
 
-Naive_Bool NurbsSurface::Evaluate(const Naive_Real theU, const Naive_Real theV,
+Naive_Code NurbsSurface::Evaluate(const Naive_Real theU, const Naive_Real theV,
                                   const Naive_Integer theN,
                                   Naive_Vector3dList &theD) const {
   if (!IsValid())
-    return Naive_False;
+    return Naive_Code_invalid_handle;
 
   Naive_Integer iUSpan = math::Nurbs::FindFlatSpan(myUKnots, myUSpanIdx, theU);
   if (iUSpan < 0)
-    return Naive_False;
+    return Naive_Code_value_out_of_range;
   Naive_Integer iVSpan = math::Nurbs::FindFlatSpan(myVKnots, myVSpanIdx, theV);
   if (iVSpan < 0)
-    return Naive_False;
+    return Naive_Code_value_out_of_range;
 
   Naive_IntegerList aHead(theN + 1, 0);
   for (Naive_Integer i = 1; i <= theN; ++i) {
@@ -122,7 +122,7 @@ Naive_Bool NurbsSurface::Evaluate(const Naive_Real theU, const Naive_Real theV,
     }
   }
 
-  return Naive_True;
+  return Naive_Code_ok;
 }
 
 Naive_NAMESPACE_END(geometry);

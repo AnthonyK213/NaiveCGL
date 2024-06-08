@@ -5,9 +5,9 @@ Naive_NAMESPACE_BEGIN(bndshape);
 /* ConvexHull2D::Impl */
 
 ConvexHull2D::Impl::Impl(Naive_Point2dList &thePoints)
-    : myPoints(&thePoints), myPtrs{}, myHull{}, myStatus(Naive_Err) {
+    : myPoints(&thePoints), myPtrs{}, myHull{}, myStatus(Naive_Code_err) {
   if (myPoints->size() < 3) {
-    myStatus = Naive_ConvexHull_InsufficientPoint;
+    myStatus = Naive_Code_insufficient_points;
     return;
   }
 
@@ -16,7 +16,7 @@ ConvexHull2D::Impl::Impl(Naive_Point2dList &thePoints)
 
   initPtrs();
 
-  myStatus = Naive_Initialized;
+  myStatus = Naive_Code_initialized;
 }
 
 ConvexHull2D::Impl::~Impl() {}
@@ -75,12 +75,12 @@ public:
 
 public:
   void Perform() override {
-    if (myStatus != Naive_Initialized)
+    if (myStatus != Naive_Code_initialized)
       return;
 
     // TODO: Check collinear.
 
-    myStatus = Naive_Ok;
+    myStatus = Naive_Code_ok;
 
     /* Triangle... */
     if (myPtrs.size() == 3) {
@@ -91,7 +91,7 @@ public:
     Ptr a, b, fA, fB;
     extremX(a, b);
 
-    if (myStatus != Naive_Ok)
+    if (myStatus != Naive_Code_ok)
       return;
 
     Ptrs A = rightOf(myPtrs, a, b, fA); /* Right side of line ab. */
@@ -115,7 +115,7 @@ public:
     // |aRealloc|, then set |myStatus| to |Naive_ConvexHull2D_Done|.
 
     myHull.clear();
-    myStatus = Naive_Initialized;
+    myStatus = Naive_Code_initialized;
 
     if (thePerform)
       Perform();
@@ -143,7 +143,7 @@ private:
 
     /// TODO: Handle this!
     if (a == b) {
-      myStatus = Naive_Err;
+      myStatus = Naive_Code_err;
     }
   }
 
@@ -214,35 +214,35 @@ private:
 /* ConvexHull2D */
 
 ConvexHull2D::ConvexHull2D(const Naive_Point2dList &thePoints,
-                           Naive_ConvexHull2D_Algorithm theAlgo) {
+                           Naive_Algorithm theAlgo) {
   myPoints = thePoints;
   SetAlgorithm(theAlgo);
 }
 
 ConvexHull2D::ConvexHull2D(Naive_Point2dList &&thePoints,
-                           Naive_ConvexHull2D_Algorithm theAlgo) noexcept {
+                           Naive_Algorithm theAlgo) noexcept {
   myPoints = ::std::move(thePoints);
   SetAlgorithm(theAlgo);
 }
 
-void ConvexHull2D::SetAlgorithm(Naive_ConvexHull2D_Algorithm theAlgo) {
+void ConvexHull2D::SetAlgorithm(Naive_Algorithm theAlgo) {
   if (theAlgo == myAlgo && myImpl)
     return;
 
   myAlgo = theAlgo;
 
   switch (myAlgo) {
-  case Naive_ConvexHull2D_Quickhull: {
+  case Naive_Algorithm_quick_hull: {
     myImpl = ::std::make_unique<QuickHull2D>(myPoints);
     break;
   }
 
-  case Naive_ConvexHull2D_Incremental: {
+  case Naive_Algorithm_incremental: {
     myImpl = nullptr;
     break;
   }
 
-  case Naive_ConvexHull2D_GrahamScan: {
+  case Naive_Algorithm_graham_scan: {
     myImpl = nullptr;
     break;
   }
@@ -271,7 +271,7 @@ void ConvexHull2D::Add(const Naive_Point2d &thePoint,
 
 Naive_Code ConvexHull2D::Status() const {
   if (!myImpl)
-    return Naive_NotImplemented;
+    return Naive_Code_not_implemented;
 
   return myImpl->Status();
 }

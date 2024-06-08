@@ -3,31 +3,35 @@
 Naive_NAMESPACE_BEGIN(geometry);
 
 template <typename P2, typename R2, typename R, typename I>
-Naive_Bool NurbsSurface::update(P2 &&thePoles, R2 &&theWeights, R &&theUKnots,
+Naive_Code NurbsSurface::update(P2 &&thePoles, R2 &&theWeights, R &&theUKnots,
                                 R &&theVKnots, I &&theUMults, I &&theVMults,
                                 const Naive_Integer theUDegree,
                                 const Naive_Integer theVDegree) {
   if (theUDegree < 1 || theVDegree < 1)
-    return Naive_False;
+    return Naive_Code_value_out_of_range;
+
+  Naive_Code aCode = Naive_Code_ok;
 
   Naive_Integer aPU, aPV, aWU, aWV;
-  if (!math::Util::List2CheckBound(thePoles, aPU, aPV) ||
-      !math::Util::List2CheckBound(theWeights, aWU, aWV))
-    return Naive_False;
+  if (math::Util::List2CheckBound(thePoles, aPU, aPV) ||
+      math::Util::List2CheckBound(theWeights, aWU, aWV))
+    return Naive_Code_invalid_value;
 
   if (aPU < 2 || aPV < 2)
-    return Naive_False;
+    return Naive_Code_value_out_of_range;
 
   if (aPU != aWU || aPV != aWV)
-    return Naive_False;
+    return Naive_Code_poles_weights_not_match;
 
-  if (!math::Nurbs::CheckParam(aPU, aWU, theUKnots, theUMults, theUDegree,
-                               myUPeriodic, myUFlatKnots, myUSpanIdx))
-    return Naive_False;
+  aCode = math::Nurbs::CheckParam(aPU, aWU, theUKnots, theUMults, theUDegree,
+                                  myUPeriodic, myUFlatKnots, myUSpanIdx);
+  if (aCode)
+    return aCode;
 
-  if (!math::Nurbs::CheckParam(aPV, aWV, theVKnots, theVMults, theVDegree,
-                               myVPeriodic, myVFlatKnots, myVSpanIdx))
-    return Naive_False;
+  aCode = math::Nurbs::CheckParam(aPV, aWV, theVKnots, theVMults, theVDegree,
+                                  myVPeriodic, myVFlatKnots, myVSpanIdx);
+  if (aCode)
+    return aCode;
 
   for (Naive_Integer j = 0; j < aWV; ++j) {
     for (Naive_Integer i = 1; i < aWU; ++i) {
@@ -56,7 +60,7 @@ Naive_Bool NurbsSurface::update(P2 &&thePoles, R2 &&theWeights, R &&theUKnots,
   myUDegree = theUDegree;
   myVDegree = theVDegree;
 
-  return Naive_True;
+  return Naive_Code_ok;
 }
 
 Naive_NAMESPACE_END(geometry);

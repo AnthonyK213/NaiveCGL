@@ -55,7 +55,7 @@ TEST(NaiveCGL_ConvexHull2D, GetHull) {
   aCH2d.Perform();
 
   Naive_Code code = aCH2d.Status();
-  ASSERT_EQ(Naive_Ok, code);
+  ASSERT_EQ(Naive_Code_ok, code);
 
   Naive_IntegerList answer{0, 3, 4, 6, 7, 5, 1};
   ASSERT_EQ(answer, aCH2d.ConvexIndices());
@@ -88,7 +88,7 @@ TEST(NaiveCGL_Math, Polynomial) {
 }
 
 TEST(NaiveCGL_CAPI, Geometry) {
-  Naive_Code_t code = Naive_Ok;
+  Naive_Code_t code = Naive_Code_ok;
 
   Naive_Plane_t plane_sf;
   plane_sf.basis_set.location.x = 0.;
@@ -102,27 +102,27 @@ TEST(NaiveCGL_CAPI, Geometry) {
   plane_sf.basis_set.axis.z = 1.;
 
   Naive_Handle_t plane;
-  code = Naive_Plane_New(&plane_sf, &plane);
-  ASSERT_EQ(Naive_Ok, code);
+  code = Naive_Plane_new(&plane_sf, &plane);
+  ASSERT_EQ(Naive_Code_ok, code);
 
   Naive_Handle_t plane_clone;
-  code = Naive_Geometry_Clone(plane, &plane_clone);
-  ASSERT_EQ(Naive_Ok, code);
+  code = Naive_Geometry_clone(plane, &plane_clone);
+  ASSERT_EQ(Naive_Code_ok, code);
 
   Naive_Logical_t is_valid;
-  code = Naive_Geometry_IsValid(plane_clone, &is_valid);
-  ASSERT_EQ(Naive_Ok, code);
+  code = Naive_Geometry_is_valid(plane_clone, &is_valid);
+  ASSERT_EQ(Naive_Code_ok, code);
   ASSERT_TRUE(is_valid);
 
-  Naive_Vector3d_t axis;
-  code = Naive_Plane_Axis(plane_clone, &axis);
-  ASSERT_EQ(Naive_Ok, code);
-  ASSERT_DOUBLE_EQ(1., axis.z);
+  Naive_Plane_t plane_sf_2;
+  code = Naive_Plane_ask(plane_clone, &plane_sf_2);
+  ASSERT_EQ(Naive_Code_ok, code);
+  ASSERT_DOUBLE_EQ(1., plane_sf_2.basis_set.axis.z);
 
-  ASSERT_EQ(Naive_InvalidHandle, Naive_Plane_YAxis(nullptr, &axis));
+  ASSERT_EQ(Naive_Code_invalid_handle, Naive_Plane_ask(nullptr, &plane_sf_2));
 
-  ASSERT_EQ(Naive_Ok, Naive_Transient_Release(plane));
-  ASSERT_EQ(Naive_Ok, Naive_Transient_Release(plane_clone));
+  ASSERT_EQ(Naive_Code_ok, Naive_Transient_release(plane));
+  ASSERT_EQ(Naive_Code_ok, Naive_Transient_release(plane_clone));
 }
 
 int main(int argc, char **argv) {
