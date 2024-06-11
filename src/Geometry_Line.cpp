@@ -13,7 +13,7 @@ Line::Line(const Naive_Point3d &theLocation, const Naive_Vector3d &theDirection)
   myAxis.Normalize();
 }
 
-Line::Line(const Naive_Line_t &theLineT)
+Line::Line(const Naive_Line_sf_t &theLineT)
     : myLocation(theLineT.basis_set.location), myAxis(theLineT.basis_set.axis) {
   myAxis.Normalize();
 }

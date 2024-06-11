@@ -1,12 +1,14 @@
 ﻿#ifndef _NaiveCGL_Interface_NaiveCGL_c_types_HeaderFile
 #define _NaiveCGL_Interface_NaiveCGL_c_types_HeaderFile
 
+/* Naive_Code */
+
 typedef enum {
   Naive_Code_ok = 0,
   Naive_Code_err,
   Naive_Code_not_implemented,
   Naive_Code_initialized = 1000,
-  Naive_Code_null_exception = 1500,
+  Naive_Code_null_arg_address = 1500,
   Naive_Code_invalid_value,
   Naive_Code_invalid_handle,
   Naive_Code_no_intersection,
@@ -27,20 +29,28 @@ typedef enum {
   Naive_Code_invalid_mults,
 } Naive_Code;
 
-typedef enum {
-  Naive_Algorithm_quick_hull = 0,
-  Naive_Algorithm_incremental,
-  Naive_Algorithm_graham_scan,
-  Naive_Algorithm_divide_and_conquer,
-} Naive_Algorithm;
-
-/* Naive_H */
-
-typedef void *Naive_Handle_t;
-
-/* Naive_Code_t */
-
 typedef int Naive_Code_t;
+
+/* TYPEDEFS */
+
+typedef void *Naive_Body_t;
+typedef void *Naive_ConvexHull2D_t;
+typedef void *Naive_Curve_t;
+typedef void *Naive_Edge_t;
+typedef void *Naive_EnclosingDisc_t;
+typedef void *Naive_Face_t;
+typedef void *Naive_Fin_t;
+typedef void *Naive_Geometry_t;
+typedef void *Naive_Line_t;
+typedef void *Naive_Loop_t;
+typedef void *Naive_NurbsCurve_t;
+typedef void *Naive_NurbsSurface_t;
+typedef void *Naive_Plane_t;
+typedef void *Naive_Poly_t;
+typedef void *Naive_Shell_t;
+typedef void *Naive_Surface_t;
+typedef void *Naive_Transient_t;
+typedef void *Naive_Vertex_t;
 
 /* Naive_Logical_t */
 
@@ -96,24 +106,51 @@ typedef struct {
   Naive_Vector3d_t axis;
 } Naive_Axis1_t;
 
-/* Naive_Axis2_t */
+/* Naive_Axis2_sf_t */
 
 typedef struct {
   Naive_Point3d_t location;
   Naive_Vector3d_t axis;
   Naive_Vector3d_t ref_direction;
-} Naive_Axis2_t;
+} Naive_Axis2_sf_t;
 
-/* Naive_Line_t */
+/* Naive_Line_sf_t */
 
 typedef struct {
   Naive_Axis1_t basis_set;
-} Naive_Line_t;
+} Naive_Line_sf_t;
 
-/* Naive_Plane_t */
+/* Naive_Plane_sf_t */
 
 typedef struct {
-  Naive_Axis2_t basis_set;
-} Naive_Plane_t;
+  Naive_Axis2_sf_t basis_set;
+} Naive_Plane_sf_t;
+
+/* Naive_Algorithm */
+
+typedef enum {
+  Naive_Algorithm_quick_hull = 0,
+  Naive_Algorithm_incremental,
+  Naive_Algorithm_graham_scan,
+  Naive_Algorithm_divide_and_conquer,
+} Naive_Algorithm;
+
+typedef int Naive_Algorithm_t;
+
+/* Naive_boolean_function */
+
+typedef enum {
+  Naive_boolean_intersect = 0,
+  Naive_boolean_subtract,
+  Naive_boolean_unite,
+} Naive_boolean_function;
+
+typedef int Naive_boolean_function_t;
+
+/* Naive_Body_boolean_o_t */
+
+typedef struct {
+  Naive_boolean_function_t function;
+} Naive_Body_boolean_o_t;
 
 #endif

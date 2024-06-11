@@ -27,7 +27,7 @@ Plane::Plane(const Naive_Point3d &thePoint, const Naive_Vector3d &theNormal)
   myYAxis.Normalize();
 }
 
-Plane::Plane(const Naive_Plane_t &thePlaneT)
+Plane::Plane(const Naive_Plane_sf_t &thePlaneT)
     : myLocation(thePlaneT.basis_set.location),
       myXAxis(thePlaneT.basis_set.ref_direction),
       myZAxis(thePlaneT.basis_set.axis) {
@@ -90,7 +90,7 @@ Plane Plane::Transformed(const Transform3d &theTrsf) const {
   return Unset();
 }
 
-Naive_Bool Plane::Dump(Naive_Plane_t &thePlaneT) const {
+Naive_Bool Plane::Dump(Naive_Plane_sf_t &thePlaneT) const {
   if (!IsValid())
     return Naive_False;
 

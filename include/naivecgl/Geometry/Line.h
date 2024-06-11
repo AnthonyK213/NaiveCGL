@@ -14,7 +14,7 @@ public:
   Naive_EXPORT Line(const Naive_Point3d &theLocation,
                     const Naive_Vector3d &theDirection);
 
-  Naive_EXPORT Line(const Naive_Line_t &theLineT);
+  Naive_EXPORT Line(const Naive_Line_sf_t &theLineT);
 
   Naive_EXPORT Naive_Point3d Location() const { return myLocation; }
 

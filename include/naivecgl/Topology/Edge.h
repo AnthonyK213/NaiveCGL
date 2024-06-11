@@ -1,0 +1,4 @@
+#ifndef _NaiveCGL_Topology_Edge_HeaderFile
+#define _NaiveCGL_Topology_Edge_HeaderFile
+
+#endif
