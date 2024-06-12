@@ -26,8 +26,11 @@ Nurbs::CheckParam(const Naive_Integer nbPoles, const Naive_Integer nbWeights,
   if (theKnots.size() != theMults.size())
     return Naive_Code_knots_mults_not_match;
 
-  /* 1 <= Mults <= Degree */
   for (Naive_Integer i = 0; i < theMults.size(); ++i) {
+    if (!Util::IsValidReal(theKnots[i]))
+      return Naive_Code_invalid_value;
+
+    /* 1 <= Mults <= Degree */
     if (theMults[i] < 1)
       return Naive_Code_invalid_mults;
 
@@ -42,7 +45,7 @@ Nurbs::CheckParam(const Naive_Integer nbPoles, const Naive_Integer nbWeights,
   /* The knots must be strictly increasing. */
   for (Naive_Integer i = 1; i < theKnots.size(); ++i) {
     if (theKnots[i] <= theKnots[i - 1])
-      return Naive_Code_zero_interval;
+      return Naive_Code_bad_knots;
   }
 
   theSpanIdx.reserve(theMults.size() - 1);

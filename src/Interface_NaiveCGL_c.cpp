@@ -33,7 +33,7 @@ Naive_Code_t Naive_Math_Util_is_valid_real(const double real,
 
 /// Naive_Transient {{{
 
-Naive_Code_t Naive_Transient_release(Naive_Transient_t transient) {
+Naive_Code_t Naive_Transient_free(Naive_Transient_t transient) {
   Naive_H_CAST(Naive_Transient, transient, H);
   if (H && H->DecrementRefCounter() == 0)
     H->Delete();
@@ -228,8 +228,12 @@ Naive_Code_t Naive_NurbsCurve_new(const int n_poles,
   Naive_RealList aWeights(weights, weights + n_weights);
   Naive_RealList aKnots(knots, knots + n_knots);
   Naive_IntegerList aMults(mults, mults + n_mults);
-  Handle_Naive_NurbsCurve aCrv =
-      new Naive_NurbsCurve(aPoles, aWeights, aKnots, aMults, degree);
+
+  Handle_Naive_NurbsCurve aCrv = new Naive_NurbsCurve;
+  Naive_Code aCode = aCrv->Init(aPoles, aWeights, aKnots, aMults, degree);
+  if (aCode)
+    return aCode;
+
   aCrv->IncrementRefCounter();
   *nurbs_curve = aCrv.get();
   return Naive_Code_ok;
@@ -393,8 +397,12 @@ Naive_Code_t Naive_NurbsSurface_new(
   Naive_RealList aVKnots(knots_v, knots_v + n_knots_v);
   Naive_IntegerList aUMults(mults_u, mults_u + n_mults_u);
   Naive_IntegerList aVMults(mults_v, mults_v + n_mults_v);
-  Handle_Naive_NurbsSurface aSrf = new Naive_NurbsSurface(
-      aPoles, aWeights, aUKnots, aVKnots, aUMults, aVMults, degree_u, degree_v);
+  Handle_Naive_NurbsSurface aSrf = new Naive_NurbsSurface;
+  Naive_Code aCode = aSrf->Init(aPoles, aWeights, aUKnots, aVKnots, aUMults,
+                                aVMults, degree_u, degree_v);
+  if (aCode)
+    return aCode;
+
   aSrf->IncrementRefCounter();
   *nurbs_surface = aSrf.get();
   return Naive_Code_ok;

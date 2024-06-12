@@ -121,8 +121,8 @@ TEST(NaiveCGL_CAPI, Geometry) {
 
   ASSERT_EQ(Naive_Code_invalid_handle, Naive_Plane_ask(nullptr, &plane_sf_2));
 
-  ASSERT_EQ(Naive_Code_ok, Naive_Transient_release(plane));
-  ASSERT_EQ(Naive_Code_ok, Naive_Transient_release(plane_clone));
+  ASSERT_EQ(Naive_Code_ok, Naive_Transient_free(plane));
+  ASSERT_EQ(Naive_Code_ok, Naive_Transient_free(plane_clone));
 }
 
 int main(int argc, char **argv) {

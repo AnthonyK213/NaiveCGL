@@ -13,6 +13,17 @@ Naive_Code NurbsCurve::update(P &&thePoles, Rw &&theWeights, Rk &&theKnots,
   if (aCode != Naive_Code_ok)
     return aCode;
 
+  for (Naive_Integer i = 0; i < thePoles.size(); ++i) {
+    if (!thePoles[i].IsValid())
+      return Naive_Code_invalid_value;
+
+    if (!math::Util::IsValidReal(theWeights[i]))
+      return Naive_Code_invalid_value;
+
+    if (theWeights[i] <= 0)
+      return Naive_Code_weight_le_0;
+  }
+
   for (Naive_Integer i = 1; i < theWeights.size(); ++i) {
     if (!math::Util::EpsilonEquals(theWeights[i], theWeights[0])) {
       myRational = Naive_True;

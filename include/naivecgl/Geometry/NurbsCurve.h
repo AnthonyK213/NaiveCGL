@@ -10,11 +10,19 @@ Naive_NAMESPACE_BEGIN(geometry);
 
 class NurbsCurve final : public Curve {
 public:
+  Naive_EXPORT NurbsCurve() noexcept;
+
   Naive_EXPORT NurbsCurve(const Naive_Point3dList &thePoles,
                           const Naive_RealList &theWeights,
                           const Naive_RealList &theKnots,
                           const Naive_IntegerList &theMults,
-                          const Naive_Integer theDegree);
+                          const Naive_Integer theDegree) noexcept;
+
+  Naive_EXPORT Naive_Code Init(const Naive_Point3dList &thePoles,
+                               const Naive_RealList &theWeights,
+                               const Naive_RealList &theKnots,
+                               const Naive_IntegerList &theMults,
+                               const Naive_Integer theDegree) noexcept;
 
   Naive_EXPORT virtual Naive_Bool IsValid() const override;
 

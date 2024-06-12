@@ -3,16 +3,30 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
+NurbsSurface::NurbsSurface() noexcept
+    : myUDegree(0), myVDegree(0), myURational(Naive_False),
+      myVRational(Naive_False), myUPeriodic(Naive_False),
+      myVPeriodic(Naive_False), myUFlatKnots(), myVFlatKnots() {}
+
 NurbsSurface::NurbsSurface(
     const Naive_Point3dList2 &thePoles, const Naive_RealList2 &theWeights,
     const Naive_RealList &theUKnots, const Naive_RealList &theVKnots,
     const Naive_IntegerList &theUMults, const Naive_IntegerList &theVMults,
-    const Naive_Integer theUDegree, const Naive_Integer theVDegree)
+    const Naive_Integer theUDegree, const Naive_Integer theVDegree) noexcept
     : myUDegree(0), myVDegree(0), myURational(Naive_False),
       myVRational(Naive_False), myUPeriodic(Naive_False),
       myVPeriodic(Naive_False), myUFlatKnots(), myVFlatKnots() {
-  update(thePoles, theWeights, theUKnots, theVKnots, theUMults, theVMults,
-         theUDegree, theVDegree);
+  Init(thePoles, theWeights, theUKnots, theVKnots, theUMults, theVMults,
+       theUDegree, theVDegree);
+}
+
+Naive_Code NurbsSurface::Init(
+    const Naive_Point3dList2 &thePoles, const Naive_RealList2 &theWeights,
+    const Naive_RealList &theUKnots, const Naive_RealList &theVKnots,
+    const Naive_IntegerList &theUMults, const Naive_IntegerList &theVMults,
+    const Naive_Integer theUDegree, const Naive_Integer theVDegree) noexcept {
+  return update(thePoles, theWeights, theUKnots, theVKnots, theUMults,
+                theVMults, theUDegree, theVDegree);
 }
 
 Naive_Bool NurbsSurface::IsValid() const {

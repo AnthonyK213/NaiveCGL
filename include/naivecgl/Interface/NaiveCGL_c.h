@@ -20,8 +20,7 @@ Naive_API Naive_Code_t Naive_Math_Util_is_valid_real(
 
 /* Naive_Transient */
 
-Naive_API
-    Naive_Code_t Naive_Transient_release(Naive_Transient_t /* transient */);
+Naive_API Naive_Code_t Naive_Transient_free(Naive_Transient_t /* transient */);
 
 /* Naive_Geometry */
 

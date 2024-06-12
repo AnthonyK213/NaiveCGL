@@ -61,13 +61,13 @@ typedef unsigned char Naive_Logical_t;
 
 /* Naive_XY_t */
 
-typedef struct {
+typedef struct Naive_XY_s {
   double x, y;
 } Naive_XY_t;
 
 /* Naive_XYZ_t */
 
-typedef struct {
+typedef struct Naive_XYZ_s {
   double x, y, z;
 } Naive_XYZ_t;
 
@@ -89,26 +89,26 @@ typedef Naive_XYZ_t Naive_Point3d_t;
 
 /* Naive_Interval_t */
 
-typedef struct {
+typedef struct Naive_Interval_s {
   double t0, t1;
 } Naive_Interval_t;
 
 /* Naive_Triangle_t */
 
-typedef struct {
+typedef struct Naive_Triangle_s {
   int n0, n1, n2;
 } Naive_Triangle_t;
 
-/* Naive_Axis1_t */
+/* Naive_Axis1_sf_t */
 
-typedef struct {
+typedef struct Naive_Axis1_sf_s {
   Naive_Point3d_t location;
   Naive_Vector3d_t axis;
-} Naive_Axis1_t;
+} Naive_Axis1_sf_t;
 
 /* Naive_Axis2_sf_t */
 
-typedef struct {
+typedef struct Naive_Axis2_sf_s {
   Naive_Point3d_t location;
   Naive_Vector3d_t axis;
   Naive_Vector3d_t ref_direction;
@@ -116,13 +116,13 @@ typedef struct {
 
 /* Naive_Line_sf_t */
 
-typedef struct {
-  Naive_Axis1_t basis_set;
+typedef struct Naive_Line_sf_s {
+  Naive_Axis1_sf_t basis_set;
 } Naive_Line_sf_t;
 
 /* Naive_Plane_sf_t */
 
-typedef struct {
+typedef struct Naive_Plane_sf_s {
   Naive_Axis2_sf_t basis_set;
 } Naive_Plane_sf_t;
 
@@ -140,17 +140,22 @@ typedef int Naive_Algorithm_t;
 /* Naive_boolean_function */
 
 typedef enum {
-  Naive_boolean_intersect = 0,
-  Naive_boolean_subtract,
-  Naive_boolean_unite,
+  Naive_boolean_intersect_c = 0,
+  Naive_boolean_subtract_c,
+  Naive_boolean_unite_c,
 } Naive_boolean_function;
 
 typedef int Naive_boolean_function_t;
 
 /* Naive_Body_boolean_o_t */
 
-typedef struct {
+typedef struct Naive_Body_boolean_o_s {
   Naive_boolean_function_t function;
 } Naive_Body_boolean_o_t;
+
+/* Naive_Body_boolean_o_m */
+
+#define Naive_Body_boolean_o_m(options)                                        \
+  ((options).function = Naive_boolean_unite_c)
 
 #endif

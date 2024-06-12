@@ -12,11 +12,19 @@ class NurbsCurve;
 
 class NurbsSurface final : public Surface {
 public:
+  Naive_EXPORT NurbsSurface() noexcept;
+
   Naive_EXPORT NurbsSurface(
       const Naive_Point3dList2 &thePoles, const Naive_RealList2 &theWeights,
       const Naive_RealList &theUKnots, const Naive_RealList &theVKnots,
       const Naive_IntegerList &theUMults, const Naive_IntegerList &theVMults,
-      const Naive_Integer theUDegree, const Naive_Integer theVDegree);
+      const Naive_Integer theUDegree, const Naive_Integer theVDegree) noexcept;
+
+  Naive_EXPORT Naive_Code
+  Init(const Naive_Point3dList2 &thePoles, const Naive_RealList2 &theWeights,
+       const Naive_RealList &theUKnots, const Naive_RealList &theVKnots,
+       const Naive_IntegerList &theUMults, const Naive_IntegerList &theVMults,
+       const Naive_Integer theUDegree, const Naive_Integer theVDegree) noexcept;
 
   Naive_EXPORT virtual Naive_Bool IsValid() const override;
 

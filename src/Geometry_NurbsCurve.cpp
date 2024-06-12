@@ -2,14 +2,26 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
+NurbsCurve::NurbsCurve() noexcept
+    : myDegree(0), myRational(Naive_False), myPeriodic(Naive_False),
+      myFlatKnots(), mySpanIdx() {}
+
 NurbsCurve::NurbsCurve(const Naive_Point3dList &thePoles,
                        const Naive_RealList &theWeights,
                        const Naive_RealList &theKnots,
                        const Naive_IntegerList &theMults,
-                       const Naive_Integer theDegree)
+                       const Naive_Integer theDegree) noexcept
     : myDegree(0), myRational(Naive_False), myPeriodic(Naive_False),
       myFlatKnots(), mySpanIdx() {
-  update(thePoles, theWeights, theKnots, theMults, theDegree);
+  Init(thePoles, theWeights, theKnots, theMults, theDegree);
+}
+
+Naive_Code NurbsCurve::Init(const Naive_Point3dList &thePoles,
+                            const Naive_RealList &theWeights,
+                            const Naive_RealList &theKnots,
+                            const Naive_IntegerList &theMults,
+                            const Naive_Integer theDegree) noexcept {
+  return update(thePoles, theWeights, theKnots, theMults, theDegree);
 }
 
 Naive_Bool NurbsCurve::IsValid() const { return myDegree > 0; }
