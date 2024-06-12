@@ -27,7 +27,7 @@ message(STATUS "Enable testing: ${ENABLE_UNIT_TESTS}")
 
 option(NAIVECGL_BUILD_STATIC "Build static library" OFF)
 
-include(cmake/FetchDeps.cmake)
+include(cmake/FetchEigen3.cmake)
 
 message("eigen3_SOURCE_DIR: ${eigen3_SOURCE_DIR}")
 message("eigen3_BINARY_DIR: ${eigen3_BINARY_DIR}")

@@ -397,6 +397,7 @@ Naive_Code_t Naive_NurbsSurface_new(
   Naive_RealList aVKnots(knots_v, knots_v + n_knots_v);
   Naive_IntegerList aUMults(mults_u, mults_u + n_mults_u);
   Naive_IntegerList aVMults(mults_v, mults_v + n_mults_v);
+
   Handle_Naive_NurbsSurface aSrf = new Naive_NurbsSurface;
   Naive_Code aCode = aSrf->Init(aPoles, aWeights, aUKnots, aVKnots, aUMults,
                                 aVMults, degree_u, degree_v);
