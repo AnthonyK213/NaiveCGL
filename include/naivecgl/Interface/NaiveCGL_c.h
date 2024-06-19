@@ -201,6 +201,13 @@ Naive_API Naive_Code_t Naive_Tessellation_tetrasphere(
 
 /* Naive_Body */
 
+Naive_API Naive_Code_t Naive_Body_ask_location(
+    const Naive_Body_t /* body */, Naive_Transform3d_t *const /* location */);
+
+Naive_API Naive_Code_t
+Naive_Body_ask_orientation(const Naive_Body_t /* body */,
+                           Naive_Orientation_t *const /* orientation */);
+
 Naive_API Naive_Code_t Naive_Body_ask_edges(const Naive_Body_t /* body */,
                                             int *const /* n_edges */,
                                             Naive_Edge_t *const /* edges */);

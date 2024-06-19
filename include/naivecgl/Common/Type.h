@@ -5,6 +5,7 @@
 
 #include <cstdint>
 
+#include <list>
 #include <map>
 #include <memory>
 #include <stack>
@@ -15,6 +16,7 @@
 
 template <typename T> using Naive_List = ::std::vector<T>;
 template <typename T> using Naive_List2 = ::std::vector<::std::vector<T>>;
+template <typename T> using Naive_LinkedList = ::std::list<T>;
 template <typename T> using Naive_Stack = ::std::stack<T>;
 template <typename K, typename V> using Naive_Map = ::std::map<K, V>;
 template <typename K, typename V> using Naive_Hash = ::std::unordered_map<K, V>;

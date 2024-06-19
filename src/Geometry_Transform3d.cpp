@@ -7,6 +7,14 @@ Transform3d::Transform3d() {}
 
 Transform3d::Transform3d(const Naive_Trsf &theTrsf) : myTrsf(theTrsf) {}
 
+Transform3d::Transform3d(const Naive_Transform3d_sf_t &theTrsf) : myTrsf() {
+  for (Naive_Integer row = 0; row < 3; ++row) {
+    for (Naive_Integer col = 0; col < 4; ++col) {
+      myTrsf(row, col) = theTrsf.matrix[row][col];
+    }
+  }
+}
+
 Naive_Bool Transform3d::IsValid() const {
   return Vector3d(myTrsf.translation()).IsValid();
 }

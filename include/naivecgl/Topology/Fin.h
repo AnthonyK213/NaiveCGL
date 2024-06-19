@@ -5,11 +5,23 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
-class Fin final : public Naive_Transient {};
+class Fin final : public Body {
+public:
+  Fin() {}
+};
 
 Naive_NAMESPACE_END(topology);
 
 using Naive_Fin = ::naivecgl::topology::Fin;
-Naive_DEFINE_HANDLE(Naive_Fin);
+
+namespace std {
+
+template <> struct hash<Naive_Fin> {
+  size_t operator()(const Naive_Fin &theBody) const {
+    return ::std::hash<Naive_Body>{}(theBody);
+  }
+};
+
+} // namespace std
 
 #endif

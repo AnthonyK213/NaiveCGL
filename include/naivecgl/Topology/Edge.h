@@ -5,11 +5,10 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
-class Edge final : public Naive_Transient {};
+class Edge final : public Body {};
 
 Naive_NAMESPACE_END(topology);
 
 using Naive_Edge = ::naivecgl::topology::Edge;
-Naive_DEFINE_HANDLE(Naive_Edge);
 
 #endif

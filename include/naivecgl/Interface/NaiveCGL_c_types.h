@@ -29,6 +29,8 @@ typedef enum {
   Naive_Code_invalid_mults,
 } Naive_Code;
 
+/* Naive_Code_t */
+
 typedef int Naive_Code_t;
 
 /* TYPEDEFS */
@@ -48,7 +50,9 @@ typedef void *Naive_NurbsSurface_t;
 typedef void *Naive_Plane_t;
 typedef void *Naive_Poly_t;
 typedef void *Naive_Shell_t;
+typedef void *Naive_Solid_t;
 typedef void *Naive_Surface_t;
+typedef void *Naive_Transform3d_t;
 typedef void *Naive_Transient_t;
 typedef void *Naive_Vertex_t;
 
@@ -99,6 +103,12 @@ typedef struct Naive_Triangle_s {
   int n0, n1, n2;
 } Naive_Triangle_t;
 
+/* Naive_Transform3d_sf_t */
+
+typedef struct Naive_Transform3d_sf_s {
+  double matrix[3][4];
+} Naive_Transform3d_sf_t;
+
 /* Naive_Axis1_sf_t */
 
 typedef struct Naive_Axis1_sf_s {
@@ -126,6 +136,37 @@ typedef struct Naive_Plane_sf_s {
   Naive_Axis2_sf_t basis_set;
 } Naive_Plane_sf_t;
 
+/* Naive_Class */
+
+typedef enum {
+  Naive_Class_compound = 0,
+  Naive_Class_comp_solid,
+  Naive_Class_solid,
+  Naive_Class_shell,
+  Naive_Class_face,
+  Naive_Class_loop,
+  Naive_Class_fin,
+  Naive_Class_edge,
+  Naive_Class_vertex,
+} Naive_Class;
+
+/* Naive_Class_t */
+
+typedef int Naive_Class_t;
+
+/* Naive_Orientation */
+
+typedef enum {
+  Naive_Orientation_forward = 0,
+  Naive_Orientation_reversed,
+  Naive_Orientation_internal,
+  Naive_Orientation_external,
+} Naive_Orientation;
+
+/* Naive_Orientation_t */
+
+typedef int Naive_Orientation_t;
+
 /* Naive_Algorithm */
 
 typedef enum {
@@ -134,6 +175,8 @@ typedef enum {
   Naive_Algorithm_graham_scan,
   Naive_Algorithm_divide_and_conquer,
 } Naive_Algorithm;
+
+/* Naive_Algorithm_t */
 
 typedef int Naive_Algorithm_t;
 
@@ -144,6 +187,8 @@ typedef enum {
   Naive_boolean_subtract_c,
   Naive_boolean_unite_c,
 } Naive_boolean_function;
+
+/* Naive_boolean_function_t */
 
 typedef int Naive_boolean_function_t;
 

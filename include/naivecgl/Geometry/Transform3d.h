@@ -1,6 +1,7 @@
 ﻿#ifndef _NaiveCGL_Geometry_Transform_HeaderFile
 #define _NaiveCGL_Geometry_Transform_HeaderFile
 
+#include <naivecgl/Common/Handle.h>
 #include <naivecgl/Common/Macro.h>
 #include <naivecgl/Common/Type.h>
 #include <naivecgl/Math/Constant.h>
@@ -9,11 +10,13 @@ Naive_NAMESPACE_BEGIN(geometry);
 
 class Vector3d;
 
-class Transform3d final {
+class Transform3d final : public Naive_Transient {
 public:
   Naive_EXPORT Transform3d();
 
   Naive_EXPORT Transform3d(const Naive_Trsf &theTrsf);
+
+  Naive_EXPORT Transform3d(const Naive_Transform3d_sf_t &theTrsf);
 
   Naive_EXPORT const Naive_Trsf &Trsf() const { return myTrsf; }
 
@@ -37,5 +40,6 @@ private:
 Naive_NAMESPACE_END(geometry);
 
 using Naive_Transform3d = ::naivecgl::geometry::Transform3d;
+Naive_DEFINE_HANDLE(Naive_Transform3d);
 
 #endif

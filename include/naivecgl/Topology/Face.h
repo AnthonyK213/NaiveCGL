@@ -5,11 +5,10 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
-class Face final : public Naive_Transient {};
+class Face final : public Body {};
 
 Naive_NAMESPACE_END(topology);
 
 using Naive_Face = ::naivecgl::topology::Face;
-Naive_DEFINE_HANDLE(Naive_Face);
 
 #endif

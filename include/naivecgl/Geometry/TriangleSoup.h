@@ -1,5 +1,5 @@
-﻿#ifndef _NaiveCGL_Shape_TriangleSoup_HeaderFile
-#define _NaiveCGL_Shape_TriangleSoup_HeaderFile
+﻿#ifndef _NaiveCGL_Geometry_TriangleSoup_HeaderFile
+#define _NaiveCGL_Geometry_TriangleSoup_HeaderFile
 
 #include "Point3d.h"
 #include "Triangle.h"

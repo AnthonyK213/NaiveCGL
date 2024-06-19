@@ -384,14 +384,14 @@ Naive_Code_t Naive_NurbsSurface_new(
   const Naive_Point3d_t *aPHead = poles;
   for (Naive_Integer i = 0; i < n_poles_u; ++i, aPHead += n_poles_v) {
     Naive_Point3dList aVP(aPHead, aPHead + n_poles_v);
-    aPoles.push_back(::std::move(aVP));
+    aPoles.emplace_back(::std::move(aVP));
   }
   Naive_RealList2 aWeights{};
   aWeights.reserve(n_weights_u);
   const Naive_Real *aWHead = weights;
   for (Naive_Integer i = 0; i < n_weights_u; ++i, aWHead += n_weights_v) {
     Naive_RealList aVW(aWHead, aWHead + n_weights_v);
-    aWeights.push_back(::std::move(aVW));
+    aWeights.emplace_back(::std::move(aVW));
   }
   Naive_RealList aUKnots(knots_u, knots_u + n_knots_u);
   Naive_RealList aVKnots(knots_v, knots_v + n_knots_v);
@@ -689,6 +689,17 @@ Naive_Code_t Naive_Tessellation_tetrasphere(const Naive_Point3d_t *center,
 /// }}}
 
 /// Naive_Body {{{
+
+Naive_Code_t Naive_Body_ask_location(const Naive_Body_t body,
+                                     Naive_Transform3d_t *const location) {
+  return Naive_Code_not_implemented;
+}
+
+Naive_Code_t
+Naive_Body_ask_orientation(const Naive_Body_t body,
+                           Naive_Orientation_t *const orientation) {
+  return Naive_Code_not_implemented;
+}
 
 Naive_Code_t Naive_Body_ask_edges(const Naive_Body_t body, int *const n_edges,
                                   Naive_Edge_t *const edges) {
