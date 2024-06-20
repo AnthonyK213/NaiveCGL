@@ -137,14 +137,14 @@ HalfEdgeMesh::HalfEdgeMesh()
     : myVertexIndex(0), myFaceIndex(0), myVertexSlots(), myFaceSlots(),
       myVertices(), myHalfEdges(), myFaces(), myIsValid(Naive_False) {}
 
-HalfEdgeMesh::HalfEdgeMesh(const TriangleSoup &theTriangleSoup)
+HalfEdgeMesh::HalfEdgeMesh(const Naive_Poly &thePoly)
     : myVertexIndex(0), myFaceIndex(0), myVertexSlots(), myFaceSlots(),
       myVertices(), myHalfEdges(), myFaces(), myIsValid(Naive_False) {
-  for (const Naive_Point3d &aVertex : theTriangleSoup.Vertices()) {
+  for (const Naive_Point3d &aVertex : thePoly.Vertices()) {
     AddVertex(aVertex);
   }
 
-  for (const Naive_Triangle &aTriangle : theTriangleSoup.Triangles()) {
+  for (const Naive_Triangle &aTriangle : thePoly.Triangles()) {
     if (AddFace(aTriangle(0), aTriangle(1), aTriangle(2)) < 0)
       return;
   }
@@ -251,7 +251,7 @@ Handle_Naive_Poly HalfEdgeMesh::Soup(Naive_Bool theCompat) const {
     aTriangles.push_back(aTriangle);
   }
 
-  return new TriangleSoup(::std::move(aVertices), ::std::move(aTriangles));
+  return new Naive_Poly(::std::move(aVertices), ::std::move(aTriangles));
 }
 
 Naive_Bool HalfEdgeMesh::addVertex(const VertexId theId,

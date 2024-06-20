@@ -139,7 +139,7 @@ public:
   Naive_EXPORT HalfEdgeMesh();
 
   /// @brief Construct a half-edge mesh from a trangle soup.
-  Naive_EXPORT explicit HalfEdgeMesh(const TriangleSoup &theTriangleSoup);
+  Naive_EXPORT explicit HalfEdgeMesh(const Naive_Poly &thePoly);
 
   Naive_EXPORT Naive_Bool IsValid() const { return myIsValid; }
 

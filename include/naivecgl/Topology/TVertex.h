@@ -9,9 +9,10 @@ Naive_NAMESPACE_BEGIN(topology);
 
 class TVertex final : public TBody {
 public:
-  Naive_EXPORT virtual Naive_Class Class() const override {
-    return Naive_Class_vertex;
-  }
+  Naive_EXPORT virtual Naive_Class Class() const override;
+
+private:
+  Naive_Point3d myPnt;
 };
 
 Naive_NAMESPACE_END(topology);
