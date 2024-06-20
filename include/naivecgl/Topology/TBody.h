@@ -12,7 +12,6 @@ public:
   Naive_EXPORT virtual Naive_Class Class() const = 0;
 
 private:
-  Naive_LinkedList<Body> myBodies;
 };
 
 Naive_NAMESPACE_END(topology);
