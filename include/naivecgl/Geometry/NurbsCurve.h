@@ -1,10 +1,8 @@
 ﻿#ifndef _NaiveCGL_Geometry_NurbsCurve_HeaderFile
 #define _NaiveCGL_Geometry_NurbsCurve_HeaderFile
 
+#include "../Math/Nurbs.h"
 #include "Curve.h"
-
-#include <naivecgl/Common/Handle.h>
-#include <naivecgl/Math/Nurbs.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
@@ -24,9 +22,9 @@ public:
                                const Naive_IntegerList &theMults,
                                const Naive_Integer theDegree) noexcept;
 
-  Naive_EXPORT virtual Naive_Bool IsValid() const override;
+  Naive_EXPORT virtual Naive_Bool IsValid() const Naive_OVERRIDE;
 
-  Naive_EXPORT virtual Handle_Naive_Geometry Clone() const override;
+  Naive_EXPORT virtual Handle_Naive_Geometry Clone() const Naive_OVERRIDE;
 
   Naive_EXPORT Naive_Integer Degree() const { return myDegree; }
 
@@ -52,26 +50,26 @@ public:
     return myMults;
   }
 
-  Naive_EXPORT virtual Naive_Real FirstParameter() const override;
+  Naive_EXPORT virtual Naive_Real FirstParameter() const Naive_OVERRIDE;
 
-  Naive_EXPORT virtual Naive_Real LastParameter() const override;
+  Naive_EXPORT virtual Naive_Real LastParameter() const Naive_OVERRIDE;
 
   Naive_EXPORT Naive_Bool IsRational() const { return myRational; }
 
   Naive_EXPORT Naive_Bool IsPeriodic() const { return myPeriodic; }
 
   Naive_EXPORT virtual Naive_Point3d
-  PointAt(const Naive_Real theT) const override;
+  PointAt(const Naive_Real theT) const Naive_OVERRIDE;
 
   Naive_EXPORT virtual Naive_Vector3d
-  TangentAt(const Naive_Real theT) const override;
+  TangentAt(const Naive_Real theT) const Naive_OVERRIDE;
 
   Naive_EXPORT virtual Naive_Code
   DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
-               Naive_Vector3dList &theD) const override;
+               Naive_Vector3dList &theD) const Naive_OVERRIDE;
 
   Naive_EXPORT virtual Naive_Code
-  CurvatureAt(const Naive_Real theT, Naive_Vector3d &theV) const override;
+  CurvatureAt(const Naive_Real theT, Naive_Vector3d &theV) const Naive_OVERRIDE;
 
   Naive_EXPORT Naive_Code IncreaseDegree(const Naive_Integer theDegree);
 

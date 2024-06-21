@@ -1,6 +1,7 @@
 ﻿#ifndef _NaiveCGL_Math_Nurbs_HeaderFile
 #define _NaiveCGL_Math_Nurbs_HeaderFile
 
+#include "../Geometry/Point3d.h"
 #include "Constant.h"
 #include "Polynomial.h"
 

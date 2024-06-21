@@ -74,7 +74,7 @@ public:
   ~QuickHull2D() {}
 
 public:
-  void Perform() override {
+  void Perform() Naive_OVERRIDE {
     if (myStatus != Naive_Code_initialized)
       return;
 
@@ -104,7 +104,7 @@ public:
   }
 
   void Add(const Naive_Point2d &thePoint,
-           const Naive_Bool thePerform) override {
+           const Naive_Bool thePerform) Naive_OVERRIDE {
     Naive_Bool aRealloc = myPoints->capacity() == myPoints->size();
     myPoints->push_back(thePoint);
 

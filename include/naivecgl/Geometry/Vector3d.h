@@ -1,7 +1,7 @@
 ﻿#ifndef _NaiveCGL_Geometry_Vector3d_HeaderFile
 #define _NaiveCGL_Geometry_Vector3d_HeaderFile
 
-#include <naivecgl/Math/Constant.h>
+#include "../Math/Constant.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 

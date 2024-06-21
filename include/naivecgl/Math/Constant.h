@@ -1,8 +1,8 @@
 ﻿#ifndef _NaiveCGL_Math_Constant_HeaderFile
 #define _NaiveCGL_Math_Constant_HeaderFile
 
-#include <naivecgl/Common/Macro.h>
-#include <naivecgl/Common/Type.h>
+#include "../Common/Macro.h"
+#include "../Common/Type.h"
 
 #include <cmath>
 

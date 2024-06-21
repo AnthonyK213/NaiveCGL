@@ -1,9 +1,9 @@
 ﻿#ifndef _NaiveCGL_BndShape_ConvexHull2D_HeaderFile
 #define _NaiveCGL_BndShape_ConvexHull2D_HeaderFile
 
-#include <naivecgl/Common/Handle.h>
-#include <naivecgl/Geometry/Point2d.h>
-#include <naivecgl/Geometry/Vector2d.h>
+#include "../Common/Handle.h"
+#include "../Geometry/Point2d.h"
+#include "../Geometry/Vector2d.h"
 
 Naive_NAMESPACE_BEGIN(bndshape);
 

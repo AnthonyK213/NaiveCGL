@@ -1,10 +1,7 @@
 ﻿#ifndef _NaiveCGL_Geometry_HalfEdgeMesh_HeaderFile
 #define _NaiveCGL_Geometry_HalfEdgeMesh_HeaderFile
 
-#include "Point3d.h"
 #include "TriangleSoup.h"
-
-#include <naivecgl/Common/Handle.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 

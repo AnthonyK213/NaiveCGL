@@ -1,17 +1,17 @@
 #ifndef _NaiveCGL_Topology_Location_HeaderFile
 #define _NaiveCGL_Topology_Location_HeaderFile
 
-#include <naivecgl/Geometry/Transform3d.h>
+#include "../Geometry/Transform3d.h"
 
 Naive_NAMESPACE_BEGIN(topology);
 
 class Location final {
 public:
-  Location() {};
+  Naive_EXPORT Location() {};
 
-  void Clear();
+  Naive_EXPORT void Clear();
 
-  Naive_Bool operator==(const Location &theOther) const {
+  Naive_EXPORT Naive_Bool operator==(const Location &theOther) const {
     // TODO: Implementation.
     return Naive_True;
   }

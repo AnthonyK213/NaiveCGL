@@ -1,10 +1,10 @@
 ﻿#ifndef _NaiveCGL_BndShape_ConvexHull3D_HeaderFile
 #define _NaiveCGL_BndShape_ConvexHull3D_HeaderFile
 
-#include <naivecgl/Common/Handle.h>
-#include <naivecgl/Geometry/HalfEdgeMesh.h>
-#include <naivecgl/Geometry/Point3d.h>
-#include <naivecgl/Geometry/TriangleSoup.h>
+#include "../Common/Handle.h"
+#include "../Geometry/HalfEdgeMesh.h"
+#include "../Geometry/Point3d.h"
+#include "../Geometry/TriangleSoup.h"
 
 Naive_NAMESPACE_BEGIN(bndshape);
 

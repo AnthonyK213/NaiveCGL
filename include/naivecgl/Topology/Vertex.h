@@ -1,27 +1,28 @@
 #ifndef _NaiveCGL_Topology_Vertex_HeaderFile
 #define _NaiveCGL_Topology_Vertex_HeaderFile
 
-#include "Body.h"
+#include "../Geometry/Point3d.h"
+#include "Topol.h"
 
 Naive_NAMESPACE_BEGIN(topology);
 
-class Vertex final : public Body {
+class Edge;
+
+class Vertex final : public Naive_Topol {
 public:
-  Vertex() {}
+  Naive_EXPORT Vertex();
+
+  Naive_EXPORT virtual Naive_Class Class() const Naive_OVERRIDE;
+
+  Naive_EXPORT Edge *ParentEdge() const;
+
+private:
+  Naive_Point3d myPnt;
 };
 
 Naive_NAMESPACE_END(topology);
 
 using Naive_Vertex = ::naivecgl::topology::Vertex;
-
-namespace std {
-
-template <> struct hash<Naive_Vertex> {
-  size_t operator()(const Naive_Vertex &theBody) const {
-    return ::std::hash<Naive_Body>{}(theBody);
-  }
-};
-
-} // namespace std
+Naive_DEFINE_HANDLE(Naive_Vertex);
 
 #endif

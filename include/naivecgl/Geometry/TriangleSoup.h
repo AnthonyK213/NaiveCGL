@@ -1,11 +1,10 @@
 ﻿#ifndef _NaiveCGL_Geometry_TriangleSoup_HeaderFile
 #define _NaiveCGL_Geometry_TriangleSoup_HeaderFile
 
+#include "../Common/Handle.h"
 #include "Point3d.h"
 #include "Triangle.h"
 #include "Vector3d.h"
-
-#include <naivecgl/Common/Handle.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 

@@ -5,23 +5,22 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
-class Fin final : public Body {
+class Loop;
+
+class Fin final : public Topol {
 public:
-  Fin() {}
+  Naive_EXPORT Fin();
+
+  Naive_EXPORT virtual Naive_Class Class() const Naive_OVERRIDE;
+
+  Naive_EXPORT Loop *ParentLoop() const;
+
+private:
 };
 
 Naive_NAMESPACE_END(topology);
 
 using Naive_Fin = ::naivecgl::topology::Fin;
-
-namespace std {
-
-template <> struct hash<Naive_Fin> {
-  size_t operator()(const Naive_Fin &theBody) const {
-    return ::std::hash<Naive_Body>{}(theBody);
-  }
-};
-
-} // namespace std
+Naive_DEFINE_HANDLE(Naive_Fin);
 
 #endif

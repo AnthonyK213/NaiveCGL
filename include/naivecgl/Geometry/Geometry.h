@@ -1,7 +1,7 @@
 ﻿#ifndef _NaiveCGL_Geometry_Geometry_HeaderFile
 #define _NaiveCGL_Geometry_Geometry_HeaderFile
 
-#include <naivecgl/Common/Handle.h>
+#include "../Common/Handle.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 

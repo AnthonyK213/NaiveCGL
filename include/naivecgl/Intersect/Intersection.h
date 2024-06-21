@@ -1,8 +1,8 @@
 ﻿#ifndef _NaiveCGL_Intersect_Intersection_HeaderFile
 #define _NaiveCGL_Intersect_Intersection_HeaderFile
 
-#include <naivecgl/Geometry/Line.h>
-#include <naivecgl/Geometry/Plane.h>
+#include "../Geometry/Line.h"
+#include "../Geometry/Plane.h"
 
 Naive_NAMESPACE_BEGIN(intersect);
 

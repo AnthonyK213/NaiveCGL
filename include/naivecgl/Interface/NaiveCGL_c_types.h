@@ -139,8 +139,9 @@ typedef struct Naive_Plane_sf_s {
 /* Naive_Class */
 
 typedef enum {
-  Naive_Class_compound = 0,
-  Naive_Class_comp_solid,
+  Naive_Class_standard_body = 0,
+  Naive_Class_compound_body,
+  Naive_Class_child_body,
   Naive_Class_solid,
   Naive_Class_shell,
   Naive_Class_face,

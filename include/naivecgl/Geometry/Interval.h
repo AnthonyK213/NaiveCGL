@@ -1,8 +1,8 @@
 ﻿#ifndef _NaiveCGL_Geometry_Interval_HeaderFile
 #define _NaiveCGL_Geometry_Interval_HeaderFile
 
-#include <naivecgl/Common/Macro.h>
-#include <naivecgl/Common/Type.h>
+#include "../Common/Macro.h"
+#include "../Common/Type.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 

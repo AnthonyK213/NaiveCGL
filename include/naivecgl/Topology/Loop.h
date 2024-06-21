@@ -5,23 +5,20 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
-class Loop final : public Body {
+class Face;
+
+class Loop final : public Topol {
 public:
-  Loop() {};
+  Naive_EXPORT Loop();
+
+  Naive_EXPORT virtual Naive_Class Class() const Naive_OVERRIDE;
+
+  Naive_EXPORT Face *ParentFace() const;
 };
 
 Naive_NAMESPACE_END(topology);
 
 using Naive_Loop = ::naivecgl::topology::Loop;
-
-namespace std {
-
-template <> struct hash<Naive_Loop> {
-  size_t operator()(const Naive_Loop &theBody) const {
-    return ::std::hash<Naive_Body>{}(theBody);
-  }
-};
-
-} // namespace std
+Naive_DEFINE_HANDLE(Naive_Loop);
 
 #endif

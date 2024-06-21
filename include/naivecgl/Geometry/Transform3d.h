@@ -1,10 +1,10 @@
 ﻿#ifndef _NaiveCGL_Geometry_Transform_HeaderFile
 #define _NaiveCGL_Geometry_Transform_HeaderFile
 
-#include <naivecgl/Common/Handle.h>
-#include <naivecgl/Common/Macro.h>
-#include <naivecgl/Common/Type.h>
-#include <naivecgl/Math/Constant.h>
+#include "../Common/Handle.h"
+#include "../Common/Macro.h"
+#include "../Common/Type.h"
+#include "../Math/Constant.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 

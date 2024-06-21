@@ -12,7 +12,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include <naivecgl/Interface/NaiveCGL_c_types.h>
+#include "../Interface/NaiveCGL_c_types.h"
 
 template <typename T> using Naive_List = ::std::vector<T>;
 template <typename T> using Naive_List2 = ::std::vector<::std::vector<T>>;

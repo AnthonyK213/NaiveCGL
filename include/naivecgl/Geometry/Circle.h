@@ -12,26 +12,26 @@ public:
 
   Naive_EXPORT Circle(const Plane &thePlane, const Naive_Real theRadius);
 
-  Naive_EXPORT virtual Naive_Bool IsValid() const override;
+  Naive_EXPORT virtual Naive_Bool IsValid() const Naive_OVERRIDE;
 
-  Naive_EXPORT virtual Handle_Naive_Geometry Clone() const override;
+  Naive_EXPORT virtual Handle_Naive_Geometry Clone() const Naive_OVERRIDE;
 
-  Naive_EXPORT virtual Naive_Real FirstParameter() const override;
+  Naive_EXPORT virtual Naive_Real FirstParameter() const Naive_OVERRIDE;
 
-  Naive_EXPORT virtual Naive_Real LastParameter() const override;
+  Naive_EXPORT virtual Naive_Real LastParameter() const Naive_OVERRIDE;
 
   Naive_EXPORT virtual Naive_Point3d
-  PointAt(const Naive_Real theT) const override;
+  PointAt(const Naive_Real theT) const Naive_OVERRIDE;
 
   Naive_EXPORT virtual Naive_Vector3d
-  TangentAt(const Naive_Real theT) const override;
+  TangentAt(const Naive_Real theT) const Naive_OVERRIDE;
 
   Naive_EXPORT virtual Naive_Code
   DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
-               Naive_Vector3dList &theD) const override;
+               Naive_Vector3dList &theD) const Naive_OVERRIDE;
 
   Naive_EXPORT virtual Naive_Code
-  CurvatureAt(const Naive_Real theT, Naive_Vector3d &theV) const override;
+  CurvatureAt(const Naive_Real theT, Naive_Vector3d &theV) const Naive_OVERRIDE;
 
 private:
   Plane myPlane;
