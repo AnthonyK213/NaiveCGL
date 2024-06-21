@@ -13,7 +13,10 @@ public:
 
   Naive_EXPORT virtual Naive_Class Class() const Naive_OVERRIDE;
 
-  Naive_EXPORT Body *ParentBody() const;
+  Naive_EXPORT Naive_Handle<Body> ParentBody() const;
+
+private:
+  Naive_LinkedList<Handle_Naive_Shell> myShells;
 };
 
 Naive_NAMESPACE_END(topology);

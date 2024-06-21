@@ -3,10 +3,12 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
-Vertex::Vertex() : Naive_Topol() {}
+Vertex::Vertex() : Naive_Topol(), myTol(math::Constant::DefaultVTol()) {}
 
 Naive_Class Vertex::Class() const { return Naive_Class_vertex; }
 
-Edge *Vertex::ParentEdge() const { return dynamic_cast<Edge *>(myParent); }
+Handle_Naive_Edge Vertex::ParentEdge() const {
+  return Handle_Naive_Edge::DownCast(myParent);
+}
 
 Naive_NAMESPACE_END(topology);

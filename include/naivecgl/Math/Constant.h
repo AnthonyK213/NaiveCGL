@@ -50,9 +50,17 @@ public:
     return 2.3283064365386962890625e-10;
   }
 
-  static constexpr Naive_Real DefaultAngleTolerance() { return PI() / 180.0; }
+  static constexpr Naive_Real DefaultATol() {
+    return PI() / 360.0; /* 0.5 deg */
+  }
 
-  static constexpr Naive_Real DefaultDistanceTolerance() { return 1e-2; }
+  static constexpr Naive_Real DefaultDTol() { return 1e-3; }
+
+  static constexpr Naive_Real DefaultVTol() { return 3. * DefaultDTol(); }
+
+  static constexpr Naive_Real DefaultETol() { return 2. * DefaultDTol(); }
+
+  static constexpr Naive_Real DefaultFTol() { return DefaultDTol(); }
 };
 
 Naive_NAMESPACE_END(math);

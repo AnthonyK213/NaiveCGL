@@ -1,0 +1,4 @@
+#ifndef _NaiveCGL_BRep_CurveRep_HeaderFile
+#define _NaiveCGL_BRep_CurveRep_HeaderFile
+
+#endif

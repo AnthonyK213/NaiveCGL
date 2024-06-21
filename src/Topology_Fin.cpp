@@ -7,6 +7,8 @@ Fin::Fin() : Naive_Topol() {}
 
 Naive_Class Fin::Class() const { return Naive_Class_fin; }
 
-Loop *Fin::ParentLoop() const { return dynamic_cast<Loop *>(myParent); }
+Handle_Naive_Loop Fin::ParentLoop() const {
+  return Handle_Naive_Loop::DownCast(myParent);
+}
 
 Naive_NAMESPACE_END(topology);

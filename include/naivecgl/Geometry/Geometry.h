@@ -9,12 +9,12 @@ class Geometry : public Naive_Transient {
 public:
   Naive_EXPORT virtual Naive_Bool IsValid() const = 0;
 
-  Naive_EXPORT virtual common::handle<Geometry> Clone() const = 0;
+  Naive_EXPORT virtual Naive_Handle<Geometry> Clone() const = 0;
 
   // Naive_EXPORT virtual Naive_Bool
   // Transform(const Naive_Transform3d &theTrsf) = 0;
 
-  // Naive_EXPORT virtual common::handle<Geometry>
+  // Naive_EXPORT virtual Naive_Handle<Geometry>
   // Transformed(const Naive_Transform3d &theTrsf) = 0;
 };
 

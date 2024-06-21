@@ -3,10 +3,12 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
-Edge::Edge() : Naive_Topol() {}
+Edge::Edge() : Naive_Topol(), myTol(math::Constant::DefaultETol()) {}
 
 Naive_Class Edge::Class() const { return Naive_Class_edge; }
 
-Fin *Edge::ParentFin() const { return dynamic_cast<Fin *>(myParent); }
+Handle_Naive_Fin Edge::ParentFin() const {
+  return Handle_Naive_Fin::DownCast(myParent);
+}
 
 Naive_NAMESPACE_END(topology);

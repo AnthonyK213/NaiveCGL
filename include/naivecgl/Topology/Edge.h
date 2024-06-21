@@ -14,11 +14,12 @@ public:
 
   Naive_EXPORT virtual Naive_Class Class() const Naive_OVERRIDE;
 
-  Naive_EXPORT Fin *ParentFin() const;
+  Naive_EXPORT Naive_Handle<Fin> ParentFin() const;
 
 private:
+  Naive_Real myTol;
   Handle_Naive_Curve myCrv;
-  Naive_Vertex myVerts[2];
+  Handle_Naive_Vertex myVerts[2];
 };
 
 Naive_NAMESPACE_END(topology);

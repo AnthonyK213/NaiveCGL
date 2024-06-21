@@ -7,9 +7,13 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
+class Body;
+
 class Topol : public Naive_Transient {
 public:
-  Naive_EXPORT Topol *Parent() const { return myParent; }
+  Topol(const Topol &theOther) = delete;
+
+  Naive_EXPORT Naive_Handle<Topol> Parent() const { return myParent; }
 
   Naive_EXPORT const Naive_Location &LocationLocal() const {
     return myLocation;
@@ -31,16 +35,18 @@ public:
 
   Naive_EXPORT virtual Naive_Class Class() const = 0;
 
-protected:
-  Topol()
-      : myParent(0), myTol(math::Constant::DefaultDistanceTolerance()),
-        myLocation(), myOrient(Naive_Orientation_forward) {}
+  Naive_EXPORT virtual Naive_Handle<Topol> TopTopol() const;
 
 protected:
-  Topol *myParent;
-  Naive_Real myTol;
+  Topol()
+      : myParent(0), myFlags(0), myLocation(),
+        myOrient(Naive_Orientation_forward_c) {}
+
+protected:
   Naive_Location myLocation;
+  Topol *myParent;
   Naive_Orientation myOrient;
+  Naive_Integer myFlags;
 };
 
 Naive_NAMESPACE_END(topology);

@@ -1,6 +1,7 @@
 #ifndef _NaiveCGL_Topology_Face_HeaderFile
 #define _NaiveCGL_Topology_Face_HeaderFile
 
+#include "../Geometry/Surface.h"
 #include "Loop.h"
 
 Naive_NAMESPACE_BEGIN(topology);
@@ -13,7 +14,12 @@ public:
 
   Naive_EXPORT virtual Naive_Class Class() const Naive_OVERRIDE;
 
-  Naive_EXPORT Shell *ParentShell() const;
+  Naive_EXPORT Naive_Handle<Shell> ParentShell() const;
+
+private:
+  Naive_Real myTol;
+  Handle_Naive_Surface mySrf;
+  Naive_LinkedList<Handle_Naive_Loop> myLoops;
 };
 
 Naive_NAMESPACE_END(topology);

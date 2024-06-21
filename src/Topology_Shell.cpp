@@ -7,6 +7,8 @@ Shell::Shell() : Naive_Topol() {}
 
 Naive_Class Shell::Class() const { return Naive_Class_shell; }
 
-Solid *Shell::ParentShell() const { return dynamic_cast<Solid *>(myParent); }
+Handle_Naive_Solid Shell::ParentShell() const {
+  return Handle_Naive_Solid::DownCast(myParent);
+}
 
 Naive_NAMESPACE_END(topology);

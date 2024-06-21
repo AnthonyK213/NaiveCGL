@@ -139,9 +139,7 @@ typedef struct Naive_Plane_sf_s {
 /* Naive_Class */
 
 typedef enum {
-  Naive_Class_standard_body = 0,
-  Naive_Class_compound_body,
-  Naive_Class_child_body,
+  Naive_Class_body = 0,
   Naive_Class_solid,
   Naive_Class_shell,
   Naive_Class_face,
@@ -158,10 +156,10 @@ typedef int Naive_Class_t;
 /* Naive_Orientation */
 
 typedef enum {
-  Naive_Orientation_forward = 0,
-  Naive_Orientation_reversed,
-  Naive_Orientation_internal,
-  Naive_Orientation_external,
+  Naive_Orientation_forward_c = 0,
+  Naive_Orientation_reversed_c,
+  Naive_Orientation_internal_c,
+  Naive_Orientation_external_c,
 } Naive_Orientation;
 
 /* Naive_Orientation_t */
@@ -180,6 +178,18 @@ typedef enum {
 /* Naive_Algorithm_t */
 
 typedef int Naive_Algorithm_t;
+
+/* Naive_Loop_type */
+
+typedef enum {
+  Naive_Loop_type_vertex_c = 0,
+  Naive_Loop_type_outer_c = 0,
+  Naive_Loop_type_inner_c = 0,
+} Naive_Loop_type;
+
+/* Naive_Loop_type_t */
+
+typedef int Naive_Loop_type_t;
 
 /* Naive_boolean_function */
 

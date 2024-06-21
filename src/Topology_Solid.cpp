@@ -7,6 +7,8 @@ Solid::Solid() : Naive_Topol() {}
 
 Naive_Class Solid::Class() const { return Naive_Class_solid; }
 
-Body *Solid::ParentBody() const { return dynamic_cast<Body *>(myParent); }
+Handle_Naive_Body Solid::ParentBody() const {
+  return Handle_Naive_Body::DownCast(myParent);
+}
 
 Naive_NAMESPACE_END(topology);

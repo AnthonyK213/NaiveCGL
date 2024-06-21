@@ -14,9 +14,10 @@ public:
 
   Naive_EXPORT virtual Naive_Class Class() const Naive_OVERRIDE;
 
-  Naive_EXPORT Edge *ParentEdge() const;
+  Naive_EXPORT Naive_Handle<Edge> ParentEdge() const;
 
 private:
+  Naive_Real myTol;
   Naive_Point3d myPnt;
 };
 

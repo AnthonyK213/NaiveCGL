@@ -1,7 +1,7 @@
 #ifndef _NaiveCGL_Topology_Loop_HeaderFile
 #define _NaiveCGL_Topology_Loop_HeaderFile
 
-#include "Edge.h"
+#include "Fin.h"
 
 Naive_NAMESPACE_BEGIN(topology);
 
@@ -13,7 +13,11 @@ public:
 
   Naive_EXPORT virtual Naive_Class Class() const Naive_OVERRIDE;
 
-  Naive_EXPORT Face *ParentFace() const;
+  Naive_EXPORT Naive_Handle<Face> ParentFace() const;
+
+private:
+  Naive_LinkedList<Handle_Naive_Fin> myFins;
+  Naive_Loop_type myType;
 };
 
 Naive_NAMESPACE_END(topology);

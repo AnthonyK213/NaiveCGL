@@ -5,11 +5,14 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
-class Body : public Naive_Topol {
+class Body final : public Naive_Topol {
 public:
   Naive_EXPORT Body();
 
   Naive_EXPORT virtual Naive_Class Class() const Naive_OVERRIDE;
+
+private:
+  Naive_LinkedList<Handle_Naive_Topol> myChildren;
 };
 
 Naive_NAMESPACE_END(topology);
