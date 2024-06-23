@@ -8,8 +8,8 @@ Naive_NAMESPACE_BEGIN(intersect);
 
 class Intersection {
 public:
-  Naive_EXPORT static Naive_Code LinePlane(const Naive_Line &theLine,
-                                           const Naive_Plane &thePlane,
+  Naive_EXPORT static Naive_Code LinePlane(const Handle_Naive_Line &theLine,
+                                           const Handle_Naive_Plane &thePlane,
                                            Naive_Real &theT);
 };
 

@@ -1,69 +1,35 @@
 ﻿#ifndef _NaiveCGL_Geometry_Plane_HeaderFile
 #define _NaiveCGL_Geometry_Plane_HeaderFile
 
-#include "Geometry.h"
-#include "Point3d.h"
-#include "Transform3d.h"
-#include "Vector3d.h"
+#include "../Math/Pln.h"
+#include "Surface.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-class Plane final : public Geometry {
+class Plane final : public Naive_Surface {
 public:
   Naive_EXPORT Plane();
 
-  Naive_EXPORT Plane(const Naive_Point3d &thePoint,
-                     const Naive_Vector3d &theXAxis,
-                     const Naive_Vector3d &theYAxis);
+  Naive_EXPORT Plane(const Naive_Pln &thePln);
 
-  Naive_EXPORT Plane(const Naive_Point3d &thePoint,
-                     const Naive_Vector3d &theNormal);
-
-  Naive_EXPORT Plane(const Naive_Plane_sf_t &thePlaneT);
+  const Naive_Pln &Pln() const { return myPln; }
 
   Naive_EXPORT virtual Naive_Bool IsValid() const Naive_OVERRIDE;
 
   Naive_EXPORT virtual Handle_Naive_Geometry Clone() const Naive_OVERRIDE;
 
-  Naive_EXPORT const Naive_Point3d &Location() const { return myLocation; }
+  Naive_EXPORT virtual Naive_Pnt3d
+  PointAt(const Naive_Real theU, const Naive_Real theV) const Naive_OVERRIDE;
 
-  Naive_EXPORT const Naive_Vector3d &XAxis() const { return myXAxis; }
+  Naive_EXPORT virtual Naive_Code
+  Evaluate(const Naive_Real theU, const Naive_Real theV,
+           const Naive_Integer theN,
+           Naive_Vec3dList1 &theD) const Naive_OVERRIDE;
 
-  Naive_EXPORT const Naive_Vector3d &YAxis() const { return myYAxis; }
-
-  Naive_EXPORT const Naive_Vector3d &Axis() const { return myZAxis; }
-
-  Naive_EXPORT Naive_Real Distance(const Naive_Point3d &thePoint) const;
-
-  Naive_EXPORT static const Plane &Unset();
-
-  Naive_EXPORT static const Plane &WorldXY();
-
-  Naive_EXPORT static const Plane &WorldYZ();
-
-  Naive_EXPORT static const Plane &WorldZX();
-
-  Naive_EXPORT Naive_Bool Transform(const Transform3d &theTrsf);
-
-  Naive_EXPORT Plane Transformed(const Transform3d &theTrsf) const;
-
-  Naive_EXPORT Naive_Bool Dump(Naive_Plane_sf_t &thePlaneT) const;
-
-  Naive_EXPORT Naive_Bool Orient(const Plane &thePln,
-                                 Transform3d &theTrsf) const;
+  Naive_EXPORT Naive_Real Distance(const Naive_Pnt3d &theP) const;
 
 private:
-  void initInvalid();
-
-  Naive_Bool initByXY();
-
-  Naive_Bool initByZX();
-
-private:
-  Naive_Point3d myLocation;
-  Naive_Vector3d myXAxis;
-  Naive_Vector3d myYAxis;
-  Naive_Vector3d myZAxis;
+  Naive_Pln myPln;
 };
 
 Naive_NAMESPACE_END(geometry);

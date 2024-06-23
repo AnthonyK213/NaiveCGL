@@ -1,14 +1,15 @@
 ﻿#include <naivecgl/BndShape/EnclosingDisc.h>
+#include <naivecgl/Math/Constant.h>
 
 Naive_NAMESPACE_BEGIN(bndshape);
 
 EnclosingDisc::EnclosingDisc() : myPoints(), myOrigin(), myR(0.) {}
 
-void EnclosingDisc::ReBuild(const Naive_Point2dList &thePoints) {
+void EnclosingDisc::ReBuild(const Naive_Pnt2dList1 &thePoints) {
   myPoints = thePoints;
 
   if (myPoints.empty()) {
-    myOrigin = Naive_Point2d::Unset();
+    myOrigin = Naive_Pnt2d::Unset();
     return;
   }
 
@@ -21,7 +22,7 @@ void EnclosingDisc::ReBuild(const Naive_Point2dList &thePoints) {
   minDisc();
 }
 
-Naive_Bool EnclosingDisc::Circle(Naive_Point2d &theOrigin,
+Naive_Bool EnclosingDisc::Circle(Naive_Pnt2d &theOrigin,
                                  Naive_Real &theR) const {
   if (!myOrigin.IsValid())
     return Naive_False;
@@ -31,7 +32,7 @@ Naive_Bool EnclosingDisc::Circle(Naive_Point2d &theOrigin,
   return Naive_True;
 }
 
-inline Naive_Bool EnclosingDisc::isInsideCircle(const Naive_Point2d &theP) {
+inline Naive_Bool EnclosingDisc::isInsideCircle(const Naive_Pnt2d &theP) {
   return (theP.XY() - myOrigin.XY()).norm() <= myR;
 }
 
@@ -69,9 +70,9 @@ void EnclosingDisc::minDiscWith2Points(const Naive_Integer theI,
   }
 }
 
-void EnclosingDisc::circle3Points(const Naive_Point2d &theA,
-                                  const Naive_Point2d &theB,
-                                  const Naive_Point2d &theC) {
+void EnclosingDisc::circle3Points(const Naive_Pnt2d &theA,
+                                  const Naive_Pnt2d &theB,
+                                  const Naive_Pnt2d &theC) {
   Naive_Real a1 = 2. * (theA.X() - theB.X());
   Naive_Real b1 = 2. * (theA.Y() - theB.Y());
   Naive_Real a2 = 2. * (theB.X() - theC.X());
@@ -79,7 +80,7 @@ void EnclosingDisc::circle3Points(const Naive_Point2d &theA,
   Naive_Real d = a1 * b2 - a2 * b1;
 
   if (::std::abs(d) < math::Constant::ZeroTolerance()) {
-    myOrigin = Naive_Point2d::Unset();
+    myOrigin = Naive_Pnt2d::Unset();
     return;
   }
 

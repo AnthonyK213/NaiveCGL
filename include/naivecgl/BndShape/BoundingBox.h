@@ -9,10 +9,10 @@ Naive_NAMESPACE_BEGIN(bndshape);
 class BoundingBox final {
 public:
   Naive_EXPORT static Naive_Code
-  BoxFromPoints(const Naive_Point3dList &thePoints, Naive_Box &theBox);
+  BoxFromPoints(const Naive_Pnt3dList1 &thePoints, Naive_Box &theBox);
 
   Naive_EXPORT static Naive_Code
-  OBBFromPoints(const Naive_Point3dList &thePoints, Naive_OBB &theOBB);
+  OBBFromPoints(const Naive_Pnt3dList1 &thePoints, Naive_OBB &theOBB);
 };
 
 Naive_NAMESPACE_END(bndshape);

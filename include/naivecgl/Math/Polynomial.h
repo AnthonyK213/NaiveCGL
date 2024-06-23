@@ -9,7 +9,7 @@ class Polynomial {
 public:
   Naive_EXPORT Polynomial();
 
-  Naive_EXPORT explicit Polynomial(const Naive_RealList &theA);
+  Naive_EXPORT explicit Polynomial(const Naive_RealList1 &theA);
 
   Naive_EXPORT static const Polynomial &Unset();
 
@@ -64,7 +64,7 @@ private:
   void validate();
 
 private:
-  Naive_RealList myA;
+  Naive_RealList1 myA;
   Naive_Bool myIsValid;
 };
 

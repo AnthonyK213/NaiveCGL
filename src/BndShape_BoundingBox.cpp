@@ -2,7 +2,7 @@
 
 Naive_NAMESPACE_BEGIN(bndshape);
 
-Naive_Code BoundingBox::BoxFromPoints(const Naive_Point3dList &thePoints,
+Naive_Code BoundingBox::BoxFromPoints(const Naive_Pnt3dList1 &thePoints,
                                       Naive_Box &theBox) {
   Naive_Box aBox{};
   for (const auto &aPnt : thePoints) {
@@ -12,7 +12,7 @@ Naive_Code BoundingBox::BoxFromPoints(const Naive_Point3dList &thePoints,
   return Naive_Code_ok;
 }
 
-Naive_Code BoundingBox::OBBFromPoints(const Naive_Point3dList &thePoints,
+Naive_Code BoundingBox::OBBFromPoints(const Naive_Pnt3dList1 &thePoints,
                                       Naive_OBB &theOBB) {
   return Naive_Code_ok;
 }

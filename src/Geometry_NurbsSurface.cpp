@@ -9,9 +9,9 @@ NurbsSurface::NurbsSurface() noexcept
       myVPeriodic(Naive_False), myUFlatKnots(), myVFlatKnots() {}
 
 NurbsSurface::NurbsSurface(
-    const Naive_Point3dList2 &thePoles, const Naive_RealList2 &theWeights,
-    const Naive_RealList &theUKnots, const Naive_RealList &theVKnots,
-    const Naive_IntegerList &theUMults, const Naive_IntegerList &theVMults,
+    const Naive_Pnt3dList2 &thePoles, const Naive_RealList2 &theWeights,
+    const Naive_RealList1 &theUKnots, const Naive_RealList1 &theVKnots,
+    const Naive_IntegerList1 &theUMults, const Naive_IntegerList1 &theVMults,
     const Naive_Integer theUDegree, const Naive_Integer theVDegree) noexcept
     : myUDegree(0), myVDegree(0), myURational(Naive_False),
       myVRational(Naive_False), myUPeriodic(Naive_False),
@@ -21,9 +21,9 @@ NurbsSurface::NurbsSurface(
 }
 
 Naive_Code NurbsSurface::Init(
-    const Naive_Point3dList2 &thePoles, const Naive_RealList2 &theWeights,
-    const Naive_RealList &theUKnots, const Naive_RealList &theVKnots,
-    const Naive_IntegerList &theUMults, const Naive_IntegerList &theVMults,
+    const Naive_Pnt3dList2 &thePoles, const Naive_RealList2 &theWeights,
+    const Naive_RealList1 &theUKnots, const Naive_RealList1 &theVKnots,
+    const Naive_IntegerList1 &theUMults, const Naive_IntegerList1 &theVMults,
     const Naive_Integer theUDegree, const Naive_Integer theVDegree) noexcept {
   return update(thePoles, theWeights, theUKnots, theVKnots, theUMults,
                 theVMults, theUDegree, theVDegree);
@@ -50,17 +50,17 @@ Naive_Bool NurbsSurface::Bounds(Naive_Real &theU0, Naive_Real &theU1,
   return Naive_True;
 }
 
-Naive_Point3d NurbsSurface::PointAt(const Naive_Real theU,
-                                    const Naive_Real theV) const {
-  Naive_Vector3dList aD{};
+Naive_Pnt3d NurbsSurface::PointAt(const Naive_Real theU,
+                                  const Naive_Real theV) const {
+  Naive_Vec3dList1 aD{};
   if (!Evaluate(theU, theV, 0, aD))
-    return Naive_Point3d::Unset();
+    return Naive_Pnt3d::Unset();
   return aD[0].XYZ();
 }
 
 Naive_Code NurbsSurface::Evaluate(const Naive_Real theU, const Naive_Real theV,
                                   const Naive_Integer theN,
-                                  Naive_Vector3dList &theD) const {
+                                  Naive_Vec3dList1 &theD) const {
   if (!IsValid())
     return Naive_Code_invalid_handle;
 
@@ -71,17 +71,17 @@ Naive_Code NurbsSurface::Evaluate(const Naive_Real theU, const Naive_Real theV,
   if (iVSpan < 0)
     return Naive_Code_value_out_of_range;
 
-  Naive_IntegerList aHead(theN + 1, 0);
+  Naive_IntegerList1 aHead(theN + 1, 0);
   for (Naive_Integer i = 1; i <= theN; ++i) {
     aHead[i] = aHead[i - 1] + i;
   }
   Naive_Integer aN = aHead[theN] + theN + 1;
   Naive_RealList2 aWBuf(theN + 1,
-                        Naive_RealList(theN + 1, math::Constant::UnsetReal()));
-  theD.resize(aN, Naive_Vector3d::Unset());
-  Naive_List<math::Polynomial> anUA{};
+                        Naive_RealList1(theN + 1, math::Constant::UnsetReal()));
+  theD.resize(aN, Naive_Vec3d::Unset());
+  Naive_List1<math::Polynomial> anUA{};
   anUA.reserve(UDegree() + 1);
-  Naive_List<math::Polynomial> anVA{};
+  Naive_List1<math::Polynomial> anVA{};
   anVA.reserve(VDegree() + 1);
   Naive_Integer pUBegin = (::std::max)(0, iUSpan - UDegree());
   Naive_Integer pUEnd = iUSpan;

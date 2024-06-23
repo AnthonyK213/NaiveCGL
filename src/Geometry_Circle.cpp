@@ -5,11 +5,11 @@ Naive_NAMESPACE_BEGIN(geometry);
 
 Circle::Circle() {}
 
-Circle::Circle(const Plane &thePlane, const Naive_Real theRadius)
-    : myPlane(thePlane), myRadius(theRadius) {}
+Circle::Circle(const Naive_Pln &thePln, const Naive_Real theRadius)
+    : myPln(thePln), myRadius(theRadius) {}
 
 Naive_Bool Circle::IsValid() const {
-  return myPlane.IsValid() && math::Util::IsValidReal(myRadius) && myRadius > 0;
+  return myPln.IsValid() && math::Util::IsValidReal(myRadius) && myRadius > 0;
 }
 
 Handle_Naive_Geometry Circle::Clone() const { return new Circle(*this); }
@@ -18,20 +18,20 @@ Naive_Real Circle::FirstParameter() const { return 0.0; }
 
 Naive_Real Circle::LastParameter() const { return math::Constant::TwoPI(); }
 
-Naive_Point3d Circle::PointAt(const Naive_Real theT) const {
-  return {myPlane.Location().XYZ() +
-          myPlane.XAxis().XYZ() * myRadius * ::std::cos(theT) +
-          myPlane.YAxis().XYZ() * myRadius * ::std::sin(theT)};
+Naive_Pnt3d Circle::PointAt(const Naive_Real theT) const {
+  return {myPln.Location().XYZ() +
+          myPln.XAxis().XYZ() * myRadius * ::std::cos(theT) +
+          myPln.YAxis().XYZ() * myRadius * ::std::sin(theT)};
 }
 
-Naive_Vector3d Circle::TangentAt(const Naive_Real theT) const {
-  return {(-myPlane.XAxis().XYZ() * ::std::sin(theT) +
-           myPlane.YAxis().XYZ() * ::std::cos(theT)) *
+Naive_Vec3d Circle::TangentAt(const Naive_Real theT) const {
+  return {(-myPln.XAxis().XYZ() * ::std::sin(theT) +
+           myPln.YAxis().XYZ() * ::std::cos(theT)) *
           myRadius};
 }
 
 Naive_Code Circle::DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
-                                Naive_Vector3dList &theD) const {
+                                Naive_Vec3dList1 &theD) const {
 
   if (!IsValid())
     return Naive_Code_invalid_handle;
@@ -42,10 +42,10 @@ Naive_Code Circle::DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
   Naive_Real s = ::std::sin(theT) * myRadius;
   Naive_Real c = ::std::cos(theT) * myRadius;
   auto f = [&](const Naive_Real a, const Naive_Real b) {
-    return myPlane.XAxis().XYZ() * a + myPlane.YAxis().XYZ() * b;
+    return myPln.XAxis().XYZ() * a + myPln.YAxis().XYZ() * b;
   };
 
-  theD.resize(theN + 1, Vector3d::Unset());
+  theD.resize(theN + 1, Naive_Vec3d::Unset());
 
   if (theN >= 0)
     theD[0].ChangeXYZ() = PointAt(theT).XYZ();
@@ -76,12 +76,11 @@ Naive_Code Circle::DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
   return Naive_Code_ok;
 }
 
-Naive_Code Circle::CurvatureAt(const Naive_Real theT,
-                               Naive_Vector3d &theV) const {
+Naive_Code Circle::CurvatureAt(const Naive_Real theT, Naive_Vec3d &theV) const {
   if (!IsValid())
     return Naive_Code_invalid_handle;
 
-  Naive_Vector3dList aD{};
+  Naive_Vec3dList1 aD{};
   Naive_Code aCode = DerivativeAt(theT, 2, aD);
   if (aCode)
     return aCode;

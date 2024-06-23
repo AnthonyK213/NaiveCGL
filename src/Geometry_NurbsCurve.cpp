@@ -6,20 +6,20 @@ NurbsCurve::NurbsCurve() noexcept
     : myDegree(0), myRational(Naive_False), myPeriodic(Naive_False),
       myFlatKnots(), mySpanIdx() {}
 
-NurbsCurve::NurbsCurve(const Naive_Point3dList &thePoles,
-                       const Naive_RealList &theWeights,
-                       const Naive_RealList &theKnots,
-                       const Naive_IntegerList &theMults,
+NurbsCurve::NurbsCurve(const Naive_Pnt3dList1 &thePoles,
+                       const Naive_RealList1 &theWeights,
+                       const Naive_RealList1 &theKnots,
+                       const Naive_IntegerList1 &theMults,
                        const Naive_Integer theDegree) noexcept
     : myDegree(0), myRational(Naive_False), myPeriodic(Naive_False),
       myFlatKnots(), mySpanIdx() {
   Init(thePoles, theWeights, theKnots, theMults, theDegree);
 }
 
-Naive_Code NurbsCurve::Init(const Naive_Point3dList &thePoles,
-                            const Naive_RealList &theWeights,
-                            const Naive_RealList &theKnots,
-                            const Naive_IntegerList &theMults,
+Naive_Code NurbsCurve::Init(const Naive_Pnt3dList1 &thePoles,
+                            const Naive_RealList1 &theWeights,
+                            const Naive_RealList1 &theKnots,
+                            const Naive_IntegerList1 &theMults,
                             const Naive_Integer theDegree) noexcept {
   return update(thePoles, theWeights, theKnots, theMults, theDegree);
 }
@@ -36,9 +36,9 @@ Naive_Integer NurbsCurve::NbPoles() const {
   return static_cast<Naive_Integer>(myPoles.size());
 }
 
-const Naive_Point3d &NurbsCurve::Pole(const Naive_Integer theIndex) const {
+const Naive_Pnt3d &NurbsCurve::Pole(const Naive_Integer theIndex) const {
   if (theIndex < 0 || theIndex >= NbPoles() || !IsValid())
-    return Naive_Point3d::Unset();
+    return Naive_Pnt3d::Unset();
   return myPoles[theIndex];
 }
 
@@ -78,23 +78,23 @@ Naive_Real NurbsCurve::LastParameter() const {
   return myKnots[myKnots.size() - 1];
 }
 
-Naive_Point3d NurbsCurve::PointAt(const Naive_Real theT) const {
-  Naive_Vector3dList aD{};
+Naive_Pnt3d NurbsCurve::PointAt(const Naive_Real theT) const {
+  Naive_Vec3dList1 aD{};
   if (!DerivativeAt(theT, 0, aD))
-    return Naive_Point3d::Unset();
+    return Naive_Pnt3d::Unset();
   return aD[0].XYZ();
 }
 
-Naive_Vector3d NurbsCurve::TangentAt(const Naive_Real theT) const {
-  Naive_Vector3dList aD{};
+Naive_Vec3d NurbsCurve::TangentAt(const Naive_Real theT) const {
+  Naive_Vec3dList1 aD{};
   if (!DerivativeAt(theT, 1, aD))
-    return Naive_Vector3d::Unset();
+    return Naive_Vec3d::Unset();
   return aD[1];
 }
 
 Naive_Code NurbsCurve::DerivativeAt(const Naive_Real theT,
                                     const Naive_Integer theN,
-                                    Naive_Vector3dList &theD) const {
+                                    Naive_Vec3dList1 &theD) const {
   if (!IsValid())
     return Naive_Code_invalid_handle;
 
@@ -105,9 +105,9 @@ Naive_Code NurbsCurve::DerivativeAt(const Naive_Real theT,
   if (iSpan < 0)
     return Naive_Code_value_out_of_range;
 
-  Naive_RealList aWBuf(theN + 1, math::Constant::UnsetReal());
-  theD.resize(theN + 1, Naive_Vector3d::Unset());
-  Naive_List<math::Polynomial> anA{};
+  Naive_RealList1 aWBuf(theN + 1, math::Constant::UnsetReal());
+  theD.resize(theN + 1, Naive_Vec3d::Unset());
+  Naive_List1<math::Polynomial> anA{};
   anA.reserve(Degree() + 1);
   Naive_Integer pBegin = (::std::max)(0, iSpan - Degree());
   Naive_Integer pEnd = iSpan;
@@ -140,18 +140,18 @@ Naive_Code NurbsCurve::DerivativeAt(const Naive_Real theT,
 }
 
 Naive_Code NurbsCurve::CurvatureAt(const Naive_Real theT,
-                                   Naive_Vector3d &theV) const {
+                                   Naive_Vec3d &theV) const {
   if (!IsValid())
     return Naive_Code_invalid_handle;
 
   Naive_Code aCode = Naive_Code_ok;
 
-  Naive_Vector3dList aD{};
+  Naive_Vec3dList1 aD{};
   aCode = DerivativeAt(theT, 2, aD);
   if (aCode)
     return aCode;
 
-  Naive_Vector3d b = aD[1].Crossed(aD[2]);
+  Naive_Vec3d b = aD[1].Crossed(aD[2]);
   Naive_Real k = b.Length() / ::std::pow(aD[1].Length(), 3);
   theV = b.Crossed(aD[1]).Normalized().Multiplied(k);
   return aCode;
@@ -188,9 +188,10 @@ Naive_Code NurbsCurve::IncreaseMultiplicity(const Naive_Integer theI,
   Naive_Integer iSpan = (theI == myMults.size() - 1) ? theI - 1 : theI;
   Naive_Integer K = mySpanIdx[iSpan] - 1;
 
-  Naive_Point3dList aPoles(myPoles.size() + theM, Naive_Point3d::Unset());
-  Naive_RealList aWeights(myWeights.size() + theM, math::Constant::UnsetReal());
-  Naive_IntegerList aMults = myMults;
+  Naive_Pnt3dList1 aPoles(myPoles.size() + theM, Naive_Pnt3d::Unset());
+  Naive_RealList1 aWeights(myWeights.size() + theM,
+                           math::Constant::UnsetReal());
+  Naive_IntegerList1 aMults = myMults;
   aMults[theI] += theM;
 
   for (Naive_Integer I = 0; I < aPoles.size(); ++I) {
@@ -237,10 +238,11 @@ Naive_Code NurbsCurve::InsertKnot(const Naive_Real theT,
   } else if (theM > myDegree + 1)
     return Naive_Code_value_out_of_range;
 
-  Naive_Point3dList aPoles(myPoles.size() + theM, Naive_Point3d::Unset());
-  Naive_RealList aWeights(myWeights.size() + theM, math::Constant::UnsetReal());
-  Naive_RealList aKnots = myKnots;
-  Naive_IntegerList aMults = myMults;
+  Naive_Pnt3dList1 aPoles(myPoles.size() + theM, Naive_Pnt3d::Unset());
+  Naive_RealList1 aWeights(myWeights.size() + theM,
+                           math::Constant::UnsetReal());
+  Naive_RealList1 aKnots = myKnots;
+  Naive_IntegerList1 aMults = myMults;
   aKnots.insert(aKnots.begin() + iSpan + 1, theT);
   aMults.insert(aMults.begin() + iSpan + 1, theM);
 

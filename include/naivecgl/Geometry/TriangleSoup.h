@@ -2,15 +2,15 @@
 #define _NaiveCGL_Geometry_TriangleSoup_HeaderFile
 
 #include "../Common/Handle.h"
-#include "Point3d.h"
+#include "../Math/Pnt3d.h"
+#include "../Math/Vec3d.h"
 #include "Triangle.h"
-#include "Vector3d.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 
 class TriangleSoup : public Naive_Transient {
-  using VertexList = Naive_List<Naive_Point3d>;
-  using TriangleList = Naive_List<Naive_Triangle>;
+  using VertexList = Naive_List1<Naive_Pnt3d>;
+  using TriangleList = Naive_List1<Naive_Triangle>;
 
 public:
   Naive_EXPORT TriangleSoup();

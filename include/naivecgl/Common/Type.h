@@ -14,7 +14,7 @@
 
 #include "../Interface/NaiveCGL_c_types.h"
 
-template <typename T> using Naive_List = ::std::vector<T>;
+template <typename T> using Naive_List1 = ::std::vector<T>;
 template <typename T> using Naive_List2 = ::std::vector<::std::vector<T>>;
 template <typename T> using Naive_LinkedList = ::std::list<T>;
 template <typename T> using Naive_Stack = ::std::stack<T>;
@@ -30,14 +30,14 @@ using Naive_Integer = int32_t;
 using Naive_Size = size_t;
 using Naive_Real = double;
 using Naive_ShortReal = float;
-using Naive_IntegerList = Naive_List<Naive_Integer>;
+using Naive_IntegerList1 = Naive_List1<Naive_Integer>;
 using Naive_IntegerList2 = Naive_List2<Naive_Integer>;
-using Naive_RealList = Naive_List<Naive_Real>;
+using Naive_RealList1 = Naive_List1<Naive_Real>;
 using Naive_RealList2 = Naive_List2<Naive_Real>;
 using Naive_Matrix3d = Naive_Matrix3<Naive_Real>;
 using Naive_XY = Naive_Vec2<Naive_Real>;
 using Naive_XYZ = Naive_Vec3<Naive_Real>;
 using Naive_XYZW = Naive_Vec4<Naive_Real>;
-using Naive_Trsf = ::Eigen::Affine3d;
+using Naive_Affine3d = ::Eigen::Affine3d;
 
 #endif

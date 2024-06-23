@@ -11,7 +11,7 @@ Naive_Code Util::List2CheckBound(const Naive_List2<T> &theList2,
     return Naive_Code_ok;
   }
 
-  const Naive_List<T> &aList = theList2[0];
+  const Naive_List1<T> &aList = theList2[0];
   theV = static_cast<Naive_Integer>(aList.size());
   for (Naive_Integer i = 1; i < theU; ++i) {
     if (theList2[i].size() != theV)

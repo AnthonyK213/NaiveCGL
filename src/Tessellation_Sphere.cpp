@@ -136,16 +136,16 @@ static Naive_Integer _tetra_index(const Naive_Integer theD,
   return theK;
 }
 
-void UVSphere(const Naive_Point3d &theCenter, const Naive_Real theRadius,
+void UVSphere(const Naive_Pnt3d &theCenter, const Naive_Real theRadius,
               Naive_Poly &poly) {}
 
-Handle_Naive_Poly TetraSphere(const Naive_Point3d &theCenter,
+Handle_Naive_Poly TetraSphere(const Naive_Pnt3d &theCenter,
                               const Naive_Real theRadius,
                               const Naive_Integer theLevel) {
   if (theRadius < 0 || theLevel < 0)
     return nullptr;
 
-  Naive_List<Naive_List<Vertex_>> aVertices{};
+  Naive_List1<Naive_List1<Vertex_>> aVertices{};
   Naive_Integer d = theLevel + 1;
 
   aVertices.reserve(d + 1);
@@ -153,7 +153,7 @@ Handle_Naive_Poly TetraSphere(const Naive_Point3d &theCenter,
   Naive_Integer aVertIndex = 0;
 
   for (Naive_Integer n = 0; n <= d; ++n) {
-    Naive_List<Vertex_> aVerts{};
+    Naive_List1<Vertex_> aVerts{};
 
     if (n == 0) {
       aVerts.resize(d + 1);
@@ -186,7 +186,7 @@ Handle_Naive_Poly TetraSphere(const Naive_Point3d &theCenter,
     aVertices.push_back(::std::move(aVerts));
   }
 
-  Naive_List<Naive_Triangle> aTriangles{};
+  Naive_List1<Naive_Triangle> aTriangles{};
   aTriangles.reserve(4 * d * d);
 
   Naive_Integer i00, i10, i01, i11;
@@ -212,7 +212,7 @@ Handle_Naive_Poly TetraSphere(const Naive_Point3d &theCenter,
     }
   }
 
-  Naive_Point3dList aPoints{};
+  Naive_Pnt3dList1 aPoints{};
   aPoints.reserve(aVertIndex); // 2 * d * d + 2
 
   for (const auto &verts : aVertices) {
@@ -228,13 +228,13 @@ Handle_Naive_Poly TetraSphere(const Naive_Point3d &theCenter,
   return new Naive_Poly(::std::move(aPoints), ::std::move(aTriangles));
 }
 
-Handle_Naive_Poly OctaSphere(const Naive_Point3d &theCenter,
+Handle_Naive_Poly OctaSphere(const Naive_Pnt3d &theCenter,
                              const Naive_Real theRadius,
                              const Naive_Integer theLevel) {
   if (theRadius < 0 || theLevel < 0)
     return nullptr;
 
-  Naive_List<Naive_List<Naive_XYZ>> aPoints{};
+  Naive_List1<Naive_List1<Naive_XYZ>> aPoints{};
   Naive_Integer d = theLevel + 1;
 
   aPoints.reserve(d + 1);
@@ -245,7 +245,7 @@ Handle_Naive_Poly OctaSphere(const Naive_Point3d &theCenter,
   Naive_XYZ aPntC{-aHalf, aHalf, 0.0};
 
   for (Naive_Integer n = 0; n <= d; ++n) {
-    Naive_List<Naive_XYZ> aPnts{};
+    Naive_List1<Naive_XYZ> aPnts{};
     aPnts.reserve(n + 1);
 
     Naive_Real a = Naive_Real(d - n) / d;
@@ -264,7 +264,7 @@ Handle_Naive_Poly OctaSphere(const Naive_Point3d &theCenter,
     aPoints.push_back(aPnts);
   }
 
-  Naive_List<Naive_Triangle> aTriangles{};
+  Naive_List1<Naive_Triangle> aTriangles{};
   aTriangles.reserve(d * d);
 
   for (Naive_Integer n = 1; n <= d; ++n) {
@@ -279,7 +279,7 @@ Handle_Naive_Poly OctaSphere(const Naive_Point3d &theCenter,
     }
   }
 
-  Naive_Point3dList aFlatPoints{};
+  Naive_Pnt3dList1 aFlatPoints{};
   aFlatPoints.reserve(((d + 1) * (d + 2)) >> 1);
 
   for (Naive_Integer n = 0; n <= d; ++n) {
@@ -291,7 +291,7 @@ Handle_Naive_Poly OctaSphere(const Naive_Point3d &theCenter,
   return new Naive_Poly(::std::move(aFlatPoints), ::std::move(aTriangles));
 }
 
-Handle_Naive_Poly IcoShpere(const Naive_Point3d &theCenter,
+Handle_Naive_Poly IcoShpere(const Naive_Pnt3d &theCenter,
                             const Naive_Real theRadius,
                             const Naive_Integer theLevel) {
   return nullptr;

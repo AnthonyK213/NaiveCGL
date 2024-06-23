@@ -1,15 +1,13 @@
-﻿#include <naivecgl/Geometry/Point3d.h>
-#include <naivecgl/Math/Nurbs.h>
+﻿#include <naivecgl/Math/Nurbs.h>
 #include <naivecgl/Math/Util.h>
 
 Naive_NAMESPACE_BEGIN(math);
 
-Naive_Code
-Nurbs::CheckParam(const Naive_Integer nbPoles, const Naive_Integer nbWeights,
-                  const Naive_RealList &theKnots,
-                  const Naive_IntegerList &theMults,
-                  const Naive_Integer theDegree, Naive_Bool &myPeriodic,
-                  Naive_RealList &theFlatKnots, Naive_IntegerList &theSpanIdx) {
+Naive_Code Nurbs::CheckParam(
+    const Naive_Integer nbPoles, const Naive_Integer nbWeights,
+    const Naive_RealList1 &theKnots, const Naive_IntegerList1 &theMults,
+    const Naive_Integer theDegree, Naive_Bool &myPeriodic,
+    Naive_RealList1 &theFlatKnots, Naive_IntegerList1 &theSpanIdx) {
   /* 1 <= Degree <= 9 */
   if (theDegree < 1 || theDegree > 9)
     return Naive_Code_value_out_of_range;
@@ -75,7 +73,7 @@ Nurbs::CheckParam(const Naive_Integer nbPoles, const Naive_Integer nbWeights,
   return Naive_Code_ok;
 }
 
-Naive_Integer Nurbs::FindSpan(const Naive_RealList &theKnots,
+Naive_Integer Nurbs::FindSpan(const Naive_RealList1 &theKnots,
                               const Naive_Real theT) {
   if (theKnots.size() < 2)
     return -1;
@@ -104,8 +102,8 @@ Naive_Integer Nurbs::FindSpan(const Naive_RealList &theKnots,
   }
 }
 
-Naive_Integer Nurbs::FindFlatSpan(const Naive_RealList &theKnots,
-                                  const Naive_IntegerList &theSpanIdx,
+Naive_Integer Nurbs::FindFlatSpan(const Naive_RealList1 &theKnots,
+                                  const Naive_IntegerList1 &theSpanIdx,
                                   const Naive_Real theT) {
   // if (theSpanIdx.size() != theKnots.size() - 1)
   //   return -1;
@@ -117,7 +115,7 @@ Naive_Integer Nurbs::FindFlatSpan(const Naive_RealList &theKnots,
   return theSpanIdx[k] - 1;
 }
 
-Polynomial Nurbs::BasisFn(const Naive_RealList &theFlatKnots,
+Polynomial Nurbs::BasisFn(const Naive_RealList1 &theFlatKnots,
                           Naive_Integer theI, Naive_Integer theP,
                           Naive_Integer theSpan) {
   if (theP == 0)
@@ -141,8 +139,8 @@ Polynomial Nurbs::BasisFn(const Naive_RealList &theFlatKnots,
 }
 
 Naive_XYZW Nurbs::PoleAfterInsertKnot(
-    const Naive_Point3dList &thePoles, const Naive_RealList &theWeights,
-    const Naive_RealList &theFlatKnots, const Naive_Integer theDegree,
+    const Naive_Pnt3dList1 &thePoles, const Naive_RealList1 &theWeights,
+    const Naive_RealList1 &theFlatKnots, const Naive_Integer theDegree,
     const Naive_Real theT, const Naive_Integer theK, const Naive_Integer theS,
     const Naive_Integer theI, const Naive_Integer theM) {
   if (theM == 0)

@@ -79,7 +79,7 @@ HalfEdgeMesh::HalfEdgeId::operator>=(const HalfEdgeId &theOther) const {
 
 HalfEdgeMesh::Vertex::Vertex() : myCoord(), myEdge(), myId(-1) {}
 
-HalfEdgeMesh::Vertex::Vertex(const Naive_Point3d &theCoord)
+HalfEdgeMesh::Vertex::Vertex(const Naive_Pnt3d &theCoord)
     : myCoord(theCoord), myEdge(), myId(-1) {}
 
 HalfEdgeMesh::Vertex::Vertex(Naive_Real theX, Naive_Real theY, Naive_Real theZ)
@@ -140,7 +140,7 @@ HalfEdgeMesh::HalfEdgeMesh()
 HalfEdgeMesh::HalfEdgeMesh(const Naive_Poly &thePoly)
     : myVertexIndex(0), myFaceIndex(0), myVertexSlots(), myFaceSlots(),
       myVertices(), myHalfEdges(), myFaces(), myIsValid(Naive_False) {
-  for (const Naive_Point3d &aVertex : thePoly.Vertices()) {
+  for (const Naive_Pnt3d &aVertex : thePoly.Vertices()) {
     AddVertex(aVertex);
   }
 
@@ -175,11 +175,11 @@ const HalfEdgeMesh::Face *HalfEdgeMesh::GetFace(const FaceId theId) const {
   return (ret == myFaces.end()) ? nullptr : &ret->second;
 }
 
-Naive_IntegerList HalfEdgeMesh::GetAllVertices() const {
+Naive_IntegerList1 HalfEdgeMesh::GetAllVertices() const {
   if (!IsValid())
     return {};
 
-  Naive_IntegerList anIdList{};
+  Naive_IntegerList1 anIdList{};
   anIdList.reserve(NbVertices());
 
   for (auto anIter = myVertices.cbegin(); anIter != myVertices.cend();
@@ -190,11 +190,11 @@ Naive_IntegerList HalfEdgeMesh::GetAllVertices() const {
   return anIdList;
 }
 
-Naive_IntegerList HalfEdgeMesh::GetAllFaces() const {
+Naive_IntegerList1 HalfEdgeMesh::GetAllFaces() const {
   if (!IsValid())
     return {};
 
-  Naive_IntegerList anIdList{};
+  Naive_IntegerList1 anIdList{};
   anIdList.reserve(NbFaces());
 
   for (auto anIter = myFaces.cbegin(); anIter != myFaces.cend(); ++anIter) {
@@ -208,8 +208,8 @@ Handle_Naive_Poly HalfEdgeMesh::Soup(Naive_Bool theCompat) const {
   if (!IsValid())
     return nullptr;
 
-  Naive_Point3dList aVertices{};
-  Naive_List<Naive_Triangle> aTriangles{};
+  Naive_Pnt3dList1 aVertices{};
+  Naive_List1<Naive_Triangle> aTriangles{};
 
   aVertices.reserve(NbVertices());
   aTriangles.reserve(NbFaces());
@@ -255,7 +255,7 @@ Handle_Naive_Poly HalfEdgeMesh::Soup(Naive_Bool theCompat) const {
 }
 
 Naive_Bool HalfEdgeMesh::addVertex(const VertexId theId,
-                                   const Naive_Point3d &thePoint) {
+                                   const Naive_Pnt3d &thePoint) {
   Vertex anVertex{thePoint};
   anVertex.myId = theId;
   auto result = myVertices.emplace(theId, ::std::move(anVertex));
@@ -263,7 +263,7 @@ Naive_Bool HalfEdgeMesh::addVertex(const VertexId theId,
   return result.second;
 }
 
-Naive_Integer HalfEdgeMesh::AddVertex(const Naive_Point3d &thePoint) {
+Naive_Integer HalfEdgeMesh::AddVertex(const Naive_Pnt3d &thePoint) {
   Naive_Integer anId = myVertexIndex;
 
   if (myVertexSlots.empty()) {

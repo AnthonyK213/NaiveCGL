@@ -1,17 +1,17 @@
 ﻿#ifndef _NaiveCGL_Geometry_Rectangle_HeaderFile
 #define _NaiveCGL_Geometry_Rectangle_HeaderFile
 
-#include "Interval.h"
-#include "Plane.h"
+#include "../Math/Intv.h"
+#include "../Math/Pln.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 
 class Rectangle final {
 public:
 private:
-  Plane myPlane;
-  Interval myX;
-  Interval myY;
+  Naive_Pln myPln;
+  Naive_Interval myX;
+  Naive_Interval myY;
 };
 
 Naive_NAMESPACE_END(geometry);

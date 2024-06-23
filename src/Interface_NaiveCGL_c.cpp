@@ -96,7 +96,7 @@ Naive_Code_t Naive_Curve_evaluate(const Naive_Curve_t curve, const double t,
 
   if (result) {
     Naive_H_CAST_AND_CHECK(const Naive_Curve, curve, H);
-    Naive_Vector3dList aD{};
+    Naive_Vec3dList1 aD{};
     Naive_Code aCode = H->DerivativeAt(t, n_derivative, aD);
     if (aCode)
       return aCode;
@@ -115,7 +115,7 @@ Naive_Code_t Naive_Curve_curvature_at(const Naive_Curve_t curve, const double t,
     return Naive_Code_null_arg_address;
 
   Naive_H_CAST_AND_CHECK(const Naive_Curve, curve, H);
-  Naive_Vector3d aCurvature;
+  Naive_Vec3d aCurvature;
   Naive_Code aCode = H->CurvatureAt(t, aCurvature);
   if (aCode)
     return aCode;
@@ -141,7 +141,7 @@ Naive_Code_t Naive_Surface_evaluate(const Naive_Surface_t surface,
 
   if (result) {
     Naive_H_CAST_AND_CHECK(const Naive_Surface, surface, H);
-    Naive_Vector3dList aD{};
+    Naive_Vec3dList1 aD{};
     Naive_Code aCode = H->Evaluate(u, v, n_derivative, aD);
     if (aCode)
       return aCode;
@@ -175,7 +175,7 @@ Naive_Code_t Naive_Plane_ask(const Naive_Plane_t plane,
     return Naive_Code_null_arg_address;
 
   Naive_H_CAST_AND_CHECK(const Naive_Plane, plane, H);
-  return (H->Dump(*plane_sf)) ? Naive_Code_ok : Naive_Code_invalid_handle;
+  return (H->Pln().Dump(*plane_sf)) ? Naive_Code_ok : Naive_Code_invalid_handle;
 }
 
 Naive_Code_t Naive_Plane_distance(const Naive_Plane_t plane,
@@ -224,10 +224,10 @@ Naive_Code_t Naive_NurbsCurve_new(const int n_poles,
   if (n_poles < 2 || n_weights < 2 || n_knots < 2 || n_mults < 2 || degree < 1)
     return Naive_Code_value_out_of_range;
 
-  Naive_Point3dList aPoles(poles, poles + n_poles);
-  Naive_RealList aWeights(weights, weights + n_weights);
-  Naive_RealList aKnots(knots, knots + n_knots);
-  Naive_IntegerList aMults(mults, mults + n_mults);
+  Naive_Pnt3dList1 aPoles(poles, poles + n_poles);
+  Naive_RealList1 aWeights(weights, weights + n_weights);
+  Naive_RealList1 aKnots(knots, knots + n_knots);
+  Naive_IntegerList1 aMults(mults, mults + n_mults);
 
   Handle_Naive_NurbsCurve aCrv = new Naive_NurbsCurve;
   Naive_Code aCode = aCrv->Init(aPoles, aWeights, aKnots, aMults, degree);
@@ -263,7 +263,7 @@ Naive_Code_t Naive_NurbsCurve_ask_poles(const Naive_NurbsCurve_t nurbs_curve,
   *n_poles = nbPoles;
 
   if (poles) {
-    const Naive_Point3dList &aPoles = H->Poles();
+    const Naive_Pnt3dList1 &aPoles = H->Poles();
     for (Naive_Integer i = 0; i < nbPoles; ++i) {
       aPoles[i].Dump(poles[i]);
     }
@@ -286,7 +286,7 @@ Naive_Code_t Naive_NurbsCurve_ask_weights(const Naive_NurbsCurve_t nurbs_curve,
   *n_weights = nbWeights;
 
   if (weights) {
-    const Naive_RealList &aWeights = H->Weights();
+    const Naive_RealList1 &aWeights = H->Weights();
     ::std::copy(aWeights.cbegin(), aWeights.cend(), weights);
   }
 
@@ -307,7 +307,7 @@ Naive_Code_t Naive_NurbsCurve_ask_knots(const Naive_NurbsCurve_t nurbs_curve,
   *n_knots = nbKnots;
 
   if (knots) {
-    const Naive_RealList &aKnots = H->Knots();
+    const Naive_RealList1 &aKnots = H->Knots();
     ::std::copy(aKnots.cbegin(), aKnots.cend(), knots);
   }
 
@@ -327,7 +327,7 @@ Naive_Code_t Naive_NurbsCurve_ask_mults(const Naive_NurbsCurve_t nurbs_curve,
   *n_mults = nbMults;
 
   if (mults) {
-    const Naive_IntegerList &aMults = H->Multiplicities();
+    const Naive_IntegerList1 &aMults = H->Multiplicities();
     ::std::copy(aMults.cbegin(), aMults.cend(), mults);
   }
 
@@ -379,24 +379,24 @@ Naive_Code_t Naive_NurbsSurface_new(
       degree_u < 1 || degree_v < 1)
     return Naive_Code_value_out_of_range;
 
-  Naive_Point3dList2 aPoles{};
+  Naive_Pnt3dList2 aPoles{};
   aPoles.reserve(n_poles_u);
   const Naive_Point3d_t *aPHead = poles;
   for (Naive_Integer i = 0; i < n_poles_u; ++i, aPHead += n_poles_v) {
-    Naive_Point3dList aVP(aPHead, aPHead + n_poles_v);
+    Naive_Pnt3dList1 aVP(aPHead, aPHead + n_poles_v);
     aPoles.emplace_back(::std::move(aVP));
   }
   Naive_RealList2 aWeights{};
   aWeights.reserve(n_weights_u);
   const Naive_Real *aWHead = weights;
   for (Naive_Integer i = 0; i < n_weights_u; ++i, aWHead += n_weights_v) {
-    Naive_RealList aVW(aWHead, aWHead + n_weights_v);
+    Naive_RealList1 aVW(aWHead, aWHead + n_weights_v);
     aWeights.emplace_back(::std::move(aVW));
   }
-  Naive_RealList aUKnots(knots_u, knots_u + n_knots_u);
-  Naive_RealList aVKnots(knots_v, knots_v + n_knots_v);
-  Naive_IntegerList aUMults(mults_u, mults_u + n_mults_u);
-  Naive_IntegerList aVMults(mults_v, mults_v + n_mults_v);
+  Naive_RealList1 aUKnots(knots_u, knots_u + n_knots_u);
+  Naive_RealList1 aVKnots(knots_v, knots_v + n_knots_v);
+  Naive_IntegerList1 aUMults(mults_u, mults_u + n_mults_u);
+  Naive_IntegerList1 aVMults(mults_v, mults_v + n_mults_v);
 
   Handle_Naive_NurbsSurface aSrf = new Naive_NurbsSurface;
   Naive_Code aCode = aSrf->Init(aPoles, aWeights, aUKnots, aVKnots, aUMults,
@@ -435,12 +435,12 @@ Naive_Code_t Naive_Poly_new(const int n_vertices,
   if (n_vertices < 0 || n_triangles < 0)
     return Naive_Code_err;
 
-  Naive_Point3dList aVerts(n_vertices);
+  Naive_Pnt3dList1 aVerts(n_vertices);
   for (int i = 0; i < n_vertices; ++i) {
     aVerts[i] = vertices[i];
   }
 
-  Naive_List<Naive_Triangle> aTris(n_triangles);
+  Naive_List1<Naive_Triangle> aTris(n_triangles);
   for (int i = 0; i < n_triangles; ++i) {
     aTris[i].x() = triangles[i].n0;
     aTris[i].y() = triangles[i].n1;
@@ -531,7 +531,7 @@ Naive_BndShape_ConvexHull2D_new(int n_points, const Naive_Point2d_t *points,
   if (n_points < 0)
     return Naive_Code_err;
 
-  Naive_Point2dList aPoints(n_points);
+  Naive_Pnt2dList1 aPoints(n_points);
   for (Naive_Integer i = 0; i < n_points; ++i) {
     aPoints[i] = points[i];
   }
@@ -582,12 +582,12 @@ Naive_Code_t Naive_BndShape_ConvexHull2D_ask_result(
   *n_convex_points = H->NbConvexPoints();
 
   if (convex_indices) {
-    Naive_IntegerList anIndices = H->ConvexIndices();
+    Naive_IntegerList1 anIndices = H->ConvexIndices();
     ::std::copy(anIndices.cbegin(), anIndices.cend(), convex_indices);
   }
 
   if (convex_points) {
-    Naive_Point2dList aPoints = H->ConvexPoints();
+    Naive_Pnt2dList1 aPoints = H->ConvexPoints();
     for (Naive_Integer i = 0; i < aPoints.size(); ++i) {
       aPoints[i].Dump(convex_points[i]);
     }
@@ -624,7 +624,7 @@ Naive_BndShape_EnclosingDisc_rebuild(Naive_EnclosingDisc_t enclosing_disc,
 
   Naive_H_CAST_AND_CHECK(::naivecgl::bndshape::EnclosingDisc, enclosing_disc,
                          H);
-  Naive_Point2dList aPoints(points, points + n_points);
+  Naive_Pnt2dList1 aPoints(points, points + n_points);
   H->ReBuild(aPoints);
   return Naive_Code_ok;
 }
@@ -637,7 +637,7 @@ Naive_Code_t Naive_BndShape_EnclosingDisc_ask_circle(
 
   Naive_H_CAST_AND_CHECK(const ::naivecgl::bndshape::EnclosingDisc,
                          enclosing_disc, H);
-  Naive_Point2d anOrigin;
+  Naive_Pnt2d anOrigin;
   Naive_Real aR;
   if (!H->Circle(anOrigin, aR))
     return Naive_Code_err;
@@ -658,8 +658,10 @@ Naive_Code_t Naive_Intersect_Intersection_line_plane(const Naive_Line_t line,
     return Naive_Code_null_arg_address;
 
   Naive_H_CAST_AND_CHECK(const Naive_Line, line, HL);
-  Naive_H_CAST_AND_CHECK(const Naive_Plane, plane, HP);
-  return ::naivecgl::intersect::Intersection::LinePlane(*HL, *HP, *t);
+  Naive_H_CAST_AND_CHECK(const Naive_Pln, plane, HP);
+  Handle_Naive_Line aLine = new Naive_Line(*HL);
+  Handle_Naive_Plane aPlane = new Naive_Plane(*HP);
+  return ::naivecgl::intersect::Intersection::LinePlane(aLine, aPlane, *t);
 }
 
 /// }}}
@@ -675,7 +677,7 @@ Naive_Code_t Naive_Tessellation_tetrasphere(const Naive_Point3d_t *center,
   if (radius <= ::naivecgl::math::Constant::ZeroTolerance() || level < 0)
     return Naive_Code_value_out_of_range;
 
-  Naive_Point3d aCenter{*center};
+  Naive_Pnt3d aCenter{*center};
   Handle_Naive_Poly aPoly =
       ::naivecgl::tessellation::TetraSphere(aCenter, radius, level);
   if (!aPoly)

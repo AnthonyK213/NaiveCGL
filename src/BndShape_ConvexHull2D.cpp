@@ -4,7 +4,7 @@ Naive_NAMESPACE_BEGIN(bndshape);
 
 /* ConvexHull2D::Impl */
 
-ConvexHull2D::Impl::Impl(Naive_Point2dList &thePoints)
+ConvexHull2D::Impl::Impl(Naive_Pnt2dList1 &thePoints)
     : myPoints(&thePoints), myPtrs{}, myHull{}, myStatus(Naive_Code_err) {
   if (myPoints->size() < 3) {
     myStatus = Naive_Code_insufficient_points;
@@ -25,8 +25,8 @@ Naive_Integer ConvexHull2D::Impl::NbConvexPoints() const {
   return static_cast<Naive_Integer>(myHull.size());
 }
 
-Naive_IntegerList ConvexHull2D::Impl::ConvexIndices() const {
-  Naive_IntegerList result{};
+Naive_IntegerList1 ConvexHull2D::Impl::ConvexIndices() const {
+  Naive_IntegerList1 result{};
 
   if (myHull.empty())
     return result;
@@ -42,8 +42,8 @@ Naive_IntegerList ConvexHull2D::Impl::ConvexIndices() const {
   return result;
 }
 
-Naive_Point2dList ConvexHull2D::Impl::ConvexPoints() const {
-  Naive_Point2dList result{};
+Naive_Pnt2dList1 ConvexHull2D::Impl::ConvexPoints() const {
+  Naive_Pnt2dList1 result{};
 
   if (myHull.empty())
     return result;
@@ -60,7 +60,7 @@ Naive_Point2dList ConvexHull2D::Impl::ConvexPoints() const {
 void ConvexHull2D::Impl::initPtrs() {
   myPtrs.clear();
 
-  for (const Naive_Point2d &aPoint : *myPoints) {
+  for (const Naive_Pnt2d &aPoint : *myPoints) {
     myPtrs.push_back(&aPoint);
   }
 }
@@ -69,7 +69,7 @@ void ConvexHull2D::Impl::initPtrs() {
 
 class QuickHull2D : public ConvexHull2D::Impl {
 public:
-  QuickHull2D(Naive_Point2dList &thePoints) : ConvexHull2D::Impl(thePoints) {}
+  QuickHull2D(Naive_Pnt2dList1 &thePoints) : ConvexHull2D::Impl(thePoints) {}
 
   ~QuickHull2D() {}
 
@@ -103,7 +103,7 @@ public:
     half(B, b, a, fB, myHull);
   }
 
-  void Add(const Naive_Point2d &thePoint,
+  void Add(const Naive_Pnt2d &thePoint,
            const Naive_Bool thePerform) Naive_OVERRIDE {
     Naive_Bool aRealloc = myPoints->capacity() == myPoints->size();
     myPoints->push_back(thePoint);
@@ -213,13 +213,13 @@ private:
 
 /* ConvexHull2D */
 
-ConvexHull2D::ConvexHull2D(const Naive_Point2dList &thePoints,
+ConvexHull2D::ConvexHull2D(const Naive_Pnt2dList1 &thePoints,
                            Naive_Algorithm theAlgo) {
   myPoints = thePoints;
   SetAlgorithm(theAlgo);
 }
 
-ConvexHull2D::ConvexHull2D(Naive_Point2dList &&thePoints,
+ConvexHull2D::ConvexHull2D(Naive_Pnt2dList1 &&thePoints,
                            Naive_Algorithm theAlgo) noexcept {
   myPoints = ::std::move(thePoints);
   SetAlgorithm(theAlgo);
@@ -261,7 +261,7 @@ void ConvexHull2D::Perform() {
   myImpl->Perform();
 }
 
-void ConvexHull2D::Add(const Naive_Point2d &thePoint,
+void ConvexHull2D::Add(const Naive_Pnt2d &thePoint,
                        const Naive_Bool thePerform) {
   if (!myImpl)
     return;
@@ -283,14 +283,14 @@ Naive_Integer ConvexHull2D::NbConvexPoints() const {
   return myImpl->NbConvexPoints();
 }
 
-Naive_IntegerList ConvexHull2D::ConvexIndices() const {
+Naive_IntegerList1 ConvexHull2D::ConvexIndices() const {
   if (!myImpl)
     return {};
 
   return myImpl->ConvexIndices();
 }
 
-Naive_Point2dList ConvexHull2D::ConvexPoints() const {
+Naive_Pnt2dList1 ConvexHull2D::ConvexPoints() const {
   if (!myImpl)
     return {};
 

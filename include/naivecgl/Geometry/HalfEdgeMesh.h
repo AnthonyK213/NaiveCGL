@@ -49,22 +49,22 @@ public:
 
     Naive_EXPORT Vertex();
 
-    Naive_EXPORT Vertex(const Naive_Point3d &theCoord);
+    Naive_EXPORT Vertex(const Naive_Pnt3d &theCoord);
 
     Naive_EXPORT Vertex(Naive_Real theX, Naive_Real theY, Naive_Real theZ);
 
-    Naive_EXPORT const Naive_Point3d &Coord() const { return myCoord; }
+    Naive_EXPORT const Naive_Pnt3d &Coord() const { return myCoord; }
 
-    Naive_EXPORT Naive_Point3d &ChangeCoord() { return myCoord; }
+    Naive_EXPORT Naive_Pnt3d &ChangeCoord() { return myCoord; }
 
     Naive_EXPORT HalfEdgeId Edge() const { return myEdge; }
 
     Naive_EXPORT VertexId Id() const { return myId; }
 
   private:
-    Naive_Point3d myCoord; // Vertex coordinates.
-    HalfEdgeId myEdge;     // An half-edge starts with the vertex.
-    VertexId myId;         // The ID(key) in the vertex map.
+    Naive_Pnt3d myCoord; // Vertex coordinates.
+    HalfEdgeId myEdge;   // An half-edge starts with the vertex.
+    VertexId myId;       // The ID(key) in the vertex map.
   };
 
   struct HalfEdge {
@@ -104,14 +104,14 @@ public:
 
     Naive_EXPORT HalfEdgeId Edge() const { return myOuterEdge; }
 
-    Naive_EXPORT Naive_Vector3d Normal() const { return myNormal; }
+    Naive_EXPORT Naive_Vec3d Normal() const { return myNormal; }
 
     Naive_EXPORT FaceId Id() const { return myId; }
 
   private:
-    HalfEdgeId myOuterEdge;  // A half-edge on the outer boundary.
-    Naive_Vector3d myNormal; // Face normal.
-    FaceId myId;             // The ID(key) in the face map.
+    HalfEdgeId myOuterEdge; // A half-edge on the outer boundary.
+    Naive_Vec3d myNormal;   // Face normal.
+    FaceId myId;            // The ID(key) in the face map.
   };
 
   class EdgeIterator {
@@ -154,13 +154,13 @@ public:
     return {*this, theFace};
   }
 
-  Naive_EXPORT Naive_IntegerList GetAllVertices() const;
+  Naive_EXPORT Naive_IntegerList1 GetAllVertices() const;
 
-  Naive_EXPORT Naive_IntegerList GetAllFaces() const;
+  Naive_EXPORT Naive_IntegerList1 GetAllFaces() const;
 
   Naive_EXPORT Handle_Naive_Poly Soup(Naive_Bool theCompat = Naive_False) const;
 
-  Naive_EXPORT Naive_Integer AddVertex(const Naive_Point3d &thePoint);
+  Naive_EXPORT Naive_Integer AddVertex(const Naive_Pnt3d &thePoint);
 
   Naive_EXPORT Naive_Bool RemoveVertex(const VertexId theId);
 
@@ -171,7 +171,7 @@ public:
                                      Naive_Bool theCompat = Naive_False);
 
 private:
-  Naive_Bool addVertex(const VertexId theId, const Naive_Point3d &thePoint);
+  Naive_Bool addVertex(const VertexId theId, const Naive_Pnt3d &thePoint);
 
   Naive_Bool removeHalfEdge(const HalfEdge *theEdge, Naive_Bool theCompat);
 

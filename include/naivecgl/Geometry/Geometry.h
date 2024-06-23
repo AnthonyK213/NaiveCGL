@@ -12,10 +12,10 @@ public:
   Naive_EXPORT virtual Naive_Handle<Geometry> Clone() const = 0;
 
   // Naive_EXPORT virtual Naive_Bool
-  // Transform(const Naive_Transform3d &theTrsf) = 0;
+  // Transform(const Naive_Trsf3d &theTrsf) = 0;
 
   // Naive_EXPORT virtual Naive_Handle<Geometry>
-  // Transformed(const Naive_Transform3d &theTrsf) = 0;
+  // Transformed(const Naive_Trsf3d &theTrsf) = 0;
 };
 
 Naive_NAMESPACE_END(geometry);

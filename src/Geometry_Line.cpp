@@ -3,12 +3,12 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-Line::Line(const Naive_Point3d &theFrom, const Naive_Point3d &theTo)
+Line::Line(const Naive_Pnt3d &theFrom, const Naive_Pnt3d &theTo)
     : myLocation(theFrom), myAxis(theTo - theFrom) {
   myAxis.Normalize();
 }
 
-Line::Line(const Naive_Point3d &theLocation, const Naive_Vector3d &theDirection)
+Line::Line(const Naive_Pnt3d &theLocation, const Naive_Vec3d &theDirection)
     : myLocation(theLocation), myAxis(theDirection) {
   myAxis.Normalize();
 }
@@ -18,12 +18,12 @@ Line::Line(const Naive_Line_sf_t &theLineT)
   myAxis.Normalize();
 }
 
-Naive_Vector3d Line::UnitTangent() const {
-  Naive_Vector3d aDir = Direction();
+Naive_Vec3d Line::UnitTangent() const {
+  Naive_Vec3d aDir = Direction();
   if (aDir.Normalize())
     return aDir;
 
-  return Naive_Vector3d::Unset();
+  return Naive_Vec3d::Unset();
 }
 
 Naive_Real Line::FirstParameter() const { return -math::Constant::MaxReal(); }
@@ -36,9 +36,9 @@ Naive_Bool Line::IsValid() const {
 
 Handle_Naive_Geometry Line::Clone() const { return new Line(*this); }
 
-Naive_Real Line::DistanceTo(const Naive_Point3d &thePnt) const {
+Naive_Real Line::DistanceTo(const Naive_Pnt3d &thePnt) const {
   Naive_XYZ v = thePnt.XYZ() - myLocation.XYZ();
-  Naive_Vector3d d = UnitTangent();
+  Naive_Vec3d d = UnitTangent();
   if (!d.IsValid())
     return v.norm();
 
@@ -47,23 +47,21 @@ Naive_Real Line::DistanceTo(const Naive_Point3d &thePnt) const {
   return p.norm();
 }
 
-Naive_Point3d Line::PointAt(const Naive_Real theT) const {
+Naive_Pnt3d Line::PointAt(const Naive_Real theT) const {
   return {myLocation.XYZ() + myAxis.XYZ() * theT};
 }
 
-Naive_Vector3d Line::TangentAt(const Naive_Real theT) const {
-  return Direction();
-}
+Naive_Vec3d Line::TangentAt(const Naive_Real theT) const { return Direction(); }
 
 Naive_Code Line::DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
-                              Naive_Vector3dList &theD) const {
+                              Naive_Vec3dList1 &theD) const {
   if (!IsValid())
     return Naive_Code_invalid_handle;
 
   if (theN < 0)
     return Naive_Code_value_out_of_range;
 
-  theD.resize(theN + 1, Naive_Vector3d::Zero());
+  theD.resize(theN + 1, Naive_Vec3d::Zero());
   if (theN >= 0)
     theD[0].ChangeXYZ() = PointAt(theT).XYZ();
   if (theN >= 1)
@@ -72,12 +70,11 @@ Naive_Code Line::DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
   return Naive_Code_ok;
 }
 
-Naive_Code Line::CurvatureAt(const Naive_Real theT,
-                             Naive_Vector3d &theV) const {
+Naive_Code Line::CurvatureAt(const Naive_Real theT, Naive_Vec3d &theV) const {
   if (!IsValid())
     return Naive_Code_invalid_handle;
 
-  theV = Naive_Vector3d::Zero();
+  theV = Naive_Vec3d::Zero();
   return Naive_Code_ok;
 }
 

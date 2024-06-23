@@ -2,8 +2,7 @@
 #define _NaiveCGL_BndShape_EnclosingDisc_HeaderFile
 
 #include "../Common/Handle.h"
-#include "../Geometry/Point2d.h"
-#include "../Geometry/Vector3d.h"
+#include "../Math/Pnt2d.h"
 
 Naive_NAMESPACE_BEGIN(bndshape);
 
@@ -11,15 +10,15 @@ class EnclosingDisc final : public Naive_Transient {
 public:
   Naive_EXPORT EnclosingDisc();
 
-  Naive_EXPORT void ReBuild(const Naive_Point2dList &thePoints);
+  Naive_EXPORT void ReBuild(const Naive_Pnt2dList1 &thePoints);
 
-  Naive_EXPORT Naive_Bool Circle(Naive_Point2d &theOrigin,
+  Naive_EXPORT Naive_Bool Circle(Naive_Pnt2d &theOrigin,
                                  Naive_Real &theR) const;
 
-  Naive_EXPORT const Naive_Point2dList &Points() const { return myPoints; }
+  Naive_EXPORT const Naive_Pnt2dList1 &Points() const { return myPoints; }
 
 private:
-  Naive_Bool isInsideCircle(const Naive_Point2d &theP);
+  Naive_Bool isInsideCircle(const Naive_Pnt2d &theP);
 
   void minDisc();
 
@@ -27,12 +26,12 @@ private:
 
   void minDiscWith2Points(const Naive_Integer theI, const Naive_Integer theJ);
 
-  void circle3Points(const Naive_Point2d &theA, const Naive_Point2d &theB,
-                     const Naive_Point2d &theC);
+  void circle3Points(const Naive_Pnt2d &theA, const Naive_Pnt2d &theB,
+                     const Naive_Pnt2d &theC);
 
 private:
-  Naive_Point2dList myPoints;
-  Naive_Point2d myOrigin;
+  Naive_Pnt2dList1 myPoints;
+  Naive_Pnt2d myOrigin;
   Naive_Real myR;
 };
 

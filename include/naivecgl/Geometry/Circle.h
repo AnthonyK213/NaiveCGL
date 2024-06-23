@@ -1,16 +1,16 @@
 ﻿#ifndef _NaiveCGL_Geometry_Circle_HeaderFile
 #define _NaiveCGL_Geometry_Circle_HeaderFile
 
+#include "../Math/Pln.h"
 #include "Curve.h"
-#include "Plane.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-class Circle final : public Curve {
+class Circle final : public Naive_Curve {
 public:
   Naive_EXPORT Circle();
 
-  Naive_EXPORT Circle(const Plane &thePlane, const Naive_Real theRadius);
+  Naive_EXPORT Circle(const Naive_Pln &thePln, const Naive_Real theRadius);
 
   Naive_EXPORT virtual Naive_Bool IsValid() const Naive_OVERRIDE;
 
@@ -20,21 +20,21 @@ public:
 
   Naive_EXPORT virtual Naive_Real LastParameter() const Naive_OVERRIDE;
 
-  Naive_EXPORT virtual Naive_Point3d
+  Naive_EXPORT virtual Naive_Pnt3d
   PointAt(const Naive_Real theT) const Naive_OVERRIDE;
 
-  Naive_EXPORT virtual Naive_Vector3d
+  Naive_EXPORT virtual Naive_Vec3d
   TangentAt(const Naive_Real theT) const Naive_OVERRIDE;
 
   Naive_EXPORT virtual Naive_Code
   DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
-               Naive_Vector3dList &theD) const Naive_OVERRIDE;
+               Naive_Vec3dList1 &theD) const Naive_OVERRIDE;
 
   Naive_EXPORT virtual Naive_Code
-  CurvatureAt(const Naive_Real theT, Naive_Vector3d &theV) const Naive_OVERRIDE;
+  CurvatureAt(const Naive_Real theT, Naive_Vec3d &theV) const Naive_OVERRIDE;
 
 private:
-  Plane myPlane;
+  Naive_Pln myPln;
   Naive_Real myRadius;
 };
 

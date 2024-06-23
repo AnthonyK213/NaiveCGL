@@ -6,20 +6,20 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-class NurbsCurve final : public Curve {
+class NurbsCurve final : public Naive_Curve {
 public:
   Naive_EXPORT NurbsCurve() noexcept;
 
-  Naive_EXPORT NurbsCurve(const Naive_Point3dList &thePoles,
-                          const Naive_RealList &theWeights,
-                          const Naive_RealList &theKnots,
-                          const Naive_IntegerList &theMults,
+  Naive_EXPORT NurbsCurve(const Naive_Pnt3dList1 &thePoles,
+                          const Naive_RealList1 &theWeights,
+                          const Naive_RealList1 &theKnots,
+                          const Naive_IntegerList1 &theMults,
                           const Naive_Integer theDegree) noexcept;
 
-  Naive_EXPORT Naive_Code Init(const Naive_Point3dList &thePoles,
-                               const Naive_RealList &theWeights,
-                               const Naive_RealList &theKnots,
-                               const Naive_IntegerList &theMults,
+  Naive_EXPORT Naive_Code Init(const Naive_Pnt3dList1 &thePoles,
+                               const Naive_RealList1 &theWeights,
+                               const Naive_RealList1 &theKnots,
+                               const Naive_IntegerList1 &theMults,
                                const Naive_Integer theDegree) noexcept;
 
   Naive_EXPORT virtual Naive_Bool IsValid() const Naive_OVERRIDE;
@@ -30,23 +30,23 @@ public:
 
   Naive_EXPORT Naive_Integer NbPoles() const;
 
-  Naive_EXPORT const Naive_Point3d &Pole(const Naive_Integer theIndex) const;
+  Naive_EXPORT const Naive_Pnt3d &Pole(const Naive_Integer theIndex) const;
 
-  Naive_EXPORT const Naive_Point3dList &Poles() const { return myPoles; }
+  Naive_EXPORT const Naive_Pnt3dList1 &Poles() const { return myPoles; }
 
   Naive_EXPORT Naive_Real Weight(const Naive_Integer theIndex) const;
 
-  Naive_EXPORT const Naive_RealList &Weights() const { return myWeights; }
+  Naive_EXPORT const Naive_RealList1 &Weights() const { return myWeights; }
 
   Naive_EXPORT Naive_Integer NbKnots() const;
 
   Naive_EXPORT Naive_Real Knot(const Naive_Integer theIndex) const;
 
-  Naive_EXPORT const Naive_RealList &Knots() const { return myKnots; }
+  Naive_EXPORT const Naive_RealList1 &Knots() const { return myKnots; }
 
   Naive_EXPORT Naive_Integer Multiplicity(const Naive_Integer theIndex) const;
 
-  Naive_EXPORT const Naive_IntegerList &Multiplicities() const {
+  Naive_EXPORT const Naive_IntegerList1 &Multiplicities() const {
     return myMults;
   }
 
@@ -58,18 +58,18 @@ public:
 
   Naive_EXPORT Naive_Bool IsPeriodic() const { return myPeriodic; }
 
-  Naive_EXPORT virtual Naive_Point3d
+  Naive_EXPORT virtual Naive_Pnt3d
   PointAt(const Naive_Real theT) const Naive_OVERRIDE;
 
-  Naive_EXPORT virtual Naive_Vector3d
+  Naive_EXPORT virtual Naive_Vec3d
   TangentAt(const Naive_Real theT) const Naive_OVERRIDE;
 
   Naive_EXPORT virtual Naive_Code
   DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
-               Naive_Vector3dList &theD) const Naive_OVERRIDE;
+               Naive_Vec3dList1 &theD) const Naive_OVERRIDE;
 
   Naive_EXPORT virtual Naive_Code
-  CurvatureAt(const Naive_Real theT, Naive_Vector3d &theV) const Naive_OVERRIDE;
+  CurvatureAt(const Naive_Real theT, Naive_Vec3d &theV) const Naive_OVERRIDE;
 
   Naive_EXPORT Naive_Code IncreaseDegree(const Naive_Integer theDegree);
 
@@ -95,12 +95,12 @@ private:
   Naive_Bool myRational;
   Naive_Bool myPeriodic;
   Naive_Integer myDegree;
-  Naive_Point3dList myPoles;
-  Naive_RealList myWeights;
-  Naive_RealList myFlatKnots;
-  Naive_RealList myKnots;
-  Naive_IntegerList myMults;
-  Naive_IntegerList mySpanIdx;
+  Naive_Pnt3dList1 myPoles;
+  Naive_RealList1 myWeights;
+  Naive_RealList1 myFlatKnots;
+  Naive_RealList1 myKnots;
+  Naive_IntegerList1 myMults;
+  Naive_IntegerList1 mySpanIdx;
 };
 
 Naive_NAMESPACE_END(geometry);

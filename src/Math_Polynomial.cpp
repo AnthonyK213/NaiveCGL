@@ -4,10 +4,10 @@ Naive_NAMESPACE_BEGIN(math);
 
 Polynomial::Polynomial() : myA({0.}), myIsValid(Naive_True) {}
 
-Polynomial::Polynomial(const Naive_RealList &theA) : myA(theA) { validate(); }
+Polynomial::Polynomial(const Naive_RealList1 &theA) : myA(theA) { validate(); }
 
 const Polynomial &Polynomial::Unset() {
-  static Polynomial aP(Naive_RealList{});
+  static Polynomial aP(Naive_RealList1{});
   return aP;
 }
 
@@ -17,7 +17,7 @@ const Polynomial &Polynomial::Zero() {
 }
 
 const Polynomial &Polynomial::Identity() {
-  static Polynomial aP(Naive_RealList{1.});
+  static Polynomial aP(Naive_RealList1{1.});
   return aP;
 }
 
@@ -74,7 +74,7 @@ Polynomial Polynomial::Derivative(const Naive_Integer theN) const {
   if (theN == 0)
     return *this;
 
-  Naive_RealList a{};
+  Naive_RealList1 a{};
   a.reserve(myA.size() - theN);
 
   for (Naive_Integer i = theN; i < myA.size(); ++i) {
@@ -149,7 +149,7 @@ Polynomial Polynomial::Subtracted(const Polynomial &theOther) const {
 }
 
 void Polynomial::Multiply(const Naive_Real theT) {
-  if (!IsValid() || !math::Util::IsValidReal(theT))
+  if (!IsValid() || !Util::IsValidReal(theT))
     return;
 
   if (theT == 0.) {
@@ -163,7 +163,7 @@ void Polynomial::Multiply(const Naive_Real theT) {
 }
 
 Polynomial Polynomial::Multiplied(const Naive_Real theT) const {
-  if (IsValid() && math::Util::IsValidReal(theT)) {
+  if (IsValid() && Util::IsValidReal(theT)) {
     if (theT == 0.)
       return Zero();
     Polynomial aP{*this};
@@ -177,7 +177,7 @@ void Polynomial::Multiply(const Polynomial &theOther) {
   if (!IsValid() || !theOther.IsValid())
     return;
 
-  Naive_RealList anA(Degree() + theOther.Degree() + 1, 0.0);
+  Naive_RealList1 anA(Degree() + theOther.Degree() + 1, 0.0);
   for (Naive_Integer i = 0; i <= Degree(); ++i) {
     for (Naive_Integer j = 0; j <= theOther.Degree(); ++j) {
       anA[i + j] += Coefficient(i) * theOther.Coefficient(j);

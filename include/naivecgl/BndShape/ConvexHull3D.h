@@ -3,8 +3,8 @@
 
 #include "../Common/Handle.h"
 #include "../Geometry/HalfEdgeMesh.h"
-#include "../Geometry/Point3d.h"
 #include "../Geometry/TriangleSoup.h"
+#include "../Math/Pnt3d.h"
 
 Naive_NAMESPACE_BEGIN(bndshape);
 
@@ -12,11 +12,11 @@ Naive_NAMESPACE_BEGIN(bndshape);
 class ConvexHull3D final : public Naive_Transient {
 public:
   Naive_EXPORT
-  ConvexHull3D(const Naive_Point3dList &thePoints,
+  ConvexHull3D(const Naive_Pnt3dList1 &thePoints,
                Naive_Algorithm theAlgo = Naive_Algorithm_quick_hull);
 
   Naive_EXPORT
-  ConvexHull3D(Naive_Point3dList &&thePoints,
+  ConvexHull3D(Naive_Pnt3dList1 &&thePoints,
                Naive_Algorithm theAlgo = Naive_Algorithm_quick_hull) noexcept;
 
   Naive_EXPORT ConvexHull3D(const ConvexHull3D &theOther) = delete;
@@ -27,7 +27,7 @@ public:
 
   Naive_EXPORT void Perform();
 
-  Naive_EXPORT void Add(const Naive_Point3d &thePoint,
+  Naive_EXPORT void Add(const Naive_Pnt3d &thePoint,
                         const Naive_Bool thePerform = Naive_False);
 
   Naive_EXPORT Naive_Code Status() const;
@@ -41,7 +41,7 @@ public:
 
     virtual void Perform() = 0;
 
-    virtual void Add(const Naive_Point3d &thePoint,
+    virtual void Add(const Naive_Pnt3d &thePoint,
                      const Naive_Bool thePerform) = 0;
 
     Naive_Code Status() const { return myStatus; }
@@ -49,16 +49,16 @@ public:
     virtual Handle_Naive_Poly ConvexHull() const;
 
   protected:
-    explicit Impl(Naive_Point3dList &thePoints);
+    explicit Impl(Naive_Pnt3dList1 &thePoints);
 
   protected:
-    Naive_Point3dList *myPoints;
+    Naive_Pnt3dList1 *myPoints;
     Handle_Naive_Mesh myConvexHull;
     mutable Naive_Code myStatus;
   };
 
 private:
-  Naive_Point3dList myPoints;
+  Naive_Pnt3dList1 myPoints;
   ::std::unique_ptr<Impl> myImpl;
   Naive_Algorithm myAlgo;
 };

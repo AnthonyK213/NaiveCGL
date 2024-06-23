@@ -1,7 +1,7 @@
 #ifndef _NaiveCGL_Topology_Vertex_HeaderFile
 #define _NaiveCGL_Topology_Vertex_HeaderFile
 
-#include "../Geometry/Point3d.h"
+#include "../Math/Pnt3d.h"
 #include "Topol.h"
 
 Naive_NAMESPACE_BEGIN(topology);
@@ -18,7 +18,7 @@ public:
 
 private:
   Naive_Real myTol;
-  Naive_Point3d myPnt;
+  Naive_Pnt3d myPnt;
 };
 
 Naive_NAMESPACE_END(topology);

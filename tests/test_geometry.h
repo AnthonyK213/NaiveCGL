@@ -4,12 +4,12 @@
 #include <naivecgl/Geometry/HalfEdgeMesh.h>
 
 TEST(NaiveCGLTest_Geometry, Create_HalfEdgeMesh_From_TriangleSoup) {
-  Naive_List<Naive_Point3d> vertices = {
+  Naive_List1<Naive_Pnt3d> vertices = {
       {0., 0., 1.},  {-1., -1., 0.}, {-1., 1., 0.},
       {1., -1., 0.}, {1., 1., 0.},   {0., 0., -1.},
   };
 
-  Naive_List<Naive_Triangle> triangles = {
+  Naive_List1<Naive_Triangle> triangles = {
       {0, 2, 1}, {0, 4, 2}, {0, 3, 4}, {0, 1, 3},
       {5, 1, 2}, {5, 2, 4}, {5, 4, 3}, {5, 3, 1},
   };

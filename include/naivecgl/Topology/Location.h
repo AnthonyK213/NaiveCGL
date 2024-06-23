@@ -1,7 +1,7 @@
 #ifndef _NaiveCGL_Topology_Location_HeaderFile
 #define _NaiveCGL_Topology_Location_HeaderFile
 
-#include "../Geometry/Transform3d.h"
+#include "../Math/Trsf3d.h"
 
 Naive_NAMESPACE_BEGIN(topology);
 

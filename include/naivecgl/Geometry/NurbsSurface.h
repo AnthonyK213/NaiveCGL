@@ -8,20 +8,20 @@ Naive_NAMESPACE_BEGIN(geometry);
 
 class NurbsCurve;
 
-class NurbsSurface final : public Surface {
+class NurbsSurface final : public Naive_Surface {
 public:
   Naive_EXPORT NurbsSurface() noexcept;
 
   Naive_EXPORT NurbsSurface(
-      const Naive_Point3dList2 &thePoles, const Naive_RealList2 &theWeights,
-      const Naive_RealList &theUKnots, const Naive_RealList &theVKnots,
-      const Naive_IntegerList &theUMults, const Naive_IntegerList &theVMults,
+      const Naive_Pnt3dList2 &thePoles, const Naive_RealList2 &theWeights,
+      const Naive_RealList1 &theUKnots, const Naive_RealList1 &theVKnots,
+      const Naive_IntegerList1 &theUMults, const Naive_IntegerList1 &theVMults,
       const Naive_Integer theUDegree, const Naive_Integer theVDegree) noexcept;
 
   Naive_EXPORT Naive_Code
-  Init(const Naive_Point3dList2 &thePoles, const Naive_RealList2 &theWeights,
-       const Naive_RealList &theUKnots, const Naive_RealList &theVKnots,
-       const Naive_IntegerList &theUMults, const Naive_IntegerList &theVMults,
+  Init(const Naive_Pnt3dList2 &thePoles, const Naive_RealList2 &theWeights,
+       const Naive_RealList1 &theUKnots, const Naive_RealList1 &theVKnots,
+       const Naive_IntegerList1 &theUMults, const Naive_IntegerList1 &theVMults,
        const Naive_Integer theUDegree, const Naive_Integer theVDegree) noexcept;
 
   Naive_EXPORT virtual Naive_Bool IsValid() const Naive_OVERRIDE;
@@ -43,12 +43,13 @@ public:
 
   Naive_EXPORT Naive_Bool IsVPeriodic() const { return myVPeriodic; }
 
-  Naive_EXPORT virtual Naive_Point3d
+  Naive_EXPORT virtual Naive_Pnt3d
   PointAt(const Naive_Real theU, const Naive_Real theV) const Naive_OVERRIDE;
 
   Naive_EXPORT virtual Naive_Code
   Evaluate(const Naive_Real theU, const Naive_Real theV,
-           const Naive_Integer theN, Naive_Vector3dList &theD) const Naive_OVERRIDE;
+           const Naive_Integer theN,
+           Naive_Vec3dList1 &theD) const Naive_OVERRIDE;
 
 private:
   template <typename P2, typename R2, typename R, typename I>
@@ -64,16 +65,16 @@ private:
   Naive_Bool myVPeriodic;
   Naive_Integer myUDegree;
   Naive_Integer myVDegree;
-  Naive_Point3dList2 myPoles;
+  Naive_Pnt3dList2 myPoles;
   Naive_RealList2 myWeights;
-  Naive_RealList myUFlatKnots;
-  Naive_RealList myVFlatKnots;
-  Naive_RealList myUKnots;
-  Naive_RealList myVKnots;
-  Naive_IntegerList myUMults;
-  Naive_IntegerList myVMults;
-  Naive_IntegerList myUSpanIdx;
-  Naive_IntegerList myVSpanIdx;
+  Naive_RealList1 myUFlatKnots;
+  Naive_RealList1 myVFlatKnots;
+  Naive_RealList1 myUKnots;
+  Naive_RealList1 myVKnots;
+  Naive_IntegerList1 myUMults;
+  Naive_IntegerList1 myVMults;
+  Naive_IntegerList1 myUSpanIdx;
+  Naive_IntegerList1 myVSpanIdx;
 };
 
 Naive_NAMESPACE_END(geometry);

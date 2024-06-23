@@ -1,16 +1,16 @@
 ﻿#include <naivecgl/Geometry/Box.h>
-#include <naivecgl/Geometry/Interval.h>
+#include <naivecgl/Math/Intv.h>
 #include <naivecgl/Math/Util.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
 Box::Box() : myMin(1.0, 0.0, 0.0), myMax(-1.0, 0.0, 0.0) {}
 
-Box::Box(const Naive_Point3d &theMin, const Naive_Point3d &theMax)
+Box::Box(const Naive_Pnt3d &theMin, const Naive_Pnt3d &theMax)
     : myMin(theMin), myMax(theMax) {}
 
 const Box &Box::Unset() {
-  static Box aBox(Naive_Point3d::Unset(), Naive_Point3d::Unset());
+  static Box aBox(Naive_Pnt3d::Unset(), Naive_Pnt3d::Unset());
   return aBox;
 }
 
@@ -25,12 +25,12 @@ Naive_Bool Box::IsVoid() const { return isSet() && isVoid(); }
 
 Naive_Bool Box::IsPoint() const { return isSet() && isPoint(); }
 
-Naive_Point3d Box::Corner(Naive_Bool theMinX, Naive_Bool theMinY,
-                          Naive_Bool theMinZ) const {
+Naive_Pnt3d Box::Corner(Naive_Bool theMinX, Naive_Bool theMinY,
+                        Naive_Bool theMinZ) const {
   if (!isValid())
-    return Naive_Point3d::Unset();
+    return Naive_Pnt3d::Unset();
 
-  Naive_Point3d aPnt{};
+  Naive_Pnt3d aPnt{};
   aPnt.SetX((theMinX ? myMin : myMax).X());
   aPnt.SetY((theMinX ? myMin : myMax).Y());
   aPnt.SetZ((theMinX ? myMin : myMax).Z());
@@ -38,11 +38,11 @@ Naive_Point3d Box::Corner(Naive_Bool theMinX, Naive_Bool theMinY,
   return aPnt;
 }
 
-Naive_EXPORT Naive_Point3dList Box::Corners() const {
+Naive_EXPORT Naive_Pnt3dList1 Box::Corners() const {
   if (!isValid())
-    return Naive_Point3dList(8, Naive_Point3d::Unset());
+    return Naive_Pnt3dList1(8, Naive_Pnt3d::Unset());
 
-  Naive_Point3dList aRes(8);
+  Naive_Pnt3dList1 aRes(8);
   aRes[0].SetXYZ(myMin.X(), myMin.Y(), myMin.Z());
   aRes[1].SetXYZ(myMax.X(), myMin.Y(), myMin.Z());
   aRes[2].SetXYZ(myMax.X(), myMax.Y(), myMin.Z());
@@ -73,14 +73,14 @@ Naive_Bool Box::Contains(const Box &theBox, const Naive_Bool theStrict) const {
   }
 }
 
-Naive_Bool Box::Contains(const Naive_Point3d &thePoint) const {
+Naive_Bool Box::Contains(const Naive_Pnt3d &thePoint) const {
   return (IsValid() && thePoint.IsValid()) && thePoint.X() >= myMin.X() &&
          thePoint.X() <= myMax.X() && thePoint.Y() >= myMin.Y() &&
          thePoint.Y() <= myMax.Y() && thePoint.Z() >= myMin.Z() &&
          thePoint.Z() <= myMax.Z();
 }
 
-Naive_Bool Box::Contains(const Naive_Point3d &thePoint,
+Naive_Bool Box::Contains(const Naive_Pnt3d &thePoint,
                          const Naive_Bool theStrict) const {
   if (theStrict) {
     return (IsValid() && thePoint.IsValid()) && thePoint.X() > myMin.X() &&
@@ -168,35 +168,35 @@ void Box::Add(const Box &theOther) {
     myMax.SetZ(theOther.Max().Z());
 }
 
-void Box::Add(const Naive_Point3d &thePoint) {
+void Box::Add(const Naive_Pnt3d &thePoint) {
   Update(thePoint.X(), thePoint.Y(), thePoint.Z());
 }
 
-Naive_Point3d Box::PointAt(const Naive_Real theTx, const Naive_Real theTy,
-                           const Naive_Real theTz) const {
+Naive_Pnt3d Box::PointAt(const Naive_Real theTx, const Naive_Real theTy,
+                         const Naive_Real theTz) const {
   if (!IsValid())
-    return Naive_Point3d::Unset();
+    return Naive_Pnt3d::Unset();
 
   static Naive_Interval aInt(0.0, 1.0);
   if (!aInt.IncludesParameter(theTx) || !aInt.IncludesParameter(theTy) ||
       !aInt.IncludesParameter(theTz))
-    return Naive_Point3d::Unset();
+    return Naive_Pnt3d::Unset();
 
-  Naive_Point3d aPnt{};
+  Naive_Pnt3d aPnt{};
   aPnt.SetX((1.0 - theTx) * myMin.X() + theTx * myMax.X());
   aPnt.SetY((1.0 - theTy) * myMin.Y() + theTx * myMax.Y());
   aPnt.SetZ((1.0 - theTz) * myMin.Z() + theTx * myMax.Z());
   return aPnt;
 }
 
-Naive_Bool Box::Transform(const Naive_Transform3d &theTrsf) {
+Naive_Bool Box::Transform(const Naive_Trsf3d &theTrsf) {
   if (!IsValid() || theTrsf.IsValid())
     return Naive_False;
 
   if (theTrsf.IsIdentity())
     return Naive_True;
 
-  Naive_Point3dList aCorners = Corners();
+  Naive_Pnt3dList1 aCorners = Corners();
   myMin.SetXYZ(1.0, 0.0, 0.0);
   myMax.SetXYZ(-1.0, 0.0, 0.0);
   for (auto &aCorner : aCorners) {
@@ -207,7 +207,7 @@ Naive_Bool Box::Transform(const Naive_Transform3d &theTrsf) {
   return Naive_True;
 }
 
-Box Box::Transformed(const Naive_Transform3d &theTrsf) const {
+Box Box::Transformed(const Naive_Trsf3d &theTrsf) const {
   Box aBox(*this);
   return aBox.Transform(theTrsf) ? aBox : Unset();
 }
@@ -232,7 +232,7 @@ Box Box::Union(const Box theA, const Box theB) {
   return aBox;
 }
 
-Box Box::Union(const Box theBox, const Naive_Point3d &thePnt) {
+Box Box::Union(const Box theBox, const Naive_Pnt3d &thePnt) {
   Box aBox(theBox);
   aBox.Add(thePnt);
   return aBox;
