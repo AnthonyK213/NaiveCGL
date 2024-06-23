@@ -4,8 +4,7 @@
 
 Naive_NAMESPACE_BEGIN(geometry2d);
 
-Point2d::Point2d()
-    : myPnt2d(math::Constant::UnsetReal(), math::Constant::UnsetReal()) {}
+Point2d::Point2d() : myPnt2d() {}
 
 Point2d::Point2d(const Naive_Real theX, const Naive_Real theY)
     : myPnt2d(theX, theY) {}

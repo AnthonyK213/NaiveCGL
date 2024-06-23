@@ -4,9 +4,7 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-Point3d::Point3d()
-    : myPnt(math::Constant::UnsetReal(), math::Constant::UnsetReal(),
-            math::Constant::UnsetReal()) {}
+Point3d::Point3d() : myPnt() {}
 
 Point3d::Point3d(const Naive_Real theX, const Naive_Real theY,
                  const Naive_Real theZ)

@@ -4,8 +4,7 @@
 
 Naive_NAMESPACE_BEGIN(geometry2d);
 
-Vector2d::Vector2d()
-    : myVec2d(math::Constant::UnsetReal(), math::Constant::UnsetReal()) {}
+Vector2d::Vector2d() : myVec2d() {}
 
 Vector2d::Vector2d(const Naive_Real theX, const Naive_Real theY)
     : myVec2d(theX, theY) {}
