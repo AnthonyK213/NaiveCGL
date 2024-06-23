@@ -30,11 +30,7 @@ Naive_Bool Point3d::Transform(const Naive_Trsf3d &theTrsf) {
   return myPnt.Transform(theTrsf);
 }
 
-Naive_Bool Point3d::IsValid() const {
-  return math::Util::IsValidReal(myPnt.X()) &&
-         math::Util::IsValidReal(myPnt.Y()) &&
-         math::Util::IsValidReal(myPnt.Z());
-}
+Naive_Bool Point3d::IsValid() const { return myPnt.IsValid(); }
 
 Handle_Naive_Geometry Point3d::Clone() const { return new Point3d(myPnt); }
 
