@@ -1,8 +1,8 @@
 #ifndef _NaiveCGL_BndShape_BoundingBox_HeaderFile
 #define _NaiveCGL_BndShape_BoundingBox_HeaderFile
 
-#include "../Geometry/Box.h"
-#include "../Geometry/OBB.h"
+#include "../Math/Box.h"
+#include "../Math/OBB.h"
 
 Naive_NAMESPACE_BEGIN(bndshape);
 

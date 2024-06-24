@@ -147,13 +147,17 @@ Naive_Real Vec3d::Dot(const Vec3d &theVec) const {
                                          : Constant::UnsetReal();
 }
 
-void Vec3d::Cross(const Vec3d &theVec) {
-  if (IsValid() && theVec.IsValid())
+Naive_Bool Vec3d::Cross(const Vec3d &theVec) {
+  if (IsValid() && theVec.IsValid()) {
     myXYZ = myXYZ.cross(theVec.myXYZ);
+    return Naive_True;
+  }
+  return Naive_False;
 }
 
 Vec3d Vec3d::Crossed(const Vec3d &theVec) const {
-  return (IsValid() && theVec.IsValid()) ? myXYZ.cross(theVec.myXYZ) : Unset();
+  Vec3d aVec(*this);
+  return aVec.Cross(theVec) ? aVec : Unset();
 }
 
 Naive_Bool Vec3d::EpsilonEquals(const Vec3d &theVec, const Naive_Real theE) {

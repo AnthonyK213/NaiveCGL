@@ -6,18 +6,33 @@ Ax2::Ax2() noexcept : myAxis(), myXDir(), myYDir() {}
 
 Ax2::Ax2(const Naive_Pnt3d &theP, const Naive_Vec3d &theX,
          const Naive_Vec3d &theY) noexcept
-    : myXDir(theX), myYDir(theY) {
-  Naive_TODO;
+    : myAxis(), myXDir(theX.Normalized()), myYDir(theY.Normalized()) {
+  Naive_Vec3d aZ = myXDir.Crossed(myYDir);
+  myAxis.SetLocation(theP);
+  myAxis.SetDirection(aZ);
+  myYDir = aZ.Crossed(myXDir).Normalized();
 }
 
 Ax2::Ax2(const Naive_Pnt3d &theP, const Naive_Vec3d &theV) noexcept
     : myAxis(theP, theV) {
-  Naive_TODO;
+  if (!myAxis.IsValid())
+    return;
+
+  myXDir = Naive_Vec3d::XAxis();
+  myYDir = myAxis.Direction().Crossed(myXDir).Normalized();
+
+  if (!myYDir.IsValid()) {
+    myXDir = Naive_Vec3d::YAxis();
+    myYDir = myAxis.Direction().Crossed(myXDir).Normalized();
+  }
+
+  myXDir = myYDir.Crossed(myAxis.Direction()).Normalized();
 }
 
 Ax2::Ax2(const Naive_Axis2_sf_t &theAx2) noexcept
     : myAxis(theAx2.location, theAx2.axis), myXDir(theAx2.ref_direction) {
-  Naive_TODO;
+  myYDir = myAxis.Direction().Crossed(myXDir).Normalized();
+  myXDir = myYDir.Crossed(myAxis.Direction()).Normalized();
 }
 
 Naive_Bool Ax2::IsValid() const {

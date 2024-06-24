@@ -2,6 +2,7 @@
 #define _NaiveCGL_Geometry_NurbsCurve_HeaderFile
 
 #include "../Math/Nurbs.h"
+#include "../Math/Util.h"
 #include "BoundedCurve.h"
 
 Naive_NAMESPACE_BEGIN(geometry);

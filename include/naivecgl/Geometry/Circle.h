@@ -2,15 +2,15 @@
 #define _NaiveCGL_Geometry_Circle_HeaderFile
 
 #include "../Math/Pln.h"
-#include "Curve.h"
+#include "Conic.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-class Circle final : public Naive_Curve {
+class Circle final : public Naive_Conic {
 public:
   Naive_EXPORT Circle();
 
-  Naive_EXPORT Circle(const Naive_Pln &thePln, const Naive_Real theRadius);
+  Naive_EXPORT Circle(const Naive_Ax2 &theAx2, const Naive_Real theR);
 
   Naive_EXPORT virtual Naive_Bool IsValid() const Naive_OVERRIDE;
 
@@ -34,7 +34,6 @@ public:
   CurvatureAt(const Naive_Real theT, Naive_Vec3d &theV) const Naive_OVERRIDE;
 
 private:
-  Naive_Pln myPln;
   Naive_Real myRadius;
 };
 

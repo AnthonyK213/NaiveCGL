@@ -2,6 +2,7 @@
 #define _NaiveCGL_Geometry_NurbsSurface_HeaderFile
 
 #include "../Math/Nurbs.h"
+#include "../Math/Util.h"
 #include "Surface.h"
 
 Naive_NAMESPACE_BEGIN(geometry);

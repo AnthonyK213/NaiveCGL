@@ -1,8 +1,10 @@
-﻿#include <naivecgl/Geometry/Box.h>
+﻿#include <naivecgl/Math/Box.h>
 #include <naivecgl/Math/Intv.h>
+#include <naivecgl/Math/Trsf3d.h>
 #include <naivecgl/Math/Util.h>
+#include <naivecgl/Math/Vec3d.h>
 
-Naive_NAMESPACE_BEGIN(geometry);
+Naive_NAMESPACE_BEGIN(math);
 
 Box::Box() : myMin(1.0, 0.0, 0.0), myMax(-1.0, 0.0, 0.0) {}
 
@@ -24,6 +26,8 @@ Naive_Bool Box::IsValid() const { return isSet() && isValid(); }
 Naive_Bool Box::IsVoid() const { return isSet() && isVoid(); }
 
 Naive_Bool Box::IsPoint() const { return isSet() && isPoint(); }
+
+Naive_Vec3d Box::Diagonal() const { return myMax - myMin; }
 
 Naive_Pnt3d Box::Corner(Naive_Bool theMinX, Naive_Bool theMinY,
                         Naive_Bool theMinZ) const {
@@ -177,7 +181,7 @@ Naive_Pnt3d Box::PointAt(const Naive_Real theTx, const Naive_Real theTy,
   if (!IsValid())
     return Naive_Pnt3d::Unset();
 
-  static Naive_Interval aInt(0.0, 1.0);
+  static Naive_Intv aInt(0.0, 1.0);
   if (!aInt.IncludesParameter(theTx) || !aInt.IncludesParameter(theTy) ||
       !aInt.IncludesParameter(theTz))
     return Naive_Pnt3d::Unset();
@@ -255,4 +259,4 @@ Naive_Bool Box::isPoint() const {
          myMin.Z() == myMax.Z();
 }
 
-Naive_NAMESPACE_END(geometry);
+Naive_NAMESPACE_END(math);

@@ -8,10 +8,7 @@ Ax1::Ax1(const Naive_Pnt3d &theP, const Naive_Vec3d &theV) noexcept
     : myLoc(theP), myDir(theV.Normalized()) {}
 
 Ax1::Ax1(const Naive_Axis1_sf_t &theAx1) noexcept
-    : myLoc(theAx1.location), myDir(theAx1.axis) {
-  if (!myDir.Normalize())
-    myDir = Naive_Vec3d::Unset();
-}
+    : myLoc(theAx1.location), myDir(Naive_Vec3d(theAx1.axis).Normalized()) {}
 
 const Ax1 &Ax1::Unset() {
   static Ax1 anAx1{};

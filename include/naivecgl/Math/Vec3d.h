@@ -83,7 +83,7 @@ public:
 
   Naive_EXPORT Naive_Real Dot(const Vec3d &theVec) const;
 
-  Naive_EXPORT void Cross(const Vec3d &theVec);
+  Naive_EXPORT Naive_Bool Cross(const Vec3d &theVec);
 
   Naive_EXPORT Vec3d Crossed(const Vec3d &theVec) const;
 

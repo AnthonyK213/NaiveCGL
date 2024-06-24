@@ -169,6 +169,15 @@ void Intv::Reverse() {
 
 void Intv::Swap() { ::std::swap(myT0, myT1); }
 
+Naive_Bool Intv::Dump(Naive_Interval_t &theIntv) const {
+  if (IsValid()) {
+    theIntv.t0 = myT0;
+    theIntv.t1 = myT1;
+    return Naive_True;
+  }
+  return Naive_False;
+}
+
 Naive_Bool Intv::operator!=(const Intv &theOther) const {
   return CompareTo(theOther) != 0;
 }

@@ -12,7 +12,7 @@ public:
 
   Naive_EXPORT Plane(const Naive_Pln &thePln);
 
-  const Naive_Pln &Pln() const { return myPos; }
+  Naive_Pln Pln() const { return myPos; }
 
   Naive_EXPORT virtual Naive_Bool IsValid() const Naive_OVERRIDE;
 

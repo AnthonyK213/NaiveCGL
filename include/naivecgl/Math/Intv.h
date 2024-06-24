@@ -101,6 +101,8 @@ public:
   /// @brief Exchanges T0 and T1.
   Naive_EXPORT void Swap();
 
+  Naive_EXPORT Naive_Bool Dump(Naive_Interval_t &theIntv) const;
+
 public:
   Naive_EXPORT Naive_Bool operator!=(const Intv &theOther) const;
 
@@ -135,6 +137,6 @@ Naive_EXPORT const Intv operator+(Naive_Real theNumber,
 
 Naive_NAMESPACE_END(math);
 
-using Naive_Interval = ::naivecgl::math::Intv;
+using Naive_Intv = ::naivecgl::math::Intv;
 
 #endif

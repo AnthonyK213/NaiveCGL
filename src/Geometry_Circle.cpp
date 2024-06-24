@@ -5,11 +5,13 @@ Naive_NAMESPACE_BEGIN(geometry);
 
 Circle::Circle() {}
 
-Circle::Circle(const Naive_Pln &thePln, const Naive_Real theRadius)
-    : myPln(thePln), myRadius(theRadius) {}
+Circle::Circle(const Naive_Ax2 &theAx2, const Naive_Real theR)
+    : myRadius(theR) {
+  myPos = theAx2;
+}
 
 Naive_Bool Circle::IsValid() const {
-  return myPln.IsValid() && math::Util::IsValidReal(myRadius) && myRadius > 0;
+  return myPos.IsValid() && math::Util::IsValidReal(myRadius) && myRadius > 0;
 }
 
 Handle_Naive_Geometry Circle::Clone() const { return new Circle(*this); }
@@ -19,14 +21,14 @@ Naive_Real Circle::FirstParameter() const { return 0.0; }
 Naive_Real Circle::LastParameter() const { return math::Constant::TwoPI(); }
 
 Naive_Pnt3d Circle::PointAt(const Naive_Real theT) const {
-  return {myPln.Location().XYZ() +
-          myPln.XAxis().XYZ() * myRadius * ::std::cos(theT) +
-          myPln.YAxis().XYZ() * myRadius * ::std::sin(theT)};
+  return {myPos.Location().XYZ() +
+          myPos.XDirection().XYZ() * myRadius * ::std::cos(theT) +
+          myPos.YDirection().XYZ() * myRadius * ::std::sin(theT)};
 }
 
 Naive_Vec3d Circle::TangentAt(const Naive_Real theT) const {
-  return {(-myPln.XAxis().XYZ() * ::std::sin(theT) +
-           myPln.YAxis().XYZ() * ::std::cos(theT)) *
+  return {(-myPos.XDirection().XYZ() * ::std::sin(theT) +
+           myPos.YDirection().XYZ() * ::std::cos(theT)) *
           myRadius};
 }
 
@@ -42,7 +44,7 @@ Naive_Code Circle::DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
   Naive_Real s = ::std::sin(theT) * myRadius;
   Naive_Real c = ::std::cos(theT) * myRadius;
   auto f = [&](const Naive_Real a, const Naive_Real b) {
-    return myPln.XAxis().XYZ() * a + myPln.YAxis().XYZ() * b;
+    return myPos.XDirection().XYZ() * a + myPos.YDirection().XYZ() * b;
   };
 
   theD.resize(theN + 1, Naive_Vec3d::Unset());

@@ -1,7 +1,8 @@
 ﻿#ifndef _NaiveCGL_Math_Polynomial_HeaderFile
 #define _NaiveCGL_Math_Polynomial_HeaderFile
 
-#include "Util.h"
+#include "../Common/Macro.h"
+#include "../Common/Type.h"
 
 Naive_NAMESPACE_BEGIN(math);
 

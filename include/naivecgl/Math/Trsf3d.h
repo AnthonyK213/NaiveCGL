@@ -1,8 +1,6 @@
 #ifndef _NaiveCGL_Math_Trsf3d_HeaderFile
 #define _NaiveCGL_Math_Trsf3d_HeaderFile
 
-#include "../Common/Macro.h"
-#include "../Common/Type.h"
 #include "Constant.h"
 
 Naive_NAMESPACE_BEGIN(math);

@@ -1,11 +1,12 @@
-﻿#ifndef _NaiveCGL_Geometry_Box_HeaderFile
-#define _NaiveCGL_Geometry_Box_HeaderFile
+﻿#ifndef _NaiveCGL_Math_Box_HeaderFile
+#define _NaiveCGL_Math_Box_HeaderFile
 
-#include "../Math/Pnt3d.h"
-#include "../Math/Trsf3d.h"
-#include "../Math/Vec3d.h"
+#include "Pnt3d.h"
 
-Naive_NAMESPACE_BEGIN(geometry);
+Naive_NAMESPACE_BEGIN(math);
+
+class Trsf3d;
+class Vec3d;
 
 class Box final {
 public:
@@ -27,7 +28,7 @@ public:
 
   Naive_EXPORT const Naive_Pnt3d &Max() const { return myMax; }
 
-  Naive_EXPORT Naive_Vec3d Diagonal() const { return myMax - myMin; }
+  Naive_EXPORT Vec3d Diagonal() const;
 
   Naive_EXPORT Naive_Pnt3d Center() const { return 0.5 * (myMax + myMin); }
 
@@ -71,9 +72,9 @@ public:
                                    const Naive_Real theTy,
                                    const Naive_Real theTz) const;
 
-  Naive_EXPORT Naive_Bool Transform(const Naive_Trsf3d &theTrsf);
+  Naive_EXPORT Naive_Bool Transform(const Trsf3d &theTrsf);
 
-  Naive_EXPORT Box Transformed(const Naive_Trsf3d &theTrsf) const;
+  Naive_EXPORT Box Transformed(const Trsf3d &theTrsf) const;
 
   Naive_EXPORT static Box Intersection(const Box theA, const Box theB);
 
@@ -95,8 +96,8 @@ private:
   Naive_Pnt3d myMax;
 };
 
-Naive_NAMESPACE_END(geometry);
+Naive_NAMESPACE_END(math);
 
-using Naive_Box = ::naivecgl::geometry::Box;
+using Naive_Box = ::naivecgl::math::Box;
 
 #endif

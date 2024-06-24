@@ -2,9 +2,10 @@
 #define _NaiveCGL_Math_Nurbs_HeaderFile
 
 #include "Pnt3d.h"
-#include "Polynomial.h"
 
 Naive_NAMESPACE_BEGIN(math);
+
+class Polynomial;
 
 class Nurbs {
 public:

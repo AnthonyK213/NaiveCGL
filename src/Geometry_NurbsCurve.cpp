@@ -1,4 +1,5 @@
 ﻿#include <naivecgl/Geometry/NurbsCurve.h>
+#include <naivecgl/Math/Polynomial.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
