@@ -1,7 +1,6 @@
 ﻿#ifndef _NaiveCGL_Geometry_CylindricalSurface_HeaderFile
 #define _NaiveCGL_Geometry_CylindricalSurface_HeaderFile
 
-#include "../Math/Pln.h"
 #include "ElementarySurface.h"
 
 Naive_NAMESPACE_BEGIN(geometry);

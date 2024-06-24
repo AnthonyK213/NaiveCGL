@@ -1,7 +1,6 @@
 ﻿#ifndef _NaiveCGL_Geometry_Circle_HeaderFile
 #define _NaiveCGL_Geometry_Circle_HeaderFile
 
-#include "../Math/Pln.h"
 #include "Conic.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
