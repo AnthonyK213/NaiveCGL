@@ -39,5 +39,6 @@ private:
 Naive_NAMESPACE_END(geometry);
 
 using Naive_Circle = ::naivecgl::geometry::Circle;
+Naive_DEFINE_HANDLE(Naive_Circle);
 
 #endif
