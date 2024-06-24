@@ -8,7 +8,7 @@
 Naive_NAMESPACE_BEGIN(bndshape);
 
 /// @brief Calculates the convex hull of a set of 2d points.
-class ConvexHull2D final : public Naive_Transient {
+class ConvexHull2D final : public Naive_Object {
 public:
   Naive_EXPORT explicit ConvexHull2D(
       const Naive_Pnt2dList1 &thePoints,

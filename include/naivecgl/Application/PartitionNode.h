@@ -1,0 +1,4 @@
+#ifndef _NaiveCGL_Application_PartitionNode_HeaderFile
+#define _NaiveCGL_Application_PartitionNode_HeaderFile
+
+#endif

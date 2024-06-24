@@ -1,38 +1,33 @@
-﻿#include <naivecgl/Geometry/HalfEdgeMesh.h>
+﻿#include <naivecgl/Geometry/Mesh.h>
 
 #include <set>
 #include <tuple>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-/* HalfEdgeMesh::HalfEdgeId */
+/* Mesh::HalfEdgeId */
 
-HalfEdgeMesh::HalfEdgeId::HalfEdgeId() : myA(-1), myB(-1) {}
+Mesh::HalfEdgeId::HalfEdgeId() : myA(-1), myB(-1) {}
 
-HalfEdgeMesh::HalfEdgeId::HalfEdgeId(const VertexId theA, const VertexId theB)
+Mesh::HalfEdgeId::HalfEdgeId(const VertexId theA, const VertexId theB)
     : myA(theA), myB(theB) {}
 
-const HalfEdgeMesh::HalfEdgeId &HalfEdgeMesh::HalfEdgeId::Unset() {
-  static HalfEdgeMesh::HalfEdgeId anId{};
+const Mesh::HalfEdgeId &Mesh::HalfEdgeId::Unset() {
+  static Mesh::HalfEdgeId anId{};
   return anId;
 }
 
-Naive_Bool HalfEdgeMesh::HalfEdgeId::IsValid() const {
-  return myA >= 0 && myB >= 0;
-}
+Naive_Bool Mesh::HalfEdgeId::IsValid() const { return myA >= 0 && myB >= 0; }
 
-Naive_Bool
-HalfEdgeMesh::HalfEdgeId::operator!=(const HalfEdgeId &theOther) const {
+Naive_Bool Mesh::HalfEdgeId::operator!=(const HalfEdgeId &theOther) const {
   return myA != theOther.myA || myB != theOther.myB;
 }
 
-Naive_Bool
-HalfEdgeMesh::HalfEdgeId::operator==(const HalfEdgeId &theOther) const {
+Naive_Bool Mesh::HalfEdgeId::operator==(const HalfEdgeId &theOther) const {
   return myA == theOther.myA && myB == theOther.myB;
 }
 
-Naive_Bool
-HalfEdgeMesh::HalfEdgeId::operator<(const HalfEdgeId &theOther) const {
+Naive_Bool Mesh::HalfEdgeId::operator<(const HalfEdgeId &theOther) const {
   if (myA < theOther.myA) {
     return Naive_True;
   } else if (myA == theOther.myA) {
@@ -42,8 +37,7 @@ HalfEdgeMesh::HalfEdgeId::operator<(const HalfEdgeId &theOther) const {
   }
 }
 
-Naive_Bool
-HalfEdgeMesh::HalfEdgeId::operator>(const HalfEdgeId &theOther) const {
+Naive_Bool Mesh::HalfEdgeId::operator>(const HalfEdgeId &theOther) const {
   if (myA > theOther.myA) {
     return Naive_True;
   } else if (myA == theOther.myA) {
@@ -53,8 +47,7 @@ HalfEdgeMesh::HalfEdgeId::operator>(const HalfEdgeId &theOther) const {
   }
 }
 
-Naive_Bool
-HalfEdgeMesh::HalfEdgeId::operator<=(const HalfEdgeId &theOther) const {
+Naive_Bool Mesh::HalfEdgeId::operator<=(const HalfEdgeId &theOther) const {
   if (myA < theOther.myA) {
     return Naive_True;
   } else if (myA == theOther.myA) {
@@ -64,8 +57,7 @@ HalfEdgeMesh::HalfEdgeId::operator<=(const HalfEdgeId &theOther) const {
   }
 }
 
-Naive_Bool
-HalfEdgeMesh::HalfEdgeId::operator>=(const HalfEdgeId &theOther) const {
+Naive_Bool Mesh::HalfEdgeId::operator>=(const HalfEdgeId &theOther) const {
   if (myA > theOther.myA) {
     return Naive_True;
   } else if (myA == theOther.myA) {
@@ -75,37 +67,35 @@ HalfEdgeMesh::HalfEdgeId::operator>=(const HalfEdgeId &theOther) const {
   }
 }
 
-/* HalfEdgeMesh::Vertex */
+/* Mesh::Vertex */
 
-HalfEdgeMesh::Vertex::Vertex() : myCoord(), myEdge(), myId(-1) {}
+Mesh::Vertex::Vertex() : myCoord(), myEdge(), myId(-1) {}
 
-HalfEdgeMesh::Vertex::Vertex(const Naive_Pnt3d &theCoord)
+Mesh::Vertex::Vertex(const Naive_Pnt3d &theCoord)
     : myCoord(theCoord), myEdge(), myId(-1) {}
 
-HalfEdgeMesh::Vertex::Vertex(Naive_Real theX, Naive_Real theY, Naive_Real theZ)
+Mesh::Vertex::Vertex(Naive_Real theX, Naive_Real theY, Naive_Real theZ)
     : myCoord(theX, theY, theZ), myEdge(), myId(-1) {}
 
-/* HalfEdgeMesh::HalfEdge */
+/* Mesh::HalfEdge */
 
-HalfEdgeMesh::HalfEdge::HalfEdge()
+Mesh::HalfEdge::HalfEdge()
     : myOrigin(-1), myFace(-1), myTwin(), myPrev(), myNext(), myId() {}
 
-HalfEdgeMesh::HalfEdge::HalfEdge(const VertexId theOrigin,
-                                 const VertexId theNext)
+Mesh::HalfEdge::HalfEdge(const VertexId theOrigin, const VertexId theNext)
     : myOrigin(theOrigin), myFace(-1), myTwin(), myPrev(), myNext(),
       myId(theOrigin, theNext) {}
 
-/* HalfEdgeMesh::Face */
+/* Mesh::Face */
 
-HalfEdgeMesh::Face::Face() : myOuterEdge(), myNormal(), myId(-1) {}
+Mesh::Face::Face() : myOuterEdge(), myNormal(), myId(-1) {}
 
-HalfEdgeMesh::Face::Face(const HalfEdgeId theOuterEdge)
+Mesh::Face::Face(const HalfEdgeId theOuterEdge)
     : myOuterEdge(theOuterEdge), myNormal(0., 0., 0.), myId(-1) {}
 
-/* HalfEdgeMesh::Face::EdgeIterator */
+/* Mesh::Face::EdgeIterator */
 
-HalfEdgeMesh::EdgeIterator::EdgeIterator(const HalfEdgeMesh &theMesh,
-                                         const FaceId theFace)
+Mesh::EdgeIterator::EdgeIterator(const Mesh &theMesh, const FaceId theFace)
     : myMesh(&theMesh), myCurrent() {
   myOwner = myMesh->GetFace(theFace);
   if (myOwner)
@@ -113,7 +103,7 @@ HalfEdgeMesh::EdgeIterator::EdgeIterator(const HalfEdgeMesh &theMesh,
   myFirstTime = Naive_True;
 }
 
-Naive_Bool HalfEdgeMesh::EdgeIterator::More() const {
+Naive_Bool Mesh::EdgeIterator::More() const {
   if (!myOwner || !myCurrent.IsValid())
     return Naive_False;
 
@@ -125,19 +115,19 @@ Naive_Bool HalfEdgeMesh::EdgeIterator::More() const {
   return myCurrent != myOwner->Edge();
 }
 
-void HalfEdgeMesh::EdgeIterator::Next() {
+void Mesh::EdgeIterator::Next() {
   const HalfEdge *anCrt = myMesh->GetHalfEdge(myCurrent);
   if (anCrt)
     myCurrent = anCrt->Next();
 }
 
-/* HalfEdgeMesh */
+/* Mesh */
 
-HalfEdgeMesh::HalfEdgeMesh()
+Mesh::Mesh()
     : myVertexIndex(0), myFaceIndex(0), myVertexSlots(), myFaceSlots(),
       myVertices(), myHalfEdges(), myFaces(), myIsValid(Naive_False) {}
 
-HalfEdgeMesh::HalfEdgeMesh(const Naive_Poly &thePoly)
+Mesh::Mesh(const Naive_Poly &thePoly)
     : myVertexIndex(0), myFaceIndex(0), myVertexSlots(), myFaceSlots(),
       myVertices(), myHalfEdges(), myFaces(), myIsValid(Naive_False) {
   for (const Naive_Pnt3d &aVertex : thePoly.Vertices()) {
@@ -152,30 +142,28 @@ HalfEdgeMesh::HalfEdgeMesh(const Naive_Poly &thePoly)
   myIsValid = Naive_True;
 }
 
-const HalfEdgeMesh::Vertex *
-HalfEdgeMesh::GetVertex(const VertexId theId) const {
+const Mesh::Vertex *Mesh::GetVertex(const VertexId theId) const {
   if (theId < 0)
     return nullptr;
   auto ret = myVertices.find(theId);
   return (ret == myVertices.end()) ? nullptr : &ret->second;
 }
 
-const HalfEdgeMesh::HalfEdge *
-HalfEdgeMesh::GetHalfEdge(const HalfEdgeId theId) const {
+const Mesh::HalfEdge *Mesh::GetHalfEdge(const HalfEdgeId theId) const {
   if (!theId.IsValid())
     return nullptr;
   auto ret = myHalfEdges.find(theId);
   return (ret == myHalfEdges.end()) ? nullptr : &ret->second;
 }
 
-const HalfEdgeMesh::Face *HalfEdgeMesh::GetFace(const FaceId theId) const {
+const Mesh::Face *Mesh::GetFace(const FaceId theId) const {
   if (theId < 0)
     return nullptr;
   auto ret = myFaces.find(theId);
   return (ret == myFaces.end()) ? nullptr : &ret->second;
 }
 
-Naive_IntegerList1 HalfEdgeMesh::GetAllVertices() const {
+Naive_IntegerList1 Mesh::GetAllVertices() const {
   if (!IsValid())
     return {};
 
@@ -190,7 +178,7 @@ Naive_IntegerList1 HalfEdgeMesh::GetAllVertices() const {
   return anIdList;
 }
 
-Naive_IntegerList1 HalfEdgeMesh::GetAllFaces() const {
+Naive_IntegerList1 Mesh::GetAllFaces() const {
   if (!IsValid())
     return {};
 
@@ -204,7 +192,7 @@ Naive_IntegerList1 HalfEdgeMesh::GetAllFaces() const {
   return anIdList;
 }
 
-Handle_Naive_Poly HalfEdgeMesh::Soup(Naive_Bool theCompat) const {
+Handle_Naive_Poly Mesh::GetTriangulation(Naive_Bool theCompat) const {
   if (!IsValid())
     return nullptr;
 
@@ -254,8 +242,7 @@ Handle_Naive_Poly HalfEdgeMesh::Soup(Naive_Bool theCompat) const {
   return new Naive_Poly(::std::move(aVertices), ::std::move(aTriangles));
 }
 
-Naive_Bool HalfEdgeMesh::addVertex(const VertexId theId,
-                                   const Naive_Pnt3d &thePoint) {
+Naive_Bool Mesh::addVertex(const VertexId theId, const Naive_Pnt3d &thePoint) {
   Vertex anVertex{thePoint};
   anVertex.myId = theId;
   auto result = myVertices.emplace(theId, ::std::move(anVertex));
@@ -263,7 +250,7 @@ Naive_Bool HalfEdgeMesh::addVertex(const VertexId theId,
   return result.second;
 }
 
-Naive_Integer HalfEdgeMesh::AddVertex(const Naive_Pnt3d &thePoint) {
+Naive_Integer Mesh::AddVertex(const Naive_Pnt3d &thePoint) {
   Naive_Integer anId = myVertexIndex;
 
   if (myVertexSlots.empty()) {
@@ -279,7 +266,7 @@ Naive_Integer HalfEdgeMesh::AddVertex(const Naive_Pnt3d &thePoint) {
   return anId;
 }
 
-Naive_Bool HalfEdgeMesh::RemoveVertex(const VertexId theId) {
+Naive_Bool Mesh::RemoveVertex(const VertexId theId) {
   const Vertex *aVertex = GetVertex(theId);
 
   if (!aVertex)
@@ -314,9 +301,8 @@ Naive_Bool HalfEdgeMesh::RemoveVertex(const VertexId theId) {
   return Naive_True;
 }
 
-HalfEdgeMesh::FaceId HalfEdgeMesh::AddFace(const VertexId theV1,
-                                           const VertexId theV2,
-                                           const VertexId theV3) {
+Mesh::FaceId Mesh::AddFace(const VertexId theV1, const VertexId theV2,
+                           const VertexId theV3) {
   /* If there are duplicate points, quit. */
 
   if (theV1 == theV2 || theV2 == theV3 || theV3 == theV1)
@@ -444,8 +430,7 @@ HalfEdgeMesh::FaceId HalfEdgeMesh::AddFace(const VertexId theV1,
   return anFaceId;
 }
 
-Naive_Bool HalfEdgeMesh::removeHalfEdge(const HalfEdge *theEdge,
-                                        Naive_Bool theCompat) {
+Naive_Bool Mesh::removeHalfEdge(const HalfEdge *theEdge, Naive_Bool theCompat) {
   if (!theEdge)
     return Naive_False;
 
@@ -501,7 +486,7 @@ Naive_Bool HalfEdgeMesh::removeHalfEdge(const HalfEdge *theEdge,
   return Naive_True;
 }
 
-Naive_Bool HalfEdgeMesh::RemoveFace(const FaceId theId, Naive_Bool theCompat) {
+Naive_Bool Mesh::RemoveFace(const FaceId theId, Naive_Bool theCompat) {
   const Face *aFace = GetFace(theId);
 
   if (!aFace)

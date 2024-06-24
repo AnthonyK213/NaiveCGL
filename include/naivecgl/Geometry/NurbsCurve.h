@@ -2,11 +2,11 @@
 #define _NaiveCGL_Geometry_NurbsCurve_HeaderFile
 
 #include "../Math/Nurbs.h"
-#include "Curve.h"
+#include "BoundedCurve.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-class NurbsCurve final : public Naive_Curve {
+class NurbsCurve final : public Naive_BoundedCurve {
 public:
   Naive_EXPORT NurbsCurve() noexcept;
 
@@ -85,6 +85,10 @@ public:
   /// @return If reduced successfully, true; otherwise, false.
   Naive_EXPORT Naive_Code RemoveKnot(const Naive_Integer theI,
                                      const Naive_Integer theM);
+
+  Naive_EXPORT virtual Naive_Pnt3d EndPoint() const Naive_OVERRIDE;
+
+  Naive_EXPORT virtual Naive_Pnt3d StartPoint() const Naive_OVERRIDE;
 
 private:
   template <typename P, typename Rw, typename Rk, typename I>

@@ -2,4 +2,4 @@
 
 #include <gtest/gtest.h>
 
-TEST(NaiveCGLTest_Topology, _) {}
+TEST(NaiveCGLTest_Geometry2d, _) {}

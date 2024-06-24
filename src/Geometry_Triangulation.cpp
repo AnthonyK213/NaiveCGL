@@ -1,10 +1,10 @@
-﻿#include <naivecgl/Geometry/TriangleSoup.h>
+﻿#include <naivecgl/Geometry/Triangulation.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-TriangleSoup::TriangleSoup() : myVertices(), myTriangles() {}
+Triangulation::Triangulation() : myVertices(), myTriangles() {}
 
-Naive_Bool TriangleSoup::IsValid() const {
+Naive_Bool Triangulation::IsValid() const {
   Naive_Size nbVertices = myVertices.size();
 
   for (const Naive_Triangle &aTriangle : myTriangles) {

@@ -1,11 +1,11 @@
 ﻿#ifndef _NaiveCGL_Common_Handle_HeaderFile
 #define _NaiveCGL_Common_Handle_HeaderFile
 
-#include "Transient.h"
+#include "Object.h"
 
 Naive_NAMESPACE_BEGIN(common);
 
-class Transient;
+class Object;
 
 template <typename T> class handle {
 public:
@@ -94,7 +94,7 @@ public:
   explicit operator bool() const { return myEntity != nullptr; }
 
 private:
-  void assign(Transient *thePtr) {
+  void assign(Object *thePtr) {
     if (thePtr == myEntity)
       return;
     endScope();
@@ -116,7 +116,7 @@ private:
   template <typename T1> friend class handle;
 
 private:
-  Transient *myEntity;
+  Object *myEntity;
 };
 
 Naive_NAMESPACE_END(common);
@@ -125,10 +125,10 @@ template <typename T> using Naive_Handle = ::naivecgl::common::handle<T>;
 
 namespace std {
 
-template <typename TheTransientType>
-struct hash<Naive_Handle<TheTransientType>> {
+template <typename TheObjectType>
+struct hash<Naive_Handle<TheObjectType>> {
   size_t
-  operator()(const Naive_Handle<TheTransientType> &theHandle) const noexcept {
+  operator()(const Naive_Handle<TheObjectType> &theHandle) const noexcept {
     return static_cast<size_t>(
         reinterpret_cast<::std::uintptr_t>(theHandle.get()));
   }
@@ -136,6 +136,6 @@ struct hash<Naive_Handle<TheTransientType>> {
 
 } // namespace std
 
-Naive_DEFINE_HANDLE(Naive_Transient);
+Naive_DEFINE_HANDLE(Naive_Object);
 
 #endif

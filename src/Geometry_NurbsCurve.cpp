@@ -282,4 +282,24 @@ Naive_Code NurbsCurve::RemoveKnot(const Naive_Integer theI,
   return Naive_Code_ok;
 }
 
+Naive_Pnt3d NurbsCurve::EndPoint() const {
+  if (!IsValid())
+    return Naive_Pnt3d::Unset();
+
+  if (myMults[myMults.size() - 1] == myDegree + 1)
+    return myPoles[myPoles.size() - 1];
+  else
+    return PointAt(LastParameter());
+}
+
+Naive_Pnt3d NurbsCurve::StartPoint() const {
+  if (!IsValid())
+    return Naive_Pnt3d::Unset();
+
+  if (myMults[0] == myDegree + 1)
+    return myPoles[0];
+  else
+    return PointAt(FirstParameter());
+}
+
 Naive_NAMESPACE_END(geometry);

@@ -6,7 +6,7 @@
 
 Naive_NAMESPACE_BEGIN(bndshape);
 
-class EnclosingDisc final : public Naive_Transient {
+class EnclosingDisc final : public Naive_Object {
 public:
   Naive_EXPORT EnclosingDisc();
 

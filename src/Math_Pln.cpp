@@ -3,48 +3,25 @@
 
 Naive_NAMESPACE_BEGIN(math);
 
-Pln::Pln() { initInvalid(); }
+Pln::Pln() : myPos() {}
+
+Pln::Pln(const Naive_Ax2 &theAx2) : myPos(theAx2) {}
 
 Pln::Pln(const Naive_Pnt3d &theP, const Naive_Vec3d &theXAxis,
          const Naive_Vec3d &theYAxis)
-    : myLocation(theP), myXAxis(theXAxis), myYAxis(theYAxis) {
-  if (!initByXY())
-    initInvalid();
-}
+    : myPos(theP, theXAxis, theYAxis) {}
 
 Pln::Pln(const Naive_Pnt3d &theP, const Naive_Vec3d &theN)
-    : myLocation(theP), myZAxis(theN) {
-  if (!myZAxis.Normalize()) {
-    initInvalid();
-    return;
-  }
+    : myPos(theP, theN) {}
 
-  myXAxis = Naive_Vec3d::YAxis().Crossed(myZAxis);
-  if (!myXAxis.Normalize()) {
-    myXAxis = Naive_Vec3d::XAxis().Crossed(myZAxis);
-  }
+Pln::Pln(const Naive_Plane_sf_t &thePln) : myPos(thePln.basis_set) {}
 
-  myYAxis = myZAxis.Crossed(myXAxis);
-  myYAxis.Normalize();
-}
-
-Pln::Pln(const Naive_Plane_sf_t &thePln)
-    : myLocation(thePln.basis_set.location),
-      myXAxis(thePln.basis_set.ref_direction), myZAxis(thePln.basis_set.axis) {
-  if (!initByZX())
-    initInvalid();
-}
-
-Naive_Bool Pln::IsValid() const {
-  return myLocation.IsValid() && myXAxis.IsValid() && !myXAxis.IsZero() &&
-         myYAxis.IsValid() && !myYAxis.IsZero() && myZAxis.IsValid() &&
-         !myZAxis.IsZero();
-}
+Naive_Bool Pln::IsValid() const { return myPos.IsValid(); }
 
 Naive_Real Pln::Distance(const Naive_Pnt3d &theP) const {
-  Naive_Real aDist = (myZAxis.X() * (theP.X() - myLocation.X()) +
-                      myZAxis.Y() * (theP.Y() - myLocation.Y()) +
-                      myZAxis.Z() * (theP.Z() - myLocation.Z()));
+  Naive_Real aDist = (Axis().X() * (theP.X() - Location().X()) +
+                      Axis().Y() * (theP.Y() - Location().Y()) +
+                      Axis().Z() * (theP.Z() - Location().Z()));
 
   if (aDist < 0)
     aDist = -aDist;
@@ -75,91 +52,38 @@ const Pln &Pln::WorldZX() {
   return aPln;
 }
 
-Naive_Bool Pln::Transform(const Naive_Trsf3d &theTrsf) {
-  if (!myLocation.Transform(theTrsf) || !myXAxis.Transform(theTrsf) ||
-      !myYAxis.Transform(theTrsf))
-    return Naive_False;
+Naive_Bool Pln::Transform(const Naive_Trsf3d &theTrsf) { Naive_TODO; }
 
-  initByXY();
-  return Naive_True;
-}
-
-Pln Pln::Transformed(const Naive_Trsf3d &theTrsf) const {
-  Pln aPlane(*this);
-  if (aPlane.Transform(theTrsf))
-    return aPlane;
-  return Unset();
-}
+Pln Pln::Transformed(const Naive_Trsf3d &theTrsf) const { Naive_TODO; }
 
 Naive_Bool Pln::Dump(Naive_Plane_sf_t &thePln) const {
-  if (!IsValid())
-    return Naive_False;
-
-  return myLocation.Dump(thePln.basis_set.location) &&
-         myZAxis.Dump(thePln.basis_set.axis) &&
-         myXAxis.Dump(thePln.basis_set.ref_direction);
+  return myPos.Dump(thePln.basis_set);
 }
 
-Naive_Bool Pln::Orient(const Pln &thePln, Naive_Trsf3d &theTrsf) const {
-  if (!IsValid() || !thePln.IsValid())
+Naive_Bool Pln::Orient(const Pln &thePln1, const Pln &thePln2,
+                       Trsf3d &theTrsf) {
+  if (!thePln1.IsValid() || !thePln2.IsValid())
     return Naive_False;
 
   Naive_Affine3d aT1{};
   aT1.setIdentity();
   Naive_Matrix3d aR1{};
-  aR1.col(0) = myXAxis.XYZ();
-  aR1.col(1) = myYAxis.XYZ();
-  aR1.col(2) = myZAxis.XYZ();
+  aR1.col(0) = thePln1.XAxis().XYZ();
+  aR1.col(1) = thePln1.YAxis().XYZ();
+  aR1.col(2) = thePln1.Axis().XYZ();
   aT1.rotate(aR1);
-  aT1.translation() = myLocation.XYZ();
+  aT1.translation() = thePln1.Location().XYZ();
 
   Naive_Affine3d aT2{};
   aT2.setIdentity();
   Naive_Matrix3d aR2{};
-  aR2.col(0) = thePln.myXAxis.XYZ();
-  aR2.col(1) = thePln.myYAxis.XYZ();
-  aR2.col(2) = thePln.myZAxis.XYZ();
+  aR2.col(0) = thePln2.XAxis().XYZ();
+  aR2.col(1) = thePln2.YAxis().XYZ();
+  aR2.col(2) = thePln2.Axis().XYZ();
   aT2.rotate(aR2);
-  aT2.translation() = thePln.myLocation.XYZ();
+  aT2.translation() = thePln2.Location().XYZ();
 
   theTrsf = {aT2 * aT1.inverse()};
-  return Naive_True;
-}
-
-void Pln::initInvalid() {
-  myLocation = Naive_Pnt3d::Unset();
-  myXAxis = Naive_Vec3d::Unset();
-  myYAxis = Naive_Vec3d::Unset();
-  myZAxis = Naive_Vec3d::Unset();
-}
-
-Naive_Bool Pln::initByXY() {
-  if (!myXAxis.Normalize())
-    return Naive_False;
-
-  myZAxis = myXAxis.Crossed(myYAxis);
-  if (!myZAxis.Normalize())
-    return Naive_False;
-
-  myYAxis = myZAxis.Crossed(myXAxis);
-  if (!myYAxis.Normalize())
-    return Naive_False;
-
-  return Naive_True;
-}
-
-Naive_Bool Pln::initByZX() {
-  if (!myZAxis.Normalize())
-    return Naive_False;
-
-  myYAxis = myZAxis.Crossed(myXAxis);
-  if (!myYAxis.Normalize())
-    return Naive_False;
-
-  myXAxis = myYAxis.Crossed(myZAxis);
-  if (!myXAxis.Normalize())
-    return Naive_False;
-
   return Naive_True;
 }
 

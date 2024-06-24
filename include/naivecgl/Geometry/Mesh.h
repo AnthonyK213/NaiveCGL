@@ -1,12 +1,12 @@
-﻿#ifndef _NaiveCGL_Geometry_HalfEdgeMesh_HeaderFile
-#define _NaiveCGL_Geometry_HalfEdgeMesh_HeaderFile
+﻿#ifndef _NaiveCGL_Geometry_Mesh_HeaderFile
+#define _NaiveCGL_Geometry_Mesh_HeaderFile
 
-#include "TriangleSoup.h"
+#include "Triangulation.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 
 /// @brief Manifold mesh described by half-edges.
-class HalfEdgeMesh : public Naive_Transient {
+class Mesh : public Naive_Object {
 public:
   typedef Naive_Integer VertexId;
   typedef Naive_Integer FaceId;
@@ -45,7 +45,7 @@ public:
   };
 
   struct Vertex {
-    friend class HalfEdgeMesh;
+    friend class Mesh;
 
     Naive_EXPORT Vertex();
 
@@ -68,7 +68,7 @@ public:
   };
 
   struct HalfEdge {
-    friend class HalfEdgeMesh;
+    friend class Mesh;
 
     Naive_EXPORT HalfEdge();
 
@@ -96,7 +96,7 @@ public:
   };
 
   struct Face {
-    friend class HalfEdgeMesh;
+    friend class Mesh;
 
     Naive_EXPORT Face();
 
@@ -116,8 +116,7 @@ public:
 
   class EdgeIterator {
   public:
-    Naive_EXPORT EdgeIterator(const HalfEdgeMesh &theMesh,
-                              const FaceId theFace);
+    Naive_EXPORT EdgeIterator(const Mesh &theMesh, const FaceId theFace);
 
     Naive_EXPORT Naive_Bool More() const;
 
@@ -126,17 +125,17 @@ public:
     Naive_EXPORT HalfEdgeId Current() const { return myCurrent; }
 
   private:
-    const HalfEdgeMesh *myMesh;
+    const Mesh *myMesh;
     const Face *myOwner;
     HalfEdgeId myCurrent;
     mutable Naive_Bool myFirstTime;
   };
 
 public:
-  Naive_EXPORT HalfEdgeMesh();
+  Naive_EXPORT Mesh();
 
-  /// @brief Construct a half-edge mesh from a trangle soup.
-  Naive_EXPORT explicit HalfEdgeMesh(const Naive_Poly &thePoly);
+  /// @brief Construct a half-edge mesh from a trangulation.
+  Naive_EXPORT explicit Mesh(const Naive_Poly &thePoly);
 
   Naive_EXPORT Naive_Bool IsValid() const { return myIsValid; }
 
@@ -158,7 +157,8 @@ public:
 
   Naive_EXPORT Naive_IntegerList1 GetAllFaces() const;
 
-  Naive_EXPORT Handle_Naive_Poly Soup(Naive_Bool theCompat = Naive_False) const;
+  Naive_EXPORT Handle_Naive_Poly
+  GetTriangulation(Naive_Bool theCompat = Naive_False) const;
 
   Naive_EXPORT Naive_Integer AddVertex(const Naive_Pnt3d &thePoint);
 
@@ -188,7 +188,7 @@ private:
 
 Naive_NAMESPACE_END(geometry);
 
-using Naive_Mesh = ::naivecgl::geometry::HalfEdgeMesh;
+using Naive_Mesh = ::naivecgl::geometry::Mesh;
 Naive_DEFINE_HANDLE(Naive_Mesh);
 
 #endif

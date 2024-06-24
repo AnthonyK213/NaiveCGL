@@ -40,4 +40,6 @@ using Naive_XYZ = Naive_Vec3<Naive_Real>;
 using Naive_XYZW = Naive_Vec4<Naive_Real>;
 using Naive_Affine3d = ::Eigen::Affine3d;
 
+using Naive_Tag = Naive_Integer;
+
 #endif

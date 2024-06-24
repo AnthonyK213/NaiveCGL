@@ -1,5 +1,5 @@
-﻿#ifndef _NaiveCGL_Common_Transient_HeaderFile
-#define _NaiveCGL_Common_Transient_HeaderFile
+﻿#ifndef _NaiveCGL_Common_Object_HeaderFile
+#define _NaiveCGL_Common_Object_HeaderFile
 
 #include "Macro.h"
 #include "Type.h"
@@ -8,17 +8,17 @@
 
 Naive_NAMESPACE_BEGIN(common);
 
-class Transient {
+class Object {
 public:
-  Naive_EXPORT Transient();
+  Naive_EXPORT Object();
 
-  Naive_EXPORT Transient(const Transient &);
+  Naive_EXPORT Object(const Object &);
 
-  Naive_EXPORT Transient &operator=(const Transient &);
+  Naive_EXPORT Object &operator=(const Object &);
 
-  Naive_EXPORT virtual ~Transient();
+  Naive_EXPORT virtual ~Object();
 
-  Naive_EXPORT Transient *This() const;
+  Naive_EXPORT Object *This() const;
 
   inline Naive_Integer GetRefCount() const noexcept { return myRefCount_; }
 
@@ -34,6 +34,6 @@ protected:
 
 Naive_NAMESPACE_END(common);
 
-using Naive_Transient = ::naivecgl::common::Transient;
+using Naive_Object = ::naivecgl::common::Object;
 
 #endif

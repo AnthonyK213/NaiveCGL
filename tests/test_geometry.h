@@ -1,9 +1,9 @@
 #pragma once
 
 #include <gtest/gtest.h>
-#include <naivecgl/Geometry/HalfEdgeMesh.h>
+#include <naivecgl/Geometry/Mesh.h>
 
-TEST(NaiveCGLTest_Geometry, Create_HalfEdgeMesh_From_TriangleSoup) {
+TEST(NaiveCGLTest_Geometry, Create_Mesh_From_Triangulation) {
   Naive_List1<Naive_Pnt3d> vertices = {
       {0., 0., 1.},  {-1., -1., 0.}, {-1., 1., 0.},
       {1., -1., 0.}, {1., 1., 0.},   {0., 0., -1.},
@@ -14,18 +14,18 @@ TEST(NaiveCGLTest_Geometry, Create_HalfEdgeMesh_From_TriangleSoup) {
       {5, 1, 2}, {5, 2, 4}, {5, 4, 3}, {5, 3, 1},
   };
 
-  Naive_Poly soup(::std::move(vertices), ::std::move(triangles));
+  Naive_Poly aPoly(::std::move(vertices), ::std::move(triangles));
 
-  ASSERT_TRUE(soup.IsValid());
+  ASSERT_TRUE(aPoly.IsValid());
 
-  Handle_Naive_Mesh mesh = new Naive_Mesh(soup);
+  Handle_Naive_Mesh aMesh = new Naive_Mesh(aPoly);
 
-  mesh->RemoveVertex(5);
-  mesh->RemoveVertex(1);
+  aMesh->RemoveVertex(5);
+  aMesh->RemoveVertex(1);
 
-  Naive_Integer id = mesh->AddVertex({0., 0., -1.});
-  mesh->AddFace(id, 2, 4);
-  mesh->RemoveFace(2);
+  Naive_Integer id = aMesh->AddVertex({0., 0., -1.});
+  aMesh->AddFace(id, 2, 4);
+  aMesh->RemoveFace(2);
 
-  Handle_Naive_Poly poly = mesh->Soup(Naive_True);
+  Handle_Naive_Poly aPoly2 = aMesh->GetTriangulation(Naive_True);
 }

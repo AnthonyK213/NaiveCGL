@@ -2,13 +2,13 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-Plane::Plane() : myPln() {}
+Plane::Plane() {}
 
-Plane::Plane(const Naive_Pln &thePln) : myPln(thePln) {}
+Plane::Plane(const Naive_Pln &thePln) { myPos = thePln.Ax2(); }
 
-Naive_Bool Plane::IsValid() const { return myPln.IsValid(); }
+Naive_Bool Plane::IsValid() const { return myPos.IsValid(); }
 
-Handle_Naive_Geometry Plane::Clone() const { return new Plane(myPln); }
+Handle_Naive_Geometry Plane::Clone() const { return new Plane(myPos); }
 
 Naive_Pnt3d Plane::PointAt(const Naive_Real theU, const Naive_Real theV) const {
   Naive_TODO;
@@ -21,7 +21,8 @@ Naive_Code Plane::Evaluate(const Naive_Real theU, const Naive_Real theV,
 }
 
 Naive_Real Plane::Distance(const Naive_Pnt3d &theP) const {
-  return myPln.Distance(theP);
+  Naive_Pln aPln{myPos};
+  return aPln.Distance(theP);
 }
 
 Naive_NAMESPACE_END(geometry);

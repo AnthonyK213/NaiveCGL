@@ -31,10 +31,10 @@ Naive_Code_t Naive_Math_Util_is_valid_real(const double real,
 
 /// }}}
 
-/// Naive_Transient {{{
+/// Naive_Object {{{
 
-Naive_Code_t Naive_Transient_free(Naive_Transient_t transient) {
-  Naive_H_CAST(Naive_Transient, transient, H);
+Naive_Code_t Naive_Object_free(Naive_Object_t Object) {
+  Naive_H_CAST(Naive_Object, Object, H);
   if (H && H->DecrementRefCounter() == 0)
     H->Delete();
   return Naive_Code_ok;

@@ -47,13 +47,13 @@ typedef void *Naive_Line_t;
 typedef void *Naive_Loop_t;
 typedef void *Naive_NurbsCurve_t;
 typedef void *Naive_NurbsSurface_t;
+typedef void *Naive_Object_t;
 typedef void *Naive_Plane_t;
 typedef void *Naive_Poly_t;
 typedef void *Naive_Shell_t;
 typedef void *Naive_Solid_t;
 typedef void *Naive_Surface_t;
 typedef void *Naive_Transform3d_t;
-typedef void *Naive_Transient_t;
 typedef void *Naive_Vertex_t;
 
 /* Naive_Logical_t */
@@ -129,6 +129,13 @@ typedef struct Naive_Axis2_sf_s {
 typedef struct Naive_Line_sf_s {
   Naive_Axis1_sf_t basis_set;
 } Naive_Line_sf_t;
+
+/* Naive_Circle_sf_t */
+
+typedef struct Naive_Circle_sf_s {
+  Naive_Axis2_sf_t basis_set;
+  double radius;
+} Naive_Circle_sf_t;
 
 /* Naive_Plane_sf_t */
 

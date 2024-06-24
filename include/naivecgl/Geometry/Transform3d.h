@@ -9,7 +9,7 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-class Transform3d final : public Naive_Transient {
+class Transform3d final : public Naive_Object {
 public:
   Naive_EXPORT Transform3d();
 

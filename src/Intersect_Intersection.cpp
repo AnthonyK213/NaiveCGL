@@ -9,7 +9,7 @@ Naive_Code Intersection::LinePlane(const Handle_Naive_Line &theLine,
     return Naive_Code_null_arg_address;
 
   if (!theLine->IsValid() || !thePlane->IsValid())
-    return Naive_Code_invalid_value;
+    return Naive_Code_invalid_handle;
 
   const Naive_Pln aPln = thePlane->Pln();
   Naive_XYZ LP = aPln.Location().XYZ() - theLine->Location().XYZ();

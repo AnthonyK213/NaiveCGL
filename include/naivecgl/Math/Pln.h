@@ -1,8 +1,7 @@
 #ifndef _NaiveCGL_Math_Pln_HeaderFile
 #define _NaiveCGL_Math_Pln_HeaderFile
 
-#include "Pnt3d.h"
-#include "Vec3d.h"
+#include "Ax2.h"
 
 Naive_NAMESPACE_BEGIN(math);
 
@@ -11,6 +10,8 @@ class Trsf3d;
 class Pln final {
 public:
   Naive_EXPORT Pln();
+
+  Naive_EXPORT Pln(const Naive_Ax2 &theAx2);
 
   Naive_EXPORT Pln(const Naive_Pnt3d &theP, const Naive_Vec3d &theXAxis,
                    const Naive_Vec3d &theYAxis);
@@ -21,13 +22,15 @@ public:
 
   Naive_EXPORT Naive_Bool IsValid() const;
 
-  Naive_EXPORT const Naive_Pnt3d &Location() const { return myLocation; }
+  const Naive_Ax2 &Ax2() const { return myPos; }
 
-  Naive_EXPORT const Naive_Vec3d &XAxis() const { return myXAxis; }
+  Naive_EXPORT const Naive_Pnt3d &Location() const { return myPos.Location(); }
 
-  Naive_EXPORT const Naive_Vec3d &YAxis() const { return myYAxis; }
+  Naive_EXPORT const Naive_Vec3d &XAxis() const { return myPos.XDirection(); }
 
-  Naive_EXPORT const Naive_Vec3d &Axis() const { return myZAxis; }
+  Naive_EXPORT const Naive_Vec3d &YAxis() const { return myPos.YDirection(); }
+
+  Naive_EXPORT const Naive_Vec3d &Axis() const { return myPos.Direction(); }
 
   Naive_EXPORT Naive_Real Distance(const Naive_Pnt3d &theP) const;
 
@@ -45,7 +48,8 @@ public:
 
   Naive_EXPORT Naive_Bool Dump(Naive_Plane_sf_t &thePln) const;
 
-  Naive_EXPORT Naive_Bool Orient(const Pln &thePln, Trsf3d &theTrsf) const;
+  Naive_EXPORT static Naive_Bool Orient(const Pln &thePln1, const Pln &thePln2,
+                                        Trsf3d &theTrsf);
 
 private:
   void initInvalid();
@@ -55,10 +59,7 @@ private:
   Naive_Bool initByZX();
 
 private:
-  Naive_Pnt3d myLocation;
-  Naive_Vec3d myXAxis;
-  Naive_Vec3d myYAxis;
-  Naive_Vec3d myZAxis;
+  Naive_Ax2 myPos;
 };
 
 Naive_NAMESPACE_END(math);

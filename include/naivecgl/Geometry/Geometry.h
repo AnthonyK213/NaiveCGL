@@ -5,7 +5,7 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-class Geometry : public Naive_Transient {
+class Geometry : public Naive_Object {
 public:
   Naive_EXPORT virtual Naive_Bool IsValid() const = 0;
 

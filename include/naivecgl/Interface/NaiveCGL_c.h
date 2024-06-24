@@ -18,9 +18,9 @@
 Naive_API Naive_Code_t Naive_Math_Util_is_valid_real(
     const double /* real */, Naive_Logical_t *const /* is_valid */);
 
-/* Naive_Transient */
+/* Naive_Object */
 
-Naive_API Naive_Code_t Naive_Transient_free(Naive_Transient_t /* transient */);
+Naive_API Naive_Code_t Naive_Object_free(Naive_Object_t /* Object */);
 
 /* Naive_Geometry */
 

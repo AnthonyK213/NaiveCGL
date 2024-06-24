@@ -20,7 +20,7 @@ Handle_Naive_Poly ConvexHull3D::Impl::ConvexHull() const {
   if (!myConvexHull || !myConvexHull->IsValid())
     return nullptr;
 
-  return myConvexHull->Soup();
+  return myConvexHull->GetTriangulation();
 }
 
 /* QuickHull3D */

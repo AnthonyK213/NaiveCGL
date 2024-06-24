@@ -1,0 +1,4 @@
+#ifndef _NaiveCGL_Geometry_BoundedSurface_HeaderFile
+#define _NaiveCGL_Geometry_BoundedSurface_HeaderFile
+
+#endif
