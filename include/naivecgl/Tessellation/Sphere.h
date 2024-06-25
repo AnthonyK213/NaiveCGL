@@ -5,20 +5,23 @@
 
 Naive_NAMESPACE_BEGIN(tessellation);
 
-Naive_EXPORT void UVSphere(const Naive_Pnt3d &theCenter,
-                           const Naive_Real theRadius, Naive_Poly &thePoly);
+class Sphere {
+public:
+  Naive_EXPORT static Handle_Naive_Poly UVSphere(const Naive_Pnt3d &theCenter,
+                                                 const Naive_Real theRadius);
 
-Naive_EXPORT Handle_Naive_Poly TetraSphere(const Naive_Pnt3d &theCenter,
-                                           const Naive_Real theRadius,
-                                           const Naive_Integer theLevel = 6);
+  Naive_EXPORT static Handle_Naive_Poly
+  TetraSphere(const Naive_Pnt3d &theCenter, const Naive_Real theRadius,
+              const Naive_Integer theLevel = 6);
 
-Naive_EXPORT Handle_Naive_Poly OctaSphere(const Naive_Pnt3d &theCenter,
-                                          const Naive_Real theRadius,
-                                          const Naive_Integer theLevel = 6);
+  Naive_EXPORT static Handle_Naive_Poly
+  OctaSphere(const Naive_Pnt3d &theCenter, const Naive_Real theRadius,
+             const Naive_Integer theLevel = 6);
 
-Naive_EXPORT Handle_Naive_Poly IcoShpere(const Naive_Pnt3d &theCenter,
-                                         const Naive_Real theRadius,
-                                         const Naive_Integer theLevel = 6);
+  Naive_EXPORT static Handle_Naive_Poly
+  IcoShpere(const Naive_Pnt3d &theCenter, const Naive_Real theRadius,
+            const Naive_Integer theLevel = 6);
+};
 
 Naive_NAMESPACE_END(tessellation);
 

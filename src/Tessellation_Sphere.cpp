@@ -136,12 +136,14 @@ static Naive_Integer _tetra_index(const Naive_Integer theD,
   return theK;
 }
 
-void UVSphere(const Naive_Pnt3d &theCenter, const Naive_Real theRadius,
-              Naive_Poly &poly) {}
+Handle_Naive_Poly Sphere::UVSphere(const Naive_Pnt3d &theCenter,
+                                   const Naive_Real theRadius) {
+  Naive_TODO;
+}
 
-Handle_Naive_Poly TetraSphere(const Naive_Pnt3d &theCenter,
-                              const Naive_Real theRadius,
-                              const Naive_Integer theLevel) {
+Handle_Naive_Poly Sphere::TetraSphere(const Naive_Pnt3d &theCenter,
+                                      const Naive_Real theRadius,
+                                      const Naive_Integer theLevel) {
   if (theRadius < 0 || theLevel < 0)
     return nullptr;
 
@@ -228,9 +230,9 @@ Handle_Naive_Poly TetraSphere(const Naive_Pnt3d &theCenter,
   return new Naive_Poly(::std::move(aPoints), ::std::move(aTriangles));
 }
 
-Handle_Naive_Poly OctaSphere(const Naive_Pnt3d &theCenter,
-                             const Naive_Real theRadius,
-                             const Naive_Integer theLevel) {
+Handle_Naive_Poly Sphere::OctaSphere(const Naive_Pnt3d &theCenter,
+                                     const Naive_Real theRadius,
+                                     const Naive_Integer theLevel) {
   if (theRadius < 0 || theLevel < 0)
     return nullptr;
 
@@ -291,10 +293,10 @@ Handle_Naive_Poly OctaSphere(const Naive_Pnt3d &theCenter,
   return new Naive_Poly(::std::move(aFlatPoints), ::std::move(aTriangles));
 }
 
-Handle_Naive_Poly IcoShpere(const Naive_Pnt3d &theCenter,
-                            const Naive_Real theRadius,
-                            const Naive_Integer theLevel) {
-  return nullptr;
+Handle_Naive_Poly Sphere::IcoShpere(const Naive_Pnt3d &theCenter,
+                                    const Naive_Real theRadius,
+                                    const Naive_Integer theLevel) {
+  Naive_TODO;
 }
 
 Naive_NAMESPACE_END(tessellation);

@@ -61,7 +61,7 @@ Pln Pln::Transformed(const Trsf3d &theTrsf) const {
 }
 
 Naive_Bool Pln::Dump(Naive_Plane_sf_t &thePln) const {
-  return {myPos.Dump(thePln.basis_set)};
+  return myPos.Dump(thePln.basis_set);
 }
 
 Naive_Bool Pln::Orient(const Pln &thePln1, const Pln &thePln2,
