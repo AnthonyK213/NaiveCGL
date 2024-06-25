@@ -177,6 +177,8 @@ Naive_Bool Vec3d::Equals(const Vec3d &theVec) { return myXYZ == theVec.myXYZ; }
 
 Naive_Bool Vec3d::Transform(const Trsf3d &theTrsf) {
   if (IsValid() && theTrsf.IsValid()) {
+    if (theTrsf.IsIdentity())
+      return Naive_True;
     myXYZ = theTrsf.Affine().rotation() * myXYZ;
     return Naive_True;
   }

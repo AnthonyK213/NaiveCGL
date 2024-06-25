@@ -30,6 +30,12 @@ public:
 
   Naive_EXPORT Naive_Bool IsValid() const;
 
+  Naive_EXPORT Naive_Bool Transform(const Trsf3d &theTrsf);
+
+  Naive_EXPORT Ax2 Transformed(const Trsf3d &theTrsf) const;
+
+  Naive_EXPORT static const Ax2 &Unset();
+
   Naive_EXPORT Naive_Bool Dump(Naive_Axis2_sf_t &theAx2) const;
 
 private:

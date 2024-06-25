@@ -1,4 +1,5 @@
 #include <naivecgl/Math/Ax2.h>
+#include <naivecgl/Math/Trsf3d.h>
 
 Naive_NAMESPACE_BEGIN(math);
 
@@ -37,6 +38,31 @@ Ax2::Ax2(const Naive_Axis2_sf_t &theAx2) noexcept
 
 Naive_Bool Ax2::IsValid() const {
   return myAxis.IsValid() && myXDir.IsValid() && myYDir.IsValid();
+}
+
+Naive_Bool Ax2::Transform(const Trsf3d &theTrsf) {
+  if (IsValid() && theTrsf.IsValid()) {
+    myAxis.Transform(theTrsf);
+    myYDir.Transform(theTrsf);
+    myXDir = myYDir.Crossed(myAxis.Direction());
+    myXDir.Normalize();
+    myYDir = myAxis.Direction().Crossed(myXDir);
+    myYDir.Normalize();
+    return Naive_True;
+  }
+  return Naive_False;
+}
+
+Ax2 Ax2::Transformed(const Trsf3d &theTrsf) const {
+  Ax2 aCopy(*this);
+  if (aCopy.Transform(theTrsf))
+    return aCopy;
+  return Unset();
+}
+
+const Ax2 &Ax2::Unset() {
+  static Ax2 ax2{};
+  return ax2;
 }
 
 Naive_Bool Ax2::Dump(Naive_Axis2_sf_t &theAx2) const {

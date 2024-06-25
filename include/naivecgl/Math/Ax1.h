@@ -30,6 +30,10 @@ public:
 
   void SetDirection(const Naive_Vec3d &theV) { myDir = theV.Normalized(); }
 
+  Naive_EXPORT Naive_Bool Transform(const Trsf3d &theTrsf);
+
+  Naive_EXPORT Ax1 Transformed(const Trsf3d &theTrsf) const;
+
   Naive_EXPORT Naive_Bool Dump(Naive_Axis1_sf_t &theAx1) const;
 
 private:

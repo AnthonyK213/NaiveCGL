@@ -12,7 +12,7 @@ public:
 
   Naive_EXPORT void ReBuild(const Naive_Pnt2dList1 &thePoints);
 
-  Naive_EXPORT Naive_Bool Circle(Naive_Pnt2d &theOrigin,
+  Naive_EXPORT Naive_Bool Result(Naive_Pnt2d &theOrigin,
                                  Naive_Real &theR) const;
 
   Naive_EXPORT const Naive_Pnt2dList1 &Points() const { return myPoints; }

@@ -639,7 +639,7 @@ Naive_Code_t Naive_BndShape_EnclosingDisc_ask_circle(
                          enclosing_disc, H);
   Naive_Pnt2d anOrigin;
   Naive_Real aR;
-  if (!H->Circle(anOrigin, aR))
+  if (!H->Result(anOrigin, aR))
     return Naive_Code_err;
 
   anOrigin.Dump(*theOrigin);

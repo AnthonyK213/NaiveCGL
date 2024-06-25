@@ -30,5 +30,5 @@ TEST(NaiveCGLTest_BndShape, EnclosingDisc) {
   Naive_Pnt2d anOrigin{};
   Naive_Real aR{};
 
-  ASSERT_TRUE(aDisc.Circle(anOrigin, aR));
+  ASSERT_TRUE(aDisc.Result(anOrigin, aR));
 }

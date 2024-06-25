@@ -11,7 +11,10 @@ Naive_Bool Plane::IsValid() const { return myPos.IsValid(); }
 Handle_Naive_Geometry Plane::Clone() const { return new Plane(myPos); }
 
 Naive_Pnt3d Plane::PointAt(const Naive_Real theU, const Naive_Real theV) const {
-  Naive_TODO;
+  if (!IsValid())
+    return Naive_Pnt3d::Unset();
+  return myPos.Location() + theU * myPos.XDirection() +
+         theV * myPos.YDirection();
 }
 
 Naive_Code Plane::Evaluate(const Naive_Real theU, const Naive_Real theV,

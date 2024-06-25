@@ -16,15 +16,34 @@ public:
 
   Naive_EXPORT Vec2d(const Naive_XY &theXY);
 
-  Naive_EXPORT const Naive_XY &XY() const { return myXY; }
+  const Naive_XY &XY() const { return myXY; }
 
-  Naive_EXPORT Naive_XY &ChangeXY() { return myXY; }
+  Naive_XY &ChangeXY() { return myXY; }
 
-  Naive_EXPORT Naive_Real X() const { return myXY.x(); }
+  Naive_Real X() const { return myXY.x(); }
 
-  Naive_EXPORT Naive_Real Y() const { return myXY.y(); }
+  Naive_Real Y() const { return myXY.y(); }
+
+  void SetX(const Naive_Real theX) { myXY.x() = theX; }
+
+  void SetY(const Naive_Real theY) { myXY.y() = theY; }
+
+  void SetCoord(const Naive_Real theX, const Naive_Real theY) {
+    myXY.x() = theX;
+    myXY.y() = theY;
+  }
 
   Naive_EXPORT Naive_Bool IsValid() const;
+
+  Naive_EXPORT Naive_Bool IsZero() const;
+
+  Naive_EXPORT Naive_Bool Normalize();
+
+  Naive_EXPORT Vec2d Normalized() const;
+
+  Naive_EXPORT Naive_Real Dot(const Vec2d &theV) const;
+
+  Naive_EXPORT Naive_Real Crossed(const Vec2d &theV) const;
 
   Naive_EXPORT static const Vec2d &Unset();
 

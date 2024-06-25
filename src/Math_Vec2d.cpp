@@ -15,6 +15,37 @@ Naive_Bool Vec2d::IsValid() const {
   return Util::IsValidReal(X()) && Util::IsValidReal(Y());
 }
 
+Naive_Bool Vec2d::IsZero() const {
+  return myXY.isZero(Constant::ZeroTolerance());
+}
+
+Naive_Bool Vec2d::Normalize() {
+  if (IsValid() && !IsZero()) {
+    myXY.normalize();
+    return Naive_True;
+  }
+  return Naive_False;
+}
+
+Naive_EXPORT Vec2d Vec2d::Normalized() const {
+  Vec2d aV(*this);
+  if (aV.Normalize())
+    return aV;
+  return Unset();
+}
+
+Naive_Real Vec2d::Dot(const Vec2d &theV) const {
+  if (IsValid() && theV.IsValid())
+    return myXY.dot(theV.myXY);
+  return Constant::UnsetReal();
+}
+
+Naive_Real Vec2d::Crossed(const Vec2d &theV) const {
+  if (IsValid() && theV.IsValid())
+    return X() * theV.Y() - theV.X() * Y();
+  return Constant::UnsetReal();
+}
+
 const Vec2d &Vec2d::Unset() {
   static Vec2d p{};
   return p;

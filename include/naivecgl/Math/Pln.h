@@ -52,13 +52,6 @@ public:
                                         Trsf3d &theTrsf);
 
 private:
-  void initInvalid();
-
-  Naive_Bool initByXY();
-
-  Naive_Bool initByZX();
-
-private:
   Naive_Ax2 myPos;
 };
 

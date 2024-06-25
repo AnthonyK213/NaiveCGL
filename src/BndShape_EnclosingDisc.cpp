@@ -22,7 +22,7 @@ void EnclosingDisc::ReBuild(const Naive_Pnt2dList1 &thePoints) {
   minDisc();
 }
 
-Naive_Bool EnclosingDisc::Circle(Naive_Pnt2d &theOrigin,
+Naive_Bool EnclosingDisc::Result(Naive_Pnt2d &theOrigin,
                                  Naive_Real &theR) const {
   if (!myOrigin.IsValid())
     return Naive_False;

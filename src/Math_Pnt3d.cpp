@@ -117,6 +117,8 @@ Pnt3d Pnt3d::Negated() const { return {-myXYZ}; }
 Naive_Bool Pnt3d::Transform(const Trsf3d &theTrsf) {
   if (!IsValid() || !theTrsf.IsValid())
     return Naive_False;
+  if (theTrsf.IsIdentity())
+    return Naive_True;
   myXYZ = theTrsf.Affine() * myXYZ;
   return Naive_True;
 }

@@ -1,4 +1,5 @@
 #include <naivecgl/Math/Ax1.h>
+#include <naivecgl/Math/Trsf3d.h>
 
 Naive_NAMESPACE_BEGIN(math);
 
@@ -16,6 +17,22 @@ const Ax1 &Ax1::Unset() {
 }
 
 Naive_Bool Ax1::IsValid() const { return myLoc.IsValid() && myDir.IsValid(); }
+
+Naive_Bool Ax1::Transform(const Trsf3d &theTrsf) {
+  if (IsValid() && theTrsf.IsValid()) {
+    myLoc.Transform(theTrsf);
+    myDir.Transform(theTrsf);
+    return Naive_True;
+  }
+  return Naive_False;
+}
+
+Ax1 Ax1::Transformed(const Trsf3d &theTrsf) const {
+  Ax1 aCopy(*this);
+  if (aCopy.Transform(theTrsf))
+    return aCopy;
+  return Unset();
+}
 
 Naive_Bool Ax1::Dump(Naive_Axis1_sf_t &theAx1) const {
   return myLoc.Dump(theAx1.location) && myDir.Dump(theAx1.axis);
