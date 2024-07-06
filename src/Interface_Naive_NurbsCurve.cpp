@@ -25,31 +25,31 @@ Naive_Code_t Naive_NurbsCurve_new(const int n_poles,
   if (aCode)
     return aCode;
 
-  aCrv->IncrementRefCounter();
-  *nurbs_curve = aCrv.get();
+  Naive_ROSTER_ADD(aCrv);
+  *nurbs_curve = aCrv->Tag();
   return Naive_Code_ok;
 }
 
-Naive_Code_t Naive_NurbsCurve_ask_degree(const Naive_NurbsCurve_t nurbs_curve,
+Naive_Code_t Naive_NurbsCurve_ask_degree(Naive_NurbsCurve_t nurbs_curve,
                                          int *const degree) {
   if (!degree)
     return Naive_Code_null_arg_address;
 
-  Naive_H_CAST_AND_CHECK(const Naive_NurbsCurve, nurbs_curve, H);
+  Naive_ROSTER_ASK(Naive_NurbsCurve, nurbs_curve, H);
   *degree = H->Degree();
   return Naive_Code_ok;
 }
 
-Naive_Code_t Naive_NurbsCurve_ask_poles(const Naive_NurbsCurve_t nurbs_curve,
+Naive_Code_t Naive_NurbsCurve_ask_poles(Naive_NurbsCurve_t nurbs_curve,
                                         int *const n_poles,
                                         Naive_Point3d_t *const poles) {
   if (!n_poles)
     return Naive_Code_null_arg_address;
 
-  Naive_H_CAST_AND_CHECK(const Naive_NurbsCurve, nurbs_curve, H);
+  Naive_ROSTER_ASK(Naive_NurbsCurve, nurbs_curve, H);
   Naive_Integer nbPoles = H->NbPoles();
   if (nbPoles <= 0)
-    return Naive_Code_invalid_handle;
+    return Naive_Code_invalid_object;
 
   *n_poles = nbPoles;
 
@@ -63,16 +63,16 @@ Naive_Code_t Naive_NurbsCurve_ask_poles(const Naive_NurbsCurve_t nurbs_curve,
   return Naive_Code_ok;
 }
 
-Naive_Code_t Naive_NurbsCurve_ask_weights(const Naive_NurbsCurve_t nurbs_curve,
+Naive_Code_t Naive_NurbsCurve_ask_weights(Naive_NurbsCurve_t nurbs_curve,
                                           int *const n_weights,
                                           double *const weights) {
   if (!n_weights)
     return Naive_Code_null_arg_address;
 
-  Naive_H_CAST_AND_CHECK(const Naive_NurbsCurve, nurbs_curve, H);
+  Naive_ROSTER_ASK(Naive_NurbsCurve, nurbs_curve, H);
   Naive_Integer nbWeights = H->NbPoles();
   if (nbWeights <= 0)
-    return Naive_Code_invalid_handle;
+    return Naive_Code_invalid_object;
 
   *n_weights = nbWeights;
 
@@ -84,16 +84,16 @@ Naive_Code_t Naive_NurbsCurve_ask_weights(const Naive_NurbsCurve_t nurbs_curve,
   return Naive_Code_ok;
 }
 
-Naive_Code_t Naive_NurbsCurve_ask_knots(const Naive_NurbsCurve_t nurbs_curve,
+Naive_Code_t Naive_NurbsCurve_ask_knots(Naive_NurbsCurve_t nurbs_curve,
                                         int *const n_knots,
                                         double *const knots) {
   if (!n_knots)
     return Naive_Code_null_arg_address;
 
-  Naive_H_CAST_AND_CHECK(const Naive_NurbsCurve, nurbs_curve, H);
+  Naive_ROSTER_ASK(Naive_NurbsCurve, nurbs_curve, H);
   Naive_Integer nbKnots = H->NbKnots();
   if (nbKnots <= 0)
-    return Naive_Code_invalid_handle;
+    return Naive_Code_invalid_object;
 
   *n_knots = nbKnots;
 
@@ -105,15 +105,15 @@ Naive_Code_t Naive_NurbsCurve_ask_knots(const Naive_NurbsCurve_t nurbs_curve,
   return Naive_Code_ok;
 }
 
-Naive_Code_t Naive_NurbsCurve_ask_mults(const Naive_NurbsCurve_t nurbs_curve,
+Naive_Code_t Naive_NurbsCurve_ask_mults(Naive_NurbsCurve_t nurbs_curve,
                                         int *const n_mults, int *const mults) {
   if (!n_mults)
     return Naive_Code_null_arg_address;
 
-  Naive_H_CAST_AND_CHECK(const Naive_NurbsCurve, nurbs_curve, H);
+  Naive_ROSTER_ASK(Naive_NurbsCurve, nurbs_curve, H);
   Naive_Integer nbMults = H->NbKnots();
   if (nbMults <= 0)
-    return Naive_Code_invalid_handle;
+    return Naive_Code_invalid_object;
 
   *n_mults = nbMults;
 
@@ -127,25 +127,25 @@ Naive_Code_t Naive_NurbsCurve_ask_mults(const Naive_NurbsCurve_t nurbs_curve,
 
 Naive_Code_t Naive_NurbsCurve_increase_degree(Naive_NurbsCurve_t nurbs_curve,
                                               const int degree) {
-  Naive_H_CAST_AND_CHECK(Naive_NurbsCurve, nurbs_curve, H);
+  Naive_ROSTER_ASK(Naive_NurbsCurve, nurbs_curve, H);
   return H->IncreaseDegree(degree);
 }
 
 Naive_Code_t
 Naive_NurbsCurve_increase_multiplicity(Naive_NurbsCurve_t nurbs_curve,
                                        const int index, const int mult) {
-  Naive_H_CAST_AND_CHECK(Naive_NurbsCurve, nurbs_curve, H);
+  Naive_ROSTER_ASK(Naive_NurbsCurve, nurbs_curve, H);
   return H->IncreaseMultiplicity(index, mult);
 }
 
 Naive_Code_t Naive_NurbsCurve_insert_knot(Naive_NurbsCurve_t nurbs_curve,
                                           const double t, const int mult) {
-  Naive_H_CAST_AND_CHECK(Naive_NurbsCurve, nurbs_curve, H);
+  Naive_ROSTER_ASK(Naive_NurbsCurve, nurbs_curve, H);
   return H->InsertKnot(t, mult);
 }
 
 Naive_Code_t Naive_NurbsCurve_remove_knot(Naive_NurbsCurve_t nurbs_curve,
                                           const int index, const int mult) {
-  Naive_H_CAST_AND_CHECK(Naive_NurbsCurve, nurbs_curve, H);
+  Naive_ROSTER_ASK(Naive_NurbsCurve, nurbs_curve, H);
   return H->RemoveKnot(index, mult);
 }

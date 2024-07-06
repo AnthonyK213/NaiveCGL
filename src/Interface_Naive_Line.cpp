@@ -8,7 +8,7 @@ Naive_Code_t Naive_Line_new(const Naive_Line_sf_t *line_sf,
     return Naive_Code_null_arg_address;
 
   Handle_Naive_Line aLine = new Naive_Line(*line_sf);
-  aLine->IncrementRefCounter();
-  *line = aLine.get();
+  Naive_ROSTER_ADD(aLine);
+  *line = aLine->Tag();
   return Naive_Code_ok;
 }

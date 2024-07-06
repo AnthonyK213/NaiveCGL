@@ -27,8 +27,8 @@ Naive_Code_t Naive_Poly_new(const int n_vertices,
 
   Handle_Naive_Poly aPoly =
       new Naive_Poly(::std::move(aVerts), ::std::move(aTris));
-  aPoly->IncrementRefCounter();
-  *poly = aPoly.get();
+  Naive_ROSTER_ADD(aPoly);
+  *poly = aPoly->Tag();
   return Naive_Code_ok;
 }
 
@@ -37,7 +37,7 @@ Naive_Code_t Naive_Poly_is_valid(const Naive_Poly_t poly,
   if (!is_valid)
     return Naive_Code_null_arg_address;
 
-  Naive_H_CAST_AND_CHECK(const Naive_Poly, poly, H);
+  Naive_ROSTER_ASK(Naive_Poly, poly, H);
   *is_valid = H->IsValid();
   return Naive_Code_ok;
 }
@@ -47,10 +47,10 @@ Naive_Code_t Naive_Poly_clone(const Naive_Poly_t poly,
   if (!clone)
     return Naive_Code_null_arg_address;
 
-  Naive_H_CAST_AND_CHECK(const Naive_Poly, poly, H);
+  Naive_ROSTER_ASK(Naive_Poly, poly, H);
   Handle_Naive_Poly aClone = new Naive_Poly(*H);
-  aClone->IncrementRefCounter();
-  *clone = aClone.get();
+  Naive_ROSTER_ADD(aClone);
+  *clone = aClone->Tag();
   return Naive_Code_ok;
 }
 
@@ -60,7 +60,7 @@ Naive_Code_t Naive_Poly_ask_vertices(const Naive_Poly_t poly,
   if (!n_vertices)
     return Naive_Code_null_arg_address;
 
-  Naive_H_CAST_AND_CHECK(const Naive_Poly, poly, H);
+  Naive_ROSTER_ASK(Naive_Poly, poly, H);
   int nbVerts = static_cast<int>(H->Vertices().size());
   *n_vertices = nbVerts;
 
@@ -79,7 +79,7 @@ Naive_Code_t Naive_Poly_ask_triangles(const Naive_Poly_t poly,
   if (!n_triangles)
     return Naive_Code_null_arg_address;
 
-  Naive_H_CAST_AND_CHECK(const Naive_Poly, poly, H);
+  Naive_ROSTER_ASK(Naive_Poly, poly, H);
   int nbTris = static_cast<int>(H->Triangles().size());
   *n_triangles = nbTris;
 

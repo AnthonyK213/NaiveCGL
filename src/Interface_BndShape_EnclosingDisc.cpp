@@ -9,8 +9,8 @@ Naive_BndShape_EnclosingDisc_new(Naive_EnclosingDisc_t *const enclosing_disc) {
 
   Naive_Handle<::naivecgl::bndshape::EnclosingDisc> aED =
       new ::naivecgl::bndshape::EnclosingDisc();
-  aED->IncrementRefCounter();
-  *enclosing_disc = aED.get();
+  Naive_ROSTER_ADD(aED);
+  *enclosing_disc = aED->Tag();
   return Naive_Code_ok;
 }
 
@@ -24,21 +24,20 @@ Naive_BndShape_EnclosingDisc_rebuild(Naive_EnclosingDisc_t enclosing_disc,
   if (n_points < 0)
     return Naive_Code_invalid_value;
 
-  Naive_H_CAST_AND_CHECK(::naivecgl::bndshape::EnclosingDisc, enclosing_disc,
-                         H);
+  Naive_ROSTER_ASK(::naivecgl::bndshape::EnclosingDisc, enclosing_disc, H);
   Naive_Pnt2dList1 aPoints(points, points + n_points);
   H->ReBuild(aPoints);
   return Naive_Code_ok;
 }
 
-Naive_Code_t Naive_BndShape_EnclosingDisc_ask_circle(
-    const Naive_EnclosingDisc_t enclosing_disc,
-    Naive_Point2d_t *const theOrigin, double *const theR) {
+Naive_Code_t
+Naive_BndShape_EnclosingDisc_ask_circle(Naive_EnclosingDisc_t enclosing_disc,
+                                        Naive_Point2d_t *const theOrigin,
+                                        double *const theR) {
   if (!theOrigin || !theR)
     return Naive_Code_null_arg_address;
 
-  Naive_H_CAST_AND_CHECK(const ::naivecgl::bndshape::EnclosingDisc,
-                         enclosing_disc, H);
+  Naive_ROSTER_ASK(::naivecgl::bndshape::EnclosingDisc, enclosing_disc, H);
   Naive_Pnt2d anOrigin;
   Naive_Real aR;
   if (!H->Result(anOrigin, aR))

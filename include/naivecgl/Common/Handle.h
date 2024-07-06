@@ -93,6 +93,14 @@ public:
 
   explicit operator bool() const { return myEntity != nullptr; }
 
+  template <typename T1> operator const handle<T1> &() const {
+    return reinterpret_cast<const handle<T1> &>(*this);
+  }
+
+  template <typename T1> operator handle<T1> &() const {
+    return reinterpret_cast<handle<T1> &>(*this);
+  }
+
 private:
   void assign(Object *thePtr) {
     if (thePtr == myEntity)
@@ -125,8 +133,7 @@ template <typename T> using Naive_Handle = ::naivecgl::common::handle<T>;
 
 namespace std {
 
-template <typename TheObjectType>
-struct hash<Naive_Handle<TheObjectType>> {
+template <typename TheObjectType> struct hash<Naive_Handle<TheObjectType>> {
   size_t
   operator()(const Naive_Handle<TheObjectType> &theHandle) const noexcept {
     return static_cast<size_t>(

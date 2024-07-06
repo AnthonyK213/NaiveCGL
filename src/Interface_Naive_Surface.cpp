@@ -15,7 +15,7 @@ Naive_Code_t Naive_Surface_evaluate(const Naive_Surface_t surface,
   *n_result = (n_derivative + 1) * (n_derivative + 2) >> 1;
 
   if (result) {
-    Naive_H_CAST_AND_CHECK(const Naive_Surface, surface, H);
+    Naive_ROSTER_ASK(Naive_Surface, surface, H);
     Naive_Vec3dList1 aD{};
     Naive_Code aCode = H->Evaluate(u, v, n_derivative, aD);
     if (aCode)

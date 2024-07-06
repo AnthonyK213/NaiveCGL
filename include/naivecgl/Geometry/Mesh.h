@@ -6,7 +6,7 @@
 Naive_NAMESPACE_BEGIN(geometry);
 
 /// @brief Manifold mesh described by half-edges.
-class Mesh : public Naive_Object {
+class Mesh : public Naive_TObject {
 public:
   typedef Naive_Integer VertexId;
   typedef Naive_Integer FaceId;

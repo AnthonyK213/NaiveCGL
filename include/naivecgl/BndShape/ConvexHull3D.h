@@ -1,7 +1,7 @@
 ﻿#ifndef _NaiveCGL_BndShape_ConvexHull3D_HeaderFile
 #define _NaiveCGL_BndShape_ConvexHull3D_HeaderFile
 
-#include "../Common/Handle.h"
+#include "../Common/TObject.h"
 #include "../Geometry/Mesh.h"
 #include "../Geometry/Triangulation.h"
 #include "../Math/Pnt3d.h"
@@ -9,7 +9,7 @@
 Naive_NAMESPACE_BEGIN(bndshape);
 
 /// @brief Calculates the convex hull of a set of 3d points.
-class ConvexHull3D final : public Naive_Object {
+class ConvexHull3D final : public Naive_TObject {
 public:
   Naive_EXPORT
   ConvexHull3D(const Naive_Pnt3dList1 &thePoints,

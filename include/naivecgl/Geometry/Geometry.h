@@ -1,11 +1,11 @@
 ﻿#ifndef _NaiveCGL_Geometry_Geometry_HeaderFile
 #define _NaiveCGL_Geometry_Geometry_HeaderFile
 
-#include "../Common/Handle.h"
+#include "../Common/TObject.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-class Geometry : public Naive_Object {
+class Geometry : public Naive_TObject {
 public:
   Naive_EXPORT virtual Naive_Bool IsValid() const = 0;
 

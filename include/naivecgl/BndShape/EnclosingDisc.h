@@ -1,12 +1,12 @@
 ﻿#ifndef _NaiveCGL_BndShape_EnclosingDisc_HeaderFile
 #define _NaiveCGL_BndShape_EnclosingDisc_HeaderFile
 
-#include "../Common/Handle.h"
+#include "../Common/TObject.h"
 #include "../Math/Pnt2d.h"
 
 Naive_NAMESPACE_BEGIN(bndshape);
 
-class EnclosingDisc final : public Naive_Object {
+class EnclosingDisc final : public Naive_TObject {
 public:
   Naive_EXPORT EnclosingDisc();
 

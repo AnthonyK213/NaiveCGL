@@ -1,11 +1,11 @@
 #ifndef _NaiveCGL_Application_Session_HeaderFile
 #define _NaiveCGL_Application_Session_HeaderFile
 
-#include "../Common/Handle.h"
+#include "../Common/TObject.h"
 
 Naive_NAMESPACE_BEGIN(application);
 
-class Session : public Naive_Object {
+class Session : public Naive_TObject {
 public:
 private:
 };

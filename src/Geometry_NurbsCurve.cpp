@@ -97,7 +97,7 @@ Naive_Code NurbsCurve::DerivativeAt(const Naive_Real theT,
                                     const Naive_Integer theN,
                                     Naive_Vec3dList1 &theD) const {
   if (!IsValid())
-    return Naive_Code_invalid_handle;
+    return Naive_Code_invalid_object;
 
   if (theN < 0)
     return Naive_Code_value_out_of_range;
@@ -143,7 +143,7 @@ Naive_Code NurbsCurve::DerivativeAt(const Naive_Real theT,
 Naive_Code NurbsCurve::CurvatureAt(const Naive_Real theT,
                                    Naive_Vec3d &theV) const {
   if (!IsValid())
-    return Naive_Code_invalid_handle;
+    return Naive_Code_invalid_object;
 
   Naive_Code aCode = Naive_Code_ok;
 
@@ -160,7 +160,7 @@ Naive_Code NurbsCurve::CurvatureAt(const Naive_Real theT,
 
 Naive_Code NurbsCurve::IncreaseDegree(const Naive_Integer theDegree) {
   if (!IsValid())
-    return Naive_Code_invalid_handle;
+    return Naive_Code_invalid_object;
 
   if (theDegree < 0)
     return Naive_Code_value_out_of_range;

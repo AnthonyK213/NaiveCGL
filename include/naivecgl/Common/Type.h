@@ -1,5 +1,5 @@
-﻿#ifndef _NaiveCGL_Common_common_HeaderFile
-#define _NaiveCGL_Common_common_HeaderFile
+﻿#ifndef _NaiveCGL_Common_Type_HeaderFile
+#define _NaiveCGL_Common_Type_HeaderFile
 
 #include <Eigen/Eigen>
 

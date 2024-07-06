@@ -35,8 +35,9 @@ TEST(NaiveCGLTest_Interface, Plane) {
   ASSERT_EQ(Naive_Code_ok, code);
   ASSERT_DOUBLE_EQ(1., plane_sf_2.basis_set.axis.z);
 
-  ASSERT_EQ(Naive_Code_invalid_handle, Naive_Plane_ask(nullptr, &plane_sf_2));
+  ASSERT_EQ(Naive_Code_invalid_tag, Naive_Plane_ask(0, &plane_sf_2));
 
   ASSERT_EQ(Naive_Code_ok, Naive_Object_free(plane));
   ASSERT_EQ(Naive_Code_ok, Naive_Object_free(plane_clone));
+  ASSERT_EQ(Naive_Code_invalid_tag, Naive_Object_free(plane_clone));
 }

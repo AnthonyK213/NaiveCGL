@@ -10,7 +10,8 @@ typedef enum {
   Naive_Code_initialized = 1000,
   Naive_Code_null_arg_address = 1500,
   Naive_Code_invalid_value,
-  Naive_Code_invalid_handle,
+  Naive_Code_invalid_object,
+  Naive_Code_invalid_tag,
   Naive_Code_no_intersection,
   Naive_Code_points_are_collinear = 2000,
   Naive_Code_points_are_coplanar,
@@ -35,26 +36,26 @@ typedef int Naive_Code_t;
 
 /* TYPEDEFS */
 
-typedef void *Naive_Body_t;
-typedef void *Naive_ConvexHull2D_t;
-typedef void *Naive_Curve_t;
-typedef void *Naive_Edge_t;
-typedef void *Naive_EnclosingDisc_t;
-typedef void *Naive_Face_t;
-typedef void *Naive_Fin_t;
-typedef void *Naive_Geometry_t;
-typedef void *Naive_Line_t;
-typedef void *Naive_Loop_t;
-typedef void *Naive_NurbsCurve_t;
-typedef void *Naive_NurbsSurface_t;
-typedef void *Naive_Object_t;
-typedef void *Naive_Plane_t;
-typedef void *Naive_Poly_t;
-typedef void *Naive_Shell_t;
-typedef void *Naive_Solid_t;
-typedef void *Naive_Surface_t;
-typedef void *Naive_Transform3d_t;
-typedef void *Naive_Vertex_t;
+typedef int Naive_Body_t;
+typedef int Naive_ConvexHull2D_t;
+typedef int Naive_Curve_t;
+typedef int Naive_Edge_t;
+typedef int Naive_EnclosingDisc_t;
+typedef int Naive_Face_t;
+typedef int Naive_Fin_t;
+typedef int Naive_Geometry_t;
+typedef int Naive_Line_t;
+typedef int Naive_Loop_t;
+typedef int Naive_NurbsCurve_t;
+typedef int Naive_NurbsSurface_t;
+typedef int Naive_Object_t;
+typedef int Naive_Plane_t;
+typedef int Naive_Poly_t;
+typedef int Naive_Shell_t;
+typedef int Naive_Solid_t;
+typedef int Naive_Surface_t;
+typedef int Naive_Transform3d_t;
+typedef int Naive_Vertex_t;
 
 /* Naive_Logical_t */
 

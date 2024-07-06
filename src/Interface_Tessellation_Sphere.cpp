@@ -18,7 +18,7 @@ Naive_Tessellation_Sphere_tetrasphere(const Naive_Point3d_t *center,
   if (!aPoly)
     return Naive_Code_err;
 
-  aPoly->IncrementRefCounter();
-  *poly = aPoly.get();
+  Naive_ROSTER_ADD(aPoly);
+  *poly = aPoly->Tag();
   return Naive_Code_ok;
 }

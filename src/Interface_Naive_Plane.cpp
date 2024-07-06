@@ -9,8 +9,8 @@ Naive_Code_t Naive_Plane_new(const Naive_Plane_sf_t *plane_sf,
     return Naive_Code_null_arg_address;
 
   Handle_Naive_Plane aPlane = new Naive_Plane(*plane_sf);
-  aPlane->IncrementRefCounter();
-  *plane = aPlane.get();
+  Naive_ROSTER_ADD(aPlane);
+  *plane = aPlane->Tag();
   return Naive_Code_ok;
 }
 
@@ -19,8 +19,8 @@ Naive_Code_t Naive_Plane_ask(const Naive_Plane_t plane,
   if (!plane_sf)
     return Naive_Code_null_arg_address;
 
-  Naive_H_CAST_AND_CHECK(const Naive_Plane, plane, H);
-  return (H->Pln().Dump(*plane_sf)) ? Naive_Code_ok : Naive_Code_invalid_handle;
+  Naive_ROSTER_ASK(Naive_Plane, plane, H);
+  return (H->Pln().Dump(*plane_sf)) ? Naive_Code_ok : Naive_Code_invalid_object;
 }
 
 Naive_Code_t Naive_Plane_distance(const Naive_Plane_t plane,
@@ -29,7 +29,7 @@ Naive_Code_t Naive_Plane_distance(const Naive_Plane_t plane,
   if (!point)
     return Naive_Code_null_arg_address;
 
-  Naive_H_CAST_AND_CHECK(const Naive_Plane, plane, H);
+  Naive_ROSTER_ASK(Naive_Plane, plane, H);
   double aDistance = H->Distance(*point);
   if (!::naivecgl::math::Util::IsValidReal(aDistance))
     return Naive_Code_invalid_value;

@@ -43,15 +43,15 @@ Naive_Code_t Naive_NurbsSurface_new(
   if (aCode)
     return aCode;
 
-  aSrf->IncrementRefCounter();
-  *nurbs_surface = aSrf.get();
+  Naive_ROSTER_ADD(aSrf);
+  *nurbs_surface = aSrf->Tag();
   return Naive_Code_ok;
 }
 
 Naive_Code_t
-Naive_NurbsSurface_ask_degree(const Naive_NurbsSurface_t nurbs_surface,
+Naive_NurbsSurface_ask_degree(Naive_NurbsSurface_t nurbs_surface,
                               int *const degree_u, int *const degree_v) {
-  Naive_H_CAST_AND_CHECK(const Naive_NurbsSurface, nurbs_surface, H);
+  Naive_ROSTER_ASK(Naive_NurbsSurface, nurbs_surface, H);
   if (degree_u)
     *degree_u = H->UDegree();
   if (degree_v)

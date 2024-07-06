@@ -62,7 +62,7 @@ Naive_Code NurbsSurface::Evaluate(const Naive_Real theU, const Naive_Real theV,
                                   const Naive_Integer theN,
                                   Naive_Vec3dList1 &theD) const {
   if (!IsValid())
-    return Naive_Code_invalid_handle;
+    return Naive_Code_invalid_object;
 
   Naive_Integer iUSpan = math::Nurbs::FindFlatSpan(myUKnots, myUSpanIdx, theU);
   if (iUSpan < 0)
