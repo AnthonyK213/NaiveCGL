@@ -19,7 +19,7 @@ Naive_Code_t Naive_Geometry_clone(Naive_Geometry_t geometry,
 
   Naive_ROSTER_ASK(Naive_Geometry, geometry, H);
   Handle_Naive_Geometry aClone = H->Clone();
-  _Naive_Roster_add(aClone);
+  Naive_Roster::Resolve().Insert(aClone);
   *clone = aClone->Tag();
   return Naive_Code_ok;
 }
