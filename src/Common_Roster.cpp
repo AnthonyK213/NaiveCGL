@@ -29,6 +29,9 @@ Naive_Code Roster::Erase(Naive_Tag theTag) {
   if (aCode != Naive_Code_ok)
     return aCode;
 
+  if (anObj->GetRefCount() > 2)
+    return Naive_Code_still_referenced;
+
   myTable[theTag] = nullptr;
   return Naive_Code_ok;
 }
