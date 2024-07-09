@@ -12,15 +12,15 @@ class ConvexHull2D final : public Naive_TObject {
 public:
   Naive_EXPORT explicit ConvexHull2D(
       const Naive_Pnt2dList1 &thePoints,
-      Naive_Algorithm theAlgo = Naive_Algorithm_quick_hull);
+      Naive_Algorithm theAlgo = Naive_Algorithm_quick_hull_c);
 
   Naive_EXPORT explicit ConvexHull2D(
       Naive_Pnt2dList1 &&thePoints,
-      Naive_Algorithm theAlgo = Naive_Algorithm_quick_hull) noexcept;
+      Naive_Algorithm theAlgo = Naive_Algorithm_quick_hull_c) noexcept;
 
-  Naive_EXPORT ConvexHull2D(const ConvexHull2D &theOther) = delete;
+  Naive_EXPORT ConvexHull2D(const ConvexHull2D &theOther) Naive_DELETE;
 
-  Naive_EXPORT ConvexHull2D(ConvexHull2D &&theOther) = delete;
+  Naive_EXPORT ConvexHull2D(ConvexHull2D &&theOther) Naive_DELETE;
 
   Naive_EXPORT void SetAlgorithm(Naive_Algorithm theAlgo);
 

@@ -29,5 +29,6 @@
 #define Naive_TODO throw ::std::runtime_error("Not implemented")
 
 #define Naive_OVERRIDE override
+#define Naive_DELETE = delete
 
 #endif

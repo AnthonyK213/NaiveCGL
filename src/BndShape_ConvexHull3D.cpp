@@ -69,17 +69,17 @@ void ConvexHull3D::SetAlgorithm(Naive_Algorithm theAlgo) {
   myAlgo = theAlgo;
 
   switch (myAlgo) {
-  case Naive_Algorithm_quick_hull: {
+  case Naive_Algorithm_quick_hull_c: {
     myImpl = ::std::make_unique<QuickHull3D>(myPoints);
     break;
   }
 
-  case Naive_Algorithm_incremental: {
+  case Naive_Algorithm_incremental_c: {
     myImpl = nullptr;
     break;
   }
 
-  case Naive_Algorithm_divide_and_conquer: {
+  case Naive_Algorithm_divide_and_conquer_c: {
     myImpl = nullptr;
     break;
   }

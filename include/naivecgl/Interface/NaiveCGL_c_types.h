@@ -206,10 +206,10 @@ typedef int Naive_Orientation_t;
 /* Naive_Algorithm */
 
 typedef enum {
-  Naive_Algorithm_quick_hull = 0,
-  Naive_Algorithm_incremental,
-  Naive_Algorithm_graham_scan,
-  Naive_Algorithm_divide_and_conquer,
+  Naive_Algorithm_quick_hull_c = 0,
+  Naive_Algorithm_incremental_c,
+  Naive_Algorithm_graham_scan_c,
+  Naive_Algorithm_divide_and_conquer_c,
 } Naive_Algorithm;
 
 /* Naive_Algorithm_t */

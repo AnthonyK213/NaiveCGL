@@ -232,17 +232,17 @@ void ConvexHull2D::SetAlgorithm(Naive_Algorithm theAlgo) {
   myAlgo = theAlgo;
 
   switch (myAlgo) {
-  case Naive_Algorithm_quick_hull: {
+  case Naive_Algorithm_quick_hull_c: {
     myImpl = ::std::make_unique<QuickHull2D>(myPoints);
     break;
   }
 
-  case Naive_Algorithm_incremental: {
+  case Naive_Algorithm_incremental_c: {
     myImpl = nullptr;
     break;
   }
 
-  case Naive_Algorithm_graham_scan: {
+  case Naive_Algorithm_graham_scan_c: {
     myImpl = nullptr;
     break;
   }

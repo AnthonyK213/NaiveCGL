@@ -11,7 +11,7 @@ class Body;
 
 class Topol : public Naive_TObject {
 public:
-  Topol(const Topol &theOther) = delete;
+  Topol(const Topol &theOther) Naive_DELETE;
 
   Naive_EXPORT Naive_Handle<Topol> Parent() const { return myParent; }
 
