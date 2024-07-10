@@ -1,9 +1,13 @@
 ﻿#ifndef _NaiveCGL_Geometry_Mesh_HeaderFile
 #define _NaiveCGL_Geometry_Mesh_HeaderFile
 
-#include "Triangulation.h"
+#include "../Common/TObject.h"
+#include "../Math/Pnt3d.h"
+#include "../Math/Vec3d.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
+
+class Triangulation;
 
 /// @brief Manifold mesh described by half-edges.
 class Mesh : public Naive_TObject {
@@ -135,7 +139,7 @@ public:
   Naive_EXPORT Mesh();
 
   /// @brief Construct a half-edge mesh from a trangulation.
-  Naive_EXPORT explicit Mesh(const Naive_Poly &thePoly);
+  Naive_EXPORT explicit Mesh(const Naive_Handle<Triangulation> &thePoly);
 
   Naive_EXPORT Naive_Bool IsValid() const { return myIsValid; }
 
@@ -157,7 +161,7 @@ public:
 
   Naive_EXPORT Naive_IntegerList1 GetAllFaces() const;
 
-  Naive_EXPORT Handle_Naive_Poly
+  Naive_EXPORT Naive_Handle<Triangulation>
   GetTriangulation(Naive_Bool theCompat = Naive_False) const;
 
   Naive_EXPORT Naive_Integer AddVertex(const Naive_Pnt3d &thePoint);

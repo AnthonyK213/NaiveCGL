@@ -2,6 +2,7 @@
 
 #include <gtest/gtest.h>
 #include <naivecgl/Geometry/Mesh.h>
+#include <naivecgl/Geometry/Triangulation.h>
 
 TEST(NaiveCGLTest_Geometry, Create_Mesh_From_Triangulation) {
   Naive_List1<Naive_Pnt3d> vertices = {
@@ -14,9 +15,10 @@ TEST(NaiveCGLTest_Geometry, Create_Mesh_From_Triangulation) {
       {5, 1, 2}, {5, 2, 4}, {5, 4, 3}, {5, 3, 1},
   };
 
-  Naive_Poly aPoly(::std::move(vertices), ::std::move(triangles));
+  Handle_Naive_Poly aPoly =
+      new Naive_Poly(::std::move(vertices), ::std::move(triangles));
 
-  ASSERT_TRUE(aPoly.IsValid());
+  ASSERT_TRUE(aPoly->IsValid());
 
   Handle_Naive_Mesh aMesh = new Naive_Mesh(aPoly);
 

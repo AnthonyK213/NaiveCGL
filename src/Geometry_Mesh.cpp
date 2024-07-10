@@ -1,4 +1,5 @@
 ﻿#include <naivecgl/Geometry/Mesh.h>
+#include <naivecgl/Geometry/Triangulation.h>
 
 #include <set>
 #include <tuple>
@@ -127,14 +128,17 @@ Mesh::Mesh()
     : myVertexIndex(0), myFaceIndex(0), myVertexSlots(), myFaceSlots(),
       myVertices(), myHalfEdges(), myFaces(), myIsValid(Naive_False) {}
 
-Mesh::Mesh(const Naive_Poly &thePoly)
+Mesh::Mesh(const Handle_Naive_Poly &thePoly)
     : myVertexIndex(0), myFaceIndex(0), myVertexSlots(), myFaceSlots(),
       myVertices(), myHalfEdges(), myFaces(), myIsValid(Naive_False) {
-  for (const Naive_Pnt3d &aVertex : thePoly.Vertices()) {
+  if (thePoly.IsNull())
+    return;
+
+  for (const Naive_Pnt3d &aVertex : thePoly->Vertices()) {
     AddVertex(aVertex);
   }
 
-  for (const Naive_Triangle &aTriangle : thePoly.Triangles()) {
+  for (const Naive_Triangle &aTriangle : thePoly->Triangles()) {
     if (AddFace(aTriangle(0), aTriangle(1), aTriangle(2)) < 0)
       return;
   }

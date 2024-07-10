@@ -1,7 +1,6 @@
 ﻿#ifndef _NaiveCGL_Geom2dAPI_EnclosingDisc_HeaderFile
 #define _NaiveCGL_Geom2dAPI_EnclosingDisc_HeaderFile
 
-#include "../Common/TObject.h"
 #include "../Math/Pnt2d.h"
 
 Naive_NAMESPACE_BEGIN(geom2dapi);
