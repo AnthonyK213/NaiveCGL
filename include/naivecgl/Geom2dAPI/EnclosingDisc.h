@@ -1,12 +1,12 @@
-﻿#ifndef _NaiveCGL_BndShape_EnclosingDisc_HeaderFile
-#define _NaiveCGL_BndShape_EnclosingDisc_HeaderFile
+﻿#ifndef _NaiveCGL_Geom2dAPI_EnclosingDisc_HeaderFile
+#define _NaiveCGL_Geom2dAPI_EnclosingDisc_HeaderFile
 
 #include "../Common/TObject.h"
 #include "../Math/Pnt2d.h"
 
-Naive_NAMESPACE_BEGIN(bndshape);
+Naive_NAMESPACE_BEGIN(geom2dapi);
 
-class EnclosingDisc final : public Naive_TObject {
+class EnclosingDisc final {
 public:
   Naive_EXPORT EnclosingDisc();
 
@@ -35,6 +35,6 @@ private:
   Naive_Real myR;
 };
 
-Naive_NAMESPACE_END(bndshape);
+Naive_NAMESPACE_END(geom2dapi);
 
 #endif

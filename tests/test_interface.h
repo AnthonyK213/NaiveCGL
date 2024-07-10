@@ -37,18 +37,12 @@ TEST(NaiveCGLTest_Interface, Plane) {
 }
 
 TEST(NaiveCGLTest_Interface, EnclosingDisc) {
-  Naive_EnclosingDisc_t aED;
-  ASSERT_EQ(Naive_Code_ok, Naive_BndShape_EnclosingDisc_new(&aED));
-
   std::vector<Naive_Point2d_t> aPnts = {
       {0, 2}, {1, 3}, {2, 2}, {2, 0}, {3, 1}, {3, 4}, {4, 2}, {4, 3},
   };
 
-  ASSERT_EQ(Naive_Code_ok, Naive_BndShape_EnclosingDisc_rebuild(
-                               aED, aPnts.size(), aPnts.data()));
-
   Naive_Point2d_t o;
   double r;
   ASSERT_EQ(Naive_Code_ok,
-            Naive_BndShape_EnclosingDisc_ask_circle(aED, &o, &r));
+            Naive_Geom2dAPI_enclosing_disc(aPnts.size(), aPnts.data(), &o, &r));
 }

@@ -1,27 +1,26 @@
-﻿#ifndef _NaiveCGL_BndShape_ConvexHull3D_HeaderFile
-#define _NaiveCGL_BndShape_ConvexHull3D_HeaderFile
+﻿#ifndef _NaiveCGL_GeomAPI_ConvexHull_HeaderFile
+#define _NaiveCGL_GeomAPI_ConvexHull_HeaderFile
 
-#include "../Common/TObject.h"
 #include "../Geometry/Mesh.h"
 #include "../Geometry/Triangulation.h"
 #include "../Math/Pnt3d.h"
 
-Naive_NAMESPACE_BEGIN(bndshape);
+Naive_NAMESPACE_BEGIN(geomapi);
 
 /// @brief Calculates the convex hull of a set of 3d points.
-class ConvexHull3D final : public Naive_TObject {
+class ConvexHull final {
 public:
   Naive_EXPORT
-  ConvexHull3D(const Naive_Pnt3dList1 &thePoints,
-               Naive_Algorithm theAlgo = Naive_Algorithm_quick_hull_c);
+  ConvexHull(const Naive_Pnt3dList1 &thePoints,
+             Naive_Algorithm theAlgo = Naive_Algorithm_quick_hull_c);
 
   Naive_EXPORT
-  ConvexHull3D(Naive_Pnt3dList1 &&thePoints,
-               Naive_Algorithm theAlgo = Naive_Algorithm_quick_hull_c) noexcept;
+  ConvexHull(Naive_Pnt3dList1 &&thePoints,
+             Naive_Algorithm theAlgo = Naive_Algorithm_quick_hull_c) noexcept;
 
-  Naive_EXPORT ConvexHull3D(const ConvexHull3D &theOther) Naive_DELETE;
+  Naive_EXPORT ConvexHull(const ConvexHull &theOther) Naive_DELETE;
 
-  Naive_EXPORT ConvexHull3D(ConvexHull3D &&theOther) Naive_DELETE;
+  Naive_EXPORT ConvexHull(ConvexHull &&theOther) Naive_DELETE;
 
   Naive_EXPORT void SetAlgorithm(Naive_Algorithm theAlgo);
 
@@ -32,7 +31,7 @@ public:
 
   Naive_EXPORT Naive_Code Status() const;
 
-  Naive_EXPORT Handle_Naive_Poly ConvexHull() const;
+  Naive_EXPORT Handle_Naive_Poly Result() const;
 
 public:
   class Impl {
@@ -46,7 +45,7 @@ public:
 
     Naive_Code Status() const { return myStatus; }
 
-    virtual Handle_Naive_Poly ConvexHull() const;
+    virtual Handle_Naive_Poly Result() const;
 
   protected:
     explicit Impl(Naive_Pnt3dList1 &thePoints);
@@ -63,6 +62,6 @@ private:
   Naive_Algorithm myAlgo;
 };
 
-Naive_NAMESPACE_END(bndshape);
+Naive_NAMESPACE_END(geomapi);
 
 #endif

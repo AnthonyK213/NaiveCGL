@@ -13,17 +13,43 @@
 #endif
 #endif
 
-/* Naive_Object */
+/* Naive_Body */
 
-Naive_API Naive_Code_t Naive_Object_free(Naive_Object_t /* object */);
+Naive_API Naive_Code_t Naive_Body_ask_location(
+    Naive_Body_t /* body */, Naive_Transform3d_t *const /* location */);
 
-/* Naive_Geometry */
+Naive_API Naive_Code_t Naive_Body_ask_orientation(
+    Naive_Body_t /* body */, Naive_Orientation_t *const /* orientation */);
 
-Naive_API Naive_Code_t Naive_Geometry_is_valid(
-    Naive_Geometry_t /* geometry */, Naive_Logical_t *const /* is_valid */);
+Naive_API Naive_Code_t Naive_Body_ask_edges(Naive_Body_t /* body */,
+                                            int *const /* n_edges */,
+                                            Naive_Edge_t *const /* edges */);
 
-Naive_API Naive_Code_t Naive_Geometry_clone(
-    Naive_Geometry_t /* geometry */, Naive_Geometry_t *const /* clone */);
+Naive_API Naive_Code_t Naive_Body_ask_faces(Naive_Body_t /* body */,
+                                            int *const /* n_faces */,
+                                            Naive_Face_t *const /* faces */);
+
+Naive_API Naive_Code_t Naive_Body_ask_fins(Naive_Body_t /* body */,
+                                           int *const /* n_fins */,
+                                           Naive_Fin_t *const /* fins */);
+
+Naive_API Naive_Code_t Naive_Body_ask_loops(Naive_Body_t /* body */,
+                                            int *const /* n_loops */,
+                                            Naive_Loop_t *const /* loops */);
+
+Naive_API Naive_Code_t Naive_Body_ask_shells(Naive_Body_t /* body */,
+                                             int *const /* n_shells */,
+                                             Naive_Shell_t *const /* shells */);
+
+Naive_API Naive_Code_t
+Naive_Body_ask_vertices(Naive_Body_t /* body */, int *const /* n_vertices */,
+                        Naive_Vertex_t *const /* vertices */);
+
+Naive_API Naive_Code_t Naive_Body_boolean(
+    Naive_Body_t /* target */, const int /* n_tools */,
+    const Naive_Body_t * /* tools */,
+    const Naive_Body_boolean_o_t * /* options */
+);
 
 /* Naive_Curve */
 
@@ -39,24 +65,25 @@ Naive_API Naive_Code_t
 Naive_Curve_curvature_at(Naive_Curve_t /* curve */, const double /* t */,
                          Naive_Vector3d_t *const /* curvature */);
 
-/* Naive_Surface */
+/* Naive_Geom2dAPI */
 
-Naive_API Naive_Code_t Naive_Surface_evaluate(
-    Naive_Surface_t /* surface */, const double /* u */, const double /* v */,
-    const int /* n_derivative */, int *const /* n_result */,
-    Naive_Vector3d_t *const /* result */);
+Naive_API Naive_Code_t Naive_Geom2dAPI_convex_hull(
+    int /* n_points */, const Naive_Point2d_t * /* points */,
+    Naive_Algorithm_t /* algo */, int *const /* n_convex_points */,
+    int *const /* convex_indices */,
+    Naive_Point2d_t *const /* convex_points */);
 
-/* Naive_Plane */
+Naive_API Naive_Code_t Naive_Geom2dAPI_enclosing_disc(
+    const int /* n_points */, const Naive_Point2d_t * /* points */,
+    Naive_Point2d_t *const /* origin */, double *const /* radius */);
 
-Naive_API Naive_Code_t Naive_Plane_new(const Naive_Plane_sf_t * /* plane_sf */,
-                                       Naive_Plane_t *const /* plane */);
+/* Naive_Geometry */
 
-Naive_API Naive_Code_t Naive_Plane_ask(Naive_Plane_t /* plane */,
-                                       Naive_Plane_sf_t *const /* plane_sf */);
+Naive_API Naive_Code_t Naive_Geometry_is_valid(
+    Naive_Geometry_t /* geometry */, Naive_Logical_t *const /* is_valid */);
 
-Naive_API Naive_Code_t Naive_Plane_distance(Naive_Plane_t /* plane */,
-                                            const Naive_Point3d_t * /* point */,
-                                            double *const /* distance */);
+Naive_API Naive_Code_t Naive_Geometry_clone(
+    Naive_Geometry_t /* geometry */, Naive_Geometry_t *const /* clone */);
 
 /* Naive_Line */
 
@@ -124,6 +151,22 @@ Naive_API Naive_Code_t Naive_NurbsSurface_ask_degree(
     Naive_NurbsSurface_t /* nurbs_surface */, int *const /* degree_u */,
     int *const /* degree_v */);
 
+/* Naive_Object */
+
+Naive_API Naive_Code_t Naive_Object_free(Naive_Object_t /* object */);
+
+/* Naive_Plane */
+
+Naive_API Naive_Code_t Naive_Plane_new(const Naive_Plane_sf_t * /* plane_sf */,
+                                       Naive_Plane_t *const /* plane */);
+
+Naive_API Naive_Code_t Naive_Plane_ask(Naive_Plane_t /* plane */,
+                                       Naive_Plane_sf_t *const /* plane_sf */);
+
+Naive_API Naive_Code_t Naive_Plane_distance(Naive_Plane_t /* plane */,
+                                            const Naive_Point3d_t * /* point */,
+                                            double *const /* distance */);
+
 /* Naive_Poly */
 
 Naive_API Naive_Code_t Naive_Poly_new(const int /* n_vertices */,
@@ -146,84 +189,18 @@ Naive_API Naive_Code_t
 Naive_Poly_ask_triangles(Naive_Poly_t /* poly */, int *const /* n_triangles */,
                          Naive_Triangle_t *const /* triangles */);
 
-/* Naive_BndShape_ConvexHull2D */
+/* Naive_Surface */
 
-Naive_API Naive_Code_t Naive_BndShape_ConvexHull2D_new(
-    int /* n_points */, const Naive_Point2d_t * /* points */,
-    Naive_Algorithm_t /* algo */,
-    Naive_ConvexHull2D_t *const /* covex_hull_2d */);
-
-Naive_API Naive_Code_t Naive_BndShape_ConvexHull2D_set_algorithm(
-    Naive_ConvexHull2D_t /* covex_hull_2d */, Naive_Algorithm_t /* algo */);
-
-Naive_API Naive_Code_t Naive_BndShape_ConvexHull2D_perform(
-    Naive_ConvexHull2D_t /* covex_hull_2d */);
-
-Naive_API Naive_Code_t Naive_BndShape_ConvexHull2D_add_point(
-    Naive_ConvexHull2D_t /* covex_hull_2d */, Naive_Point2d_t /* point */,
-    Naive_Logical_t /* to_perform */);
-
-Naive_API Naive_Code_t Naive_BndShape_ConvexHull2D_ask_result(
-    Naive_ConvexHull2D_t /* covex_hull_2d */, int *const /* n_convex_points */,
-    int *const /* convex_indices */,
-    Naive_Point2d_t *const /* convex_points */);
-
-/* Naive_BndShape_EnclosingDisc */
-
-Naive_API Naive_Code_t Naive_BndShape_EnclosingDisc_new(
-    Naive_EnclosingDisc_t *const /* enclosing_disc */);
-
-Naive_API Naive_Code_t Naive_BndShape_EnclosingDisc_rebuild(
-    Naive_EnclosingDisc_t /* enclosing_disc */, const int /* n_points */,
-    const Naive_Point2d_t * /* points */);
-
-Naive_API Naive_Code_t Naive_BndShape_EnclosingDisc_ask_circle(
-    Naive_EnclosingDisc_t /* enclosing_disc */,
-    Naive_Point2d_t *const /* origin */, double *const /* radius */);
+Naive_API Naive_Code_t Naive_Surface_evaluate(
+    Naive_Surface_t /* surface */, const double /* u */, const double /* v */,
+    const int /* n_derivative */, int *const /* n_result */,
+    Naive_Vector3d_t *const /* result */);
 
 /* Naive_Tessellation */
 
 Naive_API Naive_Code_t Naive_Tessellation_Sphere_tetrasphere(
     const Naive_Point3d_t * /* center */, const double /* radius */,
     const int /* level */, Naive_Poly_t *const /* poly */);
-
-/* Naive_Body */
-
-Naive_API Naive_Code_t Naive_Body_ask_location(
-    Naive_Body_t /* body */, Naive_Transform3d_t *const /* location */);
-
-Naive_API Naive_Code_t Naive_Body_ask_orientation(
-    Naive_Body_t /* body */, Naive_Orientation_t *const /* orientation */);
-
-Naive_API Naive_Code_t Naive_Body_ask_edges(Naive_Body_t /* body */,
-                                            int *const /* n_edges */,
-                                            Naive_Edge_t *const /* edges */);
-
-Naive_API Naive_Code_t Naive_Body_ask_faces(Naive_Body_t /* body */,
-                                            int *const /* n_faces */,
-                                            Naive_Face_t *const /* faces */);
-
-Naive_API Naive_Code_t Naive_Body_ask_fins(Naive_Body_t /* body */,
-                                           int *const /* n_fins */,
-                                           Naive_Fin_t *const /* fins */);
-
-Naive_API Naive_Code_t Naive_Body_ask_loops(Naive_Body_t /* body */,
-                                            int *const /* n_loops */,
-                                            Naive_Loop_t *const /* loops */);
-
-Naive_API Naive_Code_t Naive_Body_ask_shells(Naive_Body_t /* body */,
-                                             int *const /* n_shells */,
-                                             Naive_Shell_t *const /* shells */);
-
-Naive_API Naive_Code_t
-Naive_Body_ask_vertices(Naive_Body_t /* body */, int *const /* n_vertices */,
-                        Naive_Vertex_t *const /* vertices */);
-
-Naive_API Naive_Code_t Naive_Body_boolean(
-    Naive_Body_t /* target */, const int /* n_tools */,
-    const Naive_Body_t * /* tools */,
-    const Naive_Body_boolean_o_t * /* options */
-);
 
 #undef Naive_API
 

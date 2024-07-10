@@ -1,10 +1,10 @@
-﻿#include <naivecgl/BndShape/ConvexHull3D.h>
+﻿#include <naivecgl/GeomAPI/ConvexHull.h>
 
-Naive_NAMESPACE_BEGIN(bndshape);
+Naive_NAMESPACE_BEGIN(geomapi);
 
-/* ConvexHull3D::Impl */
+/* ConvexHull::Impl */
 
-ConvexHull3D::Impl::Impl(Naive_Pnt3dList1 &thePoints)
+ConvexHull::Impl::Impl(Naive_Pnt3dList1 &thePoints)
     : myPoints(&thePoints), myStatus(Naive_Code_err) {
   if (myPoints->size() < 4) {
     myStatus = Naive_Code_insufficient_points;
@@ -14,22 +14,22 @@ ConvexHull3D::Impl::Impl(Naive_Pnt3dList1 &thePoints)
   myStatus = Naive_Code_initialized;
 }
 
-ConvexHull3D::Impl::~Impl() {}
+ConvexHull::Impl::~Impl() {}
 
-Handle_Naive_Poly ConvexHull3D::Impl::ConvexHull() const {
+Handle_Naive_Poly ConvexHull::Impl::Result() const {
   if (!myConvexHull || !myConvexHull->IsValid())
     return nullptr;
 
   return myConvexHull->GetTriangulation();
 }
 
-/* QuickHull3D */
+/* QuickHull */
 
-class QuickHull3D : public ConvexHull3D::Impl {
+class QuickHull : public ConvexHull::Impl {
 public:
-  QuickHull3D(Naive_Pnt3dList1 &thePoints) : ConvexHull3D::Impl(thePoints) {}
+  QuickHull(Naive_Pnt3dList1 &thePoints) : ConvexHull::Impl(thePoints) {}
 
-  ~QuickHull3D() {}
+  ~QuickHull() {}
 
 public:
   void Perform() Naive_OVERRIDE {
@@ -48,21 +48,21 @@ public:
 
 /* Incremental */
 
-/* ConvexHull3D */
+/* ConvexHull */
 
-ConvexHull3D::ConvexHull3D(const Naive_Pnt3dList1 &thePoints,
-                           Naive_Algorithm theAlgo) {
+ConvexHull::ConvexHull(const Naive_Pnt3dList1 &thePoints,
+                       Naive_Algorithm theAlgo) {
   myPoints = thePoints;
   SetAlgorithm(theAlgo);
 }
 
-ConvexHull3D::ConvexHull3D(Naive_Pnt3dList1 &&thePoints,
-                           Naive_Algorithm theAlgo) noexcept {
+ConvexHull::ConvexHull(Naive_Pnt3dList1 &&thePoints,
+                       Naive_Algorithm theAlgo) noexcept {
   myPoints = ::std::move(thePoints);
   SetAlgorithm(theAlgo);
 }
 
-void ConvexHull3D::SetAlgorithm(Naive_Algorithm theAlgo) {
+void ConvexHull::SetAlgorithm(Naive_Algorithm theAlgo) {
   if (theAlgo == myAlgo && myImpl)
     return;
 
@@ -70,7 +70,7 @@ void ConvexHull3D::SetAlgorithm(Naive_Algorithm theAlgo) {
 
   switch (myAlgo) {
   case Naive_Algorithm_quick_hull_c: {
-    myImpl = ::std::make_unique<QuickHull3D>(myPoints);
+    myImpl = ::std::make_unique<QuickHull>(myPoints);
     break;
   }
 
@@ -90,33 +90,32 @@ void ConvexHull3D::SetAlgorithm(Naive_Algorithm theAlgo) {
   }
 }
 
-void ConvexHull3D::Perform() {
+void ConvexHull::Perform() {
   if (!myImpl)
     return;
 
   myImpl->Perform();
 }
 
-void ConvexHull3D::Add(const Naive_Pnt3d &thePoint,
-                       const Naive_Bool thePerform) {
+void ConvexHull::Add(const Naive_Pnt3d &thePoint, const Naive_Bool thePerform) {
   if (!myImpl)
     return;
 
   myImpl->Add(thePoint, thePerform);
 }
 
-Naive_Code ConvexHull3D::Status() const {
+Naive_Code ConvexHull::Status() const {
   if (!myImpl)
     return Naive_Code_not_implemented;
 
   return myImpl->Status();
 }
 
-Handle_Naive_Poly ConvexHull3D::ConvexHull() const {
+Handle_Naive_Poly ConvexHull::Result() const {
   if (!myImpl)
     return nullptr;
 
-  return myImpl->ConvexHull();
+  return myImpl->Result();
 }
 
-Naive_NAMESPACE_END(bndshape);
+Naive_NAMESPACE_END(geomapi);

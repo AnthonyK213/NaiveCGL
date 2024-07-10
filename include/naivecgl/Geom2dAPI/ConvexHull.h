@@ -1,26 +1,25 @@
-﻿#ifndef _NaiveCGL_BndShape_ConvexHull2D_HeaderFile
-#define _NaiveCGL_BndShape_ConvexHull2D_HeaderFile
+﻿#ifndef _NaiveCGL_Geom2dAPI_ConvexHull_HeaderFile
+#define _NaiveCGL_Geom2dAPI_ConvexHull_HeaderFile
 
-#include "../Common/TObject.h"
 #include "../Math/Pnt2d.h"
 #include "../Math/Vec2d.h"
 
-Naive_NAMESPACE_BEGIN(bndshape);
+Naive_NAMESPACE_BEGIN(geom2dapi);
 
 /// @brief Calculates the convex hull of a set of 2d points.
-class ConvexHull2D final : public Naive_TObject {
+class ConvexHull final {
 public:
-  Naive_EXPORT explicit ConvexHull2D(
+  Naive_EXPORT explicit ConvexHull(
       const Naive_Pnt2dList1 &thePoints,
       Naive_Algorithm theAlgo = Naive_Algorithm_quick_hull_c);
 
-  Naive_EXPORT explicit ConvexHull2D(
+  Naive_EXPORT explicit ConvexHull(
       Naive_Pnt2dList1 &&thePoints,
       Naive_Algorithm theAlgo = Naive_Algorithm_quick_hull_c) noexcept;
 
-  Naive_EXPORT ConvexHull2D(const ConvexHull2D &theOther) Naive_DELETE;
+  Naive_EXPORT ConvexHull(const ConvexHull &theOther) Naive_DELETE;
 
-  Naive_EXPORT ConvexHull2D(ConvexHull2D &&theOther) Naive_DELETE;
+  Naive_EXPORT ConvexHull(ConvexHull &&theOther) Naive_DELETE;
 
   Naive_EXPORT void SetAlgorithm(Naive_Algorithm theAlgo);
 
@@ -78,6 +77,6 @@ private:
   Naive_Algorithm myAlgo;
 };
 
-Naive_NAMESPACE_END(bndshape);
+Naive_NAMESPACE_END(geom2dapi);
 
 #endif

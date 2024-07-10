@@ -38,10 +38,8 @@ typedef int Naive_Code_t;
 /* TYPEDEFS */
 
 typedef int Naive_Body_t;
-typedef int Naive_ConvexHull2D_t;
 typedef int Naive_Curve_t;
 typedef int Naive_Edge_t;
-typedef int Naive_EnclosingDisc_t;
 typedef int Naive_Face_t;
 typedef int Naive_Fin_t;
 typedef int Naive_Geometry_t;

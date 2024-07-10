@@ -1,6 +1,6 @@
-#include <naivecgl/BndShape/BoundingBox.h>
+#include <naivecgl/GeomAPI/BoundingBox.h>
 
-Naive_NAMESPACE_BEGIN(bndshape);
+Naive_NAMESPACE_BEGIN(geomapi);
 
 Naive_Code BoundingBox::BoxFromPoints(const Naive_Pnt3dList1 &thePoints,
                                       Naive_Box &theBox) {
@@ -17,4 +17,4 @@ Naive_Code BoundingBox::OBBFromPoints(const Naive_Pnt3dList1 &thePoints,
   return Naive_Code_ok;
 }
 
-Naive_NAMESPACE_END(bndshape);
+Naive_NAMESPACE_END(geomapi);

@@ -1,10 +1,10 @@
-#ifndef _NaiveCGL_BndShape_BoundingBox_HeaderFile
-#define _NaiveCGL_BndShape_BoundingBox_HeaderFile
+#ifndef _NaiveCGL_GeomAPI_BoundingBox_HeaderFile
+#define _NaiveCGL_GeomAPI_BoundingBox_HeaderFile
 
 #include "../Math/Box.h"
 #include "../Math/OBB.h"
 
-Naive_NAMESPACE_BEGIN(bndshape);
+Naive_NAMESPACE_BEGIN(geomapi);
 
 class BoundingBox final {
 public:
@@ -15,6 +15,6 @@ public:
   OBBFromPoints(const Naive_Pnt3dList1 &thePoints, Naive_OBB &theOBB);
 };
 
-Naive_NAMESPACE_END(bndshape);
+Naive_NAMESPACE_END(geomapi);
 
 #endif

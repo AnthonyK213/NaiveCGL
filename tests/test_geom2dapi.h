@@ -1,15 +1,15 @@
 #pragma once
 
 #include <gtest/gtest.h>
-#include <naivecgl/BndShape/ConvexHull2D.h>
-#include <naivecgl/BndShape/EnclosingDisc.h>
+#include <naivecgl/Geom2dAPI/ConvexHull.h>
+#include <naivecgl/Geom2dAPI/EnclosingDisc.h>
 
-TEST(NaiveCGLTest_BndShape, ConvexHull2D) {
+TEST(NaiveCGLTest_Geom2dAPI, ConvexHull) {
   Naive_Pnt2dList1 points{
       {0, 2}, {1, 3}, {2, 2}, {2, 0}, {3, 1}, {3, 4}, {4, 2}, {4, 3},
   };
 
-  ::naivecgl::bndshape::ConvexHull2D aCH2d{points};
+  ::naivecgl::geom2dapi::ConvexHull aCH2d{::std::move(points)};
   aCH2d.Perform();
 
   Naive_Code code = aCH2d.Status();
@@ -19,12 +19,12 @@ TEST(NaiveCGLTest_BndShape, ConvexHull2D) {
   ASSERT_EQ(answer, aCH2d.ConvexIndices());
 }
 
-TEST(NaiveCGLTest_BndShape, EnclosingDisc) {
+TEST(NaiveCGLTest_Geom2dAPI, EnclosingDisc) {
   Naive_Pnt2dList1 points{
       {0, 2}, {1, 3}, {2, 2}, {2, 0}, {3, 1}, {3, 4}, {4, 2}, {4, 3},
   };
 
-  ::naivecgl::bndshape::EnclosingDisc aDisc{};
+  ::naivecgl::geom2dapi::EnclosingDisc aDisc{};
   aDisc.ReBuild(points);
 
   Naive_Pnt2d anOrigin{};

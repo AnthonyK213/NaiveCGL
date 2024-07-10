@@ -1,7 +1,7 @@
-﻿#include <naivecgl/BndShape/EnclosingDisc.h>
+﻿#include <naivecgl/Geom2dAPI/EnclosingDisc.h>
 #include <naivecgl/Math/Constant.h>
 
-Naive_NAMESPACE_BEGIN(bndshape);
+Naive_NAMESPACE_BEGIN(geom2dapi);
 
 EnclosingDisc::EnclosingDisc() : myPoints(), myOrigin(), myR(0.) {}
 
@@ -93,4 +93,4 @@ void EnclosingDisc::circle3Points(const Naive_Pnt2d &theA,
   myR = (myOrigin.XY() - theA.XY()).norm();
 }
 
-Naive_NAMESPACE_END(bndshape);
+Naive_NAMESPACE_END(geom2dapi);
