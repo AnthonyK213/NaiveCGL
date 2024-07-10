@@ -70,8 +70,8 @@ Naive_Curve_curvature_at(Naive_Curve_t /* curve */, const double /* t */,
 Naive_API Naive_Code_t Naive_Geom2dAPI_convex_hull(
     int /* n_points */, const Naive_Point2d_t * /* points */,
     Naive_Algorithm_t /* algo */, int *const /* n_convex_points */,
-    int *const /* convex_indices */,
-    Naive_Point2d_t *const /* convex_points */);
+    int **const /* convex_indices */,
+    Naive_Point2d_t **const /* convex_points */);
 
 Naive_API Naive_Code_t Naive_Geom2dAPI_enclosing_disc(
     const int /* n_points */, const Naive_Point2d_t * /* points */,
@@ -89,6 +89,10 @@ Naive_API Naive_Code_t Naive_Geometry_clone(
 
 Naive_API Naive_Code_t Naive_Line_new(const Naive_Line_sf_t * /* line_sf */,
                                       Naive_Line_t *const /* line */);
+
+/* Naive_Memory */
+
+Naive_API Naive_Code_t Naive_Memory_free(void * /* pointer */);
 
 /* Naive_NurbsCurve */
 
@@ -153,7 +157,7 @@ Naive_API Naive_Code_t Naive_NurbsSurface_ask_degree(
 
 /* Naive_Object */
 
-Naive_API Naive_Code_t Naive_Object_free(Naive_Object_t /* object */);
+Naive_API Naive_Code_t Naive_Object_delete(Naive_Object_t /* object */);
 
 /* Naive_Plane */
 

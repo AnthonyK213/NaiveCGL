@@ -3,12 +3,11 @@
 
 #include "Interface_NaiveCGL_c.h"
 
-Naive_Code_t Naive_Geom2dAPI_convex_hull(int n_points,
-                                         const Naive_Point2d_t *points,
-                                         Naive_Algorithm_t algo,
-                                         int *const n_convex_points,
-                                         int *const convex_indices,
-                                         Naive_Point2d_t *const convex_points) {
+Naive_Code_t
+Naive_Geom2dAPI_convex_hull(int n_points, const Naive_Point2d_t *points,
+                            Naive_Algorithm_t algo, int *const n_convex_points,
+                            int **const convex_indices,
+                            Naive_Point2d_t **const convex_points) {
   if (!points || !n_convex_points)
     return Naive_Code_null_arg_address;
 
@@ -28,13 +27,15 @@ Naive_Code_t Naive_Geom2dAPI_convex_hull(int n_points,
 
   if (convex_indices) {
     Naive_IntegerList1 anIndices = CH.ConvexIndices();
-    ::std::copy(anIndices.cbegin(), anIndices.cend(), convex_indices);
+    *convex_indices = new Naive_Integer[*n_convex_points];
+    ::std::copy(anIndices.cbegin(), anIndices.cend(), *convex_indices);
   }
 
   if (convex_points) {
     Naive_Pnt2dList1 aPoints = CH.ConvexPoints();
+    *convex_points = new Naive_Point2d_t[*n_convex_points];
     for (Naive_Integer i = 0; i < aPoints.size(); ++i) {
-      aPoints[i].Dump(convex_points[i]);
+      aPoints[i].Dump((*convex_points)[i]);
     }
   }
 
