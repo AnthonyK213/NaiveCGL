@@ -1,11 +1,11 @@
 #ifndef _NaiveCGL_Application_Attribute_HeaderFile
 #define _NaiveCGL_Application_Attribute_HeaderFile
 
-#include "../Common/TObject.h"
+#include "../Common/Handle.h"
 
 Naive_NAMESPACE_BEGIN(application);
 
-class Attribute : public Naive_TObject {
+class Attribute : public Naive_Object {
 public:
 private:
 };

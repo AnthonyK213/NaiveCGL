@@ -1,11 +1,11 @@
 #ifndef _NaiveCGL_Application_Partition_HeaderFile
 #define _NaiveCGL_Application_Partition_HeaderFile
 
-#include "../Common/TObject.h"
+#include "../Common/Handle.h"
 
 Naive_NAMESPACE_BEGIN(application);
 
-class Partition : public Naive_TObject {
+class Partition : public Naive_Object {
 public:
 private:
 };

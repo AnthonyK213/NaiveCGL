@@ -1,3 +1,4 @@
+#include <naivecgl/Common/TObject.h>
 #include <naivecgl/Geometry/Curve.h>
 
 #include "Interface_NaiveCGL_c.h"

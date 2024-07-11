@@ -1,7 +1,7 @@
 ﻿#ifndef _NaiveCGL_Geometry_Mesh_HeaderFile
 #define _NaiveCGL_Geometry_Mesh_HeaderFile
 
-#include "../Common/TObject.h"
+#include "../Common/Handle.h"
 #include "../Math/Pnt3d.h"
 #include "../Math/Vec3d.h"
 
@@ -10,7 +10,7 @@ Naive_NAMESPACE_BEGIN(geometry);
 class Triangulation;
 
 /// @brief Manifold mesh described by half-edges.
-class Mesh : public Naive_TObject {
+class Mesh : public Naive_Object {
 public:
   typedef Naive_Integer VertexId;
   typedef Naive_Integer FaceId;

@@ -1,3 +1,4 @@
+#include <naivecgl/Common/TObject.h>
 #include <naivecgl/Geometry/NurbsCurve.h>
 
 #include "Interface_NaiveCGL_c.h"
@@ -22,11 +23,10 @@ Naive_Code_t Naive_NurbsCurve_new(const int n_poles,
 
   Handle_Naive_NurbsCurve aCrv = new Naive_NurbsCurve;
   Naive_Code aCode = aCrv->Init(aPoles, aWeights, aKnots, aMults, degree);
-  if (aCode)
+  if (aCode != Naive_Code_ok)
     return aCode;
 
-  Naive_ROSTER_ADD(aCrv);
-  *nurbs_curve = aCrv->Tag();
+  Naive_ROSTER_ADD(aCrv, *nurbs_curve);
   return Naive_Code_ok;
 }
 

@@ -1,15 +1,13 @@
 ﻿#ifndef _NaiveCGL_Geometry_Transform_HeaderFile
 #define _NaiveCGL_Geometry_Transform_HeaderFile
 
-#include "../Common/Macro.h"
-#include "../Common/TObject.h"
-#include "../Common/Type.h"
+#include "../Common/Handle.h"
 #include "../Math/Constant.h"
 #include "../Math/Trsf3d.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-class Transform3d final : public Naive_TObject {
+class Transform3d final : public Naive_Object {
 public:
   Naive_EXPORT Transform3d();
 

@@ -1,7 +1,7 @@
 #ifndef _NaiveCGL_Common_Roster_HeaderFile
 #define _NaiveCGL_Common_Roster_HeaderFile
 
-#include "Handle.h"
+#include "TObject.h"
 
 #include <atomic>
 
@@ -17,11 +17,11 @@ public:
 
   /// For C API only.
 
-  Naive_Code Insert(const Naive_Handle<TObject> &theObj);
+  Naive_Code Insert(const TObject &theObj);
 
   Naive_Code Erase(Naive_Tag theTag);
 
-  Naive_Code Find(Naive_Tag theTag, Naive_Handle<TObject> &theObj) const;
+  Naive_Code Find(Naive_Tag theTag, TObject &theObj) const;
 
   ///
 
@@ -30,7 +30,7 @@ private:
 
 private:
   ::std::atomic<Naive_Integer> myTail;
-  Naive_Hash<Naive_Tag, Naive_Handle<TObject>> myTable;
+  Naive_Hash<Naive_Tag, TObject> myTable;
 };
 
 Naive_NAMESPACE_END(common);

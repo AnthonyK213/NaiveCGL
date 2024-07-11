@@ -6,23 +6,27 @@
 
 Naive_NAMESPACE_BEGIN(common);
 
-class TObject : public Naive_Object {
+class TObject final {
 public:
   Naive_EXPORT TObject();
 
-  Naive_EXPORT TObject(const TObject &);
+  Naive_EXPORT TObject(const Handle_Naive_Object &theObj);
 
-  Naive_EXPORT TObject &operator=(const TObject &);
+  Naive_EXPORT Naive_Integer GetRefCount() const noexcept;
 
-  inline Naive_Tag Tag() const { return myTag_; }
+  Naive_Tag Tag() const { return myTag_; }
+
+  const Handle_Naive_Object &GetObject() const { return myObj_; }
+
+  Naive_Bool IsNull() const { return myObj_.IsNull(); }
 
 private:
   Naive_Tag myTag_;
+  Handle_Naive_Object myObj_;
 };
 
 Naive_NAMESPACE_END(common);
 
 using Naive_TObject = ::naivecgl::common::TObject;
-Naive_DEFINE_HANDLE(Naive_TObject);
 
 #endif

@@ -1,3 +1,4 @@
+#include <naivecgl/Common/TObject.h>
 #include <naivecgl/Geometry/Plane.h>
 #include <naivecgl/Math/Util.h>
 
@@ -9,8 +10,7 @@ Naive_Code_t Naive_Plane_new(const Naive_Plane_sf_t *plane_sf,
     return Naive_Code_null_arg_address;
 
   Handle_Naive_Plane aPlane = new Naive_Plane(*plane_sf);
-  Naive_ROSTER_ADD(aPlane);
-  *plane = aPlane->Tag();
+  Naive_ROSTER_ADD(aPlane, *plane);
   return Naive_Code_ok;
 }
 

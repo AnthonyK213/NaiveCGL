@@ -1,3 +1,4 @@
+#include <naivecgl/Common/TObject.h>
 #include <naivecgl/Tessellation/Sphere.h>
 
 #include "Interface_NaiveCGL_c.h"
@@ -17,7 +18,6 @@ Naive_Code_t Naive_Tessellation_make_tetrasphere(const Naive_Point3d_t *center,
   if (!aPoly)
     return Naive_Code_err;
 
-  Naive_ROSTER_ADD(aPoly);
-  *poly = aPoly->Tag();
+  Naive_ROSTER_ADD(aPoly, *poly);
   return Naive_Code_ok;
 }

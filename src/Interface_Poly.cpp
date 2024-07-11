@@ -1,3 +1,4 @@
+#include <naivecgl/Common/TObject.h>
 #include <naivecgl/Geometry/Triangulation.h>
 
 #include "Interface_NaiveCGL_c.h"
@@ -23,8 +24,7 @@ Naive_Code_t Naive_Poly_new(const int n_vertices,
 
   Handle_Naive_Poly aPoly =
       new Naive_Poly(::std::move(aVerts), ::std::move(aTris));
-  Naive_ROSTER_ADD(aPoly);
-  *poly = aPoly->Tag();
+  Naive_ROSTER_ADD(aPoly, *poly);
   return Naive_Code_ok;
 }
 
@@ -45,8 +45,7 @@ Naive_Code_t Naive_Poly_clone(const Naive_Poly_t poly,
 
   Naive_ROSTER_ASK(Naive_Poly, poly, H);
   Handle_Naive_Poly aClone = new Naive_Poly(*H);
-  Naive_ROSTER_ADD(aClone);
-  *clone = aClone->Tag();
+  Naive_ROSTER_ADD(aClone, *clone);
   return Naive_Code_ok;
 }
 

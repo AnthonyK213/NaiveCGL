@@ -10,11 +10,8 @@ Roster &Roster::Resolve() {
 
 Naive_Tag Roster::NewTag() { return ++myTail; }
 
-Naive_Code Roster::Insert(const Naive_Handle<TObject> &theObj) {
-  if (theObj.IsNull())
-    return Naive_Code_null_arg_address;
-
-  Naive_Tag aTag = theObj->Tag();
+Naive_Code Roster::Insert(const TObject &theObj) {
+  Naive_Tag aTag = theObj.Tag();
   auto anIter = myTable.find(aTag);
   if (anIter != myTable.cend())
     return Naive_Code_err;
@@ -24,19 +21,19 @@ Naive_Code Roster::Insert(const Naive_Handle<TObject> &theObj) {
 }
 
 Naive_Code Roster::Erase(Naive_Tag theTag) {
-  Handle_Naive_TObject anObj;
+  TObject anObj;
   Naive_Code aCode = Find(theTag, anObj);
   if (aCode != Naive_Code_ok)
     return aCode;
 
-  if (anObj->GetRefCount() > 2)
+  if (anObj.GetRefCount() > 2)
     return Naive_Code_still_referenced;
 
-  myTable[theTag] = nullptr;
+  myTable.erase(theTag);
   return Naive_Code_ok;
 }
 
-Naive_Code Roster::Find(Naive_Tag theTag, Naive_Handle<TObject> &theObj) const {
+Naive_Code Roster::Find(Naive_Tag theTag, TObject &theObj) const {
   auto anIter = myTable.find(theTag);
   if (anIter == myTable.cend() || anIter->second.IsNull())
     return Naive_Code_invalid_tag;

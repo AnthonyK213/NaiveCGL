@@ -3,27 +3,30 @@
 
 #include <naivecgl/Interface/NaiveCGL_c.h>
 
-#define Naive_ROSTER_ASK(T, Tag, Var)                                          \
-  Naive_Handle<T> Var;                                                         \
+#define Naive_ROSTER_ASK(T, Tag_, Var_)                                        \
+  Naive_Handle<T> Var_;                                                        \
   do {                                                                         \
-    Handle_Naive_TObject __naive_tobj__;                                       \
+    Naive_TObject __naive_tobj__;                                              \
     Naive_Code __naive_code__ =                                                \
-        Naive_Roster::Resolve().Find(Tag, __naive_tobj__);                     \
+        Naive_Roster::Resolve().Find(Tag_, __naive_tobj__);                    \
     if (__naive_code__ != Naive_Code_ok) {                                     \
       return __naive_code__;                                                   \
     }                                                                          \
-    Var = Naive_Handle<T>::DownCast(__naive_tobj__);                           \
-    if (!Var) {                                                                \
+    Var_ = Naive_Handle<T>::DownCast(__naive_tobj__.GetObject());              \
+    if (!Var_) {                                                               \
       return Naive_Code_invalid_object;                                        \
     }                                                                          \
   } while (0)
 
-#define Naive_ROSTER_ADD(Obj)                                                  \
+#define Naive_ROSTER_ADD(Obj_, Tag_)                                           \
   do {                                                                         \
-    Naive_Code __naive_code__ = Naive_Roster::Resolve().Insert(Obj);           \
+    Naive_TObject __naive_tobj__{(Obj_)};                                      \
+    Naive_Code __naive_code__ =                                                \
+        Naive_Roster::Resolve().Insert(__naive_tobj__);                        \
     if (__naive_code__ != Naive_Code_ok) {                                     \
       return __naive_code__;                                                   \
     }                                                                          \
+    (Tag_) = __naive_tobj__.Tag();                                             \
   } while (0)
 
 #endif

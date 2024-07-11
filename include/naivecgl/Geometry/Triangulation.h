@@ -1,14 +1,14 @@
 ﻿#ifndef _NaiveCGL_Geometry_Triangulation_HeaderFile
 #define _NaiveCGL_Geometry_Triangulation_HeaderFile
 
-#include "../Common/TObject.h"
+#include "../Common/Handle.h"
 #include "../Math/Pnt3d.h"
 #include "../Math/Vec3d.h"
 #include "Triangle.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-class Triangulation : public Naive_TObject {
+class Triangulation : public Naive_Object {
   using VertexList = Naive_List1<Naive_Pnt3d>;
   using TriangleList = Naive_List1<Naive_Triangle>;
 

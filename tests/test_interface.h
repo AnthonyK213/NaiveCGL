@@ -23,7 +23,7 @@ TEST(NaiveCGLTest_Interface, Plane) {
 
   Naive_Logical_t is_valid;
   ASSERT_EQ(Naive_Code_ok, Naive_Geometry_is_valid(plane_clone, &is_valid));
-  ASSERT_TRUE(is_valid);
+  ASSERT_EQ(Naive_Logical_true, is_valid);
 
   Naive_Plane_sf_t plane_sf_2;
   ASSERT_EQ(Naive_Code_ok, Naive_Plane_ask(plane_clone, &plane_sf_2));

@@ -1,3 +1,4 @@
+#include <naivecgl/Common/TObject.h>
 #include <naivecgl/Geometry/NurbsSurface.h>
 
 #include "Interface_NaiveCGL_c.h"
@@ -40,17 +41,16 @@ Naive_Code_t Naive_NurbsSurface_new(
   Handle_Naive_NurbsSurface aSrf = new Naive_NurbsSurface;
   Naive_Code aCode = aSrf->Init(aPoles, aWeights, aUKnots, aVKnots, aUMults,
                                 aVMults, degree_u, degree_v);
-  if (aCode)
+  if (aCode != Naive_Code_ok)
     return aCode;
 
-  Naive_ROSTER_ADD(aSrf);
-  *nurbs_surface = aSrf->Tag();
+  Naive_ROSTER_ADD(aSrf, *nurbs_surface);
   return Naive_Code_ok;
 }
 
-Naive_Code_t
-Naive_NurbsSurface_ask_degree(Naive_NurbsSurface_t nurbs_surface,
-                              int *const degree_u, int *const degree_v) {
+Naive_Code_t Naive_NurbsSurface_ask_degree(Naive_NurbsSurface_t nurbs_surface,
+                                           int *const degree_u,
+                                           int *const degree_v) {
   Naive_ROSTER_ASK(Naive_NurbsSurface, nurbs_surface, H);
   if (degree_u)
     *degree_u = H->UDegree();

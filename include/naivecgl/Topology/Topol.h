@@ -1,7 +1,7 @@
 #ifndef _NaiveCGL_Topology_Topol_HeaderFile
 #define _NaiveCGL_Topology_Topol_HeaderFile
 
-#include "../Common/TObject.h"
+#include "../Common/Handle.h"
 #include "../Math/Constant.h"
 #include "Location.h"
 
@@ -9,7 +9,7 @@ Naive_NAMESPACE_BEGIN(topology);
 
 class Body;
 
-class Topol : public Naive_TObject {
+class Topol : public Naive_Object {
 public:
   Topol(const Topol &theOther) Naive_DELETE;
 

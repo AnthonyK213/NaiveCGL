@@ -1,3 +1,4 @@
+#include <naivecgl/Common/TObject.h>
 #include <naivecgl/Geometry/Geometry.h>
 
 #include "Interface_NaiveCGL_c.h"
@@ -18,8 +19,6 @@ Naive_Code_t Naive_Geometry_clone(Naive_Geometry_t geometry,
     return Naive_Code_null_arg_address;
 
   Naive_ROSTER_ASK(Naive_Geometry, geometry, H);
-  Handle_Naive_Geometry aClone = H->Clone();
-  Naive_Roster::Resolve().Insert(aClone);
-  *clone = aClone->Tag();
+  Naive_ROSTER_ADD(H->Clone(), *clone);
   return Naive_Code_ok;
 }
