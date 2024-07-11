@@ -6,23 +6,19 @@ Naive_Code_t Naive_Poly_new(const int n_vertices,
                             const Naive_Point3d_t *vertices,
                             const int n_triangles,
                             const Naive_Triangle_t *triangles,
-                            Naive_Poly_t *const poly) {
+                            const int i_offset, Naive_Poly_t *const poly) {
   if (!vertices || !triangles || !poly)
     return Naive_Code_null_arg_address;
 
   if (n_vertices < 0 || n_triangles < 0)
     return Naive_Code_err;
 
-  Naive_Pnt3dList1 aVerts(n_vertices);
-  for (int i = 0; i < n_vertices; ++i) {
-    aVerts[i] = vertices[i];
-  }
-
+  Naive_Pnt3dList1 aVerts(vertices, vertices + n_vertices);
   Naive_List1<Naive_Triangle> aTris(n_triangles);
   for (int i = 0; i < n_triangles; ++i) {
-    aTris[i].x() = triangles[i].n0;
-    aTris[i].y() = triangles[i].n1;
-    aTris[i].z() = triangles[i].n2;
+    aTris[i].x() = triangles[i].n0 - i_offset;
+    aTris[i].y() = triangles[i].n1 - i_offset;
+    aTris[i].z() = triangles[i].n2 - i_offset;
   }
 
   Handle_Naive_Poly aPoly =

@@ -177,6 +177,7 @@ Naive_API Naive_Code_t Naive_Poly_new(const int /* n_vertices */,
                                       const Naive_Point3d_t * /* vertices */,
                                       const int /* n_triangles */,
                                       const Naive_Triangle_t * /* triangles */,
+                                      const int /* i_offset */,
                                       Naive_Poly_t *const /* poly */);
 
 Naive_API Naive_Code_t Naive_Poly_is_valid(
