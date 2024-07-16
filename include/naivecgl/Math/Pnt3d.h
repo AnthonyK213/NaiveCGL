@@ -49,17 +49,17 @@ public:
 
   Naive_EXPORT Naive_Real DistanceToSquared(const Pnt3d &thePoint) const;
 
-  Naive_EXPORT Naive_Bool Add(const Pnt3d &thePoint);
+  Naive_EXPORT void Add(const Pnt3d &thePoint);
 
   Naive_EXPORT Pnt3d Added(const Pnt3d &thePoint) const;
 
-  Naive_EXPORT Naive_Bool Add(const Vec3d &theVector);
+  Naive_EXPORT void Add(const Vec3d &theVector);
 
   Naive_EXPORT Pnt3d Added(const Vec3d &theVector) const;
 
   Naive_EXPORT Vec3d Subtracted(const Pnt3d &thePoint) const;
 
-  Naive_EXPORT Naive_Bool Multiply(const Naive_Real &theT);
+  Naive_EXPORT void Multiply(const Naive_Real &theT);
 
   Naive_EXPORT Pnt3d Multiplied(const Naive_Real &theT) const;
 
@@ -71,9 +71,13 @@ public:
 
   Naive_EXPORT Pnt3d Negated() const;
 
-  Naive_EXPORT Naive_Bool Transform(const Trsf3d &theTrsf);
+  Naive_EXPORT void Transform(const Trsf3d &theTrsf);
 
   Naive_EXPORT Pnt3d Transformed(const Trsf3d &theTrsf) const;
+
+  Naive_EXPORT Naive_XYZW HomoCoord() const;
+
+  Naive_EXPORT Naive_Bool HomoCoord(const Naive_XYZW &theXYZW);
 
   Naive_EXPORT Naive_Integer CompareTo(const Pnt3d &thePoint) const;
 

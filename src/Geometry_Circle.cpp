@@ -33,7 +33,7 @@ Naive_Vec3d Circle::TangentAt(const Naive_Real theT) const {
           myRadius};
 }
 
-Naive_Code Circle::DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
+Naive_Code Circle::Evaluate(const Naive_Real theT, const Naive_Integer theN,
                                 Naive_Vec3dList1 &theD) const {
 
   if (!IsValid())
@@ -84,7 +84,7 @@ Naive_Code Circle::CurvatureAt(const Naive_Real theT, Naive_Vec3d &theV) const {
     return Naive_Code_invalid_object;
 
   Naive_Vec3dList1 aD{};
-  Naive_Code aCode = DerivativeAt(theT, 2, aD);
+  Naive_Code aCode = Evaluate(theT, 2, aD);
   if (aCode)
     return aCode;
 

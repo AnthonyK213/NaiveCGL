@@ -18,6 +18,10 @@ Naive_Bool Vec2d::IsValid() const {
 
 Naive_Bool Vec2d::IsZero() const { return myXY.isZero(Precision::Epsilon0()); }
 
+Naive_Real Vec2d::Length() const { return myXY.norm(); }
+
+Naive_Real Vec2d::SquareLength() const { return myXY.squaredNorm(); }
+
 Naive_Bool Vec2d::Normalize() {
   if (IsValid() && !IsZero()) {
     myXY.normalize();
@@ -26,11 +30,37 @@ Naive_Bool Vec2d::Normalize() {
   return Naive_False;
 }
 
-Naive_EXPORT Vec2d Vec2d::Normalized() const {
+Vec2d Vec2d::Normalized() const {
   Vec2d aV(*this);
   if (aV.Normalize())
     return aV;
   return Unset();
+}
+
+void Vec2d::Add(const Vec2d &theVec) { myXY += theVec.myXY; }
+
+Vec2d Vec2d::Added(const Vec2d &theVec) const { return myXY + theVec.myXY; }
+
+void Vec2d::Subtract(const Vec2d &theVec) { myXY -= theVec.myXY; }
+
+Vec2d Vec2d::Subtracted(const Vec2d &theVec) const {
+  return myXY - theVec.myXY;
+}
+
+void Vec2d::Multiply(const Naive_Real theT) { myXY *= theT; }
+
+Vec2d Vec2d::Multiplied(const Naive_Real theT) const { return myXY * theT; }
+
+Naive_Bool Vec2d::Divide(const Naive_Real theT) {
+  if (Util::EpsilonEquals(theT, 0.0))
+    return Naive_False;
+  myXY /= theT;
+  return Naive_True;
+}
+
+Vec2d Vec2d::Divided(const Naive_Real theT) const {
+  Vec2d aVec(*this);
+  return aVec.Divide(theT) ? aVec : Unset();
 }
 
 Naive_Real Vec2d::Dot(const Vec2d &theV) const {
@@ -44,6 +74,8 @@ Naive_Real Vec2d::Crossed(const Vec2d &theV) const {
     return X() * theV.Y() - theV.X() * Y();
   return Constant::UnsetReal();
 }
+
+Naive_XYZ Vec2d::HomoCoord() const { return Naive_XYZ{myXY.x(), myXY.y(), 0.}; }
 
 const Vec2d &Vec2d::Unset() {
   static Vec2d p{};

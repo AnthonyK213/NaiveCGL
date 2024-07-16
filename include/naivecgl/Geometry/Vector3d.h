@@ -47,17 +47,17 @@ public:
 
   Naive_EXPORT Naive_Handle<Vector3d> Normalized() const;
 
-  Naive_EXPORT Naive_Bool Add(const Naive_Handle<Vector3d> &theVec);
+  Naive_EXPORT void Add(const Naive_Handle<Vector3d> &theVec);
 
   Naive_EXPORT Naive_Handle<Vector3d>
   Added(const Naive_Handle<Vector3d> &theVec) const;
 
-  Naive_EXPORT Naive_Bool Subtract(const Naive_Handle<Vector3d> &theVec);
+  Naive_EXPORT void Subtract(const Naive_Handle<Vector3d> &theVec);
 
   Naive_EXPORT Naive_Handle<Vector3d>
   Subtracted(const Naive_Handle<Vector3d> &theVec) const;
 
-  Naive_EXPORT Naive_Bool Multiply(const Naive_Real theT);
+  Naive_EXPORT void Multiply(const Naive_Real theT);
 
   Naive_EXPORT Naive_Handle<Vector3d> Multiplied(const Naive_Real theT) const;
 
@@ -72,7 +72,7 @@ public:
   Naive_EXPORT Naive_Handle<Vector3d>
   Crossed(const Naive_Handle<Vector3d> &theVec) const;
 
-  Naive_EXPORT Naive_Bool Reverse();
+  Naive_EXPORT void Reverse();
 
   Naive_EXPORT Naive_Handle<Vector3d> Reversed() const;
 

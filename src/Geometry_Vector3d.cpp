@@ -29,10 +29,9 @@ Naive_Handle<Vector3d> Vector3d::Normalized() const {
   return new Vector3d(myVec.Normalized());
 }
 
-Naive_Bool Vector3d::Add(const Naive_Handle<Vector3d> &theVec) {
-  if (theVec.IsNull())
-    return Naive_False;
-  return myVec.Add(theVec->myVec);
+void Vector3d::Add(const Naive_Handle<Vector3d> &theVec) {
+  if (!theVec.IsNull())
+    myVec.Add(theVec->myVec);
 }
 
 Naive_Handle<Vector3d>
@@ -42,10 +41,9 @@ Vector3d::Added(const Naive_Handle<Vector3d> &theVec) const {
   return new Vector3d(myVec.Added(theVec->myVec));
 }
 
-Naive_Bool Vector3d::Subtract(const Naive_Handle<Vector3d> &theVec) {
-  if (theVec.IsNull())
-    return Naive_False;
-  return myVec.Subtract(theVec->myVec);
+void Vector3d::Subtract(const Naive_Handle<Vector3d> &theVec) {
+  if (!theVec.IsNull())
+    myVec.Subtract(theVec->myVec);
 }
 
 Naive_Handle<Vector3d>
@@ -55,9 +53,7 @@ Vector3d::Subtracted(const Naive_Handle<Vector3d> &theVec) const {
   return new Vector3d(myVec.Subtracted(theVec->myVec));
 }
 
-Naive_Bool Vector3d::Multiply(const Naive_Real theT) {
-  return myVec.Multiply(theT);
-}
+void Vector3d::Multiply(const Naive_Real theT) { myVec.Multiply(theT); }
 
 Naive_Handle<Vector3d> Vector3d::Multiplied(const Naive_Real theT) const {
   return new Vector3d(myVec.Multiplied(theT));
@@ -90,7 +86,7 @@ Vector3d::Crossed(const Naive_Handle<Vector3d> &theVec) const {
   return new Vector3d(myVec.Crossed(theVec->myVec));
 }
 
-Naive_Bool Vector3d::Reverse() { return myVec.Reverse(); }
+void Vector3d::Reverse() { myVec.Reverse(); }
 
 Naive_Handle<Vector3d> Vector3d::Reversed() const {
   return new Vector3d(myVec.Negated());

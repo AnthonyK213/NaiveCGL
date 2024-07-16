@@ -24,8 +24,8 @@ Naive_Real Point3d::DistanceToSquared(const Handle_Naive_Point3d &theP) const {
   return myPnt.DistanceToSquared(theP->myPnt);
 }
 
-Naive_Bool Point3d::Transform(const Naive_Trsf3d &theTrsf) {
-  return myPnt.Transform(theTrsf);
+void Point3d::Transform(const Naive_Trsf3d &theTrsf) {
+  myPnt.Transform(theTrsf);
 }
 
 Naive_Bool Point3d::IsValid() const { return myPnt.IsValid(); }

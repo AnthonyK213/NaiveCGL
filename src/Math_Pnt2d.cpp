@@ -28,6 +28,16 @@ Naive_Real Pnt2d::DistanceToSquared(const Pnt2d &theP) const {
   return (myXY - theP.myXY).squaredNorm();
 }
 
+Naive_XYZ Pnt2d::HomoCoord() const { return Naive_XYZ{myXY.x(), myXY.y(), 1.}; }
+
+Naive_Bool Pnt2d::HomoCoord(const Naive_XYZ &theXYZ) {
+  if (Util::EpsilonEquals(theXYZ.z(), 0.))
+    return Naive_False;
+
+  myXY = theXYZ.head<2>() / theXYZ.z();
+  return Naive_True;
+}
+
 const Pnt2d &Pnt2d::Unset() {
   static Pnt2d p{};
   return p;

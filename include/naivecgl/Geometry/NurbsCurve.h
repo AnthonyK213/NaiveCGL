@@ -66,8 +66,8 @@ public:
   TangentAt(const Naive_Real theT) const Naive_OVERRIDE;
 
   Naive_EXPORT virtual Naive_Code
-  DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
-               Naive_Vec3dList1 &theD) const Naive_OVERRIDE;
+  Evaluate(const Naive_Real theT, const Naive_Integer theN,
+           Naive_Vec3dList1 &theD) const Naive_OVERRIDE;
 
   Naive_EXPORT virtual Naive_Code
   CurvatureAt(const Naive_Real theT, Naive_Vec3d &theV) const Naive_OVERRIDE;

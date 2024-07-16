@@ -61,15 +61,15 @@ public:
 
   Naive_EXPORT Vec3d Normalized() const;
 
-  Naive_EXPORT Naive_Bool Add(const Vec3d &theVec);
+  Naive_EXPORT void Add(const Vec3d &theVec);
 
   Naive_EXPORT Vec3d Added(const Vec3d &theVec) const;
 
-  Naive_EXPORT Naive_Bool Subtract(const Vec3d &theVec);
+  Naive_EXPORT void Subtract(const Vec3d &theVec);
 
   Naive_EXPORT Vec3d Subtracted(const Vec3d &theVec) const;
 
-  Naive_EXPORT Naive_Bool Multiply(const Naive_Real theT);
+  Naive_EXPORT void Multiply(const Naive_Real theT);
 
   Naive_EXPORT Vec3d Multiplied(const Naive_Real theT) const;
 
@@ -83,11 +83,11 @@ public:
 
   Naive_EXPORT Naive_Real Dot(const Vec3d &theVec) const;
 
-  Naive_EXPORT Naive_Bool Cross(const Vec3d &theVec);
+  Naive_EXPORT void Cross(const Vec3d &theVec);
 
   Naive_EXPORT Vec3d Crossed(const Vec3d &theVec) const;
 
-  Naive_EXPORT Naive_Bool Reverse();
+  Naive_EXPORT void Reverse();
 
   Naive_EXPORT Naive_Bool EpsilonEquals(
       const Vec3d &theVec, const Naive_Real theE = math::Precision::Epsilon0());
@@ -97,6 +97,8 @@ public:
   Naive_EXPORT Naive_Bool Transform(const Trsf3d &theTrsf);
 
   Naive_EXPORT Vec3d Transformed(const Trsf3d &theTrsf) const;
+
+  Naive_EXPORT Naive_XYZW HomoCoord() const;
 
   Naive_EXPORT Naive_Bool Dump(Naive_Vector3d_t &theVec) const;
 

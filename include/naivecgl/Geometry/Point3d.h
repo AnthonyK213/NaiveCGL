@@ -37,7 +37,7 @@ public:
   Naive_EXPORT Naive_Real
   DistanceToSquared(const Naive_Handle<Point3d> &theP) const;
 
-  Naive_EXPORT Naive_Bool Transform(const Naive_Trsf3d &theTrsf);
+  Naive_EXPORT void Transform(const Naive_Trsf3d &theTrsf);
 
   Naive_EXPORT virtual Naive_Bool IsValid() const Naive_OVERRIDE;
 

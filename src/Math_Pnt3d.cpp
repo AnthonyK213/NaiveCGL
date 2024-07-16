@@ -53,57 +53,31 @@ Naive_Real Pnt3d::DistanceToSquared(const Pnt3d &thePoint) const {
   return (myXYZ - thePoint.myXYZ).squaredNorm();
 }
 
-Naive_Bool Pnt3d::Add(const Pnt3d &thePoint) {
-  if (IsValid() && thePoint.IsValid()) {
-    myXYZ += thePoint.XYZ();
-    return Naive_True;
-  }
-  return Naive_False;
-}
+void Pnt3d::Add(const Pnt3d &thePoint) { myXYZ += thePoint.XYZ(); }
 
 Pnt3d Pnt3d::Added(const Pnt3d &thePoint) const {
-  Pnt3d aPnt(*this);
-  return aPnt.Add(thePoint) ? aPnt : Unset();
+  return myXYZ + thePoint.XYZ();
 }
 
-Naive_Bool Pnt3d::Add(const Vec3d &theVector) {
-  if (IsValid() && theVector.IsValid()) {
-    myXYZ += theVector.XYZ();
-    return Naive_True;
-  }
-  return Naive_False;
-}
+void Pnt3d::Add(const Vec3d &theVector) { myXYZ += theVector.XYZ(); }
 
 Pnt3d Pnt3d::Added(const Vec3d &theVector) const {
-  Pnt3d aPnt(*this);
-  return aPnt.Add(theVector) ? aPnt : Unset();
+  return myXYZ + theVector.XYZ();
 }
 
 Vec3d Pnt3d::Subtracted(const Pnt3d &thePoint) const {
-  if (IsValid() && thePoint.IsValid())
-    return {myXYZ - thePoint.XYZ()};
-  return Vec3d::Unset();
+  return {myXYZ - thePoint.XYZ()};
 }
 
-Naive_Bool Pnt3d::Multiply(const Naive_Real &theT) {
-  if (IsValid() && Util::IsValidReal(theT)) {
-    myXYZ *= theT;
-    return Naive_True;
-  }
-  return Naive_False;
-}
+void Pnt3d::Multiply(const Naive_Real &theT) { myXYZ *= theT; }
 
-Pnt3d Pnt3d::Multiplied(const Naive_Real &theT) const {
-  Pnt3d aPnt(*this);
-  return aPnt.Multiply(theT) ? aPnt : Unset();
-}
+Pnt3d Pnt3d::Multiplied(const Naive_Real &theT) const { return myXYZ * theT; }
 
 Naive_Bool Pnt3d::Divide(const Naive_Real &theT) {
-  if (IsValid() && !Util::EpsilonEquals(theT, 0.0)) {
-    myXYZ *= theT;
-    return Naive_True;
-  }
-  return Naive_False;
+  if (Util::EpsilonEquals(theT, 0.0))
+    return Naive_False;
+  myXYZ /= theT;
+  return Naive_True;
 }
 
 Pnt3d Pnt3d::Divided(const Naive_Real &theT) const {
@@ -115,18 +89,27 @@ void Pnt3d::Negate() { myXYZ = -myXYZ; }
 
 Pnt3d Pnt3d::Negated() const { return {-myXYZ}; }
 
-Naive_Bool Pnt3d::Transform(const Trsf3d &theTrsf) {
-  if (!IsValid() || !theTrsf.IsValid())
-    return Naive_False;
-  if (theTrsf.IsIdentity())
-    return Naive_True;
-  myXYZ = theTrsf.Affine() * myXYZ;
-  return Naive_True;
+void Pnt3d::Transform(const Trsf3d &theTrsf) {
+  if (!theTrsf.IsIdentity())
+    myXYZ = theTrsf.Affine() * myXYZ;
 }
 
 Pnt3d Pnt3d::Transformed(const Trsf3d &theTrsf) const {
   Pnt3d aPnt(*this);
-  return aPnt.Transform(theTrsf) ? aPnt : Unset();
+  aPnt.Transform(theTrsf);
+  return aPnt;
+}
+
+Naive_XYZW Pnt3d::HomoCoord() const {
+  return Naive_XYZW{myXYZ.x(), myXYZ.y(), myXYZ.z(), 1.};
+}
+
+Naive_Bool Pnt3d::HomoCoord(const Naive_XYZW &theXYZW) {
+  if (Util::EpsilonEquals(theXYZW.w(), 0.))
+    return Naive_False;
+
+  myXYZ = theXYZW.head<3>() / theXYZW(3);
+  return Naive_True;
 }
 
 Naive_Integer Pnt3d::CompareTo(const Pnt3d &thePoint) const {

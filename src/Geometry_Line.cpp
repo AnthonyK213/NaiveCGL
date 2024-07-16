@@ -53,7 +53,7 @@ Naive_Pnt3d Line::PointAt(const Naive_Real theT) const {
 
 Naive_Vec3d Line::TangentAt(const Naive_Real theT) const { return Direction(); }
 
-Naive_Code Line::DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
+Naive_Code Line::Evaluate(const Naive_Real theT, const Naive_Integer theN,
                               Naive_Vec3dList1 &theD) const {
   if (!IsValid())
     return Naive_Code_invalid_object;

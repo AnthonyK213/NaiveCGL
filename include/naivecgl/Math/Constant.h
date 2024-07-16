@@ -32,13 +32,9 @@ public:
 
   /// Unset values.
 
-  static constexpr Naive_Real UnsetPositiveReal() {
-    return 1.23432101234321e+308;
-  }
+  static constexpr Naive_Real UnsetPositiveReal() { return 2.1e+100; }
 
   static constexpr Naive_Real UnsetReal() { return -UnsetPositiveReal(); }
-
-  static constexpr Naive_ShortReal UnsetShortReal() { return -1.234321e+38f; }
 };
 
 Naive_NAMESPACE_END(math);

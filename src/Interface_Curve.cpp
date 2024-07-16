@@ -30,7 +30,7 @@ Naive_Code_t Naive_Curve_evaluate(Naive_Curve_t curve, const double t,
   if (result) {
     Naive_ROSTER_ASK(Naive_Curve, curve, H);
     Naive_Vec3dList1 aD{};
-    Naive_Code aCode = H->DerivativeAt(t, n_derivative, aD);
+    Naive_Code aCode = H->Evaluate(t, n_derivative, aD);
     if (aCode)
       return aCode;
 

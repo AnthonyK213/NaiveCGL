@@ -17,9 +17,9 @@ public:
 
   Naive_EXPORT virtual Naive_Vec3d TangentAt(const Naive_Real theT) const = 0;
 
-  Naive_EXPORT virtual Naive_Code
-  DerivativeAt(const Naive_Real theT, const Naive_Integer theN,
-               Naive_Vec3dList1 &theD) const = 0;
+  Naive_EXPORT virtual Naive_Code Evaluate(const Naive_Real theT,
+                                           const Naive_Integer theN,
+                                           Naive_Vec3dList1 &theD) const = 0;
 
   Naive_EXPORT virtual Naive_Code CurvatureAt(const Naive_Real theT,
                                               Naive_Vec3d &theV) const = 0;

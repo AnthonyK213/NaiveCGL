@@ -27,13 +27,18 @@ public:
                                          Naive_Integer theI, Naive_Integer theP,
                                          Naive_Integer theSpan);
 
-  Naive_EXPORT static Naive_XYZW PoleAfterInsertKnot(
-      const Naive_Pnt3dList1 &thePoles, const Naive_RealList1 &theWeights,
-      const Naive_RealList1 &theFlatKnots, const Naive_Integer theDegree,
-      const Naive_Real theT, const Naive_Integer theK, const Naive_Integer theS,
-      const Naive_Integer theI, const Naive_Integer theM);
+  template <int Dim, typename T>
+  Naive_EXPORT static ::Eigen::Matrix<Naive_Real, Dim + 1, 1>
+  PoleAfterInsertKnot(const Naive_List1<T> &thePoles,
+                      const Naive_RealList1 &theWeights,
+                      const Naive_RealList1 &theFlatKnots,
+                      const Naive_Integer theDegree, const Naive_Real theT,
+                      const Naive_Integer theK, const Naive_Integer theS,
+                      const Naive_Integer theI, const Naive_Integer theM);
 };
 
 Naive_NAMESPACE_END(math);
+
+#include "detail/Nurbs.inl"
 
 #endif

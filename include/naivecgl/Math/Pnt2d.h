@@ -30,6 +30,10 @@ public:
 
   Naive_EXPORT Naive_Real DistanceToSquared(const Pnt2d &theP) const;
 
+  Naive_EXPORT Naive_XYZ HomoCoord() const;
+
+  Naive_EXPORT Naive_Bool HomoCoord(const Naive_XYZ &theXYZ);
+
   Naive_EXPORT static const Pnt2d &Unset();
 
   Naive_EXPORT Naive_Bool Dump(Naive_Point2d_t &theP) const;

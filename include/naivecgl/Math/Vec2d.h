@@ -37,13 +37,35 @@ public:
 
   Naive_EXPORT Naive_Bool IsZero() const;
 
+  Naive_EXPORT Naive_Real Length() const;
+
+  Naive_EXPORT Naive_Real SquareLength() const;
+
   Naive_EXPORT Naive_Bool Normalize();
 
   Naive_EXPORT Vec2d Normalized() const;
 
+  Naive_EXPORT void Add(const Vec2d &theVec);
+
+  Naive_EXPORT Vec2d Added(const Vec2d &theVec) const;
+
+  Naive_EXPORT void Subtract(const Vec2d &theVec);
+
+  Naive_EXPORT Vec2d Subtracted(const Vec2d &theVec) const;
+
+  Naive_EXPORT void Multiply(const Naive_Real theT);
+
+  Naive_EXPORT Vec2d Multiplied(const Naive_Real theT) const;
+
+  Naive_EXPORT Naive_Bool Divide(const Naive_Real theT);
+
+  Naive_EXPORT Vec2d Divided(const Naive_Real theT) const;
+
   Naive_EXPORT Naive_Real Dot(const Vec2d &theV) const;
 
   Naive_EXPORT Naive_Real Crossed(const Vec2d &theV) const;
+
+  Naive_EXPORT Naive_XYZ HomoCoord() const;
 
   Naive_EXPORT static const Vec2d &Unset();
 
