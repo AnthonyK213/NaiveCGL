@@ -3,11 +3,7 @@
 
 #include "TObject.h"
 
-#include <atomic>
-
 Naive_NAMESPACE_BEGIN(common);
-
-class TObject;
 
 class Roster final {
 public:

@@ -39,17 +39,17 @@ Vec2d Vec2d::Normalized() const {
 
 void Vec2d::Add(const Vec2d &theVec) { myXY += theVec.myXY; }
 
-Vec2d Vec2d::Added(const Vec2d &theVec) const { return myXY + theVec.myXY; }
+Vec2d Vec2d::Added(const Vec2d &theVec) const { return {myXY + theVec.myXY}; }
 
 void Vec2d::Subtract(const Vec2d &theVec) { myXY -= theVec.myXY; }
 
 Vec2d Vec2d::Subtracted(const Vec2d &theVec) const {
-  return myXY - theVec.myXY;
+  return {myXY - theVec.myXY};
 }
 
 void Vec2d::Multiply(const Naive_Real theT) { myXY *= theT; }
 
-Vec2d Vec2d::Multiplied(const Naive_Real theT) const { return myXY * theT; }
+Vec2d Vec2d::Multiplied(const Naive_Real theT) const { return {myXY * theT}; }
 
 Naive_Bool Vec2d::Divide(const Naive_Real theT) {
   if (Util::EpsilonEquals(theT, 0.0))

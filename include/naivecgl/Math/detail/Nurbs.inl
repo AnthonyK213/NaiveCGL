@@ -3,13 +3,11 @@
 Naive_NAMESPACE_BEGIN(math);
 
 template <int Dim, typename T>
-Naive_EXPORT static ::Eigen::Matrix<Naive_Real, Dim + 1, 1>
-Nurbs::PoleAfterInsertKnot(const Naive_List1<T> &thePoles,
-                           const Naive_RealList1 &theWeights,
-                           const Naive_RealList1 &theFlatKnots,
-                           const Naive_Integer theDegree, const Naive_Real theT,
-                           const Naive_Integer theK, const Naive_Integer theS,
-                           const Naive_Integer theI, const Naive_Integer theM) {
+Naive_EXPORT ::Eigen::Matrix<Naive_Real, Dim + 1, 1> Nurbs::PoleAfterInsertKnot(
+    const Naive_List1<T> &thePoles, const Naive_RealList1 &theWeights,
+    const Naive_RealList1 &theFlatKnots, const Naive_Integer theDegree,
+    const Naive_Real theT, const Naive_Integer theK, const Naive_Integer theS,
+    const Naive_Integer theI, const Naive_Integer theM) {
   if (theM == 0)
     return thePoles[theI].HomoCoord() * theWeights[theI];
 

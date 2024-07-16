@@ -5,6 +5,7 @@
 #include "../Common/Type.h"
 
 #include <cmath>
+#include <limits>
 
 Naive_NAMESPACE_BEGIN(math);
 
@@ -24,9 +25,13 @@ public:
 
   /// Limits.
 
-  static constexpr Naive_Real MinReal() { return DBL_MIN; }
+  static constexpr Naive_Real MinReal() {
+    return ::std::numeric_limits<Naive_Real>::min();
+  }
 
-  static constexpr Naive_Real MaxReal() { return DBL_MAX; }
+  static constexpr Naive_Real MaxReal() {
+    return ::std::numeric_limits<Naive_Real>::max();
+  }
 
   static constexpr Naive_Real Infinite() { return 2.e+100; }
 

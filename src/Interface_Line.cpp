@@ -1,4 +1,4 @@
-#include <naivecgl/Common/TObject.h>
+#include <naivecgl/Common/Roster.h>
 #include <naivecgl/Geometry/Line.h>
 
 #include "Interface_NaiveCGL_c.h"

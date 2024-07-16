@@ -5,8 +5,6 @@
 
 Naive_NAMESPACE_BEGIN(common);
 
-class Object;
-
 template <typename T> class handle {
 public:
   handle() : myEntity(nullptr) {}

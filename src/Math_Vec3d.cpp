@@ -87,17 +87,17 @@ const Vec3d &Vec3d::Unset() {
 
 void Vec3d::Add(const Vec3d &theVec) { myXYZ += theVec.myXYZ; }
 
-Vec3d Vec3d::Added(const Vec3d &theVec) const { return myXYZ + theVec.myXYZ; }
+Vec3d Vec3d::Added(const Vec3d &theVec) const { return {myXYZ + theVec.myXYZ}; }
 
 void Vec3d::Subtract(const Vec3d &theVec) { myXYZ -= theVec.myXYZ; }
 
 Vec3d Vec3d::Subtracted(const Vec3d &theVec) const {
-  return myXYZ - theVec.myXYZ;
+  return {myXYZ - theVec.myXYZ};
 }
 
 void Vec3d::Multiply(const Naive_Real theT) { myXYZ *= theT; }
 
-Vec3d Vec3d::Multiplied(const Naive_Real theT) const { return myXYZ * theT; }
+Vec3d Vec3d::Multiplied(const Naive_Real theT) const { return {myXYZ * theT}; }
 
 Naive_Bool Vec3d::Divide(const Naive_Real theT) {
   if (Util::EpsilonEquals(theT, 0.0))

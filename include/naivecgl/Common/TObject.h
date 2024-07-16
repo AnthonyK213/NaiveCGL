@@ -2,7 +2,6 @@
 #define _NaiveCGL_Common_TObject_HeaderFile
 
 #include "Handle.h"
-#include "Roster.h"
 
 Naive_NAMESPACE_BEGIN(common);
 

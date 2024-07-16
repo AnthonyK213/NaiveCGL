@@ -1,5 +1,4 @@
 #include <naivecgl/Common/Roster.h>
-#include <naivecgl/Common/TObject.h>
 
 Naive_NAMESPACE_BEGIN(common);
 

@@ -56,13 +56,13 @@ Naive_Real Pnt3d::DistanceToSquared(const Pnt3d &thePoint) const {
 void Pnt3d::Add(const Pnt3d &thePoint) { myXYZ += thePoint.XYZ(); }
 
 Pnt3d Pnt3d::Added(const Pnt3d &thePoint) const {
-  return myXYZ + thePoint.XYZ();
+  return {myXYZ + thePoint.XYZ()};
 }
 
 void Pnt3d::Add(const Vec3d &theVector) { myXYZ += theVector.XYZ(); }
 
 Pnt3d Pnt3d::Added(const Vec3d &theVector) const {
-  return myXYZ + theVector.XYZ();
+  return {myXYZ + theVector.XYZ()};
 }
 
 Vec3d Pnt3d::Subtracted(const Pnt3d &thePoint) const {
@@ -71,7 +71,7 @@ Vec3d Pnt3d::Subtracted(const Pnt3d &thePoint) const {
 
 void Pnt3d::Multiply(const Naive_Real &theT) { myXYZ *= theT; }
 
-Pnt3d Pnt3d::Multiplied(const Naive_Real &theT) const { return myXYZ * theT; }
+Pnt3d Pnt3d::Multiplied(const Naive_Real &theT) const { return {myXYZ * theT}; }
 
 Naive_Bool Pnt3d::Divide(const Naive_Real &theT) {
   if (Util::EpsilonEquals(theT, 0.0))
