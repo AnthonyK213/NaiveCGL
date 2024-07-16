@@ -21,6 +21,8 @@ public:
 
   Naive_EXPORT ConvexHull(ConvexHull &&theOther) Naive_DELETE;
 
+  Naive_EXPORT ~ConvexHull();
+
   Naive_EXPORT void SetAlgorithm(Naive_Algorithm theAlgo);
 
   Naive_EXPORT void Perform();
@@ -39,37 +41,7 @@ public:
   Naive_EXPORT Naive_Pnt2dList1 ConvexPoints() const;
 
 public:
-  class Impl {
-  public:
-    virtual ~Impl();
-
-    virtual void Perform() = 0;
-
-    virtual void Add(const Naive_Pnt2d &thePoint,
-                     const Naive_Bool thePerform) = 0;
-
-    Naive_Code Status() const { return myStatus; }
-
-    virtual Naive_Integer NbConvexPoints() const;
-
-    virtual Naive_IntegerList1 ConvexIndices() const;
-
-    virtual Naive_Pnt2dList1 ConvexPoints() const;
-
-  protected:
-    using PPnt = const Naive_Pnt2d *;
-    using PPnts = Naive_List1<PPnt>;
-
-    explicit Impl(Naive_Pnt2dList1 &thePoints);
-
-    void initPtrs();
-
-  protected:
-    Naive_Pnt2dList1 *myPoints;
-    PPnts myPtrs;
-    PPnts myHull;
-    mutable Naive_Code myStatus;
-  };
+  class Impl;
 
 private:
   Naive_Pnt2dList1 myPoints;

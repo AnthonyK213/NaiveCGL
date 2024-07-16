@@ -4,6 +4,28 @@ Naive_NAMESPACE_BEGIN(geomapi);
 
 /* ConvexHull::Impl */
 
+class ConvexHull::Impl {
+public:
+  virtual ~Impl();
+
+  virtual void Perform() = 0;
+
+  virtual void Add(const Naive_Pnt3d &thePoint,
+                   const Naive_Bool thePerform) = 0;
+
+  Naive_Code Status() const { return myStatus; }
+
+  virtual Handle_Naive_Poly Result() const;
+
+protected:
+  explicit Impl(Naive_Pnt3dList1 &thePoints);
+
+protected:
+  Naive_Pnt3dList1 *myPoints;
+  Handle_Naive_Mesh myConvexHull;
+  mutable Naive_Code myStatus;
+};
+
 ConvexHull::Impl::Impl(Naive_Pnt3dList1 &thePoints)
     : myPoints(&thePoints), myStatus(Naive_Code_err) {
   if (myPoints->size() < 4) {
@@ -61,6 +83,8 @@ ConvexHull::ConvexHull(Naive_Pnt3dList1 &&thePoints,
   myPoints = ::std::move(thePoints);
   SetAlgorithm(theAlgo);
 }
+
+ConvexHull::~ConvexHull() {}
 
 void ConvexHull::SetAlgorithm(Naive_Algorithm theAlgo) {
   if (theAlgo == myAlgo && myImpl)

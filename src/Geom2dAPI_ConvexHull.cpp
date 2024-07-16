@@ -1,8 +1,41 @@
 ﻿#include <naivecgl/Geom2dAPI/ConvexHull.h>
+#include <naivecgl/Math/Constant.h>
 
 Naive_NAMESPACE_BEGIN(geom2dapi);
 
 /* ConvexHull::Impl */
+
+class ConvexHull::Impl {
+public:
+  virtual ~Impl();
+
+  virtual void Perform() = 0;
+
+  virtual void Add(const Naive_Pnt2d &thePoint,
+                   const Naive_Bool thePerform) = 0;
+
+  Naive_Code Status() const { return myStatus; }
+
+  virtual Naive_Integer NbConvexPoints() const;
+
+  virtual Naive_IntegerList1 ConvexIndices() const;
+
+  virtual Naive_Pnt2dList1 ConvexPoints() const;
+
+protected:
+  using PPnt = const Naive_Pnt2d *;
+  using PPnts = Naive_List1<PPnt>;
+
+  explicit Impl(Naive_Pnt2dList1 &thePoints);
+
+  void initPtrs();
+
+protected:
+  Naive_Pnt2dList1 *myPoints;
+  PPnts myPtrs;
+  PPnts myHull;
+  mutable Naive_Code myStatus;
+};
 
 ConvexHull::Impl::Impl(Naive_Pnt2dList1 &thePoints)
     : myPoints(&thePoints), myPtrs{}, myHull{}, myStatus(Naive_Code_err) {
@@ -89,7 +122,7 @@ public:
     }
 
     PPnt a, b, fA, fB;
-    extremX(a, b);
+    extremeX(a, b);
 
     if (myStatus != Naive_Code_ok)
       return;
@@ -125,8 +158,8 @@ private:
   /// @brief Find points (|a|, |b|) with min and max the value of x.
   /// @param a Min
   /// @param b Max
-  void extremX(PPnt &a, PPnt &b) const {
-    Naive_Real xMin = ::std::numeric_limits<Naive_Real>::infinity();
+  void extremeX(PPnt &a, PPnt &b) const {
+    Naive_Real xMin = math::Constant::Infinite();
     Naive_Real xMax = -xMin;
 
     for (const PPnt &p : myPtrs) {
@@ -224,6 +257,8 @@ ConvexHull::ConvexHull(Naive_Pnt2dList1 &&thePoints,
   myPoints = ::std::move(thePoints);
   SetAlgorithm(theAlgo);
 }
+
+ConvexHull::~ConvexHull() {}
 
 void ConvexHull::SetAlgorithm(Naive_Algorithm theAlgo) {
   if (theAlgo == myAlgo && myImpl)

@@ -22,6 +22,8 @@ public:
 
   Naive_EXPORT ConvexHull(ConvexHull &&theOther) Naive_DELETE;
 
+  Naive_EXPORT ~ConvexHull();
+
   Naive_EXPORT void SetAlgorithm(Naive_Algorithm theAlgo);
 
   Naive_EXPORT void Perform();
@@ -34,27 +36,7 @@ public:
   Naive_EXPORT Handle_Naive_Poly Result() const;
 
 public:
-  class Impl {
-  public:
-    virtual ~Impl();
-
-    virtual void Perform() = 0;
-
-    virtual void Add(const Naive_Pnt3d &thePoint,
-                     const Naive_Bool thePerform) = 0;
-
-    Naive_Code Status() const { return myStatus; }
-
-    virtual Handle_Naive_Poly Result() const;
-
-  protected:
-    explicit Impl(Naive_Pnt3dList1 &thePoints);
-
-  protected:
-    Naive_Pnt3dList1 *myPoints;
-    Handle_Naive_Mesh myConvexHull;
-    mutable Naive_Code myStatus;
-  };
+  class Impl;
 
 private:
   Naive_Pnt3dList1 myPoints;
