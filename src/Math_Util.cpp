@@ -1,4 +1,5 @@
-﻿#include <naivecgl/Math/Util.h>
+﻿#include <naivecgl/Math/Constant.h>
+#include <naivecgl/Math/Util.h>
 
 Naive_NAMESPACE_BEGIN(math);
 
@@ -22,9 +23,20 @@ Naive_Bool Util::EpsilonEquals(Naive_Real theX, Naive_Real theY,
   return Naive_False;
 }
 
-Naive_Bool Util::IsValidReal(Naive_Real theX) {
-  return ::std::abs(theX) != Constant::UnsetPositiveReal() &&
-         !::std::isinf(theX) && !::std::isnan(theX);
+Naive_Bool Util::IsInfinite(const Naive_Real theR) {
+  return ::std::abs(theR) >= 0.5 * Constant::Infinite();
+}
+
+Naive_Bool Util::IsPositiveInfinite(const Naive_Real theR) {
+  return theR >= 0.5 * Constant::Infinite();
+}
+
+Naive_Bool Util::IsNegativeInfinite(const Naive_Real theR) {
+  return theR <= -0.5 * Constant::Infinite();
+}
+
+Naive_Bool Util::IsValidReal(Naive_Real theR) {
+  return !IsInfinite(theR) && !::std::isnan(theR);
 }
 
 Naive_Real Util::ToDegrees(Naive_Real theRadians) {

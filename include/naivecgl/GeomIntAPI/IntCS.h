@@ -1,0 +1,4 @@
+#ifndef _NaiveCGL_GeomIntAPI_IntCS_HeaderFile
+#define _NaiveCGL_GeomIntAPI_IntCS_HeaderFile
+
+#endif

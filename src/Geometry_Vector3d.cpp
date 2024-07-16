@@ -1,4 +1,5 @@
 ﻿#include <naivecgl/Geometry/Vector3d.h>
+#include <naivecgl/Math/Constant.h>
 #include <naivecgl/Math/Util.h>
 
 Naive_NAMESPACE_BEGIN(geometry);

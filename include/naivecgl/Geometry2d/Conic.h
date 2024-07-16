@@ -4,6 +4,16 @@
 #include "Curve.h"
 
 Naive_NAMESPACE_BEGIN(geometry2d);
+
+class Conic : public Naive_Curve2d {
+public:
+protected:
+private:
+};
+
 Naive_NAMESPACE_END(geometry2d);
+
+using Naive_Conic2d = ::naivecgl::geometry2d::Conic;
+Naive_DEFINE_HANDLE(Naive_Conic2d);
 
 #endif

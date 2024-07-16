@@ -1,7 +1,7 @@
 ﻿#ifndef _NaiveCGL_Math_Util_HeaderFile
 #define _NaiveCGL_Math_Util_HeaderFile
 
-#include "Constant.h"
+#include "Precision.h"
 
 Naive_NAMESPACE_BEGIN(math);
 
@@ -9,9 +9,15 @@ class Util {
 public:
   Naive_EXPORT static Naive_Bool
   EpsilonEquals(Naive_Real theX, Naive_Real theY,
-                Naive_Real theEpsilon = math::Constant::Epsilon());
+                Naive_Real theEpsilon = math::Precision::Epsilon0());
 
-  Naive_EXPORT static Naive_Bool IsValidReal(Naive_Real theX);
+  Naive_EXPORT static Naive_Bool IsInfinite(const Naive_Real theR);
+
+  Naive_EXPORT static Naive_Bool IsPositiveInfinite(const Naive_Real theR);
+
+  Naive_EXPORT static Naive_Bool IsNegativeInfinite(const Naive_Real theR);
+
+  Naive_EXPORT static Naive_Bool IsValidReal(Naive_Real theR);
 
   Naive_EXPORT static Naive_Real ToDegrees(Naive_Real theRadians);
 

@@ -1,0 +1,4 @@
+#ifndef _NaiveCGL_BRepIntAPI_IntEE_HeaderFile
+#define _NaiveCGL_BRepIntAPI_IntEE_HeaderFile
+
+#endif

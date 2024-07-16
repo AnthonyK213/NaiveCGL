@@ -1,3 +1,4 @@
+#include <naivecgl/Math/Constant.h>
 #include <naivecgl/Math/Util.h>
 #include <naivecgl/Math/Vec2d.h>
 
@@ -15,9 +16,7 @@ Naive_Bool Vec2d::IsValid() const {
   return Util::IsValidReal(X()) && Util::IsValidReal(Y());
 }
 
-Naive_Bool Vec2d::IsZero() const {
-  return myXY.isZero(Constant::ZeroTolerance());
-}
+Naive_Bool Vec2d::IsZero() const { return myXY.isZero(Precision::Epsilon0()); }
 
 Naive_Bool Vec2d::Normalize() {
   if (IsValid() && !IsZero()) {

@@ -1,10 +1,10 @@
-#ifndef _NaiveCGL_BRepAPI_Command_HeaderFile
-#define _NaiveCGL_BRepAPI_Command_HeaderFile
+#ifndef _NaiveCGL_Common_Command_HeaderFile
+#define _NaiveCGL_Common_Command_HeaderFile
 
-#include "../Common/Macro.h"
-#include "../Common/Type.h"
+#include "Macro.h"
+#include "Type.h"
 
-Naive_NAMESPACE_BEGIN(brepapi);
+Naive_NAMESPACE_BEGIN(common);
 
 class Command {
 public:
@@ -21,6 +21,6 @@ private:
   Naive_Code myStatus;
 };
 
-Naive_NAMESPACE_END(brepapi);
+Naive_NAMESPACE_END(common);
 
 #endif

@@ -3,7 +3,7 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
-Face::Face() : Naive_Topol(), myTol(math::Constant::DefaultFTol()) {}
+Face::Face() : Naive_Topol(), myTol(math::Precision::Epsilon0()) {}
 
 Naive_Class Face::Class() const { return Naive_Class_face; }
 

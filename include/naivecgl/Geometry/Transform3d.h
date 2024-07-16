@@ -2,7 +2,6 @@
 #define _NaiveCGL_Geometry_Transform_HeaderFile
 
 #include "../Common/Handle.h"
-#include "../Math/Constant.h"
 #include "../Math/Trsf3d.h"
 
 Naive_NAMESPACE_BEGIN(geometry);

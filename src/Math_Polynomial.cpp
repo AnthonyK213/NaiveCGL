@@ -1,4 +1,5 @@
-﻿#include <naivecgl/Math/Polynomial.h>
+﻿#include <naivecgl/Math/Constant.h>
+#include <naivecgl/Math/Polynomial.h>
 #include <naivecgl/Math/Util.h>
 
 Naive_NAMESPACE_BEGIN(math);

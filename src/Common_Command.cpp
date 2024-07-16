@@ -1,6 +1,6 @@
-#include <naivecgl/BRepAPI/Command.h>
+#include <naivecgl/Common/Command.h>
 
-Naive_NAMESPACE_BEGIN(brepapi);
+Naive_NAMESPACE_BEGIN(common);
 
 Command::~Command() {}
 
@@ -10,4 +10,4 @@ Command::Command() : myStatus(Naive_Code_initialized) {}
 
 void Command::SetStatus(Naive_Code theStatus) { myStatus = theStatus; }
 
-Naive_NAMESPACE_END(brepapi);
+Naive_NAMESPACE_END(common);

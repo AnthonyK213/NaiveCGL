@@ -1,7 +1,7 @@
 #ifndef _NaiveCGL_Math_Vec3d_HeaderFile
 #define _NaiveCGL_Math_Vec3d_HeaderFile
 
-#include "../Math/Constant.h"
+#include "Precision.h"
 
 Naive_NAMESPACE_BEGIN(math);
 
@@ -90,7 +90,7 @@ public:
   Naive_EXPORT Naive_Bool Reverse();
 
   Naive_EXPORT Naive_Bool EpsilonEquals(
-      const Vec3d &theVec, const Naive_Real theE = math::Constant::Epsilon());
+      const Vec3d &theVec, const Naive_Real theE = math::Precision::Epsilon0());
 
   Naive_EXPORT Naive_Bool Equals(const Vec3d &theVec);
 

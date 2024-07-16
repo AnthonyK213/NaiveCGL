@@ -9,7 +9,7 @@ Naive_Code_t Naive_Tessellation_make_tetrasphere(const Naive_Point3d_t *center,
   if (!center || !poly)
     return Naive_Code_null_arg_address;
 
-  if (radius <= ::naivecgl::math::Constant::ZeroTolerance() || level < 0)
+  if (radius <= ::naivecgl::math::Precision::Epsilon0() || level < 0)
     return Naive_Code_value_out_of_range;
 
   Naive_Pnt3d aCenter{*center};

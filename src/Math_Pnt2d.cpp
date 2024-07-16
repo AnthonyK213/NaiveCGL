@@ -1,3 +1,4 @@
+#include <naivecgl/Math/Constant.h>
 #include <naivecgl/Math/Pnt2d.h>
 #include <naivecgl/Math/Util.h>
 

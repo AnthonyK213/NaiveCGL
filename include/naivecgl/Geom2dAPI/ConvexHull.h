@@ -57,8 +57,8 @@ public:
     virtual Naive_Pnt2dList1 ConvexPoints() const;
 
   protected:
-    using Ptr = const Naive_Pnt2d *;
-    using Ptrs = Naive_List1<Ptr>;
+    using PPnt = const Naive_Pnt2d *;
+    using PPnts = Naive_List1<PPnt>;
 
     explicit Impl(Naive_Pnt2dList1 &thePoints);
 
@@ -66,8 +66,8 @@ public:
 
   protected:
     Naive_Pnt2dList1 *myPoints;
-    Ptrs myPtrs;
-    Ptrs myHull;
+    PPnts myPtrs;
+    PPnts myHull;
     mutable Naive_Code myStatus;
   };
 

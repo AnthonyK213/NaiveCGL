@@ -4,6 +4,16 @@
 #include "Conic.h"
 
 Naive_NAMESPACE_BEGIN(geometry2d);
+
+class Circle : public Naive_Conic2d {
+public:
+protected:
+private:
+};
+
 Naive_NAMESPACE_END(geometry2d);
+
+using Naive_Circle2d = ::naivecgl::geometry2d::Circle;
+Naive_DEFINE_HANDLE(Naive_Circle2d);
 
 #endif

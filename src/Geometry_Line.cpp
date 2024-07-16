@@ -26,9 +26,9 @@ Naive_Vec3d Line::UnitTangent() const {
   return Naive_Vec3d::Unset();
 }
 
-Naive_Real Line::FirstParameter() const { return -math::Constant::MaxReal(); }
+Naive_Real Line::FirstParameter() const { return -math::Constant::Infinite(); }
 
-Naive_Real Line::LastParameter() const { return math::Constant::MaxReal(); }
+Naive_Real Line::LastParameter() const { return math::Constant::Infinite(); }
 
 Naive_Bool Line::IsValid() const {
   return myLocation.IsValid() && myAxis.IsValid();

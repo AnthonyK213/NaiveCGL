@@ -2,7 +2,6 @@
 #define _NaiveCGL_Topology_Topol_HeaderFile
 
 #include "../Common/Handle.h"
-#include "../Math/Constant.h"
 #include "Location.h"
 
 Naive_NAMESPACE_BEGIN(topology);

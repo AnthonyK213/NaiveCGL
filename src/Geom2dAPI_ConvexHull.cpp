@@ -33,9 +33,9 @@ Naive_IntegerList1 ConvexHull::Impl::ConvexIndices() const {
 
   result.reserve(myHull.size());
 
-  Ptr first = myPtrs[0];
+  PPnt first = myPtrs[0];
 
-  for (const Ptr &p : myHull) {
+  for (const PPnt &p : myHull) {
     result.push_back(::std::distance(first, p));
   }
 
@@ -50,7 +50,7 @@ Naive_Pnt2dList1 ConvexHull::Impl::ConvexPoints() const {
 
   result.reserve(myHull.size());
 
-  for (const Ptr &p : myHull) {
+  for (const PPnt &p : myHull) {
     result.push_back(*p);
   }
 
@@ -88,14 +88,14 @@ public:
       return;
     }
 
-    Ptr a, b, fA, fB;
+    PPnt a, b, fA, fB;
     extremX(a, b);
 
     if (myStatus != Naive_Code_ok)
       return;
 
-    Ptrs A = rightOf(myPtrs, a, b, fA); /* Right side of line ab. */
-    Ptrs B = rightOf(myPtrs, b, a, fB); /* Right side of line ba. */
+    PPnts A = rightOf(myPtrs, a, b, fA); /* Right side of line ab. */
+    PPnts B = rightOf(myPtrs, b, a, fB); /* Right side of line ba. */
 
     myHull.push_back(a);
     half(A, a, b, fA, myHull);
@@ -125,11 +125,11 @@ private:
   /// @brief Find points (|a|, |b|) with min and max the value of x.
   /// @param a Min
   /// @param b Max
-  void extremX(Ptr &a, Ptr &b) const {
+  void extremX(PPnt &a, PPnt &b) const {
     Naive_Real xMin = ::std::numeric_limits<Naive_Real>::infinity();
     Naive_Real xMax = -xMin;
 
-    for (const Ptr &p : myPtrs) {
+    for (const PPnt &p : myPtrs) {
       if (p->X() < xMin) {
         xMin = p->X();
         a = p;
@@ -153,11 +153,11 @@ private:
   /// @param b The "to point" of the line.
   /// @param f The farthest ponit on the right side of the line ab.
   /// @return The right-side point set.
-  Ptrs rightOf(const Ptrs &points, Ptr a, Ptr b, Ptr &f) const {
+  PPnts rightOf(const PPnts &points, PPnt a, PPnt b, PPnt &f) const {
     Naive_Real dist = 0.0;
-    Ptrs result{};
+    PPnts result{};
 
-    for (const Ptr &p : points) {
+    for (const PPnt &p : points) {
       if (p == a || p == b)
         continue;
 
@@ -195,13 +195,13 @@ private:
   /// @param b
   /// @param f
   /// @param buf The convex ponits.
-  void half(const Ptrs &points, Ptr a, Ptr b, Ptr f, Ptrs &buf) {
+  void half(const PPnts &points, PPnt a, PPnt b, PPnt f, PPnts &buf) {
     if (points.empty())
       return;
 
-    Ptr fA, fB;
-    Ptrs A = rightOf(points, a, f, fA);
-    Ptrs B = rightOf(points, f, b, fB);
+    PPnt fA, fB;
+    PPnts A = rightOf(points, a, f, fA);
+    PPnts B = rightOf(points, f, b, fB);
 
     half(A, a, f, fA, buf);
     buf.push_back(f);

@@ -1,5 +1,5 @@
 ﻿#include <naivecgl/Geom2dAPI/EnclosingDisc.h>
-#include <naivecgl/Math/Constant.h>
+#include <naivecgl/Math/Precision.h>
 
 Naive_NAMESPACE_BEGIN(geom2dapi);
 
@@ -79,7 +79,7 @@ void EnclosingDisc::circle3Points(const Naive_Pnt2d &theA,
   Naive_Real b2 = 2. * (theB.Y() - theC.Y());
   Naive_Real d = a1 * b2 - a2 * b1;
 
-  if (::std::abs(d) < math::Constant::ZeroTolerance()) {
+  if (::std::abs(d) < math::Precision::Epsilon0()) {
     myOrigin = Naive_Pnt2d::Unset();
     return;
   }

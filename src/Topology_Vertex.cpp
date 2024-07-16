@@ -3,7 +3,7 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
-Vertex::Vertex() : Naive_Topol(), myTol(math::Constant::DefaultVTol()) {}
+Vertex::Vertex() : Naive_Topol(), myTol(math::Precision::Epsilon0()) {}
 
 Naive_Class Vertex::Class() const { return Naive_Class_vertex; }
 

@@ -18,6 +18,7 @@ target_include_directories(
   ${PROJECT_NAME}
   PRIVATE
   ${PROJECT_SOURCE_DIR}/include
+  ${bvh_SOURCE_DIR}/src
   ${eigen3_SOURCE_DIR}
   )
 

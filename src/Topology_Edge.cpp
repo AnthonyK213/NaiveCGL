@@ -3,7 +3,7 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
-Edge::Edge() : Naive_Topol(), myTol(math::Constant::DefaultETol()) {}
+Edge::Edge() : Naive_Topol(), myTol(math::Precision::Epsilon0()) {}
 
 Naive_Class Edge::Class() const { return Naive_Class_edge; }
 
