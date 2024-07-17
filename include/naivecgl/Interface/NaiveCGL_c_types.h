@@ -174,7 +174,11 @@ typedef struct Naive_Circle2d_sf_s {
 /* Naive_Class */
 
 typedef enum {
-  Naive_Class_body = 0,
+  Naive_Class_null = 0,
+  Naive_Class_object,
+  Naive_Class_class_type,
+  Naive_Class_topol,
+  Naive_Class_body,
   Naive_Class_solid,
   Naive_Class_shell,
   Naive_Class_face,

@@ -1,7 +1,11 @@
 #ifndef _NaiveCGL_Math_Vec3d_HeaderFile
 #define _NaiveCGL_Math_Vec3d_HeaderFile
 
+#include "../Collection/List1.h"
+#include "../Collection/List2.h"
 #include "Precision.h"
+#include "XYZ.h"
+#include "XYZW.h"
 
 Naive_NAMESPACE_BEGIN(math);
 

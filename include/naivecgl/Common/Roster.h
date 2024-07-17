@@ -3,6 +3,8 @@
 
 #include "TObject.h"
 
+#include "../Collection/Hash.h"
+
 Naive_NAMESPACE_BEGIN(common);
 
 class Roster final {

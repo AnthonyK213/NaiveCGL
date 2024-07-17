@@ -54,7 +54,7 @@ Intv Intv::FromUnion(const Intv &theA, const Intv &theB) {
   return Intv::Unset();
 }
 
-int32_t Intv::CompareTo(const Intv &theOther) const {
+Naive_Integer Intv::CompareTo(const Intv &theOther) const {
   if (myT0 < theOther.myT0)
     return -1;
 

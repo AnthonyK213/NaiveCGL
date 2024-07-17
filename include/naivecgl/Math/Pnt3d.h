@@ -1,8 +1,12 @@
 #ifndef _NaiveCGL_Math_Pnt3d_HeaderFile
 #define _NaiveCGL_Math_Pnt3d_HeaderFile
 
+#include "../Collection/List1.h"
+#include "../Collection/List2.h"
 #include "../Common/Macro.h"
 #include "../Common/Type.h"
+#include "XYZ.h"
+#include "XYZW.h"
 
 Naive_NAMESPACE_BEGIN(math);
 

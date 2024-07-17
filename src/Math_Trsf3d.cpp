@@ -5,7 +5,7 @@ Naive_NAMESPACE_BEGIN(math);
 
 Trsf3d::Trsf3d() {}
 
-Trsf3d::Trsf3d(const Naive_Affine3d &theTrsf) : myAffine(theTrsf) {}
+Trsf3d::Trsf3d(const Naive_Afn3d &theTrsf) : myAffine(theTrsf) {}
 
 Trsf3d::Trsf3d(const Naive_Transform3d_sf_t &theTrsf) : myAffine() {
   for (Naive_Integer row = 0; row < 3; ++row) {
@@ -25,19 +25,19 @@ Naive_Bool Trsf3d::IsIdentity(const Naive_Real theTol) const {
 
 const Trsf3d &Trsf3d::Unset() {
   static Trsf3d aTrsf =
-      Naive_Affine3d{::Eigen::Translation3d{Vec3d::Unset().XYZ()}};
+      Naive_Afn3d{::Eigen::Translation3d{Vec3d::Unset().XYZ()}};
   return aTrsf;
 }
 
 const Trsf3d &Trsf3d::Identity() {
-  static Trsf3d aTrsf = Naive_Affine3d::Identity();
+  static Trsf3d aTrsf = Naive_Afn3d::Identity();
   return aTrsf;
 }
 
 Trsf3d Trsf3d::Translation(const Vec3d &theVec) {
   if (!theVec.IsValid())
     return Unset();
-  Naive_Affine3d aTrsf(::Eigen::Translation3d(theVec.XYZ()));
+  Naive_Afn3d aTrsf(::Eigen::Translation3d(theVec.XYZ()));
   return {aTrsf};
 }
 

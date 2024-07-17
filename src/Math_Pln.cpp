@@ -1,3 +1,4 @@
+#include <naivecgl/Math/Mat3d.h>
 #include <naivecgl/Math/Pln.h>
 #include <naivecgl/Math/Trsf3d.h>
 
@@ -69,18 +70,18 @@ Naive_Bool Pln::Orient(const Pln &thePln1, const Pln &thePln2,
   if (!thePln1.IsValid() || !thePln2.IsValid())
     return Naive_False;
 
-  Naive_Affine3d aT1{};
+  Naive_Afn3d aT1{};
   aT1.setIdentity();
-  Naive_Matrix3d aR1{};
+  Naive_Mat3d aR1{};
   aR1.col(0) = thePln1.XAxis().XYZ();
   aR1.col(1) = thePln1.YAxis().XYZ();
   aR1.col(2) = thePln1.Axis().XYZ();
   aT1.rotate(aR1);
   aT1.translation() = thePln1.Location().XYZ();
 
-  Naive_Affine3d aT2{};
+  Naive_Afn3d aT2{};
   aT2.setIdentity();
-  Naive_Matrix3d aR2{};
+  Naive_Mat3d aR2{};
   aR2.col(0) = thePln2.XAxis().XYZ();
   aR2.col(1) = thePln2.YAxis().XYZ();
   aR2.col(2) = thePln2.Axis().XYZ();

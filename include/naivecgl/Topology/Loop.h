@@ -1,19 +1,20 @@
 #ifndef _NaiveCGL_Topology_Loop_HeaderFile
 #define _NaiveCGL_Topology_Loop_HeaderFile
 
+#include "../Collection/LinkedList.h"
 #include "Fin.h"
 
 Naive_NAMESPACE_BEGIN(topology);
 
 class Face;
 
-class Loop final : public Topol {
+class Loop final : public Naive_Topol {
 public:
   Naive_EXPORT Loop();
 
-  Naive_EXPORT virtual Naive_Class Class() const Naive_OVERRIDE;
-
   Naive_EXPORT Naive_Handle<Face> ParentFace() const;
+
+  Naive_DEFINE_RTTI(Loop, Naive_Topol, Naive_Class_loop);
 
 private:
   Naive_LinkedList<Handle_Naive_Fin> myFins;

@@ -1,6 +1,7 @@
 #ifndef _NaiveCGL_Topology_Body_HeaderFile
 #define _NaiveCGL_Topology_Body_HeaderFile
 
+#include "../Collection/LinkedList.h"
 #include "Topol.h"
 
 Naive_NAMESPACE_BEGIN(topology);
@@ -9,7 +10,7 @@ class Body final : public Naive_Topol {
 public:
   Naive_EXPORT Body();
 
-  Naive_EXPORT virtual Naive_Class Class() const Naive_OVERRIDE;
+  Naive_DEFINE_RTTI(Body, Naive_Topol, Naive_Class_body);
 
 private:
   Naive_LinkedList<Handle_Naive_Topol> myChildren;

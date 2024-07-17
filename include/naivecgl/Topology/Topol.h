@@ -1,6 +1,7 @@
 #ifndef _NaiveCGL_Topology_Topol_HeaderFile
 #define _NaiveCGL_Topology_Topol_HeaderFile
 
+#include "../Common/ClassType.h"
 #include "../Common/Handle.h"
 #include "Location.h"
 
@@ -32,9 +33,9 @@ public:
 
   Naive_EXPORT virtual Naive_Orientation Orientation() const;
 
-  Naive_EXPORT virtual Naive_Class Class() const = 0;
-
   Naive_EXPORT virtual Naive_Handle<Topol> TopTopol() const;
+
+  Naive_DEFINE_RTTI(Topol, Naive_Object, Naive_Class_topol);
 
 protected:
   Topol()

@@ -3,9 +3,9 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
-Shell::Shell() : Naive_Topol() {}
+Naive_IMPLEMENT_RTTI(Shell);
 
-Naive_Class Shell::Class() const { return Naive_Class_shell; }
+Shell::Shell() : Naive_Topol() {}
 
 Handle_Naive_Solid Shell::ParentShell() const {
   return Handle_Naive_Solid::DownCast(myParent);

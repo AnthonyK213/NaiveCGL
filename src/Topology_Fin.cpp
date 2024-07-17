@@ -3,9 +3,9 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
-Fin::Fin() : Naive_Topol() {}
+Naive_IMPLEMENT_RTTI(Fin);
 
-Naive_Class Fin::Class() const { return Naive_Class_fin; }
+Fin::Fin() : Naive_Topol() {}
 
 Handle_Naive_Loop Fin::ParentLoop() const {
   return Handle_Naive_Loop::DownCast(myParent);

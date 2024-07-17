@@ -8,6 +8,9 @@
 
 Naive_NAMESPACE_BEGIN(common);
 
+template <typename T> class handle;
+class ClassType;
+
 class Object {
 public:
   Naive_EXPORT Object();
@@ -27,6 +30,15 @@ public:
   inline Naive_Integer DecrementRefCounter() noexcept { return --myRefCount_; }
 
   Naive_EXPORT virtual void Delete() const { delete this; }
+
+public:
+  using base_type = void;
+
+  static constexpr Naive_Class get_class() { return Naive_Class_object; }
+
+  Naive_EXPORT static handle<ClassType> get_class_type();
+
+  Naive_EXPORT virtual handle<ClassType> GetClassType() const;
 
 protected:
   ::std::atomic<Naive_Integer> myRefCount_;

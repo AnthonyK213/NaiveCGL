@@ -3,9 +3,9 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
-Face::Face() : Naive_Topol(), myTol(math::Precision::Epsilon0()) {}
+Naive_IMPLEMENT_RTTI(Face);
 
-Naive_Class Face::Class() const { return Naive_Class_face; }
+Face::Face() : Naive_Topol(), myTol(math::Precision::Epsilon0()) {}
 
 Handle_Naive_Shell Face::ParentShell() const {
   return Handle_Naive_Shell::DownCast(myParent);

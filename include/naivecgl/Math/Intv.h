@@ -63,7 +63,7 @@ public:
 
   Naive_EXPORT static Intv FromUnion(const Intv &theA, const Intv &theB);
 
-  Naive_EXPORT int32_t CompareTo(const Intv &theOther) const;
+  Naive_EXPORT Naive_Integer CompareTo(const Intv &theOther) const;
 
   Naive_EXPORT Naive_Bool EpsilonEquals(const Intv &theOther,
                                         Naive_Real theEpsilon) const;

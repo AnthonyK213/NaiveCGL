@@ -1,5 +1,6 @@
 ﻿/// Reference: https://www.mdpi.com/2076-3417/10/2/655
 
+#include <naivecgl/Math/Mat3d.h>
 #include <naivecgl/Tessellation/Sphere.h>
 
 Naive_NAMESPACE_BEGIN(tessellation);
@@ -25,7 +26,7 @@ static Naive_Real tetra_tau_(const Naive_Real theU, const Naive_Real theV,
 
   // clang-format off
 
-  Naive_Matrix3d aMat{};
+  Naive_Mat3d aMat{};
   aMat << SQRT_3 * Su,  -Cu,          -Cu,
           -Cv,          SQRT_3 * Sv,  -Cv,
           -Cw,          -Cw,          SQRT_3 * Sw;
@@ -44,7 +45,7 @@ static Naive_Real tetra_xi_(const Naive_Real theU, const Naive_Real theV,
 
   // clang-format off
 
-  Naive_Matrix3d aMat{};
+  Naive_Mat3d aMat{};
   aMat << Su,  Cu,            Cu,
           Sv,  -SQRT_3 * Sv,  Cv,
           Sw,  Cw,            -SQRT_3 * Sw;

@@ -5,6 +5,8 @@
 
 Naive_NAMESPACE_BEGIN(common);
 
+using Naive_Tag = Naive_Integer;
+
 class TObject final {
 public:
   Naive_EXPORT TObject();

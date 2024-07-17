@@ -1,6 +1,8 @@
 ﻿#ifndef _NaiveCGL_Geometry_Mesh_HeaderFile
 #define _NaiveCGL_Geometry_Mesh_HeaderFile
 
+#include "../Collection/Map.h"
+#include "../Collection/Stack.h"
 #include "../Common/Handle.h"
 #include "../Math/Pnt3d.h"
 #include "../Math/Vec3d.h"

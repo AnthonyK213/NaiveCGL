@@ -11,8 +11,6 @@ class Fin final : public Naive_Topol {
 public:
   Naive_EXPORT Fin();
 
-  Naive_EXPORT virtual Naive_Class Class() const Naive_OVERRIDE;
-
   Naive_EXPORT Naive_Handle<Loop> ParentLoop() const;
 
   Naive_EXPORT Handle_Naive_Edge Edge() const { return myEdge; }
@@ -22,6 +20,8 @@ public:
   Naive_EXPORT Naive_Handle<Fin> Next() const { return myNext; }
 
   Naive_EXPORT Naive_Handle<Fin> Twin() const { return myTwin; }
+
+  Naive_DEFINE_RTTI(Fin, Naive_Topol, Naive_Class_fin);
 
 private:
   Handle_Naive_Edge myEdge;

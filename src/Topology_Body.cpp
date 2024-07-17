@@ -2,8 +2,8 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
-Body::Body() : Naive_Topol() {}
+Naive_IMPLEMENT_RTTI(Body);
 
-Naive_Class Body::Class() const { return Naive_Class_body; }
+Body::Body() : Naive_Topol() {}
 
 Naive_NAMESPACE_END(topology);

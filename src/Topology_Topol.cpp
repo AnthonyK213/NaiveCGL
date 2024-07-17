@@ -4,6 +4,8 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
+Naive_IMPLEMENT_RTTI(Topol);
+
 Naive_Location Topol::Location() const {
   // Topol *aParent = myParent;
   // while (aParent) {

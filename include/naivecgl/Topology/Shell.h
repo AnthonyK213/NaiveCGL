@@ -1,6 +1,7 @@
 #ifndef _NaiveCGL_Topology_Shell_HeaderFile
 #define _NaiveCGL_Topology_Shell_HeaderFile
 
+#include "../Collection/LinkedList.h"
 #include "Face.h"
 
 Naive_NAMESPACE_BEGIN(topology);
@@ -11,9 +12,9 @@ class Shell final : public Naive_Topol {
 public:
   Naive_EXPORT Shell();
 
-  Naive_EXPORT virtual Naive_Class Class() const Naive_OVERRIDE;
-
   Naive_EXPORT Naive_Handle<Solid> ParentShell() const;
+
+  Naive_DEFINE_RTTI(Shell, Naive_Topol, Naive_Class_shell);
 
 private:
   Naive_LinkedList<Handle_Naive_Face> myFaces;

@@ -3,9 +3,9 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
-Solid::Solid() : Naive_Topol() {}
+Naive_IMPLEMENT_RTTI(Solid);
 
-Naive_Class Solid::Class() const { return Naive_Class_solid; }
+Solid::Solid() : Naive_Topol() {}
 
 Handle_Naive_Body Solid::ParentBody() const {
   return Handle_Naive_Body::DownCast(myParent);

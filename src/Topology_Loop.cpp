@@ -3,9 +3,9 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
-Loop::Loop() : Naive_Topol(), myType(Naive_Loop_type_outer_c) {}
+Naive_IMPLEMENT_RTTI(Loop);
 
-Naive_Class Loop::Class() const { return Naive_Class_loop; }
+Loop::Loop() : Naive_Topol(), myType(Naive_Loop_type_outer_c) {}
 
 Handle_Naive_Face Loop::ParentFace() const {
   return Handle_Naive_Face::DownCast(myParent);

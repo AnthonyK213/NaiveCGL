@@ -1,6 +1,7 @@
 #ifndef _NaiveCGL_Topology_Face_HeaderFile
 #define _NaiveCGL_Topology_Face_HeaderFile
 
+#include "../Collection/LinkedList.h"
 #include "../Geometry/Surface.h"
 #include "Loop.h"
 
@@ -12,9 +13,9 @@ class Face final : public Naive_Topol {
 public:
   Naive_EXPORT Face();
 
-  Naive_EXPORT virtual Naive_Class Class() const Naive_OVERRIDE;
-
   Naive_EXPORT Naive_Handle<Shell> ParentShell() const;
+
+  Naive_DEFINE_RTTI(Face, Naive_Topol, Naive_Class_face);
 
 private:
   Naive_Real myTol;

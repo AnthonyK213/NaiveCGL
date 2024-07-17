@@ -3,9 +3,9 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
-Vertex::Vertex() : Naive_Topol(), myTol(math::Precision::Epsilon0()) {}
+Naive_IMPLEMENT_RTTI(Vertex);
 
-Naive_Class Vertex::Class() const { return Naive_Class_vertex; }
+Vertex::Vertex() : Naive_Topol(), myTol(math::Precision::Epsilon0()) {}
 
 Handle_Naive_Edge Vertex::ParentEdge() const {
   return Handle_Naive_Edge::DownCast(myParent);
