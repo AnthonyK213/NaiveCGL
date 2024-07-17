@@ -10,6 +10,8 @@ public:
   Naive_EXPORT virtual Naive_Pnt2d EndPoint() const = 0;
 
   Naive_EXPORT virtual Naive_Pnt2d StartPoint() const = 0;
+
+  Naive_DEFINE_RTTI(BoundedCurve, Naive_Curve2d, Naive_Class_bounded_curve2d);
 };
 
 Naive_NAMESPACE_END(geometry2d);

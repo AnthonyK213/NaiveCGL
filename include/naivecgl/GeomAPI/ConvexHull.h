@@ -35,7 +35,7 @@ public:
 
   Naive_EXPORT Naive_Code Status() const;
 
-  Naive_EXPORT Handle_Naive_Poly Result() const;
+  Naive_EXPORT Handle_Naive_Triangulation Result() const;
 
 public:
   class Impl;

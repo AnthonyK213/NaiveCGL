@@ -37,7 +37,7 @@ private:
 
 Naive_NAMESPACE_END(geometry);
 
-using Naive_Poly = ::naivecgl::geometry::Triangulation;
-Naive_DEFINE_HANDLE(Naive_Poly);
+using Naive_Triangulation = ::naivecgl::geometry::Triangulation;
+Naive_DEFINE_HANDLE(Naive_Triangulation);
 
 #endif

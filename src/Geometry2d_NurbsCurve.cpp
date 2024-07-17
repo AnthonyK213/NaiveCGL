@@ -4,6 +4,8 @@
 
 Naive_NAMESPACE_BEGIN(geometry2d);
 
+Naive_IMPLEMENT_RTTI(NurbsCurve);
+
 NurbsCurve::NurbsCurve() noexcept
     : myDegree(0), myRational(Naive_False), myPeriodic(Naive_False),
       myFlatKnots(), mySpanIdx() {}

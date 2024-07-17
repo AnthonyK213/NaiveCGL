@@ -91,6 +91,9 @@ public:
 
   Naive_EXPORT virtual Naive_Pnt2d StartPoint() const Naive_OVERRIDE;
 
+  Naive_DEFINE_RTTI(NurbsCurve, Naive_BoundedCurve2d,
+                    Naive_Class_nurbs_curve2d);
+
 private:
   template <typename P, typename Rw, typename Rk, typename I>
   Naive_Code update(P &&thePoles, Rw &&theWeights, Rk &&theKnots, I &&theMults,

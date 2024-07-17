@@ -1,3 +1,4 @@
+#include <naivecgl/Common/ClassType.h>
 #include <naivecgl/Common/Roster.h>
 
 #include "Interface_NaiveCGL_c.h"
@@ -14,6 +15,19 @@ Naive_Code_t Naive_Object_ask_class(Naive_Object_t object,
 
   Naive_Handle<Naive_Object> H = anTObj.GetObject();
   *class_ = H ? H->get_class() : Naive_Class_null;
+
+  return Naive_Code_ok;
+}
+
+Naive_Code_t Naive_Object_is_subclass(Naive_Object_t object,
+                                      Naive_Class_t class_,
+                                      Naive_Logical_t *const is_subclass) {
+  if (!is_subclass)
+    return Naive_Code_null_arg_address;
+
+  Naive_ROSTER_ASK(Naive_Object, object, H);
+  *is_subclass =
+      H->GetClassType()->IsSubClass(static_cast<Naive_Class>(class_));
 
   return Naive_Code_ok;
 }

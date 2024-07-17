@@ -24,6 +24,8 @@ public:
 
   Naive_EXPORT virtual Handle_Naive_Geometry2d Clone() const Naive_OVERRIDE;
 
+  Naive_DEFINE_RTTI(Vector2d, Naive_Geometry2d, Naive_Class_vector2d);
+
 private:
   Naive_Vec2d myVec2d;
 };

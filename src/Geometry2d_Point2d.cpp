@@ -4,6 +4,8 @@
 
 Naive_NAMESPACE_BEGIN(geometry2d);
 
+Naive_IMPLEMENT_RTTI(Point2d);
+
 Point2d::Point2d() : myPnt2d() {}
 
 Point2d::Point2d(const Naive_Real theX, const Naive_Real theY)

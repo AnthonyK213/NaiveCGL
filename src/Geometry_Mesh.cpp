@@ -128,7 +128,7 @@ Mesh::Mesh()
     : myVertexIndex(0), myFaceIndex(0), myVertexSlots(), myFaceSlots(),
       myVertices(), myHalfEdges(), myFaces(), myIsValid(Naive_False) {}
 
-Mesh::Mesh(const Handle_Naive_Poly &thePoly)
+Mesh::Mesh(const Handle_Naive_Triangulation &thePoly)
     : myVertexIndex(0), myFaceIndex(0), myVertexSlots(), myFaceSlots(),
       myVertices(), myHalfEdges(), myFaces(), myIsValid(Naive_False) {
   if (thePoly.IsNull())
@@ -196,7 +196,7 @@ Naive_IntegerList1 Mesh::GetAllFaces() const {
   return anIdList;
 }
 
-Handle_Naive_Poly Mesh::GetTriangulation(Naive_Bool theCompat) const {
+Handle_Naive_Triangulation Mesh::GetTriangulation(Naive_Bool theCompat) const {
   if (!IsValid())
     return nullptr;
 
@@ -243,7 +243,7 @@ Handle_Naive_Poly Mesh::GetTriangulation(Naive_Bool theCompat) const {
     aTriangles.push_back(aTriangle);
   }
 
-  return new Naive_Poly(::std::move(aVertices), ::std::move(aTriangles));
+  return new Naive_Triangulation(::std::move(aVertices), ::std::move(aTriangles));
 }
 
 Naive_Bool Mesh::addVertex(const VertexId theId, const Naive_Pnt3d &thePoint) {

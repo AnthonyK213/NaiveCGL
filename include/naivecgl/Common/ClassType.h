@@ -50,7 +50,7 @@ public:
   Register(const ::std::type_info &theInfo, const Naive_Class theClass,
            const Naive_Size theSize, const Naive_Handle<ClassType> &theSuper);
 
-  Naive_DEFINE_RTTI(ClassType, Naive_Object, Naive_Class_class_type);
+  Naive_DEFINE_RTTI(ClassType, Naive_Object, Naive_Class_class);
 
 public:
   template <class T> static Naive_Handle<ClassType> Resolve();

@@ -15,7 +15,7 @@ public:
 
   Naive_Code Status() const { return myStatus; }
 
-  virtual Handle_Naive_Poly Result() const;
+  virtual Handle_Naive_Triangulation Result() const;
 
 protected:
   explicit Impl(Naive_Pnt3dList1 &thePoints);
@@ -38,7 +38,7 @@ ConvexHull::Impl::Impl(Naive_Pnt3dList1 &thePoints)
 
 ConvexHull::Impl::~Impl() {}
 
-Handle_Naive_Poly ConvexHull::Impl::Result() const {
+Handle_Naive_Triangulation ConvexHull::Impl::Result() const {
   if (!myConvexHull || !myConvexHull->IsValid())
     return nullptr;
 
@@ -135,7 +135,7 @@ Naive_Code ConvexHull::Status() const {
   return myImpl->Status();
 }
 
-Handle_Naive_Poly ConvexHull::Result() const {
+Handle_Naive_Triangulation ConvexHull::Result() const {
   if (!myImpl)
     return nullptr;
 

@@ -51,15 +51,6 @@ Naive_API Naive_Code_t Naive_Body_boolean(
     const Naive_Body_boolean_o_t * /* options */
 );
 
-/* Naive_Class */
-
-Naive_API Naive_Code_t Naive_Class_ask_superclass(
-    Naive_Class_t /* class */, Naive_Class_t const * /* superclass */);
-
-Naive_API Naive_Code_t Naive_Class_is_subclass(
-    Naive_Class_t /* may_be_subclass */, Naive_Class_t /* class */,
-    Naive_Logical_t *const /* is_subclass */);
-
 /* Naive_Curve */
 
 Naive_API Naive_Code_t Naive_Curve_ask_bound(
@@ -169,6 +160,10 @@ Naive_API Naive_Code_t Naive_NurbsSurface_ask_degree(
 Naive_API Naive_Code_t Naive_Object_ask_class(Naive_Object_t /* object */,
                                               Naive_Class_t *const /* class */);
 
+Naive_API Naive_Code_t
+Naive_Object_is_subclass(Naive_Object_t /* object */, Naive_Class_t /* class */,
+                         Naive_Logical_t *const /* is_subclass */);
+
 Naive_API Naive_Code_t Naive_Object_delete(Naive_Object_t /* object */);
 
 /* Naive_Plane */
@@ -183,28 +178,28 @@ Naive_API Naive_Code_t Naive_Plane_distance(Naive_Plane_t /* plane */,
                                             const Naive_Point3d_t * /* point */,
                                             double *const /* distance */);
 
-/* Naive_Poly */
+/* Naive_Triangulation */
 
-Naive_API Naive_Code_t Naive_Poly_new(const int /* n_vertices */,
-                                      const Naive_Point3d_t * /* vertices */,
-                                      const int /* n_triangles */,
-                                      const Naive_Triangle_t * /* triangles */,
-                                      const int /* i_offset */,
-                                      Naive_Poly_t *const /* poly */);
-
-Naive_API Naive_Code_t Naive_Poly_is_valid(
-    Naive_Poly_t /* poly */, Naive_Logical_t *const /* is_valid */);
-
-Naive_API Naive_Code_t Naive_Poly_clone(Naive_Poly_t /* poly */,
-                                        Naive_Poly_t *const /* clone */);
+Naive_API Naive_Code_t Naive_Triangulation_new(
+    const int /* n_vertices */, const Naive_Point3d_t * /* vertices */,
+    const int /* n_triangles */, const Naive_Triangle_t * /* triangles */,
+    const int /* i_offset */, Naive_Triangulation_t *const /* triangulation */);
 
 Naive_API Naive_Code_t
-Naive_Poly_ask_vertices(Naive_Poly_t /* poly */, int *const /* n_vertices */,
-                        Naive_Point3d_t *const /* vertices */);
+Naive_Triangulation_is_valid(Naive_Triangulation_t /* triangulation */,
+                             Naive_Logical_t *const /* is_valid */);
 
 Naive_API Naive_Code_t
-Naive_Poly_ask_triangles(Naive_Poly_t /* poly */, int *const /* n_triangles */,
-                         Naive_Triangle_t *const /* triangles */);
+Naive_Triangulation_clone(Naive_Triangulation_t /* triangulation */,
+                          Naive_Triangulation_t *const /* clone */);
+
+Naive_API Naive_Code_t Naive_Triangulation_ask_vertices(
+    Naive_Triangulation_t /* triangulation */, int *const /* n_vertices */,
+    Naive_Point3d_t *const /* vertices */);
+
+Naive_API Naive_Code_t Naive_Triangulation_ask_triangles(
+    Naive_Triangulation_t /* triangulation */, int *const /* n_triangles */,
+    Naive_Triangle_t *const /* triangles */);
 
 /* Naive_Surface */
 
@@ -217,7 +212,7 @@ Naive_API Naive_Code_t Naive_Surface_evaluate(
 
 Naive_API Naive_Code_t Naive_Tessellation_make_tetrasphere(
     const Naive_Point3d_t * /* center */, const double /* radius */,
-    const int /* level */, Naive_Poly_t *const /* poly */);
+    const int /* level */, Naive_Triangulation_t *const /* triangulation */);
 
 #undef Naive_API
 

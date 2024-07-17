@@ -15,8 +15,8 @@ TEST(NaiveCGLTest_Geometry, Create_Mesh_From_Triangulation) {
       {5, 1, 2}, {5, 2, 4}, {5, 4, 3}, {5, 3, 1},
   };
 
-  Handle_Naive_Poly aPoly =
-      new Naive_Poly(::std::move(vertices), ::std::move(triangles));
+  Handle_Naive_Triangulation aPoly =
+      new Naive_Triangulation(::std::move(vertices), ::std::move(triangles));
 
   ASSERT_TRUE(aPoly->IsValid());
 
@@ -29,5 +29,5 @@ TEST(NaiveCGLTest_Geometry, Create_Mesh_From_Triangulation) {
   aMesh->AddFace(id, 2, 4);
   aMesh->RemoveFace(2);
 
-  Handle_Naive_Poly aPoly2 = aMesh->GetTriangulation(Naive_True);
+  Handle_Naive_Triangulation aPoly2 = aMesh->GetTriangulation(Naive_True);
 }

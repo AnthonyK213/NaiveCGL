@@ -45,15 +45,16 @@ typedef int Naive_Fin_t;
 typedef int Naive_Geometry_t;
 typedef int Naive_Line_t;
 typedef int Naive_Loop_t;
+typedef int Naive_Mesh_t;
 typedef int Naive_NurbsCurve_t;
 typedef int Naive_NurbsSurface_t;
 typedef int Naive_Object_t;
 typedef int Naive_Plane_t;
-typedef int Naive_Poly_t;
 typedef int Naive_Shell_t;
 typedef int Naive_Solid_t;
 typedef int Naive_Surface_t;
 typedef int Naive_Transform3d_t;
+typedef int Naive_Triangulation_t;
 typedef int Naive_Vertex_t;
 
 /* Naive_Logical_t */
@@ -175,8 +176,55 @@ typedef struct Naive_Circle2d_sf_s {
 
 typedef enum {
   Naive_Class_null = 0,
+
   Naive_Class_object,
-  Naive_Class_class_type,
+  Naive_Class_class,
+
+  Naive_Class_geometry2d,
+  Naive_Class_point2d,
+  Naive_Class_vector2d,
+  Naive_Class_curve2d,
+  Naive_Class_bounded_curve2d,
+  Naive_Class_nurbs_curve2d,
+  Naive_Class_trimmed_curve2d,
+  Naive_Class_conic2d,
+  Naive_Class_circle2d,
+  Naive_Class_ellipse2d,
+  Naive_Class_hyperbola2d,
+  Naive_Class_parabola2d,
+  Naive_Class_line2d,
+  Naive_Class_offset_curve2d,
+
+  Naive_Class_geometry,
+  Naive_Class_point3d,
+  Naive_Class_vector3d,
+  Naive_Class_transform3d,
+  Naive_Class_curve,
+  Naive_Class_bounded_curve,
+  Naive_Class_nurbs_curve,
+  Naive_Class_trimmed_curve,
+  Naive_Class_conic,
+  Naive_Class_circle,
+  Naive_Class_ellipse,
+  Naive_Class_hyperbola,
+  Naive_Class_parabola,
+  Naive_Class_line,
+  Naive_Class_offset_curve,
+  Naive_Class_surface,
+  Naive_Class_bounded_surface,
+  Naive_Class_nurbs_surface,
+  Naive_Class_rectangular_trimmed_surface,
+  Naive_Class_elementary_surface,
+  Naive_Class_conical_surface,
+  Naive_Class_cylindrical_surface,
+  Naive_Class_spherical_surface,
+  Naive_Class_toroidal_surface,
+  Naive_Class_plane,
+  Naive_Class_offset_surface,
+
+  Naive_Class_mesh,
+  Naive_Class_triangulation,
+
   Naive_Class_topol,
   Naive_Class_body,
   Naive_Class_solid,

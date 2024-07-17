@@ -4,6 +4,8 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
+Naive_IMPLEMENT_RTTI(Vector3d);
+
 Vector3d::Vector3d() : myVec() {}
 
 Vector3d::Vector3d(const Naive_Pnt3d &theP1, const Naive_Pnt3d &theP2)

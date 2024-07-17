@@ -4,7 +4,7 @@
 #include <naivecgl/Tessellation/Sphere.h>
 
 TEST(NaiveCGLTest_Tessellation, Create_Octasphere) {
-  Handle_Naive_Poly sphere =
+  Handle_Naive_Triangulation sphere =
       ::naivecgl::tessellation::Sphere::OctaSphere({3, 4, 5}, 10);
 
   ASSERT_EQ(36, sphere->Vertices().size());

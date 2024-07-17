@@ -4,6 +4,8 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
+Naive_IMPLEMENT_RTTI(Point3d);
+
 Point3d::Point3d() : myPnt() {}
 
 Point3d::Point3d(const Naive_Real theX, const Naive_Real theY,
