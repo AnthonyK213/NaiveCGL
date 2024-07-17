@@ -1,6 +1,7 @@
 ﻿#ifndef _NaiveCGL_Math_Util_HeaderFile
 #define _NaiveCGL_Math_Util_HeaderFile
 
+#include "../Collection/List1.h"
 #include "../Collection/List2.h"
 #include "Precision.h"
 

@@ -70,7 +70,7 @@ private:
   Naive_Class myClass;
 };
 
-template <class T> static Naive_Handle<ClassType> ClassType::Resolve() {
+template <class T> Naive_Handle<ClassType> ClassType::Resolve() {
   return ClassType::Register(typeid(T), T::get_class(), sizeof(T),
                              ClassType::Resolve<typename T::base_type>());
 }

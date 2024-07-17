@@ -5,6 +5,8 @@
 #include "../Geometry/Triangulation.h"
 #include "../Math/Pnt3d.h"
 
+#include <memory>
+
 Naive_NAMESPACE_BEGIN(geomapi);
 
 /// @brief Calculates the convex hull of a set of 3d points.

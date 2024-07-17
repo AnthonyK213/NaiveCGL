@@ -4,6 +4,8 @@
 #include "../Math/Pnt2d.h"
 #include "../Math/Vec2d.h"
 
+#include <memory>
+
 Naive_NAMESPACE_BEGIN(geom2dapi);
 
 /// @brief Calculates the convex hull of a set of 2d points.
