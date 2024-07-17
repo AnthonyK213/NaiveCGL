@@ -45,6 +45,8 @@ public:
   Naive_EXPORT virtual Naive_Code
   CurvatureAt(const Naive_Real theT, Naive_Vec3d &theV) const Naive_OVERRIDE;
 
+  Naive_DEFINE_RTTI(Line, Naive_Curve);
+
 private:
   Naive_Pnt3d myLocation;
   Naive_Vec3d myAxis;

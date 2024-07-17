@@ -17,7 +17,7 @@ public:
   // Naive_EXPORT virtual Naive_Handle<Geometry>
   // Transformed(const Naive_Trsf3d &theTrsf) = 0;
 
-  Naive_DEFINE_RTTI(Geometry, Naive_Object, Naive_Class_geometry);
+  Naive_DEFINE_RTTI(Geometry, Naive_Object);
 };
 
 Naive_NAMESPACE_END(geometry);

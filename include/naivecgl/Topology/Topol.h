@@ -34,7 +34,7 @@ public:
 
   Naive_EXPORT virtual Naive_Handle<Topol> TopTopol() const;
 
-  Naive_DEFINE_RTTI(Topol, Naive_Object, Naive_Class_topol);
+  Naive_DEFINE_RTTI(Topol, Naive_Object);
 
 protected:
   Topol()

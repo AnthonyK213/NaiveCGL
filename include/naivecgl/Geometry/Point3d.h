@@ -43,7 +43,7 @@ public:
 
   Naive_EXPORT virtual Handle_Naive_Geometry Clone() const Naive_OVERRIDE;
 
-  Naive_DEFINE_RTTI(Point3d, Naive_Geometry, Naive_Class_point3d);
+  Naive_DEFINE_RTTI(Point3d, Naive_Geometry);
 
 private:
   Naive_Pnt3d myPnt;

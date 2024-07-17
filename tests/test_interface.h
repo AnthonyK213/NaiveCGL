@@ -31,6 +31,19 @@ TEST(NaiveCGLTest_Interface, Plane) {
 
   ASSERT_EQ(Naive_Code_invalid_tag, Naive_Plane_ask(0, &plane_sf_2));
 
+  Naive_Class_t plane_class;
+  ASSERT_EQ(Naive_Code_ok, Naive_Object_ask_class(plane, &plane_class));
+  ASSERT_EQ(Naive_Class_plane, plane_class);
+
+  Naive_Logical_t is_subclass;
+  ASSERT_EQ(Naive_Code_ok, Naive_Class_is_subclass(
+                               plane_class, Naive_Class_surface, &is_subclass));
+  ASSERT_EQ(Naive_Logical_true, is_subclass);
+  ASSERT_EQ(Naive_Code_ok,
+            Naive_Class_is_subclass(plane_class, Naive_Class_nurbs_surface,
+                                    &is_subclass));
+  ASSERT_EQ(Naive_Logical_false, is_subclass);
+
   ASSERT_EQ(Naive_Code_ok, Naive_Object_delete(plane));
   ASSERT_EQ(Naive_Code_ok, Naive_Object_delete(plane_clone));
   ASSERT_EQ(Naive_Code_invalid_tag, Naive_Object_delete(plane_clone));

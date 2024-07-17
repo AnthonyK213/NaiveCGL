@@ -91,7 +91,7 @@ public:
 
   Naive_EXPORT virtual Naive_Pnt3d StartPoint() const Naive_OVERRIDE;
 
-  Naive_DEFINE_RTTI(NurbsCurve, Naive_BoundedCurve, Naive_Class_nurbs_curve);
+  Naive_DEFINE_RTTI(NurbsCurve, Naive_BoundedCurve);
 
 private:
   template <typename P, typename Rw, typename Rk, typename I>

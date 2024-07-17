@@ -24,7 +24,7 @@ public:
   Naive_EXPORT virtual Naive_Code CurvatureAt(const Naive_Real theT,
                                               Naive_Vec2d &theV) const = 0;
 
-  Naive_DEFINE_RTTI(Curve, Naive_Geometry2d, Naive_Class_curve2d);
+  Naive_DEFINE_RTTI(Curve, Naive_Geometry2d);
 };
 
 Naive_NAMESPACE_END(geometry2d);

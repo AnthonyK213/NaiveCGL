@@ -5,8 +5,6 @@
 
 Naive_NAMESPACE_BEGIN(common);
 
-using Naive_Tag = Naive_Integer;
-
 class TObject final {
 public:
   Naive_EXPORT TObject();
@@ -15,15 +13,14 @@ public:
 
   Naive_EXPORT Naive_Integer GetRefCount() const noexcept;
 
-  Naive_Tag Tag() const { return myTag_; }
+  Naive_Tag Tag() const { return myObj ? myObj->myTag_ : 0; }
 
-  const Handle_Naive_Object &GetObject() const { return myObj_; }
+  const Handle_Naive_Object &GetObject() const { return myObj; }
 
-  Naive_Bool IsNull() const { return myObj_.IsNull(); }
+  Naive_Bool IsNull() const { return myObj.IsNull(); }
 
 private:
-  Naive_Tag myTag_;
-  Handle_Naive_Object myObj_;
+  Handle_Naive_Object myObj;
 };
 
 Naive_NAMESPACE_END(common);

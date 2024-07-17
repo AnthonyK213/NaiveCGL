@@ -3,13 +3,13 @@
 
 #include "../Math/Nurbs.h"
 #include "../Math/Util.h"
-#include "Surface.h"
+#include "BoundedSurface.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 
 class NurbsCurve;
 
-class NurbsSurface final : public Naive_Surface {
+class NurbsSurface final : public Naive_BoundedSurface {
 public:
   Naive_EXPORT NurbsSurface() noexcept;
 
@@ -51,6 +51,8 @@ public:
   Evaluate(const Naive_Real theU, const Naive_Real theV,
            const Naive_Integer theN,
            Naive_Vec3dList1 &theD) const Naive_OVERRIDE;
+
+  Naive_DEFINE_RTTI(NurbsSurface, Naive_BoundedSurface);
 
 private:
   template <typename P2, typename R2, typename R, typename I>

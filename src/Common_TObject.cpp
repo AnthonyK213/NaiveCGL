@@ -3,13 +3,15 @@
 
 Naive_NAMESPACE_BEGIN(common);
 
-TObject::TObject() : myTag_(0), myObj_() {}
+TObject::TObject() : myObj() {}
 
-TObject::TObject(const Handle_Naive_Object &theObj)
-    : myTag_(Naive_Roster::Resolve().NewTag()), myObj_(theObj) {}
+TObject::TObject(const Handle_Naive_Object &theObj) : myObj(theObj) {
+  if (myObj)
+    myObj->myTag_ = Naive_Roster::Resolve().NewTag();
+}
 
 Naive_Integer TObject::GetRefCount() const noexcept {
-  return myObj_ ? myObj_->GetRefCount() : 0;
+  return myObj ? myObj->GetRefCount() : 0;
 }
 
 Naive_NAMESPACE_END(common);

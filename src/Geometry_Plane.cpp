@@ -2,6 +2,8 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
+Naive_IMPLEMENT_RTTI(Plane);
+
 Plane::Plane() {}
 
 Plane::Plane(const Naive_Pln &thePln) { myPos = thePln.Ax2(); }

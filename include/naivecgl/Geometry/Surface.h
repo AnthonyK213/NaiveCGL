@@ -16,6 +16,8 @@ public:
                                            const Naive_Real theV,
                                            const Naive_Integer theN,
                                            Naive_Vec3dList1 &theD) const = 0;
+
+  Naive_DEFINE_RTTI(Surface, Naive_Geometry);
 };
 
 Naive_NAMESPACE_END(geometry);

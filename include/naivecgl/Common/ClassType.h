@@ -8,10 +8,9 @@
 #include <typeindex>
 #include <typeinfo>
 
-#define Naive_DEFINE_RTTI(Class_, Base_, Desc_)                                \
+#define Naive_DEFINE_RTTI(Class_, Base_)                                       \
 public:                                                                        \
   using base_type = Base_;                                                     \
-  static constexpr Naive_Class get_class() { return Desc_; }                   \
   Naive_EXPORT static ::naivecgl::common::handle<                              \
       ::naivecgl::common::ClassType>                                           \
   get_class_type();                                                            \
@@ -27,13 +26,17 @@ public:                                                                        \
     return Class_::get_class_type();                                           \
   }
 
+#define Naive_CLASS(Class_) Class_::get_class_type()
+
 Naive_NAMESPACE_BEGIN(common);
 
-class ClassType final : public Naive_Object {
-public:
-  Naive_CStr Name() const { return myInfo.name(); }
+class TClassType;
 
-  Naive_Class Class() const { return myClass; }
+class ClassType final : public Naive_Object {
+  friend class TClassType;
+
+public:
+  Naive_CStr Name() const { return myIndex.name(); }
 
   Naive_Size Size() const { return mySize; }
 
@@ -42,36 +45,33 @@ public:
   Naive_EXPORT Naive_Bool
   IsSubClass(const Naive_Handle<ClassType> &theClass) const;
 
-  Naive_EXPORT Naive_Bool IsSubClass(const Naive_Class theClass) const;
-
   Naive_EXPORT ~ClassType();
 
   Naive_EXPORT static Naive_Handle<ClassType>
-  Register(const ::std::type_info &theInfo, const Naive_Class theClass,
-           const Naive_Size theSize, const Naive_Handle<ClassType> &theSuper);
+  Register(const ::std::type_info &theInfo, const Naive_Size theSize,
+           const Naive_Handle<ClassType> &theSuper);
 
-  Naive_DEFINE_RTTI(ClassType, Naive_Object, Naive_Class_class);
+  Naive_DEFINE_RTTI(ClassType, Naive_Object);
 
 public:
   template <class T> static Naive_Handle<ClassType> Resolve();
 
 private:
-  using Registry = Naive_Hash<Naive_Class, Naive_Handle<ClassType>>;
+  using Registry = Naive_Hash<::std::type_index, Naive_Handle<ClassType>>;
 
-  ClassType(const ::std::type_info &theInfo, const Naive_Class theClass,
-            const Naive_Size theSize, const Naive_Handle<ClassType> &theSuper);
+  ClassType(const ::std::type_info &theInfo, const Naive_Size theSize,
+            const Naive_Handle<ClassType> &theSuper);
 
   static Registry &getRegistry();
 
 private:
   Naive_Handle<ClassType> mySuper;
-  ::std::type_index myInfo;
+  ::std::type_index myIndex;
   Naive_Size mySize;
-  Naive_Class myClass;
 };
 
 template <class T> Naive_Handle<ClassType> ClassType::Resolve() {
-  return ClassType::Register(typeid(T), T::get_class(), sizeof(T),
+  return ClassType::Register(typeid(T), sizeof(T),
                              ClassType::Resolve<typename T::base_type>());
 }
 

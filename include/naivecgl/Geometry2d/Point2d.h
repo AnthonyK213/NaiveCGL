@@ -29,7 +29,7 @@ public:
 
   Naive_EXPORT virtual Handle_Naive_Geometry2d Clone() const Naive_OVERRIDE;
 
-  Naive_DEFINE_RTTI(Point2d, Naive_Geometry2d, Naive_Class_point2d);
+  Naive_DEFINE_RTTI(Point2d, Naive_Geometry2d);
 
 private:
   Naive_Pnt2d myPnt2d;

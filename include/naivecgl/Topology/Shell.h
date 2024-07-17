@@ -14,7 +14,7 @@ public:
 
   Naive_EXPORT Naive_Handle<Solid> ParentShell() const;
 
-  Naive_DEFINE_RTTI(Shell, Naive_Topol, Naive_Class_shell);
+  Naive_DEFINE_RTTI(Shell, Naive_Topol);
 
 private:
   Naive_LinkedList<Handle_Naive_Face> myFaces;

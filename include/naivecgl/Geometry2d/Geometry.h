@@ -11,7 +11,7 @@ public:
 
   Naive_EXPORT virtual Naive_Handle<Geometry> Clone() const = 0;
 
-  Naive_DEFINE_RTTI(Geometry, Naive_Object, Naive_Class_geometry2d);
+  Naive_DEFINE_RTTI(Geometry, Naive_Object);
 };
 
 Naive_NAMESPACE_END(geometry2d);

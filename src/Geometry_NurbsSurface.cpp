@@ -4,6 +4,8 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
+Naive_IMPLEMENT_RTTI(NurbsSurface);
+
 NurbsSurface::NurbsSurface() noexcept
     : myUDegree(0), myVDegree(0), myURational(Naive_False),
       myVRational(Naive_False), myUPeriodic(Naive_False),

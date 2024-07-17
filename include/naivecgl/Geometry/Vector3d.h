@@ -78,7 +78,7 @@ public:
 
   Naive_EXPORT Naive_Bool Transform(const Naive_Trsf3d &theTrsf);
 
-  Naive_DEFINE_RTTI(Vector3d, Naive_Geometry, Naive_Class_vector3d);
+  Naive_DEFINE_RTTI(Vector3d, Naive_Geometry);
 
 private:
   Naive_Vec3d myVec;

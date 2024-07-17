@@ -21,7 +21,7 @@ public:
 
   Naive_EXPORT Naive_Handle<Fin> Twin() const { return myTwin; }
 
-  Naive_DEFINE_RTTI(Fin, Naive_Topol, Naive_Class_fin);
+  Naive_DEFINE_RTTI(Fin, Naive_Topol);
 
 private:
   Handle_Naive_Edge myEdge;

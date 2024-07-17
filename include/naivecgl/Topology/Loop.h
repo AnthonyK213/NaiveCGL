@@ -14,7 +14,7 @@ public:
 
   Naive_EXPORT Naive_Handle<Face> ParentFace() const;
 
-  Naive_DEFINE_RTTI(Loop, Naive_Topol, Naive_Class_loop);
+  Naive_DEFINE_RTTI(Loop, Naive_Topol);
 
 private:
   Naive_LinkedList<Handle_Naive_Fin> myFins;

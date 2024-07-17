@@ -8,6 +8,8 @@ Naive_NAMESPACE_BEGIN(geometry);
 
 class ElementarySurface : public Naive_Surface {
 public:
+  Naive_DEFINE_RTTI(ElementarySurface, Naive_Surface);
+
 protected:
   Naive_Ax2 myPos;
 };

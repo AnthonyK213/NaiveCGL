@@ -51,6 +51,15 @@ Naive_API Naive_Code_t Naive_Body_boolean(
     const Naive_Body_boolean_o_t * /* options */
 );
 
+/* Naive_Class */
+
+Naive_API Naive_Code_t Naive_Class_ask_superclass(
+    Naive_Class_t /* class */, Naive_Class_t *const /* superclass */);
+
+Naive_API Naive_Code_t Naive_Class_is_subclass(
+    Naive_Class_t /* may_be_subclass */, Naive_Class_t /* class */,
+    Naive_Logical_t *const /* is_subclass */);
+
 /* Naive_Curve */
 
 Naive_API Naive_Code_t Naive_Curve_ask_bound(
@@ -159,10 +168,6 @@ Naive_API Naive_Code_t Naive_NurbsSurface_ask_degree(
 
 Naive_API Naive_Code_t Naive_Object_ask_class(Naive_Object_t /* object */,
                                               Naive_Class_t *const /* class */);
-
-Naive_API Naive_Code_t
-Naive_Object_is_subclass(Naive_Object_t /* object */, Naive_Class_t /* class */,
-                         Naive_Logical_t *const /* is_subclass */);
 
 Naive_API Naive_Code_t Naive_Object_delete(Naive_Object_t /* object */);
 

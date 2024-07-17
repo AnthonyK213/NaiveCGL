@@ -14,7 +14,7 @@ public:
 
   Naive_EXPORT Naive_Handle<Edge> ParentEdge() const;
 
-  Naive_DEFINE_RTTI(Vertex, Naive_Topol, Naive_Class_vertex);
+  Naive_DEFINE_RTTI(Vertex, Naive_Topol);
 
 private:
   Naive_Real myTol;

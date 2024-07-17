@@ -3,6 +3,8 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
+Naive_IMPLEMENT_RTTI(Line);
+
 Line::Line(const Naive_Pnt3d &theFrom, const Naive_Pnt3d &theTo)
     : myLocation(theFrom), myAxis(theTo - theFrom) {
   myAxis.Normalize();
@@ -54,7 +56,7 @@ Naive_Pnt3d Line::PointAt(const Naive_Real theT) const {
 Naive_Vec3d Line::TangentAt(const Naive_Real theT) const { return Direction(); }
 
 Naive_Code Line::Evaluate(const Naive_Real theT, const Naive_Integer theN,
-                              Naive_Vec3dList1 &theD) const {
+                          Naive_Vec3dList1 &theD) const {
   if (!IsValid())
     return Naive_Code_invalid_object;
 

@@ -14,7 +14,7 @@ public:
 
   Naive_EXPORT Naive_Handle<Body> ParentBody() const;
 
-  Naive_DEFINE_RTTI(Solid, Naive_Topol, Naive_Class_solid);
+  Naive_DEFINE_RTTI(Solid, Naive_Topol);
 
 private:
   Naive_LinkedList<Handle_Naive_Shell> myShells;

@@ -3,9 +3,9 @@
 
 Naive_NAMESPACE_BEGIN(common);
 
-Object::Object() : myRefCount_(0) {}
+Object::Object() : myRefCount_(0), myTag_(0) {}
 
-Object::Object(const Object &) : myRefCount_(0) {}
+Object::Object(const Object &) : myRefCount_(0), myTag_(0) {}
 
 Object &Object::operator=(const Object &) { return *this; }
 

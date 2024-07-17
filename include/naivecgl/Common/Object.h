@@ -10,8 +10,11 @@ Naive_NAMESPACE_BEGIN(common);
 
 template <typename T> class handle;
 class ClassType;
+class TObject;
 
 class Object {
+  friend class TObject;
+
 public:
   Naive_EXPORT Object();
 
@@ -34,14 +37,13 @@ public:
 public:
   using base_type = void;
 
-  static constexpr Naive_Class get_class() { return Naive_Class_object; }
-
   Naive_EXPORT static handle<ClassType> get_class_type();
 
   Naive_EXPORT virtual handle<ClassType> GetClassType() const;
 
 protected:
   ::std::atomic<Naive_Integer> myRefCount_;
+  Naive_Tag myTag_;
 };
 
 Naive_NAMESPACE_END(common);

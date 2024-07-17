@@ -10,7 +10,7 @@ class Body final : public Naive_Topol {
 public:
   Naive_EXPORT Body();
 
-  Naive_DEFINE_RTTI(Body, Naive_Topol, Naive_Class_body);
+  Naive_DEFINE_RTTI(Body, Naive_Topol);
 
 private:
   Naive_LinkedList<Handle_Naive_Topol> myChildren;

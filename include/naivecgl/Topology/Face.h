@@ -15,7 +15,7 @@ public:
 
   Naive_EXPORT Naive_Handle<Shell> ParentShell() const;
 
-  Naive_DEFINE_RTTI(Face, Naive_Topol, Naive_Class_face);
+  Naive_DEFINE_RTTI(Face, Naive_Topol);
 
 private:
   Naive_Real myTol;

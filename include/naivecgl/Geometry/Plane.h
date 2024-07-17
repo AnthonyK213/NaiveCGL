@@ -27,6 +27,8 @@ public:
            Naive_Vec3dList1 &theD) const Naive_OVERRIDE;
 
   Naive_EXPORT Naive_Real Distance(const Naive_Pnt3d &theP) const;
+
+  Naive_DEFINE_RTTI(Plane, Naive_ElementarySurface);
 };
 
 Naive_NAMESPACE_END(geometry);

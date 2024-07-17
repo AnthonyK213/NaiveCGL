@@ -14,4 +14,6 @@ using Naive_Real = double;
 using Naive_ShortReal = float;
 using Naive_Size = ::std::size_t;
 
+using Naive_Tag = Naive_Integer;
+
 #endif
