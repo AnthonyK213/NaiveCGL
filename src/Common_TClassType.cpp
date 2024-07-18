@@ -1,7 +1,6 @@
 // clang-format off
 #include <naivecgl/Common/Object.h>
 #include <naivecgl/Common/ClassType.h>
-
 #include <naivecgl/Geometry2d/Geometry.h>
 #include <naivecgl/Geometry2d/Point2d.h>
 #include <naivecgl/Geometry2d/Vector2d.h>
@@ -16,7 +15,6 @@
 #include <naivecgl/Geometry2d/Parabola.h>
 #include <naivecgl/Geometry2d/Line.h>
 #include <naivecgl/Geometry2d/OffsetCurve.h>
-
 #include <naivecgl/Geometry/Geometry.h>
 #include <naivecgl/Geometry/Point3d.h>
 #include <naivecgl/Geometry/Vector3d.h>
@@ -43,10 +41,8 @@
 #include <naivecgl/Geometry/ToroidalSurface.h>
 #include <naivecgl/Geometry/Plane.h>
 #include <naivecgl/Geometry/OffsetSurface.h>
-
 #include <naivecgl/Geometry/Mesh.h>
 #include <naivecgl/Geometry/Triangulation.h>
-
 #include <naivecgl/Topology/Topol.h>
 #include <naivecgl/Topology/Body.h>
 #include <naivecgl/Topology/Solid.h>
@@ -116,10 +112,8 @@ const TClassType::Registry &TClassType::getRegistry() {
   static TClassType::Registry theRegistry{
       // clang-format off
       {Naive_Class_null, {}},
-
       {Naive_Class_object, {Naive_Class_object, Naive_CLASS(Naive_Object)}},
       {Naive_Class_class, {Naive_Class_class, Naive_CLASS(Naive_ClassType)}},
-
       {Naive_Class_geometry2d, {Naive_Class_geometry2d, Naive_CLASS(Naive_Geometry2d)}},
       {Naive_Class_point2d, {Naive_Class_point2d, Naive_CLASS(Naive_Point2d)}},
       {Naive_Class_vector2d, {Naive_Class_vector2d, Naive_CLASS(Naive_Vector2d)}},
@@ -127,14 +121,13 @@ const TClassType::Registry &TClassType::getRegistry() {
       {Naive_Class_bounded_curve2d, {Naive_Class_bounded_curve2d, Naive_CLASS(Naive_BoundedCurve2d)}},
       {Naive_Class_nurbs_curve2d, {Naive_Class_nurbs_curve2d, Naive_CLASS(Naive_NurbsCurve2d)}},
       // {Naive_Class_trimmed_curve2d, {Naive_Class_trimmed_curve2d, Naive_CLASS(Naive_TrimmedCurve2d)}},
-      // {Naive_Class_conic2d, {Naive_Class_conic2d, Naive_CLASS(Naive_Conic2d)}},
-      // {Naive_Class_circle2d, {Naive_Class_circle2d, Naive_CLASS(Naive_Circle2d)}},
+      {Naive_Class_conic2d, {Naive_Class_conic2d, Naive_CLASS(Naive_Conic2d)}},
+      {Naive_Class_circle2d, {Naive_Class_circle2d, Naive_CLASS(Naive_Circle2d)}},
       // {Naive_Class_ellipse2d, {Naive_Class_ellipse2d, Naive_CLASS(Naive_Ellipse2d)}},
       // {Naive_Class_hyperbola2d, {Naive_Class_hyperbola2d, Naive_CLASS(Naive_Hyperbola2d)}},
       // {Naive_Class_parabola2d, {Naive_Class_parabola2d, Naive_CLASS(Naive_Parabola2d)}},
       // {Naive_Class_line2d, {Naive_Class_line2d, Naive_CLASS(Naive_Line2d)}},
       // {Naive_Class_offset_curve2d, {Naive_Class_offset_curve2d, Naive_CLASS(Naive_OffsetCurve2d)}},
-
       {Naive_Class_geometry, {Naive_Class_geometry, Naive_CLASS(Naive_Geometry)}},
       {Naive_Class_point3d, {Naive_Class_point3d, Naive_CLASS(Naive_Point3d)}},
       {Naive_Class_vector3d, {Naive_Class_vector3d, Naive_CLASS(Naive_Vector3d)}},
@@ -143,8 +136,8 @@ const TClassType::Registry &TClassType::getRegistry() {
       {Naive_Class_bounded_curve, {Naive_Class_bounded_curve, Naive_CLASS(Naive_BoundedCurve)}},
       {Naive_Class_nurbs_curve, {Naive_Class_nurbs_curve, Naive_CLASS(Naive_NurbsCurve)}},
       // {Naive_Class_trimmed_curve, {Naive_Class_trimmed_curve, Naive_CLASS(Naive_TrimmedCurve)}},
-      // {Naive_Class_conic, {Naive_Class_conic, Naive_CLASS(Naive_Conic)}},
-      // {Naive_Class_circle, {Naive_Class_circle, Naive_CLASS(Naive_Circle)}},
+      {Naive_Class_conic, {Naive_Class_conic, Naive_CLASS(Naive_Conic)}},
+      {Naive_Class_circle, {Naive_Class_circle, Naive_CLASS(Naive_Circle)}},
       // {Naive_Class_ellipse, {Naive_Class_ellipse, Naive_CLASS(Naive_Ellipse)}},
       // {Naive_Class_hyperbola, {Naive_Class_hyperbola, Naive_CLASS(Naive_Hyperbola)}},
       // {Naive_Class_parabola, {Naive_Class_parabola, Naive_CLASS(Naive_Parabola)}},
@@ -161,10 +154,8 @@ const TClassType::Registry &TClassType::getRegistry() {
       // {Naive_Class_toroidal_surface, {Naive_Class_toroidal_surface, Naive_CLASS(Naive_ToroidalSurface)}},
       {Naive_Class_plane, {Naive_Class_plane, Naive_CLASS(Naive_Plane)}},
       // {Naive_Class_offset_surface, {Naive_Class_offset_surface, Naive_CLASS(Naive_OffsetSurface)}},
-
-      // {Naive_Class_mesh, {Naive_Class_mesh, Naive_CLASS(Naive_Mesh)}},
-      // {Naive_Class_triangulation, {Naive_Class_triangulation, Naive_CLASS(Naive_Triangulation)}},
-
+      {Naive_Class_mesh, {Naive_Class_mesh, Naive_CLASS(Naive_Mesh)}},
+      {Naive_Class_triangulation, {Naive_Class_triangulation, Naive_CLASS(Naive_Triangulation)}},
       {Naive_Class_topol, {Naive_Class_topol, Naive_CLASS(Naive_Topol)}},
       {Naive_Class_body, {Naive_Class_body, Naive_CLASS(Naive_Body)}},
       {Naive_Class_solid, {Naive_Class_solid, Naive_CLASS(Naive_Solid)}},

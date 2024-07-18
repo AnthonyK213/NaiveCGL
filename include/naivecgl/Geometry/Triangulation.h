@@ -1,7 +1,7 @@
 ﻿#ifndef _NaiveCGL_Geometry_Triangulation_HeaderFile
 #define _NaiveCGL_Geometry_Triangulation_HeaderFile
 
-#include "../Common/Handle.h"
+#include "../Common/ClassType.h"
 #include "../Math/Pnt3d.h"
 #include "../Math/Vec3d.h"
 #include "Triangle.h"
@@ -29,6 +29,8 @@ public:
   Naive_EXPORT const VertexList &Vertices() const { return myVertices; }
 
   Naive_EXPORT const TriangleList &Triangles() const { return myTriangles; }
+
+  Naive_DEFINE_RTTI(Triangulation, Naive_Object);
 
 private:
   VertexList myVertices;

@@ -7,6 +7,8 @@ Naive_NAMESPACE_BEGIN(geometry2d);
 
 class Conic : public Naive_Curve2d {
 public:
+  Naive_DEFINE_RTTI(Conic, Naive_Curve2d);
+
 protected:
 private:
 };

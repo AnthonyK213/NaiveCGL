@@ -6,8 +6,6 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
-class Body;
-
 class Topol : public Naive_Object {
 public:
   Topol(const Topol &theOther) Naive_DELETE;

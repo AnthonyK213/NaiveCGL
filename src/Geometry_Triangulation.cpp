@@ -2,6 +2,8 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
+Naive_IMPLEMENT_RTTI(Triangulation);
+
 Triangulation::Triangulation() : myVertices(), myTriangles() {}
 
 Naive_Bool Triangulation::IsValid() const {

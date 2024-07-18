@@ -32,6 +32,8 @@ public:
   Naive_EXPORT virtual Naive_Code
   CurvatureAt(const Naive_Real theT, Naive_Vec3d &theV) const Naive_OVERRIDE;
 
+  Naive_DEFINE_RTTI(Circle, Naive_Conic);
+
 private:
   Naive_Real myRadius;
 };

@@ -8,6 +8,8 @@ Naive_NAMESPACE_BEGIN(geometry);
 
 class Conic : public Naive_Curve {
 public:
+  Naive_DEFINE_RTTI(Conic, Naive_Curve);
+
 protected:
   Naive_Ax2 myPos;
 };

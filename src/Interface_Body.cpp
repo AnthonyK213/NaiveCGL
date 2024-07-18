@@ -2,17 +2,6 @@
 
 #include "Interface_NaiveCGL_c.h"
 
-Naive_Code_t Naive_Body_ask_location(Naive_Body_t body,
-                                     Naive_Transform3d_t *const location) {
-  return Naive_Code_not_implemented;
-}
-
-Naive_Code_t
-Naive_Body_ask_orientation(Naive_Body_t body,
-                           Naive_Orientation_t *const orientation) {
-  return Naive_Code_not_implemented;
-}
-
 Naive_Code_t Naive_Body_ask_edges(Naive_Body_t body, int *const n_edges,
                                   Naive_Edge_t *const edges) {
   return Naive_Code_not_implemented;
@@ -28,8 +17,19 @@ Naive_Code_t Naive_Body_ask_fins(Naive_Body_t body, int *const n_fins,
   return Naive_Code_not_implemented;
 }
 
+Naive_Code_t Naive_Body_ask_location(Naive_Body_t body,
+                                     Naive_Transform3d_t *const location) {
+  return Naive_Code_not_implemented;
+}
+
 Naive_Code_t Naive_Body_ask_loops(Naive_Body_t body, int *const n_loops,
                                   Naive_Loop_t *const loops) {
+  return Naive_Code_not_implemented;
+}
+
+Naive_Code_t
+Naive_Body_ask_orientation(Naive_Body_t body,
+                           Naive_Orientation_t *const orientation) {
   return Naive_Code_not_implemented;
 }
 

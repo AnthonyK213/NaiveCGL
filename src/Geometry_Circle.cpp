@@ -4,6 +4,8 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
+Naive_IMPLEMENT_RTTI(Circle);
+
 Circle::Circle() {}
 
 Circle::Circle(const Naive_Ax2 &theAx2, const Naive_Real theR)
@@ -34,7 +36,7 @@ Naive_Vec3d Circle::TangentAt(const Naive_Real theT) const {
 }
 
 Naive_Code Circle::Evaluate(const Naive_Real theT, const Naive_Integer theN,
-                                Naive_Vec3dList1 &theD) const {
+                            Naive_Vec3dList1 &theD) const {
 
   if (!IsValid())
     return Naive_Code_invalid_object;

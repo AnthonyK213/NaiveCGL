@@ -7,6 +7,8 @@ Naive_NAMESPACE_BEGIN(geometry2d);
 
 class Circle : public Naive_Conic2d {
 public:
+  Naive_DEFINE_RTTI(Circle, Naive_Conic2d);
+
 protected:
 private:
 };

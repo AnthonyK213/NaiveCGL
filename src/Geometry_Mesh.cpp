@@ -6,6 +6,8 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
+Naive_IMPLEMENT_RTTI(Mesh);
+
 /* Mesh::HalfEdgeId */
 
 Mesh::HalfEdgeId::HalfEdgeId() : myA(-1), myB(-1) {}
@@ -243,7 +245,8 @@ Handle_Naive_Triangulation Mesh::GetTriangulation(Naive_Bool theCompat) const {
     aTriangles.push_back(aTriangle);
   }
 
-  return new Naive_Triangulation(::std::move(aVertices), ::std::move(aTriangles));
+  return new Naive_Triangulation(::std::move(aVertices),
+                                 ::std::move(aTriangles));
 }
 
 Naive_Bool Mesh::addVertex(const VertexId theId, const Naive_Pnt3d &thePoint) {

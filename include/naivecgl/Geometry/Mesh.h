@@ -3,7 +3,7 @@
 
 #include "../Collection/Map.h"
 #include "../Collection/Stack.h"
-#include "../Common/Handle.h"
+#include "../Common/ClassType.h"
 #include "../Math/Pnt3d.h"
 #include "../Math/Vec3d.h"
 
@@ -175,6 +175,8 @@ public:
 
   Naive_EXPORT Naive_Bool RemoveFace(const FaceId theId,
                                      Naive_Bool theCompat = Naive_False);
+
+  Naive_DEFINE_RTTI(Mesh, Naive_Object);
 
 private:
   Naive_Bool addVertex(const VertexId theId, const Naive_Pnt3d &thePoint);

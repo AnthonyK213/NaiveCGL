@@ -3,6 +3,17 @@
 
 #include "Interface_NaiveCGL_c.h"
 
+Naive_Code_t Naive_NurbsSurface_ask_degree(Naive_NurbsSurface_t nurbs_surface,
+                                           int *const degree_u,
+                                           int *const degree_v) {
+  Naive_ROSTER_ASK(Naive_NurbsSurface, nurbs_surface, H);
+  if (degree_u)
+    *degree_u = H->UDegree();
+  if (degree_v)
+    *degree_v = H->VDegree();
+  return Naive_Code_ok;
+}
+
 Naive_Code_t Naive_NurbsSurface_new(
     const int n_poles_u, const int n_poles_v, const Naive_Point3d_t *poles,
     const int n_weights_u, const int n_weights_v, const double *weights,
@@ -45,16 +56,5 @@ Naive_Code_t Naive_NurbsSurface_new(
     return aCode;
 
   Naive_ROSTER_ADD(aSrf, *nurbs_surface);
-  return Naive_Code_ok;
-}
-
-Naive_Code_t Naive_NurbsSurface_ask_degree(Naive_NurbsSurface_t nurbs_surface,
-                                           int *const degree_u,
-                                           int *const degree_v) {
-  Naive_ROSTER_ASK(Naive_NurbsSurface, nurbs_surface, H);
-  if (degree_u)
-    *degree_u = H->UDegree();
-  if (degree_v)
-    *degree_v = H->VDegree();
   return Naive_Code_ok;
 }
