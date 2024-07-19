@@ -28,7 +28,7 @@ Naive_Code_t Naive_Body_ask_loops(Naive_Body_t body, int *const n_loops,
 }
 
 Naive_Code_t
-Naive_Body_ask_orientation(Naive_Body_t body,
+Naive_Body_ask_orient(Naive_Body_t body,
                            Naive_Orientation_t *const orientation) {
   return Naive_Code_not_implemented;
 }

@@ -2,6 +2,6 @@
 
 Naive_Code_t Naive_Memory_free(void *pointer) {
   // TODO: Application specific?
-  delete[] pointer;
+  free(pointer);
   return Naive_Code_ok;
 }

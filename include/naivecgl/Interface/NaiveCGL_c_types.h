@@ -1,5 +1,5 @@
-﻿#ifndef _NaiveCGL_Interface_NaiveCGL_c_types_HeaderFile
-#define _NaiveCGL_Interface_NaiveCGL_c_types_HeaderFile
+﻿#ifndef _NAIVECGL_C_TYPES_H
+#define _NAIVECGL_C_TYPES_H
 
 #include "NaiveCGL_c_enums.h"
 
@@ -35,9 +35,6 @@ typedef int Naive_boolean_function_t;
 /* Naive_Logical_t */
 
 typedef unsigned char Naive_Logical_t;
-
-#define Naive_Logical_true ((Naive_Logical_t)1)
-#define Naive_Logical_false ((Naive_Logical_t)0)
 
 /* Naive_XY_t */
 
@@ -152,10 +149,5 @@ typedef struct Naive_Transform3d_sf_s {
 typedef struct Naive_Body_boolean_o_s {
   Naive_boolean_function_t function;
 } Naive_Body_boolean_o_t;
-
-/* Naive_Body_boolean_o_m */
-
-#define Naive_Body_boolean_o_m(options)                                        \
-  ((options).function = Naive_boolean_unite_c)
 
 #endif

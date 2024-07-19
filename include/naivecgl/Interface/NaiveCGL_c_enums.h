@@ -1,5 +1,5 @@
-#ifndef _NaiveCGL_Interface_NaiveCGL_c_enums_HeaderFile
-#define _NaiveCGL_Interface_NaiveCGL_c_enums_HeaderFile
+#ifndef _NAIVECGL_C_ENUMS_H
+#define _NAIVECGL_C_ENUMS_H
 
 /* Naive_Algorithm */
 

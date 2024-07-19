@@ -3,6 +3,8 @@
 
 #include <naivecgl/Interface/NaiveCGL_c.h>
 
+#include <cstdlib>
+
 #define Naive_ROSTER_ASK(T, Tag_, Var_)                                        \
   Naive_Handle<T> Var_;                                                        \
   do {                                                                         \

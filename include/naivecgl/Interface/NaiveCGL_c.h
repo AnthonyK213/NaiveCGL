@@ -1,6 +1,7 @@
-﻿#ifndef _NaiveCGL_Interface_NaiveCGL_c_HeaderFile
-#define _NaiveCGL_Interface_NaiveCGL_c_HeaderFile
+﻿#ifndef _NAIVECGL_C_H
+#define _NAIVECGL_C_H
 
+#include "NaiveCGL_c_macros.h"
 #include "NaiveCGL_c_types.h"
 
 #ifndef __cplusplus
@@ -34,7 +35,7 @@ Naive_API Naive_Code_t Naive_Body_ask_loops(Naive_Body_t /* body */,
                                             int *const /* n_loops */,
                                             Naive_Loop_t *const /* loops */);
 
-Naive_API Naive_Code_t Naive_Body_ask_orientation(
+Naive_API Naive_Code_t Naive_Body_ask_orient(
     Naive_Body_t /* body */, Naive_Orientation_t *const /* orientation */);
 
 Naive_API Naive_Code_t Naive_Body_ask_shells(Naive_Body_t /* body */,
@@ -65,14 +66,15 @@ Naive_API Naive_Code_t Naive_Class_is_subclass(
 Naive_API Naive_Code_t Naive_Curve_ask_bound(
     Naive_Curve_t /* curve */, Naive_Interval_t *const /* bound */);
 
-Naive_API Naive_Code_t
-Naive_Curve_curvature_at(Naive_Curve_t /* curve */, const double /* t */,
-                         Naive_Vector3d_t *const /* curvature */);
+Naive_API Naive_Code_t Naive_Curve_eval(Naive_Curve_t /* curve */,
+                                        const double /* t */,
+                                        const int /* n_deriv */,
+                                        int *const /* n_result */,
+                                        Naive_Vector3d_t *const /* result */);
 
 Naive_API Naive_Code_t
-Naive_Curve_evaluate(Naive_Curve_t /* curve */, const double /* t */,
-                     const int /* n_derivative */, int *const /* n_result */,
-                     Naive_Vector3d_t *const /* result */);
+Naive_Curve_eval_curvature(Naive_Curve_t /* curve */, const double /* t */,
+                           Naive_Vector3d_t *const /* curvature */);
 
 /* Naive_Geom2dAPI */
 
@@ -185,10 +187,12 @@ Naive_API Naive_Code_t Naive_Plane_new(const Naive_Plane_sf_t * /* plane_sf */,
 
 /* Naive_Surface */
 
-Naive_API Naive_Code_t Naive_Surface_evaluate(
-    Naive_Surface_t /* surface */, const double /* u */, const double /* v */,
-    const int /* n_derivative */, int *const /* n_result */,
-    Naive_Vector3d_t *const /* result */);
+Naive_API Naive_Code_t Naive_Surface_eval(Naive_Surface_t /* surface */,
+                                          const double /* u */,
+                                          const double /* v */,
+                                          const int /* n_deriv */,
+                                          int *const /* n_result */,
+                                          Naive_Vector3d_t *const /* result */);
 
 /* Naive_Tessellation */
 
