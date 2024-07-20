@@ -14,8 +14,8 @@ typedef enum {
 
 typedef enum {
   Naive_Class_null = 0,
-  Naive_Class_object,
   Naive_Class_class,
+  Naive_Class_object,
   Naive_Class_geometry2d,
   Naive_Class_point2d,
   Naive_Class_vector2d,

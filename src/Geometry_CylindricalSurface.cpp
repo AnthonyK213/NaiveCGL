@@ -2,6 +2,8 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
+Naive_IMPLEMENT_RTTI(CylindricalSurface);
+
 Naive_Bool CylindricalSurface::IsValid() const { Naive_TODO; }
 
 Handle_Naive_Geometry CylindricalSurface::Clone() const { Naive_TODO; }

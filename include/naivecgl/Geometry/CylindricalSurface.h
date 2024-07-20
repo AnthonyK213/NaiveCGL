@@ -19,6 +19,8 @@ public:
            const Naive_Integer theN,
            Naive_Vec3dList1 &theD) const Naive_OVERRIDE;
 
+  Naive_DEFINE_RTTI(CylindricalSurface, Naive_ElementarySurface);
+
 private:
 };
 
