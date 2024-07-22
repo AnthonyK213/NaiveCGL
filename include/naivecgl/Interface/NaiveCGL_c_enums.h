@@ -1,6 +1,8 @@
 #ifndef _NAIVECGL_C_ENUMS_H
 #define _NAIVECGL_C_ENUMS_H
 
+#include "stddef.h"
+
 /* Naive_Algorithm */
 
 typedef enum {
