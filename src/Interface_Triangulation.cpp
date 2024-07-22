@@ -6,21 +6,21 @@
 Naive_Code_t
 Naive_Triangulation_ask_triangles(const Naive_Triangulation_t triangulation,
                                   int *const n_triangles,
-                                  Naive_Triangle_t *const triangles) {
-  if (!n_triangles)
+                                  Naive_Triangle_t **const triangles) {
+  if (!n_triangles || !triangles)
     return Naive_Code_null_arg_address;
 
   Naive_ROSTER_ASK(Naive_Triangulation, triangulation, H);
   int nbTris = static_cast<int>(H->Triangles().size());
+
   *n_triangles = nbTris;
 
-  if (triangles) {
-    for (Naive_Size i = 0; i < nbTris; ++i) {
-      const Naive_Triangle &aTriangle = H->Triangles()[i];
-      triangles[i].n0 = aTriangle(0);
-      triangles[i].n1 = aTriangle(1);
-      triangles[i].n2 = aTriangle(2);
-    }
+  Naive_ALLOC_ARRAY(Naive_Triangle_t, nbTris, triangles);
+  for (Naive_Size i = 0; i < nbTris; ++i) {
+    const Naive_Triangle &aTriangle = H->Triangles()[i];
+    (*triangles)[i].n0 = aTriangle(0);
+    (*triangles)[i].n1 = aTriangle(1);
+    (*triangles)[i].n2 = aTriangle(2);
   }
 
   return Naive_Code_ok;
@@ -29,18 +29,18 @@ Naive_Triangulation_ask_triangles(const Naive_Triangulation_t triangulation,
 Naive_Code_t
 Naive_Triangulation_ask_vertices(const Naive_Triangulation_t triangulation,
                                  int *const n_vertices,
-                                 Naive_Point3d_t *const vertices) {
-  if (!n_vertices)
+                                 Naive_Point3d_t **const vertices) {
+  if (!n_vertices || !vertices)
     return Naive_Code_null_arg_address;
 
   Naive_ROSTER_ASK(Naive_Triangulation, triangulation, H);
   int nbVerts = static_cast<int>(H->Vertices().size());
+
   *n_vertices = nbVerts;
 
-  if (vertices) {
-    for (Naive_Size i = 0; i < nbVerts; ++i) {
-      H->Vertices()[i].Dump(vertices[i]);
-    }
+  Naive_ALLOC_ARRAY(Naive_Point3d_t, nbVerts, vertices);
+  for (Naive_Size i = 0; i < nbVerts; ++i) {
+    H->Vertices()[i].Dump((*vertices)[i]);
   }
 
   return Naive_Code_ok;

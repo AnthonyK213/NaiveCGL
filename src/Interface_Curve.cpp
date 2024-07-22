@@ -17,26 +17,19 @@ Naive_Code_t Naive_Curve_ask_bound(Naive_Curve_t curve,
 }
 
 Naive_Code_t Naive_Curve_eval(Naive_Curve_t curve, const double t,
-                              const int n_deriv, int *const n_result,
-                              Naive_Vector3d_t *const result) {
-  if (!n_result)
+                              const int n_deriv, Naive_Vector3d_t p[]) {
+  if (!p)
     return Naive_Code_null_arg_address;
 
-  if (n_deriv < 0)
+  if (n_deriv < 0 || n_deriv > 4)
     return Naive_Code_value_out_of_range;
 
-  *n_result = n_deriv + 1;
+  Naive_ROSTER_ASK(Naive_Curve, curve, H);
+  Naive_Vec3dList1 aD{};
+  Naive_CHECK_CODE(H->Evaluate(t, n_deriv, aD));
 
-  if (result) {
-    Naive_ROSTER_ASK(Naive_Curve, curve, H);
-    Naive_Vec3dList1 aD{};
-    Naive_Code aCode = H->Evaluate(t, n_deriv, aD);
-    if (aCode)
-      return aCode;
-
-    for (Naive_Integer i = 0; i < *n_result; ++i) {
-      aD[i].Dump(result[i]);
-    }
+  for (Naive_Integer i = 0; i < aD.size(); ++i) {
+    aD[i].Dump(p[i]);
   }
 
   return Naive_Code_ok;
@@ -49,9 +42,7 @@ Naive_Code_t Naive_Curve_eval_curvature(Naive_Curve_t curve, const double t,
 
   Naive_ROSTER_ASK(Naive_Curve, curve, H);
   Naive_Vec3d aCurvature;
-  Naive_Code aCode = H->CurvatureAt(t, aCurvature);
-  if (aCode)
-    return aCode;
+  Naive_CHECK_CODE(H->CurvatureAt(t, aCurvature));
   aCurvature.Dump(*curvature);
   return Naive_Code_ok;
 }

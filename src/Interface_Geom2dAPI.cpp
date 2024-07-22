@@ -20,21 +20,19 @@ Naive_Geom2dAPI_convex_hull(int n_points, const Naive_Point2d_t *points,
 
   CH.Perform();
 
-  if (CH.Status() != Naive_Code_ok)
-    return CH.Status();
+  Naive_CHECK_CODE(CH.Status());
 
-  Naive_Integer n = CH.NbConvexPoints();
-  *n_convex_points = n;
+  *n_convex_points = CH.NbConvexPoints();
 
   if (convex_indices) {
     Naive_IntegerList1 anIndices = CH.ConvexIndices();
-    *convex_indices = (int *)malloc(sizeof(int) * n);
+    Naive_ALLOC_ARRAY(int, anIndices.size(), convex_indices);
     ::std::copy(anIndices.cbegin(), anIndices.cend(), *convex_indices);
   }
 
   if (convex_points) {
     Naive_Pnt2dList1 aPoints = CH.ConvexPoints();
-    *convex_points = (Naive_Point2d_t *)malloc(sizeof(Naive_Point2d_t) * n);
+    Naive_ALLOC_ARRAY(Naive_Point2d_t, aPoints.size(), convex_points);
     for (Naive_Integer i = 0; i < aPoints.size(); ++i) {
       aPoints[i].Dump((*convex_points)[i]);
     }

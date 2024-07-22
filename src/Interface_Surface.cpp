@@ -4,26 +4,23 @@
 #include "Interface_NaiveCGL_c.h"
 
 Naive_Code_t Naive_Surface_eval(const Naive_Surface_t surface, const double u,
-                                const double v, const int n_deriv,
-                                int *const n_result,
-                                Naive_Vector3d_t *const result) {
-  if (!n_result)
+                                const double v, const int n_u_deriv,
+                                const int n_v_deriv, Naive_Vector3d_t p[]) {
+  if (!p)
     return Naive_Code_null_arg_address;
 
-  if (n_deriv < 0)
-    return Naive_Code_invalid_value;
+  if (n_u_deriv < 0 || n_u_deriv > 3 || n_v_deriv < 0 || n_v_deriv > 3)
+    return Naive_Code_value_out_of_range;
 
-  *n_result = (n_deriv + 1) * (n_deriv + 2) >> 1;
+  Naive_Integer n_deriv = n_u_deriv + n_v_deriv;
+  Naive_ROSTER_ASK(Naive_Surface, surface, H);
+  Naive_Vec3dList1 deriv{};
+  Naive_CHECK_CODE(H->Evaluate(u, v, n_deriv, deriv));
 
-  if (result) {
-    Naive_ROSTER_ASK(Naive_Surface, surface, H);
-    Naive_Vec3dList1 aD{};
-    Naive_Code aCode = H->Evaluate(u, v, n_deriv, aD);
-    if (aCode)
-      return aCode;
-
-    for (Naive_Integer i = 0; i < *n_result; ++i) {
-      aD[i].Dump(result[i]);
+  Naive_Integer index = 0;
+  for (Naive_Integer j = 0; j <= n_v_deriv; ++j) {
+    for (Naive_Integer i = 0; i <= n_u_deriv; ++i) {
+      deriv[(i + j) * (i + j + 1) / 2 + j].Dump(p[index++]);
     }
   }
 

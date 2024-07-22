@@ -50,10 +50,8 @@ Naive_Code_t Naive_NurbsSurface_new(
   Naive_IntegerList1 aVMults(mults_v, mults_v + n_mults_v);
 
   Handle_Naive_NurbsSurface aSrf = new Naive_NurbsSurface;
-  Naive_Code aCode = aSrf->Init(aPoles, aWeights, aUKnots, aVKnots, aUMults,
-                                aVMults, degree_u, degree_v);
-  if (aCode != Naive_Code_ok)
-    return aCode;
+  Naive_CHECK_CODE(aSrf->Init(aPoles, aWeights, aUKnots, aVKnots, aUMults,
+                              aVMults, degree_u, degree_v));
 
   Naive_ROSTER_ADD(aSrf, *nurbs_surface);
   return Naive_Code_ok;

@@ -15,8 +15,8 @@ Naive_Code_t Naive_NurbsCurve_ask_degree(Naive_NurbsCurve_t nurbs_curve,
 
 Naive_Code_t Naive_NurbsCurve_ask_knots(Naive_NurbsCurve_t nurbs_curve,
                                         int *const n_knots,
-                                        double *const knots) {
-  if (!n_knots)
+                                        double **const knots) {
+  if (!n_knots || !knots)
     return Naive_Code_null_arg_address;
 
   Naive_ROSTER_ASK(Naive_NurbsCurve, nurbs_curve, H);
@@ -26,17 +26,16 @@ Naive_Code_t Naive_NurbsCurve_ask_knots(Naive_NurbsCurve_t nurbs_curve,
 
   *n_knots = nbKnots;
 
-  if (knots) {
-    const Naive_RealList1 &aKnots = H->Knots();
-    ::std::copy(aKnots.cbegin(), aKnots.cend(), knots);
-  }
+  const Naive_RealList1 &aKnots = H->Knots();
+  Naive_ALLOC_ARRAY(double, nbKnots, knots);
+  ::std::copy(aKnots.cbegin(), aKnots.cend(), *knots);
 
   return Naive_Code_ok;
 }
 
 Naive_Code_t Naive_NurbsCurve_ask_mults(Naive_NurbsCurve_t nurbs_curve,
-                                        int *const n_mults, int *const mults) {
-  if (!n_mults)
+                                        int *const n_mults, int **const mults) {
+  if (!n_mults || !mults)
     return Naive_Code_null_arg_address;
 
   Naive_ROSTER_ASK(Naive_NurbsCurve, nurbs_curve, H);
@@ -46,18 +45,17 @@ Naive_Code_t Naive_NurbsCurve_ask_mults(Naive_NurbsCurve_t nurbs_curve,
 
   *n_mults = nbMults;
 
-  if (mults) {
-    const Naive_IntegerList1 &aMults = H->Multiplicities();
-    ::std::copy(aMults.cbegin(), aMults.cend(), mults);
-  }
+  const Naive_IntegerList1 &aMults = H->Multiplicities();
+  Naive_ALLOC_ARRAY(int, nbMults, mults);
+  ::std::copy(aMults.cbegin(), aMults.cend(), *mults);
 
   return Naive_Code_ok;
 }
 
 Naive_Code_t Naive_NurbsCurve_ask_poles(Naive_NurbsCurve_t nurbs_curve,
                                         int *const n_poles,
-                                        Naive_Point3d_t *const poles) {
-  if (!n_poles)
+                                        Naive_Point3d_t **const poles) {
+  if (!n_poles || !poles)
     return Naive_Code_null_arg_address;
 
   Naive_ROSTER_ASK(Naive_NurbsCurve, nurbs_curve, H);
@@ -67,11 +65,10 @@ Naive_Code_t Naive_NurbsCurve_ask_poles(Naive_NurbsCurve_t nurbs_curve,
 
   *n_poles = nbPoles;
 
-  if (poles) {
-    const Naive_Pnt3dList1 &aPoles = H->Poles();
-    for (Naive_Integer i = 0; i < nbPoles; ++i) {
-      aPoles[i].Dump(poles[i]);
-    }
+  const Naive_Pnt3dList1 &aPoles = H->Poles();
+  Naive_ALLOC_ARRAY(Naive_Point3d_t, nbPoles, poles);
+  for (Naive_Integer i = 0; i < nbPoles; ++i) {
+    aPoles[i].Dump((*poles)[i]);
   }
 
   return Naive_Code_ok;
@@ -79,8 +76,8 @@ Naive_Code_t Naive_NurbsCurve_ask_poles(Naive_NurbsCurve_t nurbs_curve,
 
 Naive_Code_t Naive_NurbsCurve_ask_weights(Naive_NurbsCurve_t nurbs_curve,
                                           int *const n_weights,
-                                          double *const weights) {
-  if (!n_weights)
+                                          double **const weights) {
+  if (!n_weights || !weights)
     return Naive_Code_null_arg_address;
 
   Naive_ROSTER_ASK(Naive_NurbsCurve, nurbs_curve, H);
@@ -90,10 +87,9 @@ Naive_Code_t Naive_NurbsCurve_ask_weights(Naive_NurbsCurve_t nurbs_curve,
 
   *n_weights = nbWeights;
 
-  if (weights) {
-    const Naive_RealList1 &aWeights = H->Weights();
-    ::std::copy(aWeights.cbegin(), aWeights.cend(), weights);
-  }
+  const Naive_RealList1 &aWeights = H->Weights();
+  Naive_ALLOC_ARRAY(double, nbWeights, weights);
+  ::std::copy(aWeights.cbegin(), aWeights.cend(), *weights);
 
   return Naive_Code_ok;
 }
@@ -136,9 +132,7 @@ Naive_Code_t Naive_NurbsCurve_new(const int n_poles,
   Naive_IntegerList1 aMults(mults, mults + n_mults);
 
   Handle_Naive_NurbsCurve aCrv = new Naive_NurbsCurve;
-  Naive_Code aCode = aCrv->Init(aPoles, aWeights, aKnots, aMults, degree);
-  if (aCode != Naive_Code_ok)
-    return aCode;
+  Naive_CHECK_CODE(aCrv->Init(aPoles, aWeights, aKnots, aMults, degree));
 
   Naive_ROSTER_ADD(aCrv, *nurbs_curve);
   return Naive_Code_ok;
