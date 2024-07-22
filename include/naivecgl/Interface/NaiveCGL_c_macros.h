@@ -1,6 +1,10 @@
 #ifndef _NAIVECGL_C_MACROS_H
 #define _NAIVECGL_C_MACROS_H
 
+/* Naive_Object_null */
+
+#define Naive_Object_null ((Naive_Object_t)0)
+
 /* Naive_Logical_t */
 
 #define Naive_Logical_true ((Naive_Logical_t)1)

@@ -15,10 +15,10 @@ TEST(NaiveCGLTest_Interface, Plane) {
   plane_sf.basis_set.axis.y = 0.;
   plane_sf.basis_set.axis.z = 1.;
 
-  Naive_Plane_t plane;
+  Naive_Plane_t plane = Naive_Object_null;
   ASSERT_EQ(Naive_Code_ok, Naive_Plane_new(&plane_sf, &plane));
 
-  Naive_Plane_t plane_clone;
+  Naive_Plane_t plane_clone = Naive_Object_null;
   ASSERT_EQ(Naive_Code_ok, Naive_Geometry_clone(plane, &plane_clone));
 
   Naive_Logical_t is_valid;
