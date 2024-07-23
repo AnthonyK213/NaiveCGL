@@ -10,12 +10,16 @@ class Command {
 public:
   Naive_EXPORT virtual ~Command();
 
-  Naive_EXPORT virtual Naive_Code Status() const;
+  Naive_EXPORT Naive_Code Status() const;
 
 protected:
   Naive_EXPORT Command();
 
   Naive_EXPORT void SetStatus(Naive_Code theStatus);
+
+  Naive_EXPORT void ResetStatus();
+
+  Naive_EXPORT void Done();
 
 private:
   Naive_Code myStatus;

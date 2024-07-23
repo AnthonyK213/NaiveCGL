@@ -2,6 +2,7 @@
 #define _NAIVECGL_C_TYPES_H
 
 #include "NaiveCGL_c_enums.h"
+#include "stddef.h"
 
 /* TYPEDEFS */
 
