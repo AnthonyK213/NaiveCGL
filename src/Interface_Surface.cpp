@@ -3,9 +3,9 @@
 
 #include "Interface_NaiveCGL_c.h"
 
-Naive_Code_t Naive_Surface_eval(const Naive_Surface_t surface, const double u,
-                                const double v, const int n_u_deriv,
-                                const int n_v_deriv, Naive_Vector3d_t p[]) {
+Naive_Code_t Naive_Surface_eval(Naive_Surface_t surface, double u, double v,
+                                int n_u_deriv, int n_v_deriv,
+                                Naive_Vector3d_t p[]) {
   if (!p)
     return Naive_Code_null_arg_address;
 

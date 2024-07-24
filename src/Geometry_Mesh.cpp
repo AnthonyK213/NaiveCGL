@@ -148,6 +148,10 @@ Mesh::Mesh(const Handle_Naive_Triangulation &thePoly)
   myIsValid = Naive_True;
 }
 
+Naive_Bool Mesh::IsValid() const { return myIsValid; }
+
+Naive_Handle<Geometry> Mesh::Clone() const { return new Mesh(*this); }
+
 const Mesh::Vertex *Mesh::GetVertex(const VertexId theId) const {
   if (theId < 0)
     return nullptr;

@@ -14,13 +14,12 @@ Naive_Code_t Naive_NurbsSurface_ask_degree(Naive_NurbsSurface_t nurbs_surface,
   return Naive_Code_ok;
 }
 
-Naive_Code_t Naive_NurbsSurface_new(
-    const int n_poles_u, const int n_poles_v, const Naive_Point3d_t *poles,
-    const int n_weights_u, const int n_weights_v, const double *weights,
-    const int n_knots_u, const double *knots_u, const int n_knots_v,
-    const double *knots_v, const int n_mults_u, const int *mults_u,
-    const int n_mults_v, const int *mults_v, const int degree_u,
-    const int degree_v, Naive_NurbsSurface_t *const nurbs_surface) {
+Naive_Code_t Naive_NurbsSurface_create(
+    int n_poles_u, int n_poles_v, const Naive_Point3d_t *poles, int n_weights_u,
+    int n_weights_v, const double *weights, int n_knots_u,
+    const double *knots_u, int n_knots_v, const double *knots_v, int n_mults_u,
+    const int *mults_u, int n_mults_v, const int *mults_v, int degree_u,
+    int degree_v, Naive_NurbsSurface_t *const nurbs_surface) {
   if (!poles || !weights || !knots_u || !knots_v || !mults_u || !mults_v ||
       !nurbs_surface)
     return Naive_Code_null_arg_address;

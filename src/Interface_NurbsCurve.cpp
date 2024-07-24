@@ -94,32 +94,11 @@ Naive_Code_t Naive_NurbsCurve_ask_weights(Naive_NurbsCurve_t nurbs_curve,
   return Naive_Code_ok;
 }
 
-Naive_Code_t Naive_NurbsCurve_increase_degree(Naive_NurbsCurve_t nurbs_curve,
-                                              const int degree) {
-  Naive_ROSTER_ASK(Naive_NurbsCurve, nurbs_curve, H);
-  return H->IncreaseDegree(degree);
-}
-
-Naive_Code_t
-Naive_NurbsCurve_increase_multiplicity(Naive_NurbsCurve_t nurbs_curve,
-                                       const int index, const int mult) {
-  Naive_ROSTER_ASK(Naive_NurbsCurve, nurbs_curve, H);
-  return H->IncreaseMultiplicity(index, mult);
-}
-
-Naive_Code_t Naive_NurbsCurve_insert_knot(Naive_NurbsCurve_t nurbs_curve,
-                                          const double t, const int mult) {
-  Naive_ROSTER_ASK(Naive_NurbsCurve, nurbs_curve, H);
-  return H->InsertKnot(t, mult);
-}
-
-Naive_Code_t Naive_NurbsCurve_new(const int n_poles,
-                                  const Naive_Point3d_t *poles,
-                                  const int n_weights, const double *weights,
-                                  const int n_knots, const double *knots,
-                                  const int n_mults, const int *mults,
-                                  const int degree,
-                                  Naive_NurbsCurve_t *const nurbs_curve) {
+Naive_Code_t Naive_NurbsCurve_create(int n_poles, const Naive_Point3d_t *poles,
+                                     int n_weights, const double *weights,
+                                     int n_knots, const double *knots,
+                                     int n_mults, const int *mults, int degree,
+                                     Naive_NurbsCurve_t *const nurbs_curve) {
   if (!poles || !weights || !knots || !mults || !nurbs_curve)
     return Naive_Code_null_arg_address;
 
@@ -138,8 +117,27 @@ Naive_Code_t Naive_NurbsCurve_new(const int n_poles,
   return Naive_Code_ok;
 }
 
+Naive_Code_t Naive_NurbsCurve_increase_degree(Naive_NurbsCurve_t nurbs_curve,
+                                              int degree) {
+  Naive_ROSTER_ASK(Naive_NurbsCurve, nurbs_curve, H);
+  return H->IncreaseDegree(degree);
+}
+
+Naive_Code_t
+Naive_NurbsCurve_increase_multiplicity(Naive_NurbsCurve_t nurbs_curve,
+                                       int index, int mult) {
+  Naive_ROSTER_ASK(Naive_NurbsCurve, nurbs_curve, H);
+  return H->IncreaseMultiplicity(index, mult);
+}
+
+Naive_Code_t Naive_NurbsCurve_insert_knot(Naive_NurbsCurve_t nurbs_curve,
+                                          double t, int mult) {
+  Naive_ROSTER_ASK(Naive_NurbsCurve, nurbs_curve, H);
+  return H->InsertKnot(t, mult);
+}
+
 Naive_Code_t Naive_NurbsCurve_remove_knot(Naive_NurbsCurve_t nurbs_curve,
-                                          const int index, const int mult) {
+                                          int index, int mult) {
   Naive_ROSTER_ASK(Naive_NurbsCurve, nurbs_curve, H);
   return H->RemoveKnot(index, mult);
 }

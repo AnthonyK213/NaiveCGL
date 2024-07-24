@@ -47,33 +47,10 @@ Naive_Triangulation_ask_vertices(const Naive_Triangulation_t triangulation,
 }
 
 Naive_Code_t
-Naive_Triangulation_clone(const Naive_Triangulation_t triangulation,
-                          Naive_Triangulation_t *const clone) {
-  if (!clone)
-    return Naive_Code_null_arg_address;
-
-  Naive_ROSTER_ASK(Naive_Triangulation, triangulation, H);
-  Handle_Naive_Triangulation aClone = new Naive_Triangulation(*H);
-  Naive_ROSTER_ADD(aClone, *clone);
-  return Naive_Code_ok;
-}
-
-Naive_Code_t
-Naive_Triangulation_is_valid(const Naive_Triangulation_t triangulation,
-                             Naive_Logical_t *const is_valid) {
-  if (!is_valid)
-    return Naive_Code_null_arg_address;
-
-  Naive_ROSTER_ASK(Naive_Triangulation, triangulation, H);
-  *is_valid = H->IsValid();
-  return Naive_Code_ok;
-}
-
-Naive_Code_t
-Naive_Triangulation_new(const int n_vertices, const Naive_Point3d_t *vertices,
-                        const int n_triangles,
-                        const Naive_Triangle_t *triangles, const int i_offset,
-                        Naive_Triangulation_t *const triangulation) {
+Naive_Triangulation_create(int n_vertices, const Naive_Point3d_t *vertices,
+                           int n_triangles, const Naive_Triangle_t *triangles,
+                           int i_offset,
+                           Naive_Triangulation_t *const triangulation) {
   if (!vertices || !triangles || !triangulation)
     return Naive_Code_null_arg_address;
 

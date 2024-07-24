@@ -145,6 +145,12 @@ typedef struct Naive_Transform3d_sf_s {
   double matrix[3][4];
 } Naive_Transform3d_sf_t;
 
+/* Naive_Curve_make_wire_body_o_t */
+
+typedef struct Naive_Curve_make_wire_body_o_s {
+  double tolerance;
+} Naive_Curve_make_wire_body_o_t;
+
 /* Naive_Body_boolean_o_t */
 
 typedef struct Naive_Body_boolean_o_s {

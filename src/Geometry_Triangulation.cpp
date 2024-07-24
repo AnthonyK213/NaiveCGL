@@ -19,4 +19,8 @@ Naive_Bool Triangulation::IsValid() const {
   return Naive_True;
 }
 
+Naive_Handle<Geometry> Triangulation::Clone() const {
+  return new Triangulation(myVertices, myTriangles);
+}
+
 Naive_NAMESPACE_END(geometry);

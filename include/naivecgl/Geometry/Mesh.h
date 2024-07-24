@@ -6,13 +6,14 @@
 #include "../Common/ClassType.h"
 #include "../Math/Pnt3d.h"
 #include "../Math/Vec3d.h"
+#include "Geometry.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 
 class Triangulation;
 
 /// @brief Manifold mesh described by half-edges.
-class Mesh : public Naive_Object {
+class Mesh : public Naive_Geometry {
 public:
   typedef Naive_Integer VertexId;
   typedef Naive_Integer FaceId;
@@ -143,7 +144,9 @@ public:
   /// @brief Construct a half-edge mesh from a trangulation.
   Naive_EXPORT explicit Mesh(const Naive_Handle<Triangulation> &thePoly);
 
-  Naive_EXPORT Naive_Bool IsValid() const { return myIsValid; }
+  Naive_EXPORT virtual Naive_Bool IsValid() const Naive_OVERRIDE;
+
+  Naive_EXPORT virtual Handle_Naive_Geometry Clone() const Naive_OVERRIDE;
 
   Naive_EXPORT Naive_Size NbVertices() const { return myVertices.size(); }
 

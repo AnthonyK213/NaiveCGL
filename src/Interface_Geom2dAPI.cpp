@@ -41,7 +41,7 @@ Naive_Geom2dAPI_convex_hull(int n_points, const Naive_Point2d_t *points,
   return Naive_Code_ok;
 }
 
-Naive_Code_t Naive_Geom2dAPI_enclosing_disc(const int n_points,
+Naive_Code_t Naive_Geom2dAPI_enclosing_disc(int n_points,
                                             const Naive_Point2d_t *points,
                                             Naive_Point2d_t *const origin,
                                             double *const radius) {

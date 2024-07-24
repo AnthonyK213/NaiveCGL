@@ -16,9 +16,11 @@
   }                                                                            \
   }
 
-#define Naive_WHERE_IS_REF_OF(T, R)                                            \
+#define Naive_WHERE__IS_REF_OF(T, R)                                           \
   typename ::std::enable_if<                                                   \
-      ::std::is_same<typename ::std::remove_reference<T>::type, R>::value,     \
+      ::std::is_same<typename ::std::remove_const<                             \
+                         typename ::std::remove_reference<T>::type>::type,     \
+                     R>::value,                                                \
       void>::type
 
 #define Naive_DEFINE_HANDLE(T) using Handle_##T = ::naivecgl::common::handle<T>

@@ -16,8 +16,8 @@ Naive_Code_t Naive_Curve_ask_bound(Naive_Curve_t curve,
   return Naive_Code_ok;
 }
 
-Naive_Code_t Naive_Curve_eval(Naive_Curve_t curve, const double t,
-                              const int n_deriv, Naive_Vector3d_t p[]) {
+Naive_Code_t Naive_Curve_eval(Naive_Curve_t curve, double t, int n_deriv,
+                              Naive_Vector3d_t p[]) {
   if (!p)
     return Naive_Code_null_arg_address;
 
@@ -35,7 +35,7 @@ Naive_Code_t Naive_Curve_eval(Naive_Curve_t curve, const double t,
   return Naive_Code_ok;
 }
 
-Naive_Code_t Naive_Curve_eval_curvature(Naive_Curve_t curve, const double t,
+Naive_Code_t Naive_Curve_eval_curvature(Naive_Curve_t curve, double t,
                                         Naive_Vector3d_t *const curvature) {
   if (!curvature)
     return Naive_Code_null_arg_address;
@@ -45,4 +45,19 @@ Naive_Code_t Naive_Curve_eval_curvature(Naive_Curve_t curve, const double t,
   Naive_CHECK_CODE(H->CurvatureAt(t, aCurvature));
   aCurvature.Dump(*curvature);
   return Naive_Code_ok;
+}
+
+Naive_Code_t Naive_Curve_make_wire_body(
+    int n_curves, const Naive_Curve_t curves[], const Naive_Interval_t bounds[],
+    const Naive_Curve_make_wire_body_o_t *options, Naive_Body_t *const body,
+    int *const n_new_edges, Naive_Edge_t **const new_edges,
+    int **const edge_index) {
+  if (n_curves <= 0)
+    return Naive_Code_value_out_of_range;
+
+  if (!curves || !bounds || !options || !body || !n_new_edges || !new_edges ||
+      !edge_index)
+    return Naive_Code_null_arg_address;
+
+  return Naive_Code_not_implemented;
 }

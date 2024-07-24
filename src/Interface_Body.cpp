@@ -42,7 +42,7 @@ Naive_Code_t Naive_Body_ask_vertices(Naive_Body_t body, int *const n_vertices,
   return Naive_Code_not_implemented;
 }
 
-Naive_Code_t Naive_Body_boolean(Naive_Body_t target, const int n_tools,
+Naive_Code_t Naive_Body_boolean(Naive_Body_t target, int n_tools,
                                 const Naive_Body_t *tools,
                                 const Naive_Body_boolean_o_t *options) {
   return Naive_Code_not_implemented;
