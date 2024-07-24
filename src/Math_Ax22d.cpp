@@ -33,7 +33,7 @@ Naive_Bool Ax22d::IsValid() const {
   return myLoc.IsValid() && myXDir.IsValid() && myYDir.IsValid();
 }
 
-Naive_Bool Ax22d ::Dump(Naive_Axis22d_sf_t &theAx22d) const {
+Naive_Bool Ax22d ::Dump(Naive_Ax22d_sf_t &theAx22d) const {
   return myLoc.Dump(theAx22d.location) && myXDir.Dump(theAx22d.x_axis) &&
          myYDir.Dump(theAx22d.y_axis);
 }

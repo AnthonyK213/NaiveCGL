@@ -8,7 +8,7 @@ Pnt2d::Pnt2d() : myXY(Constant::UnsetReal(), Constant::UnsetReal()) {}
 
 Pnt2d::Pnt2d(const Naive_Real theX, const Naive_Real theY) : myXY(theX, theY) {}
 
-Pnt2d::Pnt2d(const Naive_Point2d_t &thePnt) : myXY(thePnt.x, thePnt.y) {}
+Pnt2d::Pnt2d(const Naive_Pnt2d_t &thePnt) : myXY(thePnt.x, thePnt.y) {}
 
 Pnt2d::Pnt2d(const Naive_XY &theXY) : myXY(theXY) {}
 
@@ -43,7 +43,7 @@ const Pnt2d &Pnt2d::Unset() {
   return p;
 }
 
-Naive_Bool Pnt2d::Dump(Naive_Point2d_t &theP) const {
+Naive_Bool Pnt2d::Dump(Naive_Pnt2d_t &theP) const {
   if (!IsValid())
     return Naive_False;
 

@@ -3,11 +3,12 @@
 
 #include "Interface_NaiveCGL_c.h"
 
-Naive_Code_t
-Naive_Geom2dAPI_convex_hull(int n_points, const Naive_Point2d_t *points,
-                            Naive_Algorithm_t algo, int *const n_convex_points,
-                            int **const convex_indices,
-                            Naive_Point2d_t **const convex_points) {
+Naive_Code_t Naive_Geom2dAPI_convex_hull(int n_points,
+                                         const Naive_Pnt2d_t *points,
+                                         Naive_Algorithm_t algo,
+                                         int *const n_convex_points,
+                                         int **const convex_indices,
+                                         Naive_Pnt2d_t **const convex_points) {
   if (!points || !n_convex_points)
     return Naive_Code_null_arg_address;
 
@@ -32,7 +33,7 @@ Naive_Geom2dAPI_convex_hull(int n_points, const Naive_Point2d_t *points,
 
   if (convex_points) {
     Naive_Pnt2dList1 aPoints = CH.ConvexPoints();
-    Naive_ALLOC_ARRAY(Naive_Point2d_t, aPoints.size(), convex_points);
+    Naive_ALLOC_ARRAY(Naive_Pnt2d_t, aPoints.size(), convex_points);
     for (Naive_Integer i = 0; i < aPoints.size(); ++i) {
       aPoints[i].Dump((*convex_points)[i]);
     }
@@ -42,8 +43,8 @@ Naive_Geom2dAPI_convex_hull(int n_points, const Naive_Point2d_t *points,
 }
 
 Naive_Code_t Naive_Geom2dAPI_enclosing_disc(int n_points,
-                                            const Naive_Point2d_t *points,
-                                            Naive_Point2d_t *const origin,
+                                            const Naive_Pnt2d_t *points,
+                                            Naive_Pnt2d_t *const origin,
                                             double *const radius) {
   if (!points || !origin || !radius)
     return Naive_Code_null_arg_address;

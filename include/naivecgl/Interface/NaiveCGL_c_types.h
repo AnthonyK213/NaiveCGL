@@ -49,21 +49,21 @@ typedef struct Naive_XYZ_s {
   double x, y, z;
 } Naive_XYZ_t;
 
-/* Naive_Point2d_t */
+/* Naive_Pnt2d_t */
 
-typedef Naive_XY_t Naive_Point2d_t;
+typedef Naive_XY_t Naive_Pnt2d_t;
 
-/* Naive_Vector2d_t */
+/* Naive_Vec2d_t */
 
-typedef Naive_XY_t Naive_Vector2d_t;
+typedef Naive_XY_t Naive_Vec2d_t;
 
-/* Naive_Point3d_t */
+/* Naive_Pnt3d_t */
 
-typedef Naive_XYZ_t Naive_Point3d_t;
+typedef Naive_XYZ_t Naive_Pnt3d_t;
 
-/* Naive_Vector3d_t */
+/* Naive_Vec3d_t */
 
-typedef Naive_XYZ_t Naive_Vector3d_t;
+typedef Naive_XYZ_t Naive_Vec3d_t;
 
 /* Naive_Interval_t */
 
@@ -77,66 +77,66 @@ typedef struct Naive_Triangle_s {
   int n0, n1, n2;
 } Naive_Triangle_t;
 
-/* Naive_Axis2d_sf_t */
+/* Naive_Ax2d_sf_t */
 
-typedef struct Naive_Axis2d_sf_s {
-  Naive_Point2d_t location;
-  Naive_Vector2d_t axis;
-} Naive_Axis2d_sf_t;
+typedef struct Naive_Ax2d_sf_s {
+  Naive_Pnt2d_t location;
+  Naive_Vec2d_t axis;
+} Naive_Ax2d_sf_t;
 
-/* Naive_Axis22d_sf_t */
+/* Naive_Ax22d_sf_t */
 
-typedef struct Naive_Axis22d_sf_s {
-  Naive_Point2d_t location;
-  Naive_Vector2d_t x_axis;
-  Naive_Vector2d_t y_axis;
-} Naive_Axis22d_sf_t;
+typedef struct Naive_Ax22d_sf_s {
+  Naive_Pnt2d_t location;
+  Naive_Vec2d_t x_axis;
+  Naive_Vec2d_t y_axis;
+} Naive_Ax22d_sf_t;
 
-/* Naive_Axis1_sf_t */
+/* Naive_Ax1_sf_t */
 
-typedef struct Naive_Axis1_sf_s {
-  Naive_Point3d_t location;
-  Naive_Vector3d_t axis;
-} Naive_Axis1_sf_t;
+typedef struct Naive_Ax1_sf_s {
+  Naive_Pnt3d_t location;
+  Naive_Vec3d_t axis;
+} Naive_Ax1_sf_t;
 
-/* Naive_Axis2_sf_t */
+/* Naive_Ax2_sf_t */
 
-typedef struct Naive_Axis2_sf_s {
-  Naive_Point3d_t location;
-  Naive_Vector3d_t axis;
-  Naive_Vector3d_t ref_direction;
-} Naive_Axis2_sf_t;
+typedef struct Naive_Ax2_sf_s {
+  Naive_Pnt3d_t location;
+  Naive_Vec3d_t axis;
+  Naive_Vec3d_t ref_direction;
+} Naive_Ax2_sf_t;
 
 /* Naive_Circle2d_sf_t */
 
 typedef struct Naive_Circle2d_sf_s {
-  Naive_Axis22d_sf_t basis_set;
+  Naive_Ax22d_sf_t basis_set;
   double radius;
 } Naive_Circle2d_sf_t;
 
 /* Naive_Line2d_sf_t */
 
 typedef struct Naive_Line2d_sf_s {
-  Naive_Axis2d_sf_t basis_set;
+  Naive_Ax2d_sf_t basis_set;
 } Naive_Line2d_sf_t;
 
 /* Naive_Circle_sf_t */
 
 typedef struct Naive_Circle_sf_s {
-  Naive_Axis2_sf_t basis_set;
+  Naive_Ax2_sf_t basis_set;
   double radius;
 } Naive_Circle_sf_t;
 
 /* Naive_Line_sf_t */
 
 typedef struct Naive_Line_sf_s {
-  Naive_Axis1_sf_t basis_set;
+  Naive_Ax1_sf_t basis_set;
 } Naive_Line_sf_t;
 
 /* Naive_Plane_sf_t */
 
 typedef struct Naive_Plane_sf_s {
-  Naive_Axis2_sf_t basis_set;
+  Naive_Ax2_sf_t basis_set;
 } Naive_Plane_sf_t;
 
 /* Naive_Transform3d_sf_t */

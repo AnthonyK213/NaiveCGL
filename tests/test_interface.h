@@ -50,12 +50,12 @@ TEST(NaiveCGLTest_Interface, Plane) {
 }
 
 TEST(NaiveCGLTest_Interface, ConvexHull) {
-  ::std::vector<Naive_Point2d_t> points{
+  ::std::vector<Naive_Pnt2d_t> points{
       {0, 2}, {1, 3}, {2, 2}, {2, 0}, {3, 1}, {3, 4}, {4, 2}, {4, 3},
   };
 
   int n, *ci;
-  Naive_Point2d_t *cp;
+  Naive_Pnt2d_t *cp;
   ASSERT_EQ(Naive_Code_ok, Naive_Geom2dAPI_convex_hull(
                                points.size(), points.data(),
                                Naive_Algorithm_quick_hull_c, &n, &ci, &cp));
@@ -68,11 +68,11 @@ TEST(NaiveCGLTest_Interface, ConvexHull) {
 }
 
 TEST(NaiveCGLTest_Interface, EnclosingDisc) {
-  ::std::vector<Naive_Point2d_t> aPnts = {
+  ::std::vector<Naive_Pnt2d_t> aPnts = {
       {0, 2}, {1, 3}, {2, 2}, {2, 0}, {3, 1}, {3, 4}, {4, 2}, {4, 3},
   };
 
-  Naive_Point2d_t o;
+  Naive_Pnt2d_t o;
   double r;
   ASSERT_EQ(Naive_Code_ok,
             Naive_Geom2dAPI_enclosing_disc(aPnts.size(), aPnts.data(), &o, &r));

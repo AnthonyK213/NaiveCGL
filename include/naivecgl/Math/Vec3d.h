@@ -23,7 +23,7 @@ public:
 
   Naive_EXPORT Vec3d(const Naive_XYZ &theXYZ);
 
-  Naive_EXPORT Vec3d(const Naive_Vector3d_t &theVec);
+  Naive_EXPORT Vec3d(const Naive_Vec3d_t &theVec);
 
   Naive_EXPORT const Naive_XYZ &XYZ() const { return myXYZ; }
 
@@ -104,7 +104,7 @@ public:
 
   Naive_EXPORT Naive_XYZW HomoCoord() const;
 
-  Naive_EXPORT Naive_Bool Dump(Naive_Vector3d_t &theVec) const;
+  Naive_EXPORT Naive_Bool Dump(Naive_Vec3d_t &theVec) const;
 
 private:
   Naive_XYZ myXYZ;

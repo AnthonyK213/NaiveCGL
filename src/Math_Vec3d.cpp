@@ -18,7 +18,7 @@ Vec3d::Vec3d(const Naive_Real theX, const Naive_Real theY,
 
 Vec3d::Vec3d(const Naive_XYZ &theXYZ) : myXYZ(theXYZ) {}
 
-Vec3d::Vec3d(const Naive_Vector3d_t &theVec)
+Vec3d::Vec3d(const Naive_Vec3d_t &theVec)
     : myXYZ(theVec.x, theVec.y, theVec.z) {}
 
 Naive_Bool Vec3d::IsValid() const {
@@ -155,7 +155,7 @@ Naive_XYZW Vec3d::HomoCoord() const {
   return Naive_XYZW{myXYZ.x(), myXYZ.y(), myXYZ.z(), 0.};
 }
 
-Naive_Bool Vec3d::Dump(Naive_Vector3d_t &theVec) const {
+Naive_Bool Vec3d::Dump(Naive_Vec3d_t &theVec) const {
   if (!IsValid())
     return Naive_False;
   theVec.x = X();

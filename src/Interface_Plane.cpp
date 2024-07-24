@@ -24,7 +24,7 @@ Naive_Code_t Naive_Plane_create(const Naive_Plane_sf_t *plane_sf,
 }
 
 Naive_Code_t Naive_Plane_distance(const Naive_Plane_t plane,
-                                  const Naive_Point3d_t *point,
+                                  const Naive_Pnt3d_t *point,
                                   double *const distance) {
   if (!point)
     return Naive_Code_null_arg_address;

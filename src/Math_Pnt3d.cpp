@@ -16,7 +16,7 @@ Pnt3d::Pnt3d(const Naive_Real theX, const Naive_Real theY,
 
 Pnt3d::Pnt3d(const Naive_XYZ &theXYZ) : myXYZ(theXYZ) {}
 
-Pnt3d::Pnt3d(const Naive_Point3d_t &thePnt)
+Pnt3d::Pnt3d(const Naive_Pnt3d_t &thePnt)
     : myXYZ(thePnt.x, thePnt.y, thePnt.z) {}
 
 const Pnt3d &Pnt3d::Origin() {
@@ -128,7 +128,7 @@ Naive_Integer Pnt3d::CompareTo(const Pnt3d &thePoint) const {
   return 0;
 }
 
-Naive_Bool Pnt3d::Dump(Naive_Point3d_t &theP) const {
+Naive_Bool Pnt3d::Dump(Naive_Pnt3d_t &theP) const {
   if (!IsValid())
     return Naive_False;
   theP.x = X();

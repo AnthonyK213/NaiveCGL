@@ -29,7 +29,7 @@ Naive_Triangulation_ask_triangles(const Naive_Triangulation_t triangulation,
 Naive_Code_t
 Naive_Triangulation_ask_vertices(const Naive_Triangulation_t triangulation,
                                  int *const n_vertices,
-                                 Naive_Point3d_t **const vertices) {
+                                 Naive_Pnt3d_t **const vertices) {
   if (!n_vertices || !vertices)
     return Naive_Code_null_arg_address;
 
@@ -38,7 +38,7 @@ Naive_Triangulation_ask_vertices(const Naive_Triangulation_t triangulation,
 
   *n_vertices = nbVerts;
 
-  Naive_ALLOC_ARRAY(Naive_Point3d_t, nbVerts, vertices);
+  Naive_ALLOC_ARRAY(Naive_Pnt3d_t, nbVerts, vertices);
   for (Naive_Size i = 0; i < nbVerts; ++i) {
     H->Vertices()[i].Dump((*vertices)[i]);
   }
@@ -47,7 +47,7 @@ Naive_Triangulation_ask_vertices(const Naive_Triangulation_t triangulation,
 }
 
 Naive_Code_t
-Naive_Triangulation_create(int n_vertices, const Naive_Point3d_t *vertices,
+Naive_Triangulation_create(int n_vertices, const Naive_Pnt3d_t *vertices,
                            int n_triangles, const Naive_Triangle_t *triangles,
                            int i_offset,
                            Naive_Triangulation_t *const triangulation) {

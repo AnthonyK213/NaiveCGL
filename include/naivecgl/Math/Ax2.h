@@ -16,7 +16,7 @@ public:
 
   Naive_EXPORT Ax2(const Naive_Pnt3d &theP, const Naive_Vec3d &theV) noexcept;
 
-  Naive_EXPORT Ax2(const Naive_Axis2_sf_t &theAx2) noexcept;
+  Naive_EXPORT Ax2(const Naive_Ax2_sf_t &theAx2) noexcept;
 
   const Naive_Ax1 &Axis() const { return myAxis; }
 
@@ -36,7 +36,7 @@ public:
 
   Naive_EXPORT static const Ax2 &Unset();
 
-  Naive_EXPORT Naive_Bool Dump(Naive_Axis2_sf_t &theAx2) const;
+  Naive_EXPORT Naive_Bool Dump(Naive_Ax2_sf_t &theAx2) const;
 
 private:
   Naive_Ax1 myAxis;

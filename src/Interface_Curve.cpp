@@ -17,7 +17,7 @@ Naive_Code_t Naive_Curve_ask_bound(Naive_Curve_t curve,
 }
 
 Naive_Code_t Naive_Curve_eval(Naive_Curve_t curve, double t, int n_deriv,
-                              Naive_Vector3d_t p[]) {
+                              Naive_Vec3d_t p[]) {
   if (!p)
     return Naive_Code_null_arg_address;
 
@@ -36,7 +36,7 @@ Naive_Code_t Naive_Curve_eval(Naive_Curve_t curve, double t, int n_deriv,
 }
 
 Naive_Code_t Naive_Curve_eval_curvature(Naive_Curve_t curve, double t,
-                                        Naive_Vector3d_t *const curvature) {
+                                        Naive_Vec3d_t *const curvature) {
   if (!curvature)
     return Naive_Code_null_arg_address;
 

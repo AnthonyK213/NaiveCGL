@@ -16,7 +16,7 @@ public:
 
   Naive_EXPORT Vec2d(const Naive_Real theX, const Naive_Real theY);
 
-  Naive_EXPORT Vec2d(const Naive_Vector2d_t &theVec);
+  Naive_EXPORT Vec2d(const Naive_Vec2d_t &theVec);
 
   Naive_EXPORT Vec2d(const Naive_XY &theXY);
 
@@ -73,7 +73,7 @@ public:
 
   Naive_EXPORT static const Vec2d &Unset();
 
-  Naive_EXPORT Naive_Bool Dump(Naive_Vector2d_t &theV) const;
+  Naive_EXPORT Naive_Bool Dump(Naive_Vec2d_t &theV) const;
 
 private:
   Naive_XY myXY;

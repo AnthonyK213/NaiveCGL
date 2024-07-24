@@ -4,7 +4,7 @@
 #include "Interface_NaiveCGL_c.h"
 
 Naive_Code_t Naive_Tessellation_make_tetrasphere(
-    const Naive_Point3d_t *center, double radius, int level,
+    const Naive_Pnt3d_t *center, double radius, int level,
     Naive_Triangulation_t *const triangulation) {
   if (!center || !triangulation)
     return Naive_Code_null_arg_address;

@@ -15,7 +15,7 @@ Naive_Code_t Naive_NurbsSurface_ask_degree(Naive_NurbsSurface_t nurbs_surface,
 }
 
 Naive_Code_t Naive_NurbsSurface_create(
-    int n_poles_u, int n_poles_v, const Naive_Point3d_t *poles, int n_weights_u,
+    int n_poles_u, int n_poles_v, const Naive_Pnt3d_t *poles, int n_weights_u,
     int n_weights_v, const double *weights, int n_knots_u,
     const double *knots_u, int n_knots_v, const double *knots_v, int n_mults_u,
     const int *mults_u, int n_mults_v, const int *mults_v, int degree_u,
@@ -31,7 +31,7 @@ Naive_Code_t Naive_NurbsSurface_create(
 
   Naive_Pnt3dList2 aPoles{};
   aPoles.reserve(n_poles_u);
-  const Naive_Point3d_t *aPHead = poles;
+  const Naive_Pnt3d_t *aPHead = poles;
   for (Naive_Integer i = 0; i < n_poles_u; ++i, aPHead += n_poles_v) {
     Naive_Pnt3dList1 aVP(aPHead, aPHead + n_poles_v);
     aPoles.emplace_back(::std::move(aVP));

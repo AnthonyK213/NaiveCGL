@@ -30,7 +30,7 @@ Ax2::Ax2(const Naive_Pnt3d &theP, const Naive_Vec3d &theV) noexcept
   myXDir = myYDir.Crossed(myAxis.Direction()).Normalized();
 }
 
-Ax2::Ax2(const Naive_Axis2_sf_t &theAx2) noexcept
+Ax2::Ax2(const Naive_Ax2_sf_t &theAx2) noexcept
     : myAxis(theAx2.location, theAx2.axis), myXDir(theAx2.ref_direction) {
   myYDir = myAxis.Direction().Crossed(myXDir).Normalized();
   myXDir = myYDir.Crossed(myAxis.Direction()).Normalized();
@@ -65,7 +65,7 @@ const Ax2 &Ax2::Unset() {
   return ax2;
 }
 
-Naive_Bool Ax2::Dump(Naive_Axis2_sf_t &theAx2) const {
+Naive_Bool Ax2::Dump(Naive_Ax2_sf_t &theAx2) const {
   return myAxis.Location().Dump(theAx2.location) &&
          myAxis.Direction().Dump(theAx2.axis) &&
          myXDir.Dump(theAx2.ref_direction);

@@ -5,7 +5,7 @@
 
 Naive_Code_t Naive_Surface_eval(Naive_Surface_t surface, double u, double v,
                                 int n_u_deriv, int n_v_deriv,
-                                Naive_Vector3d_t p[]) {
+                                Naive_Vec3d_t p[]) {
   if (!p)
     return Naive_Code_null_arg_address;
 

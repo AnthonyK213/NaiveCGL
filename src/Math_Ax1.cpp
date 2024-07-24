@@ -8,7 +8,7 @@ Ax1::Ax1() noexcept : myLoc(), myDir() {}
 Ax1::Ax1(const Naive_Pnt3d &theP, const Naive_Vec3d &theV) noexcept
     : myLoc(theP), myDir(theV.Normalized()) {}
 
-Ax1::Ax1(const Naive_Axis1_sf_t &theAx1) noexcept
+Ax1::Ax1(const Naive_Ax1_sf_t &theAx1) noexcept
     : myLoc(theAx1.location), myDir(Naive_Vec3d(theAx1.axis).Normalized()) {}
 
 const Ax1 &Ax1::Unset() {
@@ -34,7 +34,7 @@ Ax1 Ax1::Transformed(const Trsf3d &theTrsf) const {
   return Unset();
 }
 
-Naive_Bool Ax1::Dump(Naive_Axis1_sf_t &theAx1) const {
+Naive_Bool Ax1::Dump(Naive_Ax1_sf_t &theAx1) const {
   return myLoc.Dump(theAx1.location) && myDir.Dump(theAx1.axis);
 }
 

@@ -30,7 +30,7 @@ public:
 
   Naive_EXPORT Naive_Bool IsValid() const;
 
-  Naive_EXPORT Naive_Bool Dump(Naive_Axis22d_sf_t &theAx22d) const;
+  Naive_EXPORT Naive_Bool Dump(Naive_Ax22d_sf_t &theAx22d) const;
 
 private:
   Naive_Pnt2d myLoc;

@@ -16,7 +16,7 @@ public:
 
   Naive_EXPORT Ax1(const Naive_Pnt3d &theP, const Naive_Vec3d &theV) noexcept;
 
-  Naive_EXPORT Ax1(const Naive_Axis1_sf_t &theAx1) noexcept;
+  Naive_EXPORT Ax1(const Naive_Ax1_sf_t &theAx1) noexcept;
 
   Naive_EXPORT static const Ax1 &Unset();
 
@@ -34,7 +34,7 @@ public:
 
   Naive_EXPORT Ax1 Transformed(const Trsf3d &theTrsf) const;
 
-  Naive_EXPORT Naive_Bool Dump(Naive_Axis1_sf_t &theAx1) const;
+  Naive_EXPORT Naive_Bool Dump(Naive_Ax1_sf_t &theAx1) const;
 
 private:
   Naive_Pnt3d myLoc;

@@ -16,7 +16,7 @@ public:
 
   Naive_EXPORT Pnt2d(const Naive_Real theX, const Naive_Real theY);
 
-  Naive_EXPORT Pnt2d(const Naive_Point2d_t &thePnt);
+  Naive_EXPORT Pnt2d(const Naive_Pnt2d_t &thePnt);
 
   Naive_EXPORT Pnt2d(const Naive_XY &theXY);
 
@@ -40,7 +40,7 @@ public:
 
   Naive_EXPORT static const Pnt2d &Unset();
 
-  Naive_EXPORT Naive_Bool Dump(Naive_Point2d_t &theP) const;
+  Naive_EXPORT Naive_Bool Dump(Naive_Pnt2d_t &theP) const;
 
 private:
   Naive_XY myXY;

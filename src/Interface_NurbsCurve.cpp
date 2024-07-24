@@ -54,7 +54,7 @@ Naive_Code_t Naive_NurbsCurve_ask_mults(Naive_NurbsCurve_t nurbs_curve,
 
 Naive_Code_t Naive_NurbsCurve_ask_poles(Naive_NurbsCurve_t nurbs_curve,
                                         int *const n_poles,
-                                        Naive_Point3d_t **const poles) {
+                                        Naive_Pnt3d_t **const poles) {
   if (!n_poles || !poles)
     return Naive_Code_null_arg_address;
 
@@ -66,7 +66,7 @@ Naive_Code_t Naive_NurbsCurve_ask_poles(Naive_NurbsCurve_t nurbs_curve,
   *n_poles = nbPoles;
 
   const Naive_Pnt3dList1 &aPoles = H->Poles();
-  Naive_ALLOC_ARRAY(Naive_Point3d_t, nbPoles, poles);
+  Naive_ALLOC_ARRAY(Naive_Pnt3d_t, nbPoles, poles);
   for (Naive_Integer i = 0; i < nbPoles; ++i) {
     aPoles[i].Dump((*poles)[i]);
   }
@@ -94,7 +94,7 @@ Naive_Code_t Naive_NurbsCurve_ask_weights(Naive_NurbsCurve_t nurbs_curve,
   return Naive_Code_ok;
 }
 
-Naive_Code_t Naive_NurbsCurve_create(int n_poles, const Naive_Point3d_t *poles,
+Naive_Code_t Naive_NurbsCurve_create(int n_poles, const Naive_Pnt3d_t *poles,
                                      int n_weights, const double *weights,
                                      int n_knots, const double *knots,
                                      int n_mults, const int *mults, int degree,
