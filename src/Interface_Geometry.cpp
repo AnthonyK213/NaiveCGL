@@ -18,6 +18,7 @@ Naive_Code_t Naive_Geometry_is_valid(Naive_Geometry_t geometry,
   if (!is_valid)
     return Naive_Code_null_arg_address;
 
+  *is_valid = Naive_Logical_false;
   Naive_ROSTER_ASK(Naive_Geometry, geometry, H);
   *is_valid = H->IsValid();
   return Naive_Code_ok;
