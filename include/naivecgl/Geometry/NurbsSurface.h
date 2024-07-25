@@ -44,9 +44,6 @@ public:
 
   Naive_EXPORT Naive_Bool IsVPeriodic() const { return myVPeriodic; }
 
-  Naive_EXPORT virtual Naive_Pnt3d
-  PointAt(const Naive_Real theU, const Naive_Real theV) const Naive_OVERRIDE;
-
   Naive_EXPORT virtual Naive_Code
   Evaluate(const Naive_Real theU, const Naive_Real theV,
            const Naive_Integer theN,

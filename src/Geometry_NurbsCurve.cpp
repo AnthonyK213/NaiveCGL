@@ -82,20 +82,6 @@ Naive_Real NurbsCurve::LastParameter() const {
   return myKnots[myKnots.size() - 1];
 }
 
-Naive_Pnt3d NurbsCurve::PointAt(const Naive_Real theT) const {
-  Naive_Vec3dList1 aD{};
-  if (!Evaluate(theT, 0, aD))
-    return Naive_Pnt3d::Unset();
-  return aD[0].XYZ();
-}
-
-Naive_Vec3d NurbsCurve::TangentAt(const Naive_Real theT) const {
-  Naive_Vec3dList1 aD{};
-  if (!Evaluate(theT, 1, aD))
-    return Naive_Vec3d::Unset();
-  return aD[1];
-}
-
 Naive_Code NurbsCurve::Evaluate(const Naive_Real theT, const Naive_Integer theN,
                                 Naive_Vec3dList1 &theD) const {
   if (!IsValid())

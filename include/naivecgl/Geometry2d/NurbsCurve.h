@@ -59,12 +59,6 @@ public:
 
   Naive_EXPORT Naive_Bool IsPeriodic() const { return myPeriodic; }
 
-  Naive_EXPORT virtual Naive_Pnt2d
-  PointAt(const Naive_Real theT) const Naive_OVERRIDE;
-
-  Naive_EXPORT virtual Naive_Vec2d
-  TangentAt(const Naive_Real theT) const Naive_OVERRIDE;
-
   Naive_EXPORT virtual Naive_Code
   Evaluate(const Naive_Real theT, const Naive_Integer theN,
            Naive_Vec2dList1 &theD) const Naive_OVERRIDE;

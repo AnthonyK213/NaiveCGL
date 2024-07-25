@@ -87,7 +87,7 @@ Naive_Code Circle::CurvatureAt(const Naive_Real theT, Naive_Vec3d &theV) const {
 
   Naive_Vec3dList1 aD{};
   Naive_Code aCode = Evaluate(theT, 2, aD);
-  if (aCode)
+  if (aCode != Naive_Code_ok)
     return aCode;
 
   theV = aD[2].Divided(myRadius * myRadius);

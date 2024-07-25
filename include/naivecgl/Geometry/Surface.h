@@ -10,7 +10,7 @@ Naive_NAMESPACE_BEGIN(geometry);
 class Surface : public Naive_Geometry {
 public:
   Naive_EXPORT virtual Naive_Pnt3d PointAt(const Naive_Real theU,
-                                           const Naive_Real theV) const = 0;
+                                           const Naive_Real theV) const;
 
   Naive_EXPORT virtual Naive_Code Evaluate(const Naive_Real theU,
                                            const Naive_Real theV,

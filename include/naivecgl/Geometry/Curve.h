@@ -13,9 +13,9 @@ public:
 
   Naive_EXPORT virtual Naive_Real LastParameter() const = 0;
 
-  Naive_EXPORT virtual Naive_Pnt3d PointAt(const Naive_Real theT) const = 0;
+  Naive_EXPORT virtual Naive_Pnt3d PointAt(const Naive_Real theT) const;
 
-  Naive_EXPORT virtual Naive_Vec3d TangentAt(const Naive_Real theT) const = 0;
+  Naive_EXPORT virtual Naive_Vec3d TangentAt(const Naive_Real theT) const;
 
   Naive_EXPORT virtual Naive_Code Evaluate(const Naive_Real theT,
                                            const Naive_Integer theN,

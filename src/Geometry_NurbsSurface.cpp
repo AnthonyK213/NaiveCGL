@@ -53,14 +53,6 @@ Naive_Bool NurbsSurface::Bounds(Naive_Real &theU0, Naive_Real &theU1,
   return Naive_True;
 }
 
-Naive_Pnt3d NurbsSurface::PointAt(const Naive_Real theU,
-                                  const Naive_Real theV) const {
-  Naive_Vec3dList1 aD{};
-  if (!Evaluate(theU, theV, 0, aD))
-    return Naive_Pnt3d::Unset();
-  return aD[0].XYZ();
-}
-
 Naive_Code NurbsSurface::Evaluate(const Naive_Real theU, const Naive_Real theV,
                                   const Naive_Integer theN,
                                   Naive_Vec3dList1 &theD) const {
