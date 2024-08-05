@@ -8,13 +8,15 @@ Naive_NAMESPACE_BEGIN(math);
 
 class Ax22d final {
 public:
-  Naive_EXPORT Ax22d();
+  Naive_EXPORT Ax22d() noexcept;
 
   Naive_EXPORT Ax22d(const Naive_Pnt2d &theP, const Naive_Vec2d &theVx,
                      const Naive_Vec2d &theVy);
 
   Naive_EXPORT Ax22d(const Naive_Pnt2d &theP, const Naive_Vec2d &theV,
                      const Naive_Bool &theIsSense = Naive_True);
+
+  Naive_EXPORT Ax22d(const Naive_Ax22d_sf_t &theSF);
 
   const Naive_Pnt2d &Location() const { return myLoc; }
 

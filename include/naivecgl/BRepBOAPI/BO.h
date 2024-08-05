@@ -7,8 +7,12 @@ Naive_NAMESPACE_BEGIN(brepboapi);
 
 class BO : public common::Command {
 public:
+  Naive_EXPORT Naive_Real Fuzzy() const { return myFuzzy; }
+
+  Naive_EXPORT void SetFuzzy();
+
 protected:
-private:
+  Naive_Real myFuzzy;
 };
 
 Naive_NAMESPACE_END(brepboapi);

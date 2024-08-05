@@ -45,6 +45,14 @@ public:
 
   Naive_EXPORT Naive_Real SquareLength() const;
 
+  Naive_EXPORT static const Vec2d &XAxis();
+
+  Naive_EXPORT static const Vec2d &YAxis();
+
+  Naive_EXPORT static const Vec2d &Zero();
+
+  Naive_EXPORT static const Vec2d &Unset();
+
   Naive_EXPORT Naive_Bool Normalize();
 
   Naive_EXPORT Vec2d Normalized() const;
@@ -70,8 +78,6 @@ public:
   Naive_EXPORT Naive_Real Crossed(const Vec2d &theV) const;
 
   Naive_EXPORT Naive_XYZ HomoCoord() const;
-
-  Naive_EXPORT static const Vec2d &Unset();
 
   Naive_EXPORT Naive_Bool Dump(Naive_Vec2d_t &theV) const;
 

@@ -12,6 +12,8 @@ public:
 
   Naive_EXPORT Ax2d(const Naive_Pnt2d &theP, const Naive_Vec2d &theV);
 
+  Naive_EXPORT Ax2d(const Naive_Ax2d_sf_t &theSF);
+
   const Naive_Pnt2d &Location() const { return myLoc; }
 
   const Naive_Vec2d &Direction() const { return myAxis; }

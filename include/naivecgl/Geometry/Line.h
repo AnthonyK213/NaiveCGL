@@ -1,26 +1,21 @@
 ﻿#ifndef _NaiveCGL_Geometry_Line_HeaderFile
 #define _NaiveCGL_Geometry_Line_HeaderFile
 
+#include "../Math/Ax1.h"
 #include "Curve.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 
 class Line final : public Naive_Curve {
 public:
-  Naive_EXPORT Line() {}
-
-  Naive_EXPORT Line(const Naive_Pnt3d &theFrom, const Naive_Pnt3d &theTo);
+  Naive_EXPORT Line(const Naive_Ax1 &thePos) noexcept;
 
   Naive_EXPORT Line(const Naive_Pnt3d &theLocation,
                     const Naive_Vec3d &theDirection);
 
-  Naive_EXPORT Line(const Naive_Line_sf_t &theLineT);
+  Naive_EXPORT Line(const Naive_Line_sf_t &theLineSF);
 
-  Naive_EXPORT Naive_Pnt3d Location() const { return myLocation; }
-
-  Naive_EXPORT Naive_Vec3d Direction() const { return myAxis; }
-
-  Naive_EXPORT Naive_Vec3d UnitTangent() const;
+  Naive_EXPORT const Naive_Ax1 &Position() { return myPos; }
 
   Naive_EXPORT virtual Naive_Real FirstParameter() const Naive_OVERRIDE;
 
@@ -48,8 +43,7 @@ public:
   Naive_DEFINE_RTTI(Line, Naive_Curve);
 
 private:
-  Naive_Pnt3d myLocation;
-  Naive_Vec3d myAxis;
+  Naive_Ax1 myPos;
 };
 
 Naive_NAMESPACE_END(geometry);

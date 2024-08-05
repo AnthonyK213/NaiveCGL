@@ -22,6 +22,26 @@ Naive_Real Vec2d::Length() const { return myXY.norm(); }
 
 Naive_Real Vec2d::SquareLength() const { return myXY.squaredNorm(); }
 
+const Vec2d &Vec2d::XAxis() {
+  static Vec2d X{1., 0.};
+  return X;
+}
+
+const Vec2d &Vec2d::YAxis() {
+  static Vec2d Y{0., 1.};
+  return Y;
+}
+
+const Vec2d &Vec2d::Zero() {
+  static Vec2d Z{0., 0.};
+  return Z;
+}
+
+const Vec2d &Vec2d::Unset() {
+  static Vec2d p{};
+  return p;
+}
+
 Naive_Bool Vec2d::Normalize() {
   if (IsValid() && !IsZero()) {
     myXY.normalize();
@@ -76,11 +96,6 @@ Naive_Real Vec2d::Crossed(const Vec2d &theV) const {
 }
 
 Naive_XYZ Vec2d::HomoCoord() const { return Naive_XYZ{myXY.x(), myXY.y(), 0.}; }
-
-const Vec2d &Vec2d::Unset() {
-  static Vec2d p{};
-  return p;
-}
 
 Naive_Bool Vec2d::Dump(Naive_Vec2d_t &theV) const {
   if (!IsValid())

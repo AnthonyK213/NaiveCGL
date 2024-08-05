@@ -2,7 +2,7 @@
 
 Naive_NAMESPACE_BEGIN(math);
 
-Ax22d::Ax22d() : myLoc(), myXDir(), myYDir() {}
+Ax22d::Ax22d() noexcept : myLoc(), myXDir(), myYDir() {}
 
 Ax22d::Ax22d(const Naive_Pnt2d &theP, const Naive_Vec2d &theVx,
              const Naive_Vec2d &theVy)
@@ -24,6 +24,9 @@ Ax22d::Ax22d(const Naive_Pnt2d &theP, const Naive_Vec2d &theV,
     myYDir.SetCoord(myXDir.Y(), -myXDir.X());
   }
 }
+
+Ax22d::Ax22d(const Naive_Ax22d_sf_t &theSF)
+    : myLoc(theSF.location), myXDir(theSF.x_axis), myYDir(theSF.y_axis) {}
 
 void Ax22d::SetXDirection(const Naive_Vec2d &theV) { Naive_TODO; }
 
