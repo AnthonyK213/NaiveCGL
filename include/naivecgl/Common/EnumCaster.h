@@ -13,7 +13,7 @@ Naive_NAMESPACE_BEGIN(common);
 template <typename Enum_, int Lower_, int Upper_> class EnumCaster {
 public:
   static Naive_Integer To(Enum_ theEnum) {
-    return static_cast<Integer>(theEnum);
+    return static_cast<Naive_Integer>(theEnum);
   }
 
   static ::std::optional<Enum_> From(Naive_Integer theInt) {
