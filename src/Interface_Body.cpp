@@ -1,3 +1,5 @@
+#include <naivecgl/BRepBuilderAPI/BuildSolidBlock.h>
+#include <naivecgl/Common/Roster.h>
 #include <naivecgl/Topology/Body.h>
 
 #include "Interface_NaiveCGL_c.h"
@@ -46,4 +48,17 @@ Naive_Code_t Naive_Body_boolean(Naive_Body_t target, int n_tools,
                                 const Naive_Body_t *tools,
                                 const Naive_Body_boolean_o_t *options) {
   return Naive_Code_not_implemented;
+}
+
+Naive_Code_t Naive_Body_create_solid_block(double x, double y, double z,
+                                           const Naive_Ax2_sf_t *basis_set,
+                                           Naive_Body_t *const body) {
+  if (!basis_set || !body)
+    return Naive_Code_null_arg_address;
+
+  ::naivecgl::brepbuilderapi::BuildSolidBlock aBuilder{*basis_set, x, y, z};
+  Naive_CHECK_CODE(aBuilder.Status());
+  Naive_ROSTER_ADD(aBuilder.Body(), *body);
+
+  return Naive_Code_ok;
 }

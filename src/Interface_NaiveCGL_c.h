@@ -34,4 +34,14 @@
 #define Naive_ALLOC_ARRAY(Tp_, Size_, Var_)                                    \
   Naive_CHECK_CODE(Naive_Memory_alloc(sizeof(Tp_) * (Size_), (void **)Var_));
 
+#define Naive_ENUM_CAST(Enum_, Val_, Var_)                                     \
+  Enum_ Var_;                                                                  \
+  do {                                                                         \
+    auto __enum__ = ::naivecgl::common::Enum_##Caster::From(Val_);             \
+    if (!__enum__) {                                                           \
+      return Naive_Code_invalid_value;                                         \
+    }                                                                          \
+    Var_ = __enum__.value();                                                   \
+  } while (0)
+
 #endif

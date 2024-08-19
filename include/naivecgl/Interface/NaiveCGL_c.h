@@ -52,6 +52,10 @@ Naive_API Naive_Code_t Naive_Body_boolean(
     const Naive_Body_boolean_o_t * /* options */
 );
 
+Naive_API Naive_Code_t Naive_Body_create_solid_block(
+    double /* x */, double /* y */, double /* z */,
+    const Naive_Ax2_sf_t * /* basis_set */, Naive_Body_t *const /* body */);
+
 /* Naive_Class */
 
 Naive_API Naive_Code_t Naive_Class_ask_superclass(
