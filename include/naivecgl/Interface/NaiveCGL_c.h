@@ -201,7 +201,7 @@ Naive_API Naive_Code_t Naive_Surface_eval(Naive_Surface_t /* surface */,
 
 /* Naive_Tessellation */
 
-Naive_API Naive_Code_t Naive_Tessellation_make_tetrasphere(
+Naive_API Naive_Code_t Naive_Tessellation_create_tetrasphere(
     const Naive_Pnt3d_t * /* center */, double /* radius */, int /* level */,
     Naive_Triangulation_t *const /* triangulation */);
 
