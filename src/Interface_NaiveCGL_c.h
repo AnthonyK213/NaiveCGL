@@ -4,6 +4,7 @@
 #include <naivecgl/Interface/NaiveCGL_c.h>
 
 #include <cstdlib>
+#include <memory>
 
 #define Naive_CHECK_CODE(Code_)                                                \
   do {                                                                         \
@@ -43,5 +44,12 @@
     }                                                                          \
     Var_ = __enum__.value();                                                   \
   } while (0)
+
+template <class T> struct Naive_Default_delete {
+  void operator()(T *ptr) const noexcept { Naive_Memory_free(ptr); }
+};
+
+template <class T>
+using Naive_unique_ptr = ::std::unique_ptr<T, Naive_Default_delete<T>>;
 
 #endif

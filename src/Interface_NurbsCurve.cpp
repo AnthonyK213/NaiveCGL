@@ -35,16 +35,14 @@ Naive_Code_t Naive_NurbsCurve_ask(Naive_NurbsCurve_t nurbs_curve,
   nurbs_curve_sf->n_vertices = nurbs_curve_sf->vertex_dim * aPoles.size();
   nurbs_curve_sf->n_knots = static_cast<int>(aKnots.size());
 
-  double *vertex = nullptr, *knot = nullptr;
-  int *knot_mult = nullptr;
-
-  /* FIXME: Memory leak? */
+  Naive_unique_ptr<double> vertex{}, knot{};
+  Naive_unique_ptr<int> knot_mult{};
 
   Naive_ALLOC_ARRAY(double, nurbs_curve_sf->n_vertices, &vertex);
   Naive_ALLOC_ARRAY(double, nurbs_curve_sf->n_knots, &knot);
   Naive_ALLOC_ARRAY(int, nurbs_curve_sf->n_knots, &knot_mult);
 
-  double *p_vertex = vertex;
+  double *p_vertex = vertex.get();
 
   if (H->IsRational()) {
     Naive_Real aWeight;
@@ -63,12 +61,12 @@ Naive_Code_t Naive_NurbsCurve_ask(Naive_NurbsCurve_t nurbs_curve,
     }
   }
 
-  ::std::copy(aKnots.cbegin(), aKnots.cend(), knot);
-  ::std::copy(aMults.cbegin(), aMults.cend(), knot_mult);
+  ::std::copy(aKnots.cbegin(), aKnots.cend(), knot.get());
+  ::std::copy(aMults.cbegin(), aMults.cend(), knot_mult.get());
 
-  nurbs_curve_sf->vertex = vertex;
-  nurbs_curve_sf->knot = knot;
-  nurbs_curve_sf->knot_mult = knot_mult;
+  nurbs_curve_sf->vertex = vertex.release();
+  nurbs_curve_sf->knot = knot.release();
+  nurbs_curve_sf->knot_mult = knot_mult.release();
 
   return Naive_Code_ok;
 }

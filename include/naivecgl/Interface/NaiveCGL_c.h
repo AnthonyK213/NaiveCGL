@@ -205,6 +205,17 @@ Naive_API Naive_Code_t Naive_NurbsCurve_remove_knot(
 /* Naive_NurbsSurface */
 
 /**
+ * @brief This function returns the standard form for a NURBS surface.
+ *
+ * @param nurbs_surface [I] NURBS surface.
+ * @param nurbs_surface_sf [O] NURBS surface standard form.
+ * @return Code.
+ */
+Naive_API Naive_Code_t
+Naive_NurbsSurface_ask(Naive_NurbsSurface_t nurbs_surface,
+                       Naive_NurbsSurface_sf_t *const nurbs_surface_sf);
+
+/**
  * @brief This function creates a NURBS surface from the standard form.
  *
  * @param nurbs_surface_sf [I] NURBS surface standard form.
@@ -258,10 +269,10 @@ Naive_API Naive_Code_t Naive_Surface_eval(Naive_Surface_t surface, double u,
 /**
  * @brief This function creates a triangulated sphere with tetrahedral pattern.
  *
- * @param center Center of the sphere.
- * @param radius Radius of the sphere.
- * @param level Tessellation level.
- * @param triangulation The tetrsphere.
+ * @param center [I] Center of the sphere.
+ * @param radius [I] Radius of the sphere.
+ * @param level [I] Tessellation level.
+ * @param triangulation [O] The tetrsphere.
  * @return Code.
  */
 Naive_API Naive_Code_t Naive_Tessellation_create_tetrasphere(

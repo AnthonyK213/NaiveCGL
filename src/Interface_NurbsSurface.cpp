@@ -4,6 +4,31 @@
 #include "Interface_NaiveCGL_c.h"
 
 Naive_Code_t
+Naive_NurbsSurface_ask(Naive_NurbsSurface_t nurbs_surface,
+                       Naive_NurbsSurface_sf_t *const nurbs_surface_sf) {
+  if (!nurbs_surface_sf)
+    return Naive_Code_null_arg_address;
+
+  Naive_ROSTER_ASK(Naive_NurbsSurface, nurbs_surface, H);
+
+  if (!H->IsValid())
+    return Naive_Code_invalid_object;
+
+  nurbs_surface_sf->u_degree = H->UDegree();
+  nurbs_surface_sf->v_degree = H->VDegree();
+  nurbs_surface_sf->is_rational = H->IsURational() || H->IsVRational();
+  nurbs_surface_sf->form = Naive_NurbsSurface_form_unset_c;
+  nurbs_surface_sf->is_u_periodic = H->IsUPeriodic();
+  nurbs_surface_sf->is_v_periodic = H->IsVPeriodic();
+  nurbs_surface_sf->is_u_closed = Naive_Logical_false;
+  nurbs_surface_sf->is_v_closed = Naive_Logical_false;
+
+  /* TODO: Arrays. */
+
+  return Naive_Code_ok;
+}
+
+Naive_Code_t
 Naive_NurbsSurface_create(const Naive_NurbsSurface_sf_t *nurbs_surface_sf,
                           Naive_NurbsSurface_t *const nurbs_surface) {
   if (!nurbs_surface_sf || !nurbs_surface)
