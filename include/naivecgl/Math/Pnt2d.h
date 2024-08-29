@@ -10,6 +10,8 @@
 
 Naive_NAMESPACE_BEGIN(math);
 
+class Vec2d;
+
 class Pnt2d final {
 public:
   Naive_EXPORT Pnt2d();
@@ -20,19 +22,45 @@ public:
 
   Naive_EXPORT Pnt2d(const Naive_XY &theXY);
 
-  Naive_EXPORT const Naive_XY &XY() const { return myXY; }
+  const Naive_XY &XY() const { return myXY; }
 
-  Naive_EXPORT Naive_XY &ChangeXY() { return myXY; }
+  Naive_XY &ChangeXY() { return myXY; }
 
-  Naive_EXPORT Naive_Real X() const { return myXY.x(); }
+  Naive_Real X() const { return myXY.x(); }
 
-  Naive_EXPORT Naive_Real Y() const { return myXY.y(); }
+  Naive_Real Y() const { return myXY.y(); }
+
+  void SetX(Naive_Real theVal) { myXY.x() = theVal; }
+
+  void SetY(Naive_Real theVal) { myXY.y() = theVal; }
 
   Naive_EXPORT Naive_Bool IsValid() const;
 
   Naive_EXPORT Naive_Real DistanceTo(const Pnt2d &theP) const;
 
   Naive_EXPORT Naive_Real DistanceToSquared(const Pnt2d &theP) const;
+
+  Naive_EXPORT void Add(const Pnt2d &thePoint);
+
+  Naive_EXPORT Pnt2d Added(const Pnt2d &thePoint) const;
+
+  Naive_EXPORT void Add(const Vec2d &theVector);
+
+  Naive_EXPORT Pnt2d Added(const Vec2d &theVector) const;
+
+  Naive_EXPORT Vec2d Subtracted(const Pnt2d &thePoint) const;
+
+  Naive_EXPORT void Multiply(const Naive_Real &theT);
+
+  Naive_EXPORT Pnt2d Multiplied(const Naive_Real &theT) const;
+
+  Naive_EXPORT Naive_Bool Divide(const Naive_Real &theT);
+
+  Naive_EXPORT Pnt2d Divided(const Naive_Real &theT) const;
+
+  Naive_EXPORT void Negate();
+
+  Naive_EXPORT Pnt2d Negated() const;
 
   Naive_EXPORT Naive_XYZ HomoCoord() const;
 

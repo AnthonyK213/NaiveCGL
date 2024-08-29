@@ -9,6 +9,10 @@ class RectangularTrimmedSurface : public Naive_BoundedSurface {
 public:
   Naive_DEFINE_RTTI(RectangularTrimmedSurface, Naive_BoundedSurface);
 
+protected:
+  Naive_EXPORT virtual Naive_Code
+  transform(const math::Trsf3d &theTrsf) Naive_OVERRIDE;
+
 private:
 };
 

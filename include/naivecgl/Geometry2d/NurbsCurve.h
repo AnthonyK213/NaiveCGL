@@ -66,7 +66,7 @@ public:
   Naive_EXPORT virtual Naive_Code
   CurvatureAt(const Naive_Real theT, Naive_Vec2d &theV) const Naive_OVERRIDE;
 
-  Naive_EXPORT Naive_Code IncreaseDegree(const Naive_Integer theDegree);
+  Naive_EXPORT Naive_Code RaiseDegree(const Naive_Integer theDegree);
 
   Naive_EXPORT Naive_Code IncreaseMultiplicity(const Naive_Integer theI,
                                                const Naive_Integer theM);
@@ -74,10 +74,13 @@ public:
   Naive_EXPORT Naive_Code InsertKnot(const Naive_Real theT,
                                      const Naive_Integer theM);
 
-  /// @brief Reduces the multiplicity of the knot of index |I| to |M|.
-  /// @param theI The knot index.
-  /// @param theM The multiplicity to reduce to.
-  /// @return If reduced successfully, true; otherwise, false.
+  /**
+   * @brief Reduces the multiplicity of the knot of index |I| to |M|.
+   *
+   * @param theI The knot index.
+   * @param theM The multiplicity to reduce to.
+   * @return If reduced successfully, true; otherwise, false.
+   */
   Naive_EXPORT Naive_Code RemoveKnot(const Naive_Integer theI,
                                      const Naive_Integer theM);
 

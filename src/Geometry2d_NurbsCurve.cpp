@@ -148,7 +148,7 @@ Naive_Code NurbsCurve::CurvatureAt(const Naive_Real theT,
   return aCode;
 }
 
-Naive_Code NurbsCurve::IncreaseDegree(const Naive_Integer theDegree) {
+Naive_Code NurbsCurve::RaiseDegree(const Naive_Integer theDegree) {
   if (!IsValid())
     return Naive_Code_invalid_object;
 
@@ -212,7 +212,7 @@ Naive_Code NurbsCurve::InsertKnot(const Naive_Real theT,
   /* If |theT| is already in the |myKnots|, the operation would be a
    * multiplicity increase. */
 
-  // FIXME: Float equality?
+  /* FIXME: Float equality? */
 
   if (theT == myKnots[iSpan])
     return IncreaseMultiplicity(iSpan, theM);

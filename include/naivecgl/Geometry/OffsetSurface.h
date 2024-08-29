@@ -9,6 +9,10 @@ class OffsetSurface : public Naive_Surface {
 public:
   Naive_DEFINE_RTTI(OffsetSurface, Naive_Surface);
 
+protected:
+  Naive_EXPORT virtual Naive_Code
+  transform(const math::Trsf3d &theTrsf) Naive_OVERRIDE;
+
 private:
 };
 

@@ -111,7 +111,7 @@ public:
     if (myStatus != Naive_Code_initialized)
       return;
 
-    // TODO: Check collinear.
+    /* TODO: Check collinear. */
 
     myStatus = Naive_Code_ok;
 
@@ -144,8 +144,8 @@ public:
     if (aRealloc)
       initPtrs();
 
-    // TODO: If |thePoint| is inside the current hull, update |myHull| if
-    // |aRealloc|, then set |myStatus| to |Naive_Code_ok|.
+    /* TODO: If |thePoint| is inside the current hull, update |myHull| if
+       |aRealloc|, then set |myStatus| to |Naive_Code_ok|. */
 
     myHull.clear();
     myStatus = Naive_Code_initialized;
@@ -155,9 +155,12 @@ public:
   }
 
 private:
-  /// @brief Find points (|a|, |b|) with min and max the value of x.
-  /// @param a Min
-  /// @param b Max
+  /**
+   * @brief Find points (|a|, |b|) with min and max the value of x.
+   *
+   * @param a Min
+   * @param b Max
+   */
   void extremeX(PPnt &a, PPnt &b) const {
     Naive_Real xMin = math::Constant::Infinite();
     Naive_Real xMax = -xMin;
@@ -174,18 +177,21 @@ private:
       }
     }
 
-    /// TODO: Handle this!
+    /* TODO: Handle this! */
     if (a == b) {
       myStatus = Naive_Code_err;
     }
   }
 
-  /// @brief Find all points which is on the right side of the line ab.
-  /// @param points The set of points to be searched.
-  /// @param a The "from point" of the line.
-  /// @param b The "to point" of the line.
-  /// @param f The farthest ponit on the right side of the line ab.
-  /// @return The right-side point set.
+  /**
+   * @brief Find all points which is on the right side of the line ab.
+   *
+   * @param points The set of points to be searched.
+   * @param a The "from point" of the line.
+   * @param b The "to point" of the line.
+   * @param f The farthest ponit on the right side of the line ab.
+   * @return The right-side point set.
+   */
   PPnts rightOf(const PPnts &points, PPnt a, PPnt b, PPnt &f) const {
     Naive_Real dist = 0.0;
     PPnts result{};
@@ -222,12 +228,15 @@ private:
     return result;
   }
 
-  /// @brief Find convex points on a half plane.
-  /// @param points The point set.
-  /// @param a
-  /// @param b
-  /// @param f
-  /// @param buf The convex ponits.
+  /**
+   * @brief Find convex points on a half plane.
+   *
+   * @param points The point set.
+   * @param a
+   * @param b
+   * @param f
+   * @param buf The convex ponits.
+   */
   void half(const PPnts &points, PPnt a, PPnt b, PPnt f, PPnts &buf) {
     if (points.empty())
       return;

@@ -9,6 +9,10 @@ class OffsetCurve : public Naive_Curve {
 public:
   Naive_DEFINE_RTTI(OffsetCurve, Naive_Curve);
 
+protected:
+  Naive_EXPORT virtual Naive_Code
+  transform(const math::Trsf3d &theTrsf) Naive_OVERRIDE;
+
 private:
 };
 

@@ -39,6 +39,10 @@ public:
 
   Naive_DEFINE_RTTI(TrimmedCurve, Naive_BoundedCurve);
 
+protected:
+  Naive_EXPORT virtual Naive_Code
+  transform(const math::Trsf3d &theTrsf) Naive_OVERRIDE;
+
 private:
   Handle_Naive_Curve myBasisCurve;
   Naive_Real myT1;

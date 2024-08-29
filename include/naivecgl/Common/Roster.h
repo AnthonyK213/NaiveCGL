@@ -13,15 +13,13 @@ public:
 
   Naive_Tag NewTag();
 
-  /// For C API only.
+  /* For C API only. */
 
   Naive_Code Insert(const TObject &theObj);
 
   Naive_Code Erase(Naive_Tag theTag);
 
   Naive_Code Find(Naive_Tag theTag, TObject &theObj) const;
-
-  ///
 
 private:
   Roster();

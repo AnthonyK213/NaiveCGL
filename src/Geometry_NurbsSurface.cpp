@@ -1,6 +1,7 @@
 #include <naivecgl/Geometry/NurbsSurface.h>
 #include <naivecgl/Math/Constant.h>
 #include <naivecgl/Math/Polynomial.h>
+#include <naivecgl/Math/Trsf3d.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
@@ -128,6 +129,16 @@ Naive_Code NurbsSurface::Evaluate(const Naive_Real theU, const Naive_Real theV,
       }
 
       theD[aHead[I] + L].ChangeXYZ() = A / aWBuf[0][0];
+    }
+  }
+
+  return Naive_Code_ok;
+}
+
+Naive_Code NurbsSurface::transform(const Naive_Trsf3d &theTrsf) {
+  for (Naive_Pnt3dList1 &v : myPoles) {
+    for (Naive_Pnt3d &p : v) {
+      p.Transform(theTrsf);
     }
   }
 

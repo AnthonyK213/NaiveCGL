@@ -12,7 +12,10 @@ Naive_NAMESPACE_BEGIN(geometry);
 
 class Triangulation;
 
-/// @brief Manifold mesh described by half-edges.
+/**
+ * @brief Manifold mesh described by half-edges.
+ *
+ */
 class Mesh : public Naive_Geometry {
 public:
   typedef Naive_Integer VertexId;
@@ -69,9 +72,9 @@ public:
     Naive_EXPORT VertexId Id() const { return myId; }
 
   private:
-    Naive_Pnt3d myCoord; // Vertex coordinates.
-    HalfEdgeId myEdge;   // An half-edge starts with the vertex.
-    VertexId myId;       // The ID(key) in the vertex map.
+    Naive_Pnt3d myCoord; /* Vertex coordinates. */
+    HalfEdgeId myEdge;   /* An half-edge starts with the vertex. */
+    VertexId myId;       /* The ID(key) in the vertex map. */
   };
 
   struct HalfEdge {
@@ -94,12 +97,12 @@ public:
     Naive_EXPORT HalfEdgeId Id() const { return myId; }
 
   private:
-    VertexId myOrigin; // Start vertex of the half-edge.
-    FaceId myFace;     // The face the half-edge bounds.
-    HalfEdgeId myTwin; // The twin half-edge.
-    HalfEdgeId myPrev; // Previous edge on the boundary of the incident face.
-    HalfEdgeId myNext; // Next edge on the boundary of the incident face.
-    HalfEdgeId myId;   // The ID(key) in the half-edge map.
+    VertexId myOrigin; /* Start vertex of the half-edge. */
+    FaceId myFace;     /* The face the half-edge bounds. */
+    HalfEdgeId myTwin; /* The twin half-edge. */
+    HalfEdgeId myPrev; /* Previous edge on the boundary of the incident face. */
+    HalfEdgeId myNext; /* Next edge on the boundary of the incident face. */
+    HalfEdgeId myId;   /* The ID(key) in the half-edge map. */
   };
 
   struct Face {
@@ -116,9 +119,9 @@ public:
     Naive_EXPORT FaceId Id() const { return myId; }
 
   private:
-    HalfEdgeId myOuterEdge; // A half-edge on the outer boundary.
-    Naive_Vec3d myNormal;   // Face normal.
-    FaceId myId;            // The ID(key) in the face map.
+    HalfEdgeId myOuterEdge; /* A half-edge on the outer boundary. */
+    Naive_Vec3d myNormal;   /* Face normal. */
+    FaceId myId;            /* The ID(key) in the face map. */
   };
 
   class EdgeIterator {
@@ -141,8 +144,13 @@ public:
 public:
   Naive_EXPORT Mesh();
 
-  /// @brief Construct a half-edge mesh from a trangulation.
-  Naive_EXPORT explicit Mesh(const Naive_Handle<Triangulation> &thePoly);
+  /**
+   * @brief Construct a half-edge mesh from a trangulation.
+   *
+   * @param theTriangulation Triangulation.
+   */
+  Naive_EXPORT explicit Mesh(
+      const Naive_Handle<Triangulation> &theTriangulation);
 
   Naive_EXPORT virtual Naive_Bool IsValid() const Naive_OVERRIDE;
 
@@ -181,19 +189,23 @@ public:
 
   Naive_DEFINE_RTTI(Mesh, Naive_Object);
 
+protected:
+  Naive_EXPORT virtual Naive_Code
+  transform(const math::Trsf3d &theTrsf) Naive_OVERRIDE;
+
 private:
   Naive_Bool addVertex(const VertexId theId, const Naive_Pnt3d &thePoint);
 
   Naive_Bool removeHalfEdge(const HalfEdge *theEdge, Naive_Bool theCompat);
 
 private:
-  Naive_Integer myVertexIndex; // Current vertex index.
-  Naive_Integer myFaceIndex;   // Current face index.
+  Naive_Integer myVertexIndex; /* Current vertex index. */
+  Naive_Integer myFaceIndex;   /* Current face index. */
   Naive_Stack<Naive_Integer> myVertexSlots;
   Naive_Stack<Naive_Integer> myFaceSlots;
-  Naive_Map<Naive_Integer, Vertex> myVertices; // Vertices.
-  Naive_Map<HalfEdgeId, HalfEdge> myHalfEdges; // Half-edges.
-  Naive_Map<Naive_Integer, Face> myFaces;      // Faces.
+  Naive_Map<Naive_Integer, Vertex> myVertices; /* Vertices. */
+  Naive_Map<HalfEdgeId, HalfEdge> myHalfEdges; /* Half-edges. */
+  Naive_Map<Naive_Integer, Face> myFaces;      /* Faces. */
   Naive_Bool myIsValid;
 };
 

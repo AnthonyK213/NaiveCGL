@@ -30,6 +30,8 @@ typedef int Naive_Algorithm_t;
 typedef int Naive_Class_t;
 typedef int Naive_Code_t;
 typedef int Naive_Loop_type_t;
+typedef int Naive_NurbsCurve_form_t;
+typedef int Naive_NurbsSurface_form_t;
 typedef int Naive_Orientation_t;
 typedef int Naive_boolean_function_t;
 
@@ -132,6 +134,45 @@ typedef struct Naive_Circle_sf_s {
 typedef struct Naive_Line_sf_s {
   Naive_Ax1_sf_t basis_set;
 } Naive_Line_sf_t;
+
+/* Naive_NurbsCurve_sf_t */
+
+typedef struct Naive_NurbsCurve_sf_s {
+  int degree;
+  int n_vertices;
+  int vertex_dim;
+  Naive_Logical_t is_rational;
+  double *vertex;
+  Naive_NurbsCurve_form_t form;
+  int n_knots;
+  int *knot_mult;
+  double *knot;
+  Naive_Logical_t is_periodic;
+  Naive_Logical_t is_closed;
+} Naive_NurbsCurve_sf_t;
+
+/* Naive_NurbsSurface_sf_t */
+
+typedef struct Naive_NurbsSurface_sf_s {
+  int u_degree;
+  int v_degree;
+  int n_u_vertices;
+  int n_v_vertices;
+  int vertex_dim;
+  Naive_Logical_t is_rational;
+  double *vertex;
+  Naive_NurbsSurface_form_t form;
+  int n_u_knots;
+  int n_v_knots;
+  int *u_knot_mult;
+  int *v_knot_mult;
+  double *u_knot;
+  double *v_knot;
+  Naive_Logical_t is_u_periodic;
+  Naive_Logical_t is_v_periodic;
+  Naive_Logical_t is_u_closed;
+  Naive_Logical_t is_v_closed;
+} Naive_NurbsSurface_sf_t;
 
 /* Naive_Plane_sf_t */
 

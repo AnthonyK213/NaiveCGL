@@ -11,7 +11,7 @@ Naive_NAMESPACE_BEGIN(math);
 
 class Constant {
 public:
-  /// Math constants.
+  /* Math constants. */
 
   static constexpr Naive_Real PI() { return 3.14159265358979323846; }
 
@@ -23,7 +23,7 @@ public:
 
   static constexpr Naive_Real TwoPI() { return Tau(); }
 
-  /// Limits.
+  /* Limits. */
 
   static constexpr Naive_Real MinReal() {
     return ::std::numeric_limits<Naive_Real>::min();
@@ -35,7 +35,7 @@ public:
 
   static constexpr Naive_Real Infinite() { return 2.e+100; }
 
-  /// Unset values.
+  /* Unset values. */
 
   static constexpr Naive_Real UnsetPositiveReal() { return 2.1e+100; }
 

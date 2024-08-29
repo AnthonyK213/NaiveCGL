@@ -35,6 +35,10 @@ public:
 
   Naive_DEFINE_RTTI(Triangulation, Naive_Object);
 
+protected:
+  Naive_EXPORT virtual Naive_Code
+  transform(const math::Trsf3d &theTrsf) Naive_OVERRIDE;
+
 private:
   VertexList myVertices;
   TriangleList myTriangles;

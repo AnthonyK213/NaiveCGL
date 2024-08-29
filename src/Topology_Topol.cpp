@@ -6,12 +6,7 @@ Naive_NAMESPACE_BEGIN(topology);
 
 Naive_IMPLEMENT_RTTI(Topol);
 
-Naive_Location Topol::Location() const {
-  // Topol *aParent = myParent;
-  // while (aParent) {
-  // }
-  Naive_TODO;
-}
+Naive_Location Topol::Location() const { Naive_TODO; }
 
 Naive_Orientation Topol::Orientation() const {
   Naive_Orientation anOri = myOrient;

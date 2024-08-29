@@ -34,17 +34,20 @@ public:
 
   Naive_EXPORT Naive_Pnt3d Corner(Naive_Bool theMinX, Naive_Bool theMinY,
                                   Naive_Bool theMinZ) const;
-
-  /// @brief Get corners of the box.
-  /// [0] {Min.X, Min.Y, Min.Z};
-  /// [1] {Max.X, Min.Y, Min.Z};
-  /// [2] {Max.X, Max.Y, Min.Z};
-  /// [3] {Min.X, Max.Y, Min.Z};
-  /// [4] {Min.X, Min.Y, Max.Z};
-  /// [5] {Max.X, Min.Y, Max.Z};
-  /// [6] {Max.X, Max.Y, Max.Z};
-  /// [7] {Min.X, Max.Y, Max.Z}.
-  /// @return
+  
+  /**
+   * @brief Get corners of the box.
+   * 
+   * @return Coners with order:
+   * [0] = {Min.X, Min.Y, Min.Z};
+   * [1] = {Max.X, Min.Y, Min.Z};
+   * [2] = {Max.X, Max.Y, Min.Z};
+   * [3] = {Min.X, Max.Y, Min.Z};
+   * [4] = {Min.X, Min.Y, Max.Z};
+   * [5] = {Max.X, Min.Y, Max.Z};
+   * [6] = {Max.X, Max.Y, Max.Z};
+   * [7] = {Min.X, Max.Y, Max.Z}.
+   */
   Naive_EXPORT Naive_Pnt3dList1 Corners() const;
 
   Naive_EXPORT Naive_Bool Contains(const Box &theBox) const;

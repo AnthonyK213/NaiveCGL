@@ -7,6 +7,8 @@ Naive_NAMESPACE_BEGIN(eulerop);
 
 class MakeEdgeKillLoop : Operator {
 public:
+  Naive_DEFINE_EO(MakeEdgeKillLoop);
+
 private:
 };
 

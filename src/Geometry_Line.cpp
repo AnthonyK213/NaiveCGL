@@ -1,5 +1,6 @@
 ﻿#include <naivecgl/Geometry/Line.h>
 #include <naivecgl/Math/Constant.h>
+#include <naivecgl/Math/Trsf3d.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
@@ -61,6 +62,12 @@ Naive_Code Line::CurvatureAt(const Naive_Real theT, Naive_Vec3d &theV) const {
     return Naive_Code_invalid_object;
 
   theV = Naive_Vec3d::Zero();
+  return Naive_Code_ok;
+}
+
+Naive_Code Line::transform(const Naive_Trsf3d &theTrsf) {
+  if (!myPos.Transform(theTrsf))
+    return Naive_Code_err;
   return Naive_Code_ok;
 }
 

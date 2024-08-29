@@ -98,7 +98,7 @@ public:
 
   Naive_EXPORT Naive_Bool Equals(const Vec3d &theVec);
 
-  Naive_EXPORT Naive_Bool Transform(const Trsf3d &theTrsf);
+  Naive_EXPORT void Transform(const Trsf3d &theTrsf);
 
   Naive_EXPORT Vec3d Transformed(const Trsf3d &theTrsf) const;
 

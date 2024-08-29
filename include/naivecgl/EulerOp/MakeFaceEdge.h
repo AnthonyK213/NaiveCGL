@@ -7,6 +7,8 @@ Naive_NAMESPACE_BEGIN(eulerop);
 
 class MakeFaceEdge : Operator {
 public:
+  Naive_DEFINE_EO(MakeFaceEdge);
+
 private:
 };
 

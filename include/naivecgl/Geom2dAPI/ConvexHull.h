@@ -8,7 +8,10 @@
 
 Naive_NAMESPACE_BEGIN(geom2dapi);
 
-/// @brief Calculates the convex hull of a set of 2d points.
+/**
+ * @brief Calculates the convex hull of a set of 2d points.
+ *
+ */
 class ConvexHull final {
 public:
   Naive_EXPORT explicit ConvexHull(
@@ -36,8 +39,11 @@ public:
 
   Naive_EXPORT Naive_Integer NbConvexPoints() const;
 
-  /// @brief The index(0-based) of convex points in the point list.
-  /// @return The indices.
+  /**
+   * @brief The index(0-based) of convex points in the point list.
+   *
+   * @return The indices.
+   */
   Naive_EXPORT Naive_IntegerList1 ConvexIndices() const;
 
   Naive_EXPORT Naive_Pnt2dList1 ConvexPoints() const;

@@ -10,48 +10,26 @@ class Intv final {
 public:
   Naive_EXPORT Intv(const Naive_Real theT0, const Naive_Real theT1);
 
-  /// @brief
-  /// @return
   Naive_EXPORT static const Intv &Unset() noexcept;
 
-  /// @brief
-  /// @return
   Naive_EXPORT Naive_Bool IsDecreasing() const;
 
-  /// @brief
-  /// @return
   Naive_EXPORT Naive_Bool IsIncreasing() const;
 
-  /// @brief
-  /// @return
   Naive_EXPORT Naive_Bool IsSingleton() const;
 
-  /// @brief
-  /// @return
   Naive_EXPORT Naive_Bool IsValid() const;
 
-  /// @brief
-  /// @return
   Naive_EXPORT Naive_Real Length() const;
 
-  /// @brief
-  /// @return
   Naive_EXPORT Naive_Real Max() const;
 
-  /// @brief
-  /// @return
   Naive_EXPORT Naive_Real Mid() const;
 
-  /// @brief
-  /// @return
   Naive_EXPORT Naive_Real Min() const;
 
-  /// @brief
-  /// @return
   Naive_Real T0() const { return myT0; }
 
-  /// @brief
-  /// @return
   Naive_Real T1() const { return myT1; }
 
   void SetT0(const Naive_Real theT0) { myT0 = theT0; }
@@ -95,10 +73,16 @@ public:
   Naive_EXPORT Intv
   ParameterIntervalAt(const Intv &theNormalizedInterval) const;
 
-  /// @brief Changes interval to [-T1, -T0].
+  /**
+   * @brief Changes interval to [-T1, -T0].
+   *
+   */
   Naive_EXPORT void Reverse();
 
-  /// @brief Exchanges T0 and T1.
+  /**
+   * @brief Exchanges T0 and T1.
+   *
+   */
   Naive_EXPORT void Swap();
 
   Naive_EXPORT Naive_Bool Dump(Naive_Interval_t &theIntv) const;

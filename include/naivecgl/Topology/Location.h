@@ -12,7 +12,7 @@ public:
   Naive_EXPORT void Clear();
 
   Naive_EXPORT Naive_Bool operator==(const Location &theOther) const {
-    // TODO: Implementation.
+    /* TODO: Implementation. */
     return Naive_True;
   }
 

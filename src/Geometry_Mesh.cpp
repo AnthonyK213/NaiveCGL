@@ -1,5 +1,6 @@
 ﻿#include <naivecgl/Geometry/Mesh.h>
 #include <naivecgl/Geometry/Triangulation.h>
+#include <naivecgl/Math/Trsf3d.h>
 
 #include <set>
 #include <tuple>
@@ -130,17 +131,17 @@ Mesh::Mesh()
     : myVertexIndex(0), myFaceIndex(0), myVertexSlots(), myFaceSlots(),
       myVertices(), myHalfEdges(), myFaces(), myIsValid(Naive_False) {}
 
-Mesh::Mesh(const Handle_Naive_Triangulation &thePoly)
+Mesh::Mesh(const Handle_Naive_Triangulation &theTriangulation)
     : myVertexIndex(0), myFaceIndex(0), myVertexSlots(), myFaceSlots(),
       myVertices(), myHalfEdges(), myFaces(), myIsValid(Naive_False) {
-  if (thePoly.IsNull())
+  if (theTriangulation.IsNull())
     return;
 
-  for (const Naive_Pnt3d &aVertex : thePoly->Vertices()) {
+  for (const Naive_Pnt3d &aVertex : theTriangulation->Vertices()) {
     AddVertex(aVertex);
   }
 
-  for (const Naive_Triangle &aTriangle : thePoly->Triangles()) {
+  for (const Naive_Triangle &aTriangle : theTriangulation->Triangles()) {
     if (AddFace(aTriangle(0), aTriangle(1), aTriangle(2)) < 0)
       return;
   }
@@ -233,7 +234,7 @@ Handle_Naive_Triangulation Mesh::GetTriangulation(Naive_Bool theCompat) const {
     Naive_Integer anIdx = 0;
 
     for (auto itEdge = EdgeIter(aFace.Id()); itEdge.More(); itEdge.Next()) {
-      // TODO: Ngon?
+      /* TODO: Ngon? */
       if (anIdx >= 3)
         return nullptr;
 
@@ -463,13 +464,15 @@ Naive_Bool Mesh::removeHalfEdge(const HalfEdge *theEdge, Naive_Bool theCompat) {
     }
 
     if (!anOrigin->myEdge.IsValid()) {
-      // FIXME: What if the mesh became non-manifold after deleting the face?
-      //  Here!
-      //    |
-      // |\ v /|
-      // | \ / |
-      // | / \ |
-      // |/   \|
+
+      /* FIXME: What if the mesh became non-manifold after deleting the face?
+       *  Here!
+       *    |
+       * |\ v /|
+       * | \ / |
+       * | / \ |
+       * |/   \|
+       */
 
       if (theCompat) {
         myVertexSlots.push(anOrigin->Id());
@@ -516,5 +519,7 @@ Naive_Bool Mesh::RemoveFace(const FaceId theId, Naive_Bool theCompat) {
 
   return Naive_True;
 }
+
+Naive_Code Mesh::transform(const Naive_Trsf3d &theTrsf) { Naive_TODO; }
 
 Naive_NAMESPACE_END(geometry);

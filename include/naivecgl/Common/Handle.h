@@ -139,7 +139,7 @@ template <typename TheObjectType> struct hash<Naive_Handle<TheObjectType>> {
   }
 };
 
-} // namespace std
+} /* namespace std */
 
 Naive_DEFINE_HANDLE(Naive_Object);
 

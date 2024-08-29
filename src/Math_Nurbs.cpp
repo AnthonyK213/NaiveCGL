@@ -58,7 +58,7 @@ Naive_Code Nurbs::CheckParam(
   if (nbPoles + theDegree + 1 == nbFlatKnots)
     myPeriodic = Naive_False;
   else if (nbPoles == nbFlatKnots)
-    // TODO: What is periodic?
+    /* TODO: What is periodic? */
     myPeriodic = Naive_True;
   else
     return Naive_Code_cant_make_nurbs;
@@ -106,9 +106,6 @@ Naive_Integer Nurbs::FindSpan(const Naive_RealList1 &theKnots,
 Naive_Integer Nurbs::FindFlatSpan(const Naive_RealList1 &theKnots,
                                   const Naive_IntegerList1 &theSpanIdx,
                                   const Naive_Real theT) {
-  // if (theSpanIdx.size() != theKnots.size() - 1)
-  //   return -1;
-
   Naive_Integer k = FindSpan(theKnots, theT);
   if (k < 0)
     return -1;

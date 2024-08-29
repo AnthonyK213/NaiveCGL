@@ -136,19 +136,15 @@ void Vec3d::Reverse() { Negate(); }
 
 Naive_Bool Vec3d::Equals(const Vec3d &theVec) { return myXYZ == theVec.myXYZ; }
 
-Naive_Bool Vec3d::Transform(const Trsf3d &theTrsf) {
-  if (IsValid() && theTrsf.IsValid()) {
-    if (theTrsf.IsIdentity())
-      return Naive_True;
+void Vec3d::Transform(const Trsf3d &theTrsf) {
+  if (!theTrsf.IsIdentity())
     myXYZ = theTrsf.Affine().rotation() * myXYZ;
-    return Naive_True;
-  }
-  return Naive_False;
 }
 
 Vec3d Vec3d::Transformed(const Trsf3d &theTrsf) const {
   Vec3d aVec(myXYZ);
-  return aVec.Transform(theTrsf) ? aVec : Unset();
+  aVec.Transform(theTrsf);
+  return aVec;
 }
 
 Naive_XYZW Vec3d::HomoCoord() const {

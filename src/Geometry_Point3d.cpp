@@ -1,5 +1,6 @@
 ﻿#include <naivecgl/Geometry/Point3d.h>
 #include <naivecgl/Math/Constant.h>
+#include <naivecgl/Math/Trsf3d.h>
 #include <naivecgl/Math/Util.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
@@ -26,12 +27,13 @@ Naive_Real Point3d::DistanceToSquared(const Handle_Naive_Point3d &theP) const {
   return myPnt.DistanceToSquared(theP->myPnt);
 }
 
-void Point3d::Transform(const Naive_Trsf3d &theTrsf) {
-  myPnt.Transform(theTrsf);
-}
-
 Naive_Bool Point3d::IsValid() const { return myPnt.IsValid(); }
 
 Handle_Naive_Geometry Point3d::Clone() const { return new Point3d(myPnt); }
+
+Naive_Code Point3d::transform(const Naive_Trsf3d &theTrsf) {
+  myPnt.Transform(theTrsf);
+  return Naive_Code_ok;
+}
 
 Naive_NAMESPACE_END(geometry);

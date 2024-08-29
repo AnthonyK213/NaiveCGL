@@ -7,6 +7,8 @@ Naive_NAMESPACE_BEGIN(eulerop);
 
 class MakeBodyFaceVertex : Operator {
 public:
+  Naive_DEFINE_EO(MakeBodyFaceVertex);
+
 private:
 };
 

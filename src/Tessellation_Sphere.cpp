@@ -1,4 +1,4 @@
-﻿/// Reference: https://www.mdpi.com/2076-3417/10/2/655
+﻿/* Reference: https://www.mdpi.com/2076-3417/10/2/655 */
 
 #include <naivecgl/Math/Mat3d.h>
 #include <naivecgl/Tessellation/Sphere.h>
@@ -24,14 +24,14 @@ static Naive_Real tetra_tau_(const Naive_Real theU, const Naive_Real theV,
   Naive_Real Sv = ::std::sin(v), Cv = ::std::cos(v);
   Naive_Real Sw = ::std::sin(w), Cw = ::std::cos(w);
 
-  // clang-format off
+  /* clang-format off */
 
   Naive_Mat3d aMat{};
   aMat << SQRT_3 * Su,  -Cu,          -Cu,
           -Cv,          SQRT_3 * Sv,  -Cv,
           -Cw,          -Cw,          SQRT_3 * Sw;
 
-  // clang-format on
+  /* clang-format on */
 
   return aMat.determinant();
 }
@@ -43,14 +43,14 @@ static Naive_Real tetra_xi_(const Naive_Real theU, const Naive_Real theV,
   Naive_Real Sv = ::std::sin(v), Cv = ::std::cos(v);
   Naive_Real Sw = ::std::sin(w), Cw = ::std::cos(w);
 
-  // clang-format off
+  /* clang-format off */
 
   Naive_Mat3d aMat{};
   aMat << Su,  Cu,            Cu,
           Sv,  -SQRT_3 * Sv,  Cv,
           Sw,  Cw,            -SQRT_3 * Sw;
 
-  // clang-format on
+  /* clang-format on */
 
   return aMat.determinant();
 }
@@ -216,7 +216,7 @@ Handle_Naive_Triangulation Sphere::TetraSphere(const Naive_Pnt3d &theCenter,
   }
 
   Naive_Pnt3dList1 aPoints{};
-  aPoints.reserve(aVertIndex); // 2 * d * d + 2
+  aPoints.reserve(aVertIndex); /* 2 * d * d + 2 */
 
   for (const auto &verts : aVertices) {
     for (const auto &vert : verts) {

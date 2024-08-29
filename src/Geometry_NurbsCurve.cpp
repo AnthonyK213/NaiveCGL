@@ -1,6 +1,7 @@
 ﻿#include <naivecgl/Geometry/NurbsCurve.h>
 #include <naivecgl/Math/Constant.h>
 #include <naivecgl/Math/Polynomial.h>
+#include <naivecgl/Math/Trsf3d.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
@@ -146,7 +147,7 @@ Naive_Code NurbsCurve::CurvatureAt(const Naive_Real theT,
   return aCode;
 }
 
-Naive_Code NurbsCurve::IncreaseDegree(const Naive_Integer theDegree) {
+Naive_Code NurbsCurve::RaiseDegree(const Naive_Integer theDegree) {
   if (!IsValid())
     return Naive_Code_invalid_object;
 
@@ -210,7 +211,7 @@ Naive_Code NurbsCurve::InsertKnot(const Naive_Real theT,
   /* If |theT| is already in the |myKnots|, the operation would be a
    * multiplicity increase. */
 
-  // FIXME: Float equality?
+  /* FIXME: Float equality? */
 
   if (theT == myKnots[iSpan])
     return IncreaseMultiplicity(iSpan, theM);
@@ -289,6 +290,13 @@ Naive_Pnt3d NurbsCurve::StartPoint() const {
     return myPoles[0];
   else
     return PointAt(FirstParameter());
+}
+
+Naive_Code NurbsCurve::transform(const Naive_Trsf3d &theTrsf) {
+  for (Naive_Pnt3d &aPole : myPoles)
+    aPole.Transform(theTrsf);
+
+  return Naive_Code_ok;
 }
 
 Naive_NAMESPACE_END(geometry);

@@ -94,8 +94,9 @@ Naive_Handle<Vector3d> Vector3d::Reversed() const {
   return new Vector3d(myVec.Negated());
 }
 
-Naive_Bool Vector3d::Transform(const Naive_Trsf3d &theTrsf) {
-  return myVec.Transform(theTrsf);
+Naive_Code Vector3d::transform(const Naive_Trsf3d &theTrsf) {
+  myVec.Transform(theTrsf);
+  return Naive_Code_ok;
 }
 
 Naive_NAMESPACE_END(geometry);

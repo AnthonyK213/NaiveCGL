@@ -1,4 +1,4 @@
-// clang-format off
+/* clang-format off */
 #include <naivecgl/Common/ClassType.h>
 #include <naivecgl/Common/Object.h>
 #include <naivecgl/Geometry2d/Geometry.h>
@@ -52,7 +52,7 @@
 #include <naivecgl/Topology/Fin.h>
 #include <naivecgl/Topology/Edge.h>
 #include <naivecgl/Topology/Vertex.h>
-// clang-format on
+/* clang-format on */
 
 #include <naivecgl/Common/TClassType.h>
 
@@ -110,7 +110,7 @@ TClassType TClassType::Resolve(const Naive_Class theClass) {
 
 const TClassType::Registry &TClassType::getRegistry() {
   static TClassType::Registry theRegistry{
-      // clang-format off
+      /* clang-format off */
       {Naive_Class_null, {}},
       {Naive_Class_class, {Naive_Class_class, Naive_CLASS(Naive_ClassType)}},
       {Naive_Class_object, {Naive_Class_object, Naive_CLASS(Naive_Object)}},
@@ -165,7 +165,7 @@ const TClassType::Registry &TClassType::getRegistry() {
       {Naive_Class_fin, {Naive_Class_fin, Naive_CLASS(Naive_Fin)}},
       {Naive_Class_edge, {Naive_Class_edge, Naive_CLASS(Naive_Edge)}},
       {Naive_Class_vertex, {Naive_Class_vertex, Naive_CLASS(Naive_Vertex)}},
-      // clang-format on
+      /* clang-format on */
   };
   return theRegistry;
 }

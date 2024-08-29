@@ -3,10 +3,11 @@
 
 #include "../Common/Macro.h"
 #include "../Common/Type.h"
-
-#include "TEV.h"
+#include "../Math/Eigen.h"
 
 Naive_NAMESPACE_BEGIN(eulerop);
+
+class TEV;
 
 class EOLib {
 public:
@@ -18,9 +19,9 @@ public:
 private:
   using TransfMat = ::Eigen::Matrix<Naive_Integer, 6, 6>;
 
-  Naive_EXPORT static const TransfMat &A();
+  static const TransfMat &matA();
 
-  Naive_EXPORT static const TransfMat &InvA();
+  static const TransfMat &invA();
 };
 
 Naive_NAMESPACE_END(eulerop);

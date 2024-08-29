@@ -11,6 +11,10 @@ public:
   Naive_DEFINE_RTTI(Conic, Naive_Curve);
 
 protected:
+  Naive_EXPORT virtual Naive_Code
+  transform(const math::Trsf3d &theTrsf) Naive_OVERRIDE;
+
+protected:
   Naive_Ax2 myPos;
 };
 

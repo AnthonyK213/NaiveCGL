@@ -32,7 +32,7 @@
   } while (0)
 
 #define Naive_ALLOC_ARRAY(Tp_, Size_, Var_)                                    \
-  Naive_CHECK_CODE(Naive_Memory_alloc(sizeof(Tp_) * (Size_), (void **)Var_));
+  Naive_CHECK_CODE(Naive_Memory_alloc(sizeof(Tp_) * (Size_), (void **)(Var_)));
 
 #define Naive_ENUM_CAST(Enum_, Val_, Var_)                                     \
   Enum_ Var_;                                                                  \

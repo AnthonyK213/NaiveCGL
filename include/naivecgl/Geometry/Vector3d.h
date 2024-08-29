@@ -76,9 +76,11 @@ public:
 
   Naive_EXPORT Naive_Handle<Vector3d> Reversed() const;
 
-  Naive_EXPORT Naive_Bool Transform(const Naive_Trsf3d &theTrsf);
-
   Naive_DEFINE_RTTI(Vector3d, Naive_Geometry);
+
+protected:
+  Naive_EXPORT virtual Naive_Code
+  transform(const math::Trsf3d &theTrsf) Naive_OVERRIDE;
 
 private:
   Naive_Vec3d myVec;

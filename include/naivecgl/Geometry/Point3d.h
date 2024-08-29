@@ -37,13 +37,15 @@ public:
   Naive_EXPORT Naive_Real
   DistanceToSquared(const Naive_Handle<Point3d> &theP) const;
 
-  Naive_EXPORT void Transform(const Naive_Trsf3d &theTrsf);
-
   Naive_EXPORT virtual Naive_Bool IsValid() const Naive_OVERRIDE;
 
   Naive_EXPORT virtual Handle_Naive_Geometry Clone() const Naive_OVERRIDE;
 
   Naive_DEFINE_RTTI(Point3d, Naive_Geometry);
+
+protected:
+  Naive_EXPORT virtual Naive_Code
+  transform(const math::Trsf3d &theTrsf) Naive_OVERRIDE;
 
 private:
   Naive_Pnt3d myPnt;

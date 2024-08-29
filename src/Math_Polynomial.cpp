@@ -35,7 +35,7 @@ Naive_Bool Polynomial::IsEqual(const Polynomial &theOther) const {
     return Naive_False;
 
   for (Naive_Integer i = 0; i <= Degree(); ++i) {
-    // FIXME: Equality of float?
+    /* FIXME: Equality of float? */
     if (Coefficient(i) != theOther.Coefficient(i))
       return Naive_False;
   }
@@ -220,7 +220,7 @@ Naive_Bool Polynomial::Divided(const Polynomial &theOther, Polynomial &theQ,
                                Polynomial &theR) const {
   if (theOther.Degree() > Degree() || !IsValid() || !theOther.IsValid())
     return Naive_False;
-  // TODO: Divided by another polynomial.
+  /* TODO: Divided by another polynomial. */
   return Naive_True;
 }
 

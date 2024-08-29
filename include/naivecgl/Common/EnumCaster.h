@@ -23,10 +23,14 @@ public:
   }
 };
 
+/* NOTE: The range of enum needs to be updated after a modification. */
+
 using Naive_AlgorithmCaster = EnumCaster<Naive_Algorithm, 0, 3>;
 using Naive_ClassCaster = EnumCaster<Naive_Class, 0, 53>;
-using Naive_CodeCaster = EnumCaster<Naive_Code, 0, 24>;
+using Naive_CodeCaster = EnumCaster<Naive_Code, 0, 25>;
 using Naive_Loop_typeCaster = EnumCaster<Naive_Loop_type, 0, 2>;
+using Naive_NurbsCurve_formCaster = EnumCaster<Naive_NurbsCurve_form, 0, 6>;
+using Naive_NurbsSurface_formCaster = EnumCaster<Naive_NurbsCurve_form, 0, 11>;
 using Naive_OrientationCaster = EnumCaster<Naive_Orientation, 0, 3>;
 using Naive_boolean_functionCaster = EnumCaster<Naive_boolean_function, 0, 2>;
 

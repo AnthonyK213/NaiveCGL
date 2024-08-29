@@ -9,7 +9,10 @@
 
 Naive_NAMESPACE_BEGIN(geomapi);
 
-/// @brief Calculates the convex hull of a set of 3d points.
+/**
+ * @brief  Calculates the convex hull of a set of 3d points.
+ *
+ */
 class ConvexHull final {
 public:
   Naive_EXPORT

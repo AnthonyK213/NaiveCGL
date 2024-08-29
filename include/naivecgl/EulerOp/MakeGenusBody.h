@@ -7,6 +7,8 @@ Naive_NAMESPACE_BEGIN(eulerop);
 
 class MakeGenusBody : Operator {
 public:
+  Naive_DEFINE_EO(MakeGenusBody);
+
 private:
 };
 

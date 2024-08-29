@@ -1,19 +1,20 @@
 #include <naivecgl/EulerOp/EOLib.h>
+#include <naivecgl/EulerOp/TEV.h>
 
 Naive_NAMESPACE_BEGIN(eulerop);
 
 Naive_Code EOLib::Resolve(const TEV &theDelta, TEV &theResult) {
-  TEV aRes = InvA() * theDelta;
-  theResult = aRes / 12;
+  TEV::Value aRes = invA() * theDelta.GetValue();
+  theResult.Set(aRes / 12);
   return Naive_Code_ok;
 }
 
 Naive_Code EOLib::Resolve(const TEV &theCurrent, const TEV &theTarget,
                           TEV &theResult) {
-  return Resolve(theTarget - theCurrent, theResult);
+  return Resolve(theTarget.Subtracted(theCurrent), theResult);
 }
 
-const EOLib::TransfMat &EOLib::A() {
+const EOLib::TransfMat &EOLib::matA() {
   /* clang-format off */
   static EOLib::TransfMat m = (EOLib::TransfMat() <<
     1,  0,  1,  0,  0,  1,
@@ -27,7 +28,7 @@ const EOLib::TransfMat &EOLib::A() {
   return m;
 }
 
-const EOLib::TransfMat &EOLib::InvA() {
+const EOLib::TransfMat &EOLib::invA() {
   /* clang-format off */
   static EOLib::TransfMat m = (EOLib::TransfMat() <<
     7,  5, -5,  5,  2, -2,

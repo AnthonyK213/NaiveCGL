@@ -93,6 +93,7 @@ typedef enum {
   Naive_Code_periodic_not_smooth,
   Naive_Code_cant_make_nurbs,
   Naive_Code_weight_le_0,
+  Naive_Code_bad_dimension,
   Naive_Code_bad_knots,
   Naive_Code_poles_weights_not_match,
   Naive_Code_knots_mults_not_match,
@@ -106,6 +107,35 @@ typedef enum {
   Naive_Loop_type_outer_c,
   Naive_Loop_type_inner_c,
 } Naive_Loop_type;
+
+/* Naive_NurbsCurve_form */
+
+typedef enum {
+  Naive_NurbsCurve_form_unset_c = 0,
+  Naive_NurbsCurve_form_arbitrary_c,
+  Naive_NurbsCurve_form_polyline_c,
+  Naive_NurbsCurve_form_circular_c,
+  Naive_NurbsCurve_form_elliptic_c,
+  Naive_NurbsCurve_form_parabolic_c,
+  Naive_NurbsCurve_form_hyperbolic_c,
+} Naive_NurbsCurve_form;
+
+/* Naive_NurbsSurface_form */
+
+typedef enum {
+  Naive_NurbsSurface_form_unset_c = 0,
+  Naive_NurbsSurface_form_arbitrary_c,
+  Naive_NurbsSurface_form_planar_c,
+  Naive_NurbsSurface_form_cylindrical_c,
+  Naive_NurbsSurface_form_conical_c,
+  Naive_NurbsSurface_form_spherical_c,
+  Naive_NurbsSurface_form_toroidal_c,
+  Naive_NurbsSurface_form_revolved_c,
+  Naive_NurbsSurface_form_ruled_c,
+  Naive_NurbsSurface_form_gen_cone_c,
+  Naive_NurbsSurface_form_quadric_c,
+  Naive_NurbsSurface_form_swept_c,
+} Naive_NurbsSurface_form;
 
 /* Naive_Orientation */
 

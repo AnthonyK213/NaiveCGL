@@ -51,6 +51,10 @@ public:
 
   Naive_DEFINE_RTTI(NurbsSurface, Naive_BoundedSurface);
 
+protected:
+  Naive_EXPORT virtual Naive_Code
+  transform(const math::Trsf3d &theTrsf) Naive_OVERRIDE;
+
 private:
   template <typename P2, typename R2, typename R, typename I>
   Naive_Code update(P2 &&thePoles, R2 &&theWeights, R &&theUKnots,

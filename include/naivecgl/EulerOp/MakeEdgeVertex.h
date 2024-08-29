@@ -7,6 +7,8 @@ Naive_NAMESPACE_BEGIN(eulerop);
 
 class MakeEdgeVertex : Operator {
 public:
+  Naive_DEFINE_EO(MakeEdgeVertex);
+
 private:
 };
 
