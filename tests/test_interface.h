@@ -77,3 +77,102 @@ TEST(NaiveCGLTest_Interface, EnclosingDisc) {
   ASSERT_EQ(Naive_Code_ok,
             Naive_Geom2dAPI_enclosing_disc(aPnts.size(), aPnts.data(), &o, &r));
 }
+
+TEST(NaiveCGLTest_Interface, Curve2d) {
+  double s = sqrt(0.5);
+  double s10 = s * 10.0;
+
+  /* NURBS circle. */
+
+  ::std::vector<double> vertex{10.0, 0.0,  1.0,  s10,  s10, s,     0.0,
+                               10.0, 1.0,  -s10, s10,  s,   -10.0, 0.0,
+                               1.0,  -s10, -s10, s,    0.0, -10.0, 1.0,
+                               s10,  -s10, s,    10.0, 0.0, 1.0};
+  ::std::vector<double> knot{0.0, 0.25, 0.5, 0.75, 1.0};
+  ::std::vector<int> knot_mult{3, 2, 2, 2, 3};
+
+  Naive_NurbsCurve_sf_t nurbs_curve_sf;
+  nurbs_curve_sf.degree = 2;
+  nurbs_curve_sf.vertex_dim = 3;
+  nurbs_curve_sf.is_rational = Naive_Logical_true;
+  nurbs_curve_sf.n_vertices = vertex.size();
+  nurbs_curve_sf.vertex = vertex.data();
+  nurbs_curve_sf.n_knots = knot.size();
+  nurbs_curve_sf.knot_mult = knot_mult.data();
+  nurbs_curve_sf.knot = knot.data();
+
+  Naive_NurbsCurve_t nurbs_curve = Naive_Object_null;
+  ASSERT_EQ(Naive_Code_ok,
+            Naive_NurbsCurve_create(&nurbs_curve_sf, &nurbs_curve));
+
+  Naive_Class_t curve_class = Naive_Class_null;
+  ASSERT_EQ(Naive_Code_ok, Naive_Object_ask_class(nurbs_curve, &curve_class));
+  ASSERT_EQ(Naive_Class_nurbs_curve2d, curve_class);
+
+  Naive_NurbsCurve_sf_t ask_result;
+  ASSERT_EQ(Naive_Code_ok, Naive_NurbsCurve_ask(nurbs_curve, &ask_result));
+  ASSERT_EQ(nurbs_curve_sf.degree, ask_result.degree);
+  ASSERT_EQ(nurbs_curve_sf.vertex_dim, ask_result.vertex_dim);
+  ASSERT_EQ(nurbs_curve_sf.is_rational, ask_result.is_rational);
+  ASSERT_EQ(nurbs_curve_sf.n_vertices, ask_result.n_vertices);
+  ASSERT_EQ(nurbs_curve_sf.n_knots, ask_result.n_knots);
+
+  ASSERT_EQ(Naive_Code_ok, Naive_Memory_free(ask_result.vertex));
+  ASSERT_EQ(Naive_Code_ok, Naive_Memory_free(ask_result.knot_mult));
+  ASSERT_EQ(Naive_Code_ok, Naive_Memory_free(ask_result.knot));
+
+  Naive_Vec3d_t evals[1];
+  ASSERT_EQ(Naive_Code_ok, Naive_Curve_eval(nurbs_curve, 0.125, 0, evals));
+  ASSERT_FLOAT_EQ(s10, evals[0].x);
+  ASSERT_FLOAT_EQ(s10, evals[0].y);
+  ASSERT_FLOAT_EQ(0.0, evals[0].z);
+
+  Naive_Vec3d_t curvature;
+  ASSERT_EQ(Naive_Code_ok,
+            Naive_Curve_eval_curvature(nurbs_curve, 0.6, &curvature));
+  double k = sqrt(curvature.x * curvature.x + curvature.y * curvature.y);
+  ASSERT_FLOAT_EQ(0.1, k);
+}
+
+TEST(NaiveCGLTest_Interface, Curve) {
+  ::std::vector<double> vertex{
+      -10. * 1.5, 34. * 1.5, 6. * 1.5,  1.5,       -9. * 2.0, 15. * 2.0,
+      -6. * 2.0,  2.0,       -6. * 0.5, 20. * 0.5, 1. * 0.5,  0.5,
+      0. * 1.1,   26. * 1.1, 2. * 1.1,  1.1,       4. * 0.1,  17. * 0.1,
+      -3. * 0.1,  0.1,       10.,       21.,       10.,       1.0,
+  };
+  ::std::vector<double> knot{0., 1., 2., 3.};
+  ::std::vector<int> knot_mult{4, 1, 1, 4};
+
+  Naive_NurbsCurve_sf_t nurbs_curve_sf;
+  nurbs_curve_sf.degree = 3;
+  nurbs_curve_sf.vertex_dim = 4;
+  nurbs_curve_sf.is_rational = Naive_Logical_true;
+  nurbs_curve_sf.n_vertices = vertex.size();
+  nurbs_curve_sf.vertex = vertex.data();
+  nurbs_curve_sf.n_knots = knot.size();
+  nurbs_curve_sf.knot_mult = knot_mult.data();
+  nurbs_curve_sf.knot = knot.data();
+
+  Naive_NurbsCurve_t nurbs_curve = Naive_Object_null;
+  ASSERT_EQ(Naive_Code_ok,
+            Naive_NurbsCurve_create(&nurbs_curve_sf, &nurbs_curve));
+
+  Naive_Class_t curve_class = Naive_Class_null;
+  ASSERT_EQ(Naive_Code_ok, Naive_Object_ask_class(nurbs_curve, &curve_class));
+  ASSERT_EQ(Naive_Class_nurbs_curve, curve_class);
+
+  Naive_NurbsCurve_sf_t ask_result;
+  ASSERT_EQ(Naive_Code_ok, Naive_NurbsCurve_ask(nurbs_curve, &ask_result));
+  ASSERT_EQ(nurbs_curve_sf.degree, ask_result.degree);
+  ASSERT_EQ(nurbs_curve_sf.vertex_dim, ask_result.vertex_dim);
+  ASSERT_EQ(nurbs_curve_sf.is_rational, ask_result.is_rational);
+  ASSERT_EQ(nurbs_curve_sf.n_vertices, ask_result.n_vertices);
+  ASSERT_EQ(nurbs_curve_sf.n_knots, ask_result.n_knots);
+
+  ASSERT_EQ(Naive_Code_ok, Naive_Memory_free(ask_result.vertex));
+  ASSERT_EQ(Naive_Code_ok, Naive_Memory_free(ask_result.knot_mult));
+  ASSERT_EQ(Naive_Code_ok, Naive_Memory_free(ask_result.knot));
+
+  ASSERT_EQ(Naive_Code_ok, Naive_NurbsCurve_add_knot(nurbs_curve, 0.7, 2));
+}
