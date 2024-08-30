@@ -28,6 +28,22 @@ public:
 
   Naive_EXPORT Naive_Real Distance(const Naive_Pnt3d &theP) const;
 
+  Naive_EXPORT virtual Naive_Bool
+  Bounds(Naive_Real &theU0, Naive_Real &theU1, Naive_Real &theV0,
+         Naive_Real &theV1) const Naive_OVERRIDE;
+
+  Naive_EXPORT virtual Naive_Bool IsUClosed() const Naive_OVERRIDE;
+
+  Naive_EXPORT virtual Naive_Bool IsVClosed() const Naive_OVERRIDE;
+
+  Naive_EXPORT virtual Naive_Bool IsUPeriodic() const Naive_OVERRIDE;
+
+  Naive_EXPORT virtual Naive_Bool IsVPeriodic() const Naive_OVERRIDE;
+
+  Naive_EXPORT virtual Naive_Real UPeriod() const Naive_OVERRIDE;
+
+  Naive_EXPORT virtual Naive_Real VPeriod() const Naive_OVERRIDE;
+
   Naive_DEFINE_RTTI(Plane, Naive_ElementarySurface);
 };
 

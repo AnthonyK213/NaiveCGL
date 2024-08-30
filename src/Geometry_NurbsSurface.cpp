@@ -135,6 +135,18 @@ Naive_Code NurbsSurface::Evaluate(const Naive_Real theU, const Naive_Real theV,
   return Naive_Code_ok;
 }
 
+Naive_Bool NurbsSurface::IsUClosed() const { return Naive_False; }
+
+Naive_Bool NurbsSurface::IsVClosed() const { return Naive_False; }
+
+Naive_Bool NurbsSurface::IsUPeriodic() const { return myUPeriodic; }
+
+Naive_Bool NurbsSurface::IsVPeriodic() const { return myVPeriodic; }
+
+Naive_Real NurbsSurface::UPeriod() const { return math::Constant::UnsetReal(); }
+
+Naive_Real NurbsSurface::VPeriod() const { return math::Constant::UnsetReal(); }
+
 Naive_Code NurbsSurface::transform(const Naive_Trsf3d &theTrsf) {
   for (Naive_Pnt3dList1 &v : myPoles) {
     for (Naive_Pnt3d &p : v) {

@@ -94,4 +94,10 @@ Naive_Code Circle::CurvatureAt(const Naive_Real theT, Naive_Vec3d &theV) const {
   return aCode;
 }
 
+Naive_Bool Circle::IsClosed() const { return Naive_True; }
+
+Naive_Bool Circle::IsPeriodic() const { return Naive_True; }
+
+Naive_Real Circle::Period() const { return math::Constant::TwoPI(); }
+
 Naive_NAMESPACE_END(geometry);

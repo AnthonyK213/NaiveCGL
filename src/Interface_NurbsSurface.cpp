@@ -17,13 +17,20 @@ Naive_NurbsSurface_ask(Naive_NurbsSurface_t nurbs_surface,
   nurbs_surface_sf->u_degree = H->UDegree();
   nurbs_surface_sf->v_degree = H->VDegree();
   nurbs_surface_sf->is_rational = H->IsURational() || H->IsVRational();
+  nurbs_surface_sf->vertex_dim = nurbs_surface_sf->is_rational ? 4 : 3;
   nurbs_surface_sf->form = Naive_NurbsSurface_form_unset_c;
   nurbs_surface_sf->is_u_periodic = H->IsUPeriodic();
   nurbs_surface_sf->is_v_periodic = H->IsVPeriodic();
-  nurbs_surface_sf->is_u_closed = Naive_Logical_false;
-  nurbs_surface_sf->is_v_closed = Naive_Logical_false;
+  nurbs_surface_sf->is_u_closed = H->IsUClosed();
+  nurbs_surface_sf->is_v_closed = H->IsVClosed();
 
   /* TODO: Arrays. */
+
+  nurbs_surface_sf->vertex = nullptr;
+  nurbs_surface_sf->u_knot_mult = nullptr;
+  nurbs_surface_sf->v_knot_mult = nullptr;
+  nurbs_surface_sf->u_knot = nullptr;
+  nurbs_surface_sf->v_knot = nullptr;
 
   return Naive_Code_ok;
 }

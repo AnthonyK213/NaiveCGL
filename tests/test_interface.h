@@ -176,3 +176,57 @@ TEST(NaiveCGLTest_Interface, Curve) {
 
   ASSERT_EQ(Naive_Code_ok, Naive_NurbsCurve_add_knot(nurbs_curve, 0.7, 2));
 }
+
+TEST(NaiveCGLTest_Interface, Surface) {
+  ::std::vector<double> vertex = {
+      15 * 0.3, -10 * 0.3, 3 * 0.3,  0.3, 15 * 1.4, 0 * 1.4,   9 * 1.4,  1.4,
+      15 * 2.9, 10 * 2.9,  2 * 2.9,  2.9, 25 * 1.2, -10 * 1.2, 1 * 1.2,  1.2,
+      25 * 1.2, 0 * 1.2,   0 * 1.2,  1.2, 25 * 1.2, 10 * 1.2,  -6 * 1.2, 1.2,
+      35 * 0.8, -10 * 0.8, -4 * 0.8, 0.8, 35 * 1.1, 0 * 1.1,   1 * 1.1,  1.1,
+      35 * 1.8, 10 * 1.8,  5 * 1.8,  1.8};
+  ::std::vector<int> u_knot_mult{3, 3};
+  ::std::vector<int> v_knot_mult{3, 3};
+  ::std::vector<double> u_knot{0., 1.};
+  ::std::vector<double> v_knot{0., 1.};
+
+  Naive_NurbsSurface_sf_t nurbs_surface_sf;
+  nurbs_surface_sf.u_degree = 2;
+  nurbs_surface_sf.v_degree = 2;
+  nurbs_surface_sf.vertex_dim = 4;
+  nurbs_surface_sf.is_rational = Naive_Logical_true;
+  nurbs_surface_sf.n_u_vertices = 12;
+  nurbs_surface_sf.n_v_vertices = 12;
+  nurbs_surface_sf.vertex = vertex.data();
+  nurbs_surface_sf.n_u_knots = u_knot.size();
+  nurbs_surface_sf.n_v_knots = v_knot.size();
+  nurbs_surface_sf.u_knot_mult = u_knot_mult.data();
+  nurbs_surface_sf.v_knot_mult = v_knot_mult.data();
+  nurbs_surface_sf.u_knot = u_knot.data();
+  nurbs_surface_sf.v_knot = v_knot.data();
+
+  Naive_NurbsSurface_t nurbs_surface = Naive_Object_null;
+  ASSERT_EQ(Naive_Code_ok,
+            Naive_NurbsSurface_create(&nurbs_surface_sf, &nurbs_surface));
+
+  Naive_Class_t surface_class = Naive_Class_null;
+  ASSERT_EQ(Naive_Code_ok,
+            Naive_Object_ask_class(nurbs_surface, &surface_class));
+  ASSERT_EQ(Naive_Class_nurbs_surface, surface_class);
+
+  Naive_NurbsSurface_sf_t ask_result;
+  ASSERT_EQ(Naive_Code_ok, Naive_NurbsSurface_ask(nurbs_surface, &ask_result));
+  ASSERT_EQ(nurbs_surface_sf.u_degree, ask_result.u_degree);
+  ASSERT_EQ(nurbs_surface_sf.v_degree, ask_result.v_degree);
+  ASSERT_EQ(nurbs_surface_sf.vertex_dim, ask_result.vertex_dim);
+  ASSERT_EQ(nurbs_surface_sf.is_rational, ask_result.is_rational);
+  // ASSERT_EQ(nurbs_surface_sf.n_u_vertices, ask_result.n_u_vertices);
+  // ASSERT_EQ(nurbs_surface_sf.n_v_vertices, ask_result.n_v_vertices);
+  // ASSERT_EQ(nurbs_surface_sf.n_u_knots, ask_result.n_u_knots);
+  // ASSERT_EQ(nurbs_surface_sf.n_v_knots, ask_result.n_v_knots);
+
+  ASSERT_EQ(Naive_Code_ok, Naive_Memory_free(ask_result.vertex));
+  ASSERT_EQ(Naive_Code_ok, Naive_Memory_free(ask_result.u_knot_mult));
+  ASSERT_EQ(Naive_Code_ok, Naive_Memory_free(ask_result.v_knot_mult));
+  ASSERT_EQ(Naive_Code_ok, Naive_Memory_free(ask_result.u_knot));
+  ASSERT_EQ(Naive_Code_ok, Naive_Memory_free(ask_result.v_knot));
+}

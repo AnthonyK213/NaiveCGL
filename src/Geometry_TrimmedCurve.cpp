@@ -1,4 +1,5 @@
 #include <naivecgl/Geometry/TrimmedCurve.h>
+#include <naivecgl/Math/Constant.h>
 #include <naivecgl/Math/Trsf3d.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
@@ -50,6 +51,10 @@ Naive_Pnt3d TrimmedCurve::EndPoint() const {
 Naive_Pnt3d TrimmedCurve::StartPoint() const {
   return myBasisCurve ? myBasisCurve->PointAt(myT1) : Naive_Pnt3d::Unset();
 }
+
+Naive_Bool TrimmedCurve::IsPeriodic() const { return Naive_False; }
+
+Naive_Real TrimmedCurve::Period() const { return math::Constant::UnsetReal(); }
 
 Naive_Code TrimmedCurve::transform(const Naive_Trsf3d &theTrsf) {
   return myBasisCurve->Transform(theTrsf);

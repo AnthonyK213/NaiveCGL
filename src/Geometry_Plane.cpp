@@ -1,4 +1,5 @@
 ﻿#include <naivecgl/Geometry/Plane.h>
+#include <naivecgl/Math/Constant.h>
 
 Naive_NAMESPACE_BEGIN(geometry);
 
@@ -45,5 +46,30 @@ Naive_Real Plane::Distance(const Naive_Pnt3d &theP) const {
   Naive_Pln aPln{myPos};
   return aPln.Distance(theP);
 }
+
+Naive_Bool Plane::Bounds(Naive_Real &theU0, Naive_Real &theU1,
+                         Naive_Real &theV0, Naive_Real &theV1) const {
+  if (!IsValid())
+    return Naive_False;
+
+  theU0 = -math::Constant::Infinite();
+  theU1 = math::Constant::Infinite();
+  theV0 = -math::Constant::Infinite();
+  theV1 = math::Constant::Infinite();
+
+  return Naive_True;
+}
+
+Naive_Bool Plane::IsUClosed() const { return Naive_False; }
+
+Naive_Bool Plane::IsVClosed() const { return Naive_False; }
+
+Naive_Bool Plane::IsUPeriodic() const { return Naive_False; }
+
+Naive_Bool Plane::IsVPeriodic() const { return Naive_False; }
+
+Naive_Real Plane::UPeriod() const { return math::Constant::UnsetReal(); }
+
+Naive_Real Plane::VPeriod() const { return math::Constant::UnsetReal(); }
 
 Naive_NAMESPACE_END(geometry);

@@ -292,6 +292,10 @@ Naive_Pnt3d NurbsCurve::StartPoint() const {
     return PointAt(FirstParameter());
 }
 
+Naive_Bool NurbsCurve::IsPeriodic() const { return myPeriodic; }
+
+Naive_Real NurbsCurve::Period() const { return math::Constant::UnsetReal(); }
+
 Naive_Code NurbsCurve::transform(const Naive_Trsf3d &theTrsf) {
   for (Naive_Pnt3d &aPole : myPoles)
     aPole.Transform(theTrsf);

@@ -24,6 +24,12 @@ public:
   Naive_EXPORT virtual Naive_Code CurvatureAt(const Naive_Real theT,
                                               Naive_Vec2d &theV) const = 0;
 
+  Naive_EXPORT virtual Naive_Bool IsClosed() const = 0;
+
+  Naive_EXPORT virtual Naive_Bool IsPeriodic() const = 0;
+
+  Naive_EXPORT virtual Naive_Real Period() const = 0;
+
   Naive_DEFINE_RTTI(Curve, Naive_Geometry2d);
 };
 

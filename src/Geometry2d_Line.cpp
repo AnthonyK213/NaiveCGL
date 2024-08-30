@@ -65,4 +65,10 @@ Naive_Code Line::CurvatureAt(const Naive_Real theT, Naive_Vec2d &theV) const {
   return Naive_Code_ok;
 }
 
+Naive_Bool Line::IsClosed() const { return Naive_False; }
+
+Naive_Bool Line::IsPeriodic() const { return Naive_False; }
+
+Naive_Real Line::Period() const { return math::Constant::UnsetReal(); }
+
 Naive_NAMESPACE_END(geometry2d);

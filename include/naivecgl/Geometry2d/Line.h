@@ -40,6 +40,12 @@ public:
   Naive_EXPORT virtual Naive_Code
   CurvatureAt(const Naive_Real theT, Naive_Vec2d &theV) const Naive_OVERRIDE;
 
+  Naive_EXPORT virtual Naive_Bool IsClosed() const Naive_OVERRIDE;
+
+  Naive_EXPORT virtual Naive_Bool IsPeriodic() const Naive_OVERRIDE;
+
+  Naive_EXPORT virtual Naive_Real Period() const Naive_OVERRIDE;
+
   Naive_DEFINE_RTTI(Lines, Naive_Curve2d);
 
 private:

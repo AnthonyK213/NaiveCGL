@@ -57,7 +57,9 @@ public:
 
   Naive_EXPORT Naive_Bool IsRational() const { return myRational; }
 
-  Naive_EXPORT Naive_Bool IsPeriodic() const { return myPeriodic; }
+  Naive_EXPORT virtual Naive_Bool IsPeriodic() const Naive_OVERRIDE;
+
+  Naive_EXPORT virtual Naive_Real Period() const Naive_OVERRIDE;
 
   Naive_EXPORT virtual Naive_Code
   Evaluate(const Naive_Real theT, const Naive_Integer theN,

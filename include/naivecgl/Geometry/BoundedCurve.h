@@ -11,6 +11,8 @@ public:
 
   Naive_EXPORT virtual Naive_Pnt3d StartPoint() const = 0;
 
+  Naive_EXPORT virtual Naive_Bool IsClosed() const Naive_OVERRIDE;
+
   Naive_DEFINE_RTTI(BoundedCurve, Naive_Curve);
 };
 

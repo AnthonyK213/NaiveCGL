@@ -71,4 +71,10 @@ Naive_Code Line::transform(const Naive_Trsf3d &theTrsf) {
   return Naive_Code_ok;
 }
 
+Naive_Bool Line::IsClosed() const { return Naive_False; }
+
+Naive_Bool Line::IsPeriodic() const { return Naive_False; }
+
+Naive_Real Line::Period() const { return math::Constant::UnsetReal(); }
+
 Naive_NAMESPACE_END(geometry);

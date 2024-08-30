@@ -58,7 +58,7 @@ Naive_Code_t Naive_NurbsCurve_ask(Naive_NurbsCurve_t nurbs_curve,
     nurbs_curve_sf->is_rational = H->IsRational();
     nurbs_curve_sf->form = Naive_NurbsCurve_form_unset_c;
     nurbs_curve_sf->is_periodic = H->IsPeriodic();
-    nurbs_curve_sf->is_closed = Naive_Logical_false;
+    nurbs_curve_sf->is_closed = H->IsClosed();
 
     nurbs_curve_sf->n_vertices = nurbs_curve_sf->vertex_dim * aPoles.size();
     nurbs_curve_sf->n_knots = static_cast<int>(aKnots.size());
@@ -111,7 +111,7 @@ Naive_Code_t Naive_NurbsCurve_ask(Naive_NurbsCurve_t nurbs_curve,
     nurbs_curve_sf->is_rational = H->IsRational();
     nurbs_curve_sf->form = Naive_NurbsCurve_form_unset_c;
     nurbs_curve_sf->is_periodic = H->IsPeriodic();
-    nurbs_curve_sf->is_closed = Naive_Logical_false;
+    nurbs_curve_sf->is_closed = H->IsClosed();
 
     nurbs_curve_sf->n_vertices = nurbs_curve_sf->vertex_dim * aPoles.size();
     nurbs_curve_sf->n_knots = static_cast<int>(aKnots.size());

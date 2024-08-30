@@ -33,16 +33,25 @@ public:
 
   Naive_EXPORT Naive_Integer VDegree() const { return myVDegree; }
 
-  Naive_EXPORT Naive_Bool Bounds(Naive_Real &theU0, Naive_Real &theU1,
-                                 Naive_Real &theV0, Naive_Real &theV1) const;
+  Naive_EXPORT virtual Naive_Bool
+  Bounds(Naive_Real &theU0, Naive_Real &theU1, Naive_Real &theV0,
+         Naive_Real &theV1) const Naive_OVERRIDE;
 
   Naive_EXPORT Naive_Bool IsURational() const { return myURational; }
 
   Naive_EXPORT Naive_Bool IsVRational() const { return myVRational; }
 
-  Naive_EXPORT Naive_Bool IsUPeriodic() const { return myUPeriodic; }
+  Naive_EXPORT virtual Naive_Bool IsUClosed() const Naive_OVERRIDE;
 
-  Naive_EXPORT Naive_Bool IsVPeriodic() const { return myVPeriodic; }
+  Naive_EXPORT virtual Naive_Bool IsVClosed() const Naive_OVERRIDE;
+
+  Naive_EXPORT virtual Naive_Bool IsUPeriodic() const Naive_OVERRIDE;
+
+  Naive_EXPORT virtual Naive_Bool IsVPeriodic() const Naive_OVERRIDE;
+
+  Naive_EXPORT virtual Naive_Real UPeriod() const Naive_OVERRIDE;
+
+  Naive_EXPORT virtual Naive_Real VPeriod() const Naive_OVERRIDE;
 
   Naive_EXPORT virtual Naive_Code
   Evaluate(const Naive_Real theU, const Naive_Real theV,

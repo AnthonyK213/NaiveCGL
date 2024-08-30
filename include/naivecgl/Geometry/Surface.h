@@ -17,6 +17,22 @@ public:
                                            const Naive_Integer theN,
                                            Naive_Vec3dList1 &theD) const = 0;
 
+  Naive_EXPORT virtual Naive_Bool Bounds(Naive_Real &theU0, Naive_Real &theU1,
+                                         Naive_Real &theV0,
+                                         Naive_Real &theV1) const = 0;
+
+  Naive_EXPORT virtual Naive_Bool IsUClosed() const = 0;
+
+  Naive_EXPORT virtual Naive_Bool IsVClosed() const = 0;
+
+  Naive_EXPORT virtual Naive_Bool IsUPeriodic() const = 0;
+
+  Naive_EXPORT virtual Naive_Bool IsVPeriodic() const = 0;
+
+  Naive_EXPORT virtual Naive_Real UPeriod() const = 0;
+
+  Naive_EXPORT virtual Naive_Real VPeriod() const = 0;
+
   Naive_DEFINE_RTTI(Surface, Naive_Geometry);
 };
 

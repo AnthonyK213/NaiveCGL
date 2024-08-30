@@ -293,4 +293,8 @@ Naive_Pnt2d NurbsCurve::StartPoint() const {
     return PointAt(FirstParameter());
 }
 
+Naive_Bool NurbsCurve::IsPeriodic() const { return myPeriodic; }
+
+Naive_Real NurbsCurve::Period() const { return math::Constant::UnsetReal(); }
+
 Naive_NAMESPACE_END(geometry2d);

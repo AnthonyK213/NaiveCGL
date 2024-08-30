@@ -37,6 +37,10 @@ public:
 
   Naive_EXPORT virtual Naive_Pnt3d StartPoint() const Naive_OVERRIDE;
 
+  Naive_EXPORT virtual Naive_Bool IsPeriodic() const Naive_OVERRIDE;
+
+  Naive_EXPORT virtual Naive_Real Period() const Naive_OVERRIDE;
+
   Naive_DEFINE_RTTI(TrimmedCurve, Naive_BoundedCurve);
 
 protected:
