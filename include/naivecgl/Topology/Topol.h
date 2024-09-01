@@ -4,9 +4,17 @@
 #include "../Common/ClassType.h"
 #include "Location.h"
 
+Naive_NAMESPACE_BEGIN(eulerop);
+
+class MakeBodyFaceVertex;
+
+Naive_NAMESPACE_END(eulerop);
+
 Naive_NAMESPACE_BEGIN(topology);
 
 class Topol : public Naive_Object {
+  friend class eulerop::MakeBodyFaceVertex;
+
 public:
   Topol(const Topol &theOther) Naive_DELETE;
 
@@ -38,6 +46,10 @@ protected:
   Topol()
       : myParent(0), myFlags(0), myLocation(),
         myOrient(Naive_Orientation_forward_c) {}
+
+  void SetParent(const Naive_Handle<Topol> &theParent) {
+    myParent = theParent.get();
+  }
 
 protected:
   Naive_Location myLocation;

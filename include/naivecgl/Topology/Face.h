@@ -2,12 +2,18 @@
 #define _NaiveCGL_Topology_Face_HeaderFile
 
 #include "../Collection/LinkedList.h"
-#include "../Geometry/Surface.h"
-#include "Loop.h"
+#include "Topol.h"
+
+Naive_NAMESPACE_BEGIN(geometry);
+
+class Surface;
+
+Naive_NAMESPACE_END(geometry);
 
 Naive_NAMESPACE_BEGIN(topology);
 
 class Shell;
+class Loop;
 
 class Face final : public Naive_Topol {
 public:
@@ -19,8 +25,8 @@ public:
 
 private:
   Naive_Real myTol;
-  Handle_Naive_Surface mySrf;
-  Naive_LinkedList<Handle_Naive_Loop> myLoops;
+  Naive_Handle<geometry::Surface> mySrf;
+  Naive_LinkedList<Naive_Handle<Loop>> myLoops;
 };
 
 Naive_NAMESPACE_END(topology);

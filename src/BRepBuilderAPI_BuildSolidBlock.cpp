@@ -1,4 +1,5 @@
 #include <naivecgl/BRepBuilderAPI/BuildSolidBlock.h>
+#include <naivecgl/EulerOp/MakeBodyFaceVertex.h>
 #include <naivecgl/Math/Constant.h>
 
 Naive_NAMESPACE_BEGIN(brepbuilderapi);
@@ -20,6 +21,11 @@ void BuildSolidBlock::Init(const Naive_Ax2 &theAx2, const Naive_Real theX,
   Build();
 }
 
-void BuildSolidBlock::Build() { Done(); }
+void BuildSolidBlock::Build() {
+  eulerop::MakeBodyFaceVertex aMBFV{};
+  myBody = aMBFV.NewBody();
+
+  Done();
+}
 
 Naive_NAMESPACE_END(brepbuilderapi);

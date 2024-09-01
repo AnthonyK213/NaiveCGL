@@ -1,3 +1,4 @@
+#include <naivecgl/Topology/Face.h>
 #include <naivecgl/Topology/Shell.h>
 #include <naivecgl/Topology/Solid.h>
 

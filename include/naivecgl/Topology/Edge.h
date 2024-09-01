@@ -1,12 +1,18 @@
 #ifndef _NaiveCGL_Topology_Edge_HeaderFile
 #define _NaiveCGL_Topology_Edge_HeaderFile
 
-#include "../Geometry/Curve.h"
-#include "Vertex.h"
+#include "Topol.h"
+
+Naive_NAMESPACE_BEGIN(geometry);
+
+class Curve;
+
+Naive_NAMESPACE_END(geometry);
 
 Naive_NAMESPACE_BEGIN(topology);
 
 class Fin;
+class Vertex;
 
 class Edge final : public Naive_Topol {
 public:
@@ -18,8 +24,8 @@ public:
 
 private:
   Naive_Real myTol;
-  Handle_Naive_Curve myCrv;
-  Handle_Naive_Vertex myVerts[2];
+  Naive_Handle<geometry::Curve> myCrv;
+  Naive_Handle<Vertex> myVerts[2];
 };
 
 Naive_NAMESPACE_END(topology);

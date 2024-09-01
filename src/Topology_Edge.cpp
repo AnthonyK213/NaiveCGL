@@ -1,5 +1,7 @@
+#include <naivecgl/Geometry/Curve.h>
 #include <naivecgl/Topology/Edge.h>
 #include <naivecgl/Topology/Fin.h>
+#include <naivecgl/Topology/Vertex.h>
 
 Naive_NAMESPACE_BEGIN(topology);
 

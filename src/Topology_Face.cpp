@@ -1,4 +1,6 @@
+#include <naivecgl/Geometry/Surface.h>
 #include <naivecgl/Topology/Face.h>
+#include <naivecgl/Topology/Loop.h>
 #include <naivecgl/Topology/Shell.h>
 
 Naive_NAMESPACE_BEGIN(topology);

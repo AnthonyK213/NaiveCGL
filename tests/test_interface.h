@@ -230,3 +230,20 @@ TEST(NaiveCGLTest_Interface, Surface) {
   ASSERT_EQ(Naive_Code_ok, Naive_Memory_free(ask_result.u_knot));
   ASSERT_EQ(Naive_Code_ok, Naive_Memory_free(ask_result.v_knot));
 }
+
+TEST(NaiveCGLTest_Interface, Body) {
+  Naive_Ax2_sf_t basis_set;
+  basis_set.location.x = 0.;
+  basis_set.location.y = 0.;
+  basis_set.location.z = 0.;
+  basis_set.ref_direction.x = 1.;
+  basis_set.ref_direction.y = 0.;
+  basis_set.ref_direction.z = 0.;
+  basis_set.axis.x = 0.;
+  basis_set.axis.y = 0.;
+  basis_set.axis.z = 1.;
+
+  Naive_Body_t solid_block = Naive_Object_null;
+  ASSERT_EQ(Naive_Code_ok, Naive_Body_create_solid_block(
+                               10., 10., 10., &basis_set, &solid_block));
+}

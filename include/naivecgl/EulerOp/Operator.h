@@ -1,17 +1,48 @@
 #ifndef _NaiveCGL_EulerOp_Operator_HeaderFile
 #define _NaiveCGL_EulerOp_Operator_HeaderFile
 
+#include "../Collection/List1.h"
 #include "../Common/Command.h"
+#include "../Common/Handle.h"
+
+Naive_NAMESPACE_BEGIN(topology);
+
+class Topol;
+class Body;
+class Solid;
+class Shell;
+class Face;
+class Loop;
+class Fin;
+class Edge;
+class Vertex;
+
+Naive_NAMESPACE_END(topology);
 
 Naive_NAMESPACE_BEGIN(eulerop);
 
 class TEV;
 
-class Operator : common::Command {
+class Operator : public common::Command {
 public:
+  Naive_EXPORT virtual void Perform() = 0;
+
   Naive_EXPORT virtual const TEV &GetTEV() const = 0;
 
+  const Naive_List1<Naive_Handle<topology::Topol>> &NewTopols() {
+    return myNew;
+  }
+
+  const Naive_List1<Naive_Handle<topology::Topol>> &DelTopols() {
+    return myDel;
+  }
+
 protected:
+  Naive_EXPORT Operator() : common::Command(), myNew(), myDel() {}
+
+protected:
+  Naive_List1<Naive_Handle<topology::Topol>> myNew;
+  Naive_List1<Naive_Handle<topology::Topol>> myDel;
 };
 
 #define Naive_DEFINE_EO(Op_)                                                   \

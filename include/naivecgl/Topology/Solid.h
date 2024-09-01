@@ -2,11 +2,12 @@
 #define _NaiveCGL_Topology_Solid_HeaderFile
 
 #include "../Collection/LinkedList.h"
-#include "Shell.h"
+#include "Topol.h"
 
 Naive_NAMESPACE_BEGIN(topology);
 
 class Body;
+class Shell;
 
 class Solid final : public Naive_Topol {
 public:
@@ -17,7 +18,7 @@ public:
   Naive_DEFINE_RTTI(Solid, Naive_Topol);
 
 private:
-  Naive_LinkedList<Handle_Naive_Shell> myShells;
+  Naive_LinkedList<Naive_Handle<Shell>> myShells;
 };
 
 Naive_NAMESPACE_END(topology);

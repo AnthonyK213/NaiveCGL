@@ -5,11 +5,16 @@
 
 Naive_NAMESPACE_BEGIN(eulerop);
 
-class MakeEdgeVertex : Operator {
+class MakeEdgeVertex : public Operator {
 public:
+  Naive_EXPORT Naive_Handle<topology::Vertex> NewVertex() const;
+
+  Naive_EXPORT Naive_Handle<topology::Edge> NewEdge() const;
+
   Naive_DEFINE_EO(MakeEdgeVertex);
 
-private:
+protected:
+  Naive_EXPORT MakeEdgeVertex();
 };
 
 Naive_NAMESPACE_END(eulerop);

@@ -1,11 +1,12 @@
 #ifndef _NaiveCGL_Topology_Fin_HeaderFile
 #define _NaiveCGL_Topology_Fin_HeaderFile
 
-#include "Edge.h"
+#include "Topol.h"
 
 Naive_NAMESPACE_BEGIN(topology);
 
 class Loop;
+class Edge;
 
 class Fin final : public Naive_Topol {
 public:
@@ -13,7 +14,7 @@ public:
 
   Naive_EXPORT Naive_Handle<Loop> ParentLoop() const;
 
-  Naive_EXPORT Handle_Naive_Edge Edge() const { return myEdge; }
+  Naive_EXPORT Naive_Handle<Edge> GetEdge() const { return myEdge; }
 
   Naive_EXPORT Naive_Handle<Fin> Prev() const { return myPrev; }
 
@@ -24,7 +25,7 @@ public:
   Naive_DEFINE_RTTI(Fin, Naive_Topol);
 
 private:
-  Handle_Naive_Edge myEdge;
+  Naive_Handle<Edge> myEdge;
   Fin *myPrev;
   Fin *myNext;
   Fin *myTwin; /* Twin when manifold; Next neighbor when non-manifold. */

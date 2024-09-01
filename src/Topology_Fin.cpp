@@ -1,3 +1,4 @@
+#include <naivecgl/Topology/Edge.h>
 #include <naivecgl/Topology/Fin.h>
 #include <naivecgl/Topology/Loop.h>
 

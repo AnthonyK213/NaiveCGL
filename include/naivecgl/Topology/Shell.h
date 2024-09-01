@@ -2,13 +2,16 @@
 #define _NaiveCGL_Topology_Shell_HeaderFile
 
 #include "../Collection/LinkedList.h"
-#include "Face.h"
+#include "Topol.h"
 
 Naive_NAMESPACE_BEGIN(topology);
 
 class Solid;
+class Face;
 
 class Shell final : public Naive_Topol {
+  friend class eulerop::MakeBodyFaceVertex;
+
 public:
   Naive_EXPORT Shell();
 
@@ -17,7 +20,7 @@ public:
   Naive_DEFINE_RTTI(Shell, Naive_Topol);
 
 private:
-  Naive_LinkedList<Handle_Naive_Face> myFaces;
+  Naive_LinkedList<Naive_Handle<Face>> myFaces;
 };
 
 Naive_NAMESPACE_END(topology);

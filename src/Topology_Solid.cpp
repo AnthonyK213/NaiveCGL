@@ -1,4 +1,5 @@
 #include <naivecgl/Topology/Body.h>
+#include <naivecgl/Topology/Shell.h>
 #include <naivecgl/Topology/Solid.h>
 
 Naive_NAMESPACE_BEGIN(topology);

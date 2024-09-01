@@ -3,6 +3,11 @@
 
 Naive_NAMESPACE_BEGIN(eulerop);
 
+Naive_Code EOLib::GetTEV(const Naive_Handle<topology::Topol> &theTopol,
+                         TEV &theTEV) {
+  Naive_TODO;
+}
+
 Naive_Code EOLib::Resolve(const TEV &theDelta, TEV &theResult) {
   TEV::Value aRes = invA() * theDelta.GetValue();
   theResult.Set(aRes / 12);

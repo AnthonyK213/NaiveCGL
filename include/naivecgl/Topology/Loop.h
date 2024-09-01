@@ -2,11 +2,11 @@
 #define _NaiveCGL_Topology_Loop_HeaderFile
 
 #include "../Collection/LinkedList.h"
-#include "Fin.h"
 
 Naive_NAMESPACE_BEGIN(topology);
 
 class Face;
+class Fin;
 
 class Loop final : public Naive_Topol {
 public:
@@ -17,7 +17,7 @@ public:
   Naive_DEFINE_RTTI(Loop, Naive_Topol);
 
 private:
-  Naive_LinkedList<Handle_Naive_Fin> myFins;
+  Naive_LinkedList<Naive_Handle<Fin>> myFins;
   Naive_Loop_type myType;
 };
 
