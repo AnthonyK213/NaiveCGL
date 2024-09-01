@@ -63,13 +63,13 @@ Handle_Naive_Shell MakeBodyFaceVertex::NewShell() const {
 Handle_Naive_Face MakeBodyFaceVertex::NewFace() const {
   if (!IsDone())
     return nullptr;
-  return Handle_Naive_Shell::DownCast(MBFV_F);
+  return Handle_Naive_Face::DownCast(MBFV_F);
 }
 
 Handle_Naive_Vertex MakeBodyFaceVertex::NewVertex() const {
   if (!IsDone())
     return nullptr;
-  return Handle_Naive_Shell::DownCast(MBFV_V);
+  return Handle_Naive_Vertex::DownCast(MBFV_V);
 }
 
 Naive_NAMESPACE_END(eulerop);
