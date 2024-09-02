@@ -2,7 +2,7 @@
 
 Naive_NAMESPACE_BEGIN(eulerop);
 
-TEV::TEV() noexcept : myVal() {}
+TEV::TEV() noexcept : myVal() { myVal << 0.0, 0.0, 0.0, 0.0, 0.0, 0.0; }
 
 TEV::TEV(Naive_Integer theV, Naive_Integer theE, Naive_Integer theF,
          Naive_Integer theH, Naive_Integer theG, Naive_Integer theB)

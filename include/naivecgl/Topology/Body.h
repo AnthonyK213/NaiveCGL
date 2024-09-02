@@ -9,8 +9,6 @@ Naive_NAMESPACE_BEGIN(topology);
 class Solid;
 class Shell;
 class Face;
-class Loop;
-class Fin;
 class Edge;
 class Vertex;
 
@@ -27,8 +25,6 @@ private:
   Naive_LinkedList<Naive_Handle<Solid>> mySolids;
   Naive_LinkedList<Naive_Handle<Shell>> myShells;
   Naive_LinkedList<Naive_Handle<Face>> myFaces;
-  Naive_LinkedList<Naive_Handle<Loop>> myLoops;
-  Naive_LinkedList<Naive_Handle<Fin>> myFins;
   Naive_LinkedList<Naive_Handle<Edge>> myEdges;
   Naive_LinkedList<Naive_Handle<Vertex>> myVertices;
 };

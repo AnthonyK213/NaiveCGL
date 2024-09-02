@@ -15,7 +15,6 @@ Naive_IMPLEMENT_EO(MakeBodyFaceVertex, 1, 0, 1, 0, 0, 1);
 #define MBFV_V (myNew[3])
 
 MakeBodyFaceVertex::MakeBodyFaceVertex() : Operator() {
-  myNew.reserve(4);
   Perform();
 }
 
@@ -40,10 +39,10 @@ void MakeBodyFaceVertex::Perform() {
   aV->SetParent(aB);
 
   myNew.resize(4);
-  MBFV_B = ::std::move(aB);
-  MBFV_S = ::std::move(aS);
-  MBFV_F = ::std::move(aF);
-  MBFV_V = ::std::move(aV);
+  MBFV_B = aB;
+  MBFV_S = aS;
+  MBFV_F = aF;
+  MBFV_V = aV;
 
   Done();
 }

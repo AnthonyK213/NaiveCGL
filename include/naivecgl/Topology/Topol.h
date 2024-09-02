@@ -7,6 +7,11 @@
 Naive_NAMESPACE_BEGIN(eulerop);
 
 class MakeBodyFaceVertex;
+class MakeEdgeKillLoop;
+class MakeEdgeVertex;
+class MakeFaceEdge;
+class MakeGenusBody;
+class SplitEdge;
 
 Naive_NAMESPACE_END(eulerop);
 
@@ -14,6 +19,11 @@ Naive_NAMESPACE_BEGIN(topology);
 
 class Topol : public Naive_Object {
   friend class eulerop::MakeBodyFaceVertex;
+  friend class eulerop::MakeEdgeKillLoop;
+  friend class eulerop::MakeEdgeVertex;
+  friend class eulerop::MakeFaceEdge;
+  friend class eulerop::MakeGenusBody;
+  friend class eulerop::SplitEdge;
 
 public:
   Topol(const Topol &theOther) Naive_DELETE;

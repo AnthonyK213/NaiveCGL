@@ -4,6 +4,9 @@
 
 Naive_NAMESPACE_BEGIN(eulerop);
 
+#define MEV_E (myNew[0])
+#define MEV_V (myNew[1])
+
 SplitEdge::SplitEdge()
     : MakeEdgeVertex(), myEdge(nullptr), myForward(Naive_True) {}
 
@@ -23,7 +26,12 @@ void SplitEdge::Perform() {
   if (Status() != Naive_Code_initialized)
     return;
 
-  Naive_TODO;
+  Handle_Naive_Edge aE = new Naive_Edge();
+  Handle_Naive_Vertex aV = new Naive_Vertex();
+
+  myNew.resize(2);
+  MEV_E = aE;
+  MEV_V = aV;
 
   Done();
 }

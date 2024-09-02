@@ -7,7 +7,7 @@ Naive_NAMESPACE_BEGIN(eulerop);
 
 Naive_IMPLEMENT_EO(MakeEdgeVertex, 1, 1, 0, 0, 0, 0);
 
-MakeEdgeVertex::MakeEdgeVertex() : Operator() { myNew.reserve(2); }
+MakeEdgeVertex::MakeEdgeVertex() : Operator() {}
 
 Handle_Naive_Vertex MakeEdgeVertex::NewVertex() const {
   if (!IsDone())
