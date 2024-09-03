@@ -12,4 +12,6 @@ Handle_Naive_Loop Fin::ParentLoop() const {
   return Handle_Naive_Loop::DownCast(myParent);
 }
 
+Handle_Naive_Edge Fin::ParentEdge() const { return myEdge; }
+
 Naive_NAMESPACE_END(topology);

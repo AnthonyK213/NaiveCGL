@@ -3,6 +3,8 @@
 
 #include "Topol.h"
 
+#include "../Collection/LinkedList.h"
+
 Naive_NAMESPACE_BEGIN(geometry);
 
 class Curve;
@@ -11,6 +13,7 @@ Naive_NAMESPACE_END(geometry);
 
 Naive_NAMESPACE_BEGIN(topology);
 
+class Body;
 class Fin;
 class Vertex;
 
@@ -20,14 +23,17 @@ class Edge final : public Naive_Topol {
 public:
   Naive_EXPORT Edge();
 
-  Naive_EXPORT Naive_Handle<Fin> ParentFin() const;
+  Naive_EXPORT Naive_Handle<Body> ParentBody() const;
+
+  Naive_EXPORT Naive_LinkedList<Naive_Handle<Fin>> GetFins() const;
 
   Naive_DEFINE_RTTI(Edge, Naive_Topol);
 
 private:
-  Naive_Real myTol;
   Naive_Handle<geometry::Curve> myCrv;
   Naive_Handle<Vertex> myVerts[2];
+  Naive_Handle<Fin> myFin;
+  Naive_Real myTol;
 };
 
 Naive_NAMESPACE_END(topology);

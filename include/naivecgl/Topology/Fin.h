@@ -14,7 +14,7 @@ public:
 
   Naive_EXPORT Naive_Handle<Loop> ParentLoop() const;
 
-  Naive_EXPORT Naive_Handle<Edge> GetEdge() const { return myEdge; }
+  Naive_EXPORT Naive_Handle<Edge> ParentEdge() const;
 
   Naive_EXPORT Naive_Handle<Fin> Prev() const { return myPrev; }
 
@@ -25,10 +25,10 @@ public:
   Naive_DEFINE_RTTI(Fin, Naive_Topol);
 
 private:
-  Naive_Handle<Edge> myEdge;
+  Edge *myEdge;
   Fin *myPrev;
   Fin *myNext;
-  Fin *myTwin; /* Twin when manifold; Next neighbor when non-manifold. */
+  Fin *myTwin; /* Next fin around myEdge. */
 };
 
 Naive_NAMESPACE_END(topology);
