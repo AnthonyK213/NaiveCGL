@@ -160,92 +160,97 @@ Naive_Code NurbsCurve::RaiseDegree(const Naive_Integer theDegree) {
 
 Naive_Code NurbsCurve::IncreaseMultiplicity(const Naive_Integer theI,
                                             const Naive_Integer theM) {
-  if (theI < 0 || theI >= myMults.size() || theM < 0)
-    return Naive_Code_value_out_of_range;
+  // if (theI < 0 || theI >= myMults.size() || theM < 0)
+  //   return Naive_Code_value_out_of_range;
 
-  if (theM == 0)
-    return Naive_Code_ok;
+  // if (theM == 0)
+  //   return Naive_Code_ok;
 
-  Naive_Real T = myKnots[theI];
-  Naive_Integer S = myMults[theI];
+  // Naive_Real T = myKnots[theI];
+  // Naive_Integer S = myMults[theI];
 
-  if (theI != 0 && theI != myMults.size() - 1) {
-    if (theM + S > myDegree)
-      return Naive_Code_value_out_of_range;
-  } else if (theM + S > myDegree + 1)
-    return Naive_Code_value_out_of_range;
+  // if (theI != 0 && theI != myMults.size() - 1) {
+  //   if (theM + S > myDegree)
+  //     return Naive_Code_value_out_of_range;
+  // } else if (theM + S > myDegree + 1)
+  //   return Naive_Code_value_out_of_range;
 
-  /* The last knot belongs to the last span. */
-  Naive_Integer iSpan = (theI == myMults.size() - 1) ? theI - 1 : theI;
-  Naive_Integer K = mySpanIdx[iSpan] - 1;
+  // /* The last knot belongs to the last span. */
+  // Naive_Integer iSpan = (theI == myMults.size() - 1) ? theI - 1 : theI;
+  // Naive_Integer K = mySpanIdx[iSpan] - 1;
 
-  Naive_Pnt2dList1 aPoles(myPoles.size() + theM, Naive_Pnt2d::Unset());
-  Naive_RealList1 aWeights(myWeights.size() + theM,
-                           math::Constant::UnsetReal());
-  Naive_IntegerList1 aMults = myMults;
-  aMults[theI] += theM;
+  // Naive_Pnt2dList1 aPoles(myPoles.size() + theM, Naive_Pnt2d::Unset());
+  // Naive_RealList1 aWeights(myWeights.size() + theM,
+  //                          math::Constant::UnsetReal());
+  // Naive_IntegerList1 aMults = myMults;
+  // aMults[theI] += theM;
 
-  for (Naive_Integer I = 0; I < aPoles.size(); ++I) {
-    Naive_XYZ q = math::Nurbs::PoleAfterInsertKnot<2>(
-        myPoles, myWeights, myFlatKnots, myDegree, T, K, S, I, theM);
-    aPoles[I].HomoCoord(q);
-    aWeights[I] = q(2);
-  }
+  // for (Naive_Integer I = 0; I < aPoles.size(); ++I) {
+  //   Naive_XYZ q = math::Nurbs::PoleAfterInsertKnot<2>(
+  //       myPoles, myWeights, myFlatKnots, myDegree, T, K, S, I, theM);
+  //   aPoles[I].HomoCoord(q);
+  //   aWeights[I] = q(2);
+  // }
 
-  return update(::std::move(aPoles), ::std::move(aWeights), myKnots,
-                ::std::move(aMults), myDegree);
+  // return update(::std::move(aPoles), ::std::move(aWeights), myKnots,
+  //               ::std::move(aMults), myDegree);
+
+  return Naive_Code_not_implemented;
 }
 
 Naive_Code NurbsCurve::InsertKnot(const Naive_Real theT,
                                   const Naive_Integer theM) {
-  if (theM < 0 || theM > Degree())
-    return Naive_Code_value_out_of_range;
+  // if (theM < 0 || theM > Degree())
+  //   return Naive_Code_value_out_of_range;
 
-  Naive_Integer iSpan = math::Nurbs::FindSpan(myKnots, theT);
-  if (iSpan < 0)
-    return Naive_Code_value_out_of_range;
-  Naive_Integer K = mySpanIdx[iSpan] - 1;
+  // Naive_Integer iSpan = math::Nurbs::FindSpan(myKnots, theT);
+  // if (iSpan < 0)
+  //   return Naive_Code_value_out_of_range;
+  // Naive_Integer K = mySpanIdx[iSpan] - 1;
 
-  if (theM == 0)
-    return Naive_Code_ok;
+  // if (theM == 0)
+  //   return Naive_Code_ok;
 
-  /* If |theT| is already in the |myKnots|, the operation would be a
-   * multiplicity increase. */
+  // /* If |theT| is already in the |myKnots|, the operation would be a
+  //  * multiplicity increase. */
 
-  /* FIXME: Float equality? */
+  // /* FIXME: Float equality? */
 
-  if (theT == myKnots[iSpan])
-    return IncreaseMultiplicity(iSpan, theM);
+  // if (theT == myKnots[iSpan])
+  //   return IncreaseMultiplicity(iSpan, theM);
 
-  if (theT == myKnots[iSpan + 1])
-    return IncreaseMultiplicity(iSpan + 1, theM);
+  // if (theT == myKnots[iSpan + 1])
+  //   return IncreaseMultiplicity(iSpan + 1, theM);
 
-  /* Makes no sense for a inner knot with a multiplicity greater than
-   * |myDegree|. */
+  // /* Makes no sense for a inner knot with a multiplicity greater than
+  //  * |myDegree|. */
 
-  if (iSpan != 0 && iSpan != myMults.size() - 1) {
-    if (theM > myDegree)
-      return Naive_Code_value_out_of_range;
-  } else if (theM > myDegree + 1)
-    return Naive_Code_value_out_of_range;
+  // if (iSpan != 0 && iSpan != myMults.size() - 1) {
+  //   if (theM > myDegree)
+  //     return Naive_Code_value_out_of_range;
+  // } else if (theM > myDegree + 1)
+  //   return Naive_Code_value_out_of_range;
 
-  Naive_Pnt2dList1 aPoles(myPoles.size() + theM, Naive_Pnt2d::Unset());
-  Naive_RealList1 aWeights(myWeights.size() + theM,
-                           math::Constant::UnsetReal());
-  Naive_RealList1 aKnots = myKnots;
-  Naive_IntegerList1 aMults = myMults;
-  aKnots.insert(aKnots.begin() + iSpan + 1, theT);
-  aMults.insert(aMults.begin() + iSpan + 1, theM);
+  // Naive_Pnt2dList1 aPoles(myPoles.size() + theM, Naive_Pnt2d::Unset());
+  // Naive_RealList1 aWeights(myWeights.size() + theM,
+  //                          math::Constant::UnsetReal());
+  // Naive_RealList1 aKnots = myKnots;
+  // Naive_IntegerList1 aMults = myMults;
+  // aKnots.insert(aKnots.begin() + iSpan + 1, theT);
+  // aMults.insert(aMults.begin() + iSpan + 1, theM);
 
-  for (Naive_Integer I = 0; I < aPoles.size(); ++I) {
-    Naive_XYZ q = math::Nurbs::PoleAfterInsertKnot<2>(
-        myPoles, myWeights, myFlatKnots, myDegree, theT, K, 0, I, theM);
-    aPoles[I].HomoCoord(q);
-    aWeights[I] = q(2);
-  }
+  // for (Naive_Integer I = 0; I < aPoles.size(); ++I) {
+  //   Naive_XYZ q = math::Nurbs::PoleAfterInsertKnot<2>(
+  //       myPoles, myWeights, myFlatKnots, myDegree, theT, K, 0, I, theM);
+  //   aPoles[I].HomoCoord(q);
+  //   aWeights[I] = q(2);
+  // }
 
-  return update(::std::move(aPoles), ::std::move(aWeights), ::std::move(aKnots),
-                ::std::move(aMults), myDegree);
+  // return update(::std::move(aPoles), ::std::move(aWeights),
+  // ::std::move(aKnots),
+  //               ::std::move(aMults), myDegree);
+
+  return Naive_Code_not_implemented;
 }
 
 Naive_Code NurbsCurve::RemoveKnot(const Naive_Integer theI,

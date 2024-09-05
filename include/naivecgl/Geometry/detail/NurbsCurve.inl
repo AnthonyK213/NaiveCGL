@@ -2,39 +2,36 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-template <typename P, typename Rw, typename Rk, typename I>
-Naive_Code NurbsCurve::update(P &&thePoles, Rw &&theWeights, Rk &&theKnots,
-                              I &&theMults, const Naive_Integer theDegree) {
+template <typename CPs_, typename Knots_, typename Mults_>
+Naive_Code NurbsCurve::update(CPs_ &&theCPs, Knots_ &&theKnots,
+                              Mults_ &&theMults, const Naive_Integer theDegree,
+                              const Naive_Bool thePeriodic) {
   Naive_Code aCode = Naive_Code_ok;
 
-  aCode = math::Nurbs::CheckParam(thePoles.size(), theWeights.size(), theKnots,
-                                  theMults, theDegree, myPeriodic, myFlatKnots,
-                                  mySpanIdx);
+  aCode = math::Nurbs::CheckParam(theCPs.size(), theKnots, theMults, theDegree,
+                                  myPeriodic, myFlatKnots);
+
   if (aCode != Naive_Code_ok)
     return aCode;
 
-  for (Naive_Integer i = 0; i < thePoles.size(); ++i) {
-    if (!thePoles[i].IsValid())
+  for (Naive_Integer i = 0; i < theCPs.size(); ++i) {
+    if (!math::Util::IsValidReal(theCPs[i].w()))
       return Naive_Code_invalid_value;
 
-    if (!math::Util::IsValidReal(theWeights[i]))
-      return Naive_Code_invalid_value;
-
-    if (theWeights[i] <= 0)
+    if (theCPs[i].w() <= 0)
       return Naive_Code_weight_le_0;
   }
 
-  for (Naive_Integer i = 1; i < theWeights.size(); ++i) {
-    if (!math::Util::EpsilonEquals(theWeights[i], theWeights[0])) {
+  for (Naive_Integer i = 1; i < theCPs.size(); ++i) {
+    if (!math::Util::EpsilonEquals(theCPs[i].w(), theCPs[0].w())) {
       myRational = Naive_True;
       break;
     }
   }
 
-  myPoles = ::std::forward<P>(thePoles);
-  myWeights = ::std::forward<Rw>(theWeights);
-  myKnots = ::std::forward<Rk>(theKnots);
-  myMults = ::std::forward<I>(theMults);
+  myCPs = ::std::forward<CPs_>(theCPs);
+  myKnots = ::std::forward<Knots_>(theKnots);
+  myMults = ::std::forward<Mults_>(theMults);
   myDegree = theDegree;
 
   return aCode;
