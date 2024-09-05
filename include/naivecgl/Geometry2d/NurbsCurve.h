@@ -15,13 +15,18 @@ public:
                           const Naive_RealList1 &theWeights,
                           const Naive_RealList1 &theKnots,
                           const Naive_IntegerList1 &theMults,
-                          const Naive_Integer theDegree) noexcept;
+                          const Naive_Integer theDegree,
+                          const Naive_Bool thePeriodic = Naive_False) noexcept;
 
-  Naive_EXPORT Naive_Code Init(const Naive_Pnt2dList1 &thePoles,
-                               const Naive_RealList1 &theWeights,
-                               const Naive_RealList1 &theKnots,
-                               const Naive_IntegerList1 &theMults,
-                               const Naive_Integer theDegree) noexcept;
+  Naive_EXPORT NurbsCurve(const Naive_NurbsCurve_sf_t &theSF) noexcept;
+
+  Naive_EXPORT Naive_Code
+  Init(const Naive_Pnt2dList1 &thePoles, const Naive_RealList1 &theWeights,
+       const Naive_RealList1 &theKnots, const Naive_IntegerList1 &theMults,
+       const Naive_Integer theDegree,
+       const Naive_Bool thePeriodic = Naive_False) noexcept;
+
+  Naive_EXPORT Naive_Code Init(const Naive_NurbsCurve_sf_t &theSF) noexcept;
 
   Naive_EXPORT virtual Naive_Bool IsValid() const Naive_OVERRIDE;
 
@@ -31,13 +36,13 @@ public:
 
   Naive_EXPORT Naive_Integer NbPoles() const;
 
-  Naive_EXPORT const Naive_Pnt2d &Pole(const Naive_Integer theIndex) const;
+  Naive_EXPORT Naive_Pnt2d Pole(const Naive_Integer theIndex) const;
 
-  Naive_EXPORT const Naive_Pnt2dList1 &Poles() const { return myPoles; }
+  Naive_EXPORT Naive_Pnt2dList1 Poles() const;
 
   Naive_EXPORT Naive_Real Weight(const Naive_Integer theIndex) const;
 
-  Naive_EXPORT const Naive_RealList1 &Weights() const { return myWeights; }
+  Naive_EXPORT Naive_RealList1 Weights() const;
 
   Naive_EXPORT Naive_Integer NbKnots() const;
 
@@ -60,6 +65,12 @@ public:
   Naive_EXPORT virtual Naive_Bool IsPeriodic() const Naive_OVERRIDE;
 
   Naive_EXPORT virtual Naive_Real Period() const Naive_OVERRIDE;
+
+  Naive_EXPORT virtual Naive_Pnt2d
+  PointAt(const Naive_Real theT) const Naive_OVERRIDE;
+
+  Naive_EXPORT virtual Naive_Vec2d
+  TangentAt(const Naive_Real theT) const Naive_OVERRIDE;
 
   Naive_EXPORT virtual Naive_Code
   Evaluate(const Naive_Real theT, const Naive_Integer theN,
@@ -90,23 +101,24 @@ public:
 
   Naive_EXPORT virtual Naive_Pnt2d StartPoint() const Naive_OVERRIDE;
 
+  Naive_EXPORT Naive_Code Dump(Naive_NurbsCurve_sf_t &theSF) const;
+
   Naive_DEFINE_RTTI(NurbsCurve, Naive_BoundedCurve2d);
 
 private:
-  template <typename P, typename Rw, typename Rk, typename I>
-  Naive_Code update(P &&thePoles, Rw &&theWeights, Rk &&theKnots, I &&theMults,
-                    const Naive_Integer theDegree);
+  template <typename CPs_, typename Knots_, typename Mults_>
+  Naive_Code update(CPs_ &&theCPs, Knots_ &&theKnots, Mults_ &&theMults,
+                    const Naive_Integer theDegree,
+                    const Naive_Bool thePeriodic);
 
 private:
-  Naive_Bool myRational;
-  Naive_Bool myPeriodic;
-  Naive_Integer myDegree;
-  Naive_Pnt2dList1 myPoles;
-  Naive_RealList1 myWeights;
+  Naive_XYZList1 myCPs;
   Naive_RealList1 myFlatKnots;
   Naive_RealList1 myKnots;
   Naive_IntegerList1 myMults;
-  Naive_IntegerList1 mySpanIdx;
+  Naive_Integer myDegree;
+  Naive_Bool myRational;
+  Naive_Bool myPeriodic;
 };
 
 Naive_NAMESPACE_END(geometry2d);

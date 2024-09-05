@@ -33,6 +33,7 @@ Naive_Code NurbsCurve::update(CPs_ &&theCPs, Knots_ &&theKnots,
   myKnots = ::std::forward<Knots_>(theKnots);
   myMults = ::std::forward<Mults_>(theMults);
   myDegree = theDegree;
+  // myPeriodic = thePeriodic;
 
   return aCode;
 }

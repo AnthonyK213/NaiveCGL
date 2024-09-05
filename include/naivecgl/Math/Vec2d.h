@@ -79,6 +79,8 @@ public:
 
   Naive_EXPORT Naive_XYZ HomoCoord() const;
 
+  Naive_EXPORT Naive_Bool HomoCoord(const Naive_XYZ &theXYZ);
+
   Naive_EXPORT Naive_Bool Dump(Naive_Vec2d_t &theV) const;
 
 private:

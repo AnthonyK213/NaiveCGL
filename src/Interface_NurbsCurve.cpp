@@ -181,126 +181,23 @@ Naive_NurbsCurve_create(const Naive_NurbsCurve_sf_t *nurbs_curve_sf,
   if (!nurbs_curve_sf || !nurbs_curve)
     return Naive_Code_null_arg_address;
 
-  int degree = nurbs_curve_sf->degree;
-  int n_vertices = nurbs_curve_sf->n_vertices;
-  int vertex_dim = nurbs_curve_sf->vertex_dim;
-  double *vertex = nurbs_curve_sf->vertex;
-  int n_knots = nurbs_curve_sf->n_knots;
-  double *knot = nurbs_curve_sf->knot;
-  int *knot_mult = nurbs_curve_sf->knot_mult;
-
-  if (!vertex || !knot || !knot_mult)
-    return Naive_Code_invalid_value;
-
-  if (n_knots < 2)
-    return Naive_Code_insufficient_knots;
-
-  if (degree < 1)
-    return Naive_Code_value_out_of_range;
-
-  int n_poles = n_vertices / vertex_dim;
-  if (n_poles < 2)
-    return Naive_Code_insufficient_points;
-
-  if (nurbs_curve_sf->is_rational) {
-    switch (vertex_dim) {
-    case 3: {
-      Naive_Pnt2dList1 aPoles(n_poles, Naive_Pnt2d::Unset());
-      Naive_RealList1 aWeights{};
-      aWeights.reserve(n_poles);
-
-      for (Naive_Pnt2d &aPole : aPoles) {
-        aPole.SetX(*(vertex++));
-        aPole.SetY(*(vertex++));
-        Naive_Real aWeight = *(vertex++);
-        if (!aPole.Divide(aWeight))
-          return Naive_Code_invalid_value;
-        aWeights.push_back(aWeight);
-      }
-
-      Naive_RealList1 aKnots(knot, knot + n_knots);
-      Naive_IntegerList1 aMults(knot_mult, knot_mult + n_knots);
-
-      Handle_Naive_NurbsCurve2d aCrv = new Naive_NurbsCurve2d;
-      Naive_CHECK_CODE(aCrv->Init(aPoles, aWeights, aKnots, aMults, degree));
-
-      Naive_ROSTER_ADD(aCrv, *nurbs_curve);
-      return Naive_Code_ok;
-    }
-
-    case 4: {
-      Naive_Pnt3dList1 aPoles(n_poles, Naive_Pnt3d::Unset());
-      Naive_RealList1 aWeights{};
-      aWeights.reserve(n_poles);
-
-      for (Naive_Pnt3d &aPole : aPoles) {
-        aPole.SetX(*(vertex++));
-        aPole.SetY(*(vertex++));
-        aPole.SetZ(*(vertex++));
-        Naive_Real aWeight = *(vertex++);
-        if (!aPole.Divide(aWeight))
-          return Naive_Code_invalid_value;
-        aWeights.push_back(aWeight);
-      }
-
-      Naive_RealList1 aKnots(knot, knot + n_knots);
-      Naive_IntegerList1 aMults(knot_mult, knot_mult + n_knots);
-
-      Handle_Naive_NurbsCurve aCrv = new Naive_NurbsCurve;
-      Naive_CHECK_CODE(aCrv->Init(aPoles, aWeights, aKnots, aMults, degree));
-
-      Naive_ROSTER_ADD(aCrv, *nurbs_curve);
-      return Naive_Code_ok;
-    }
-
-    default:
-      return Naive_Code_bad_dimension;
-    }
-  } else {
-    switch (vertex_dim) {
-    case 2: {
-      Naive_Pnt2dList1 aPoles(n_poles, Naive_Pnt2d::Unset());
-      Naive_RealList1 aWeights(n_poles, 1.);
-
-      for (Naive_Pnt2d &aPole : aPoles) {
-        aPole.SetX(*(vertex++));
-        aPole.SetY(*(vertex++));
-      }
-
-      Naive_RealList1 aKnots(knot, knot + n_knots);
-      Naive_IntegerList1 aMults(knot_mult, knot_mult + n_knots);
-
-      Handle_Naive_NurbsCurve2d aCrv = new Naive_NurbsCurve2d;
-      Naive_CHECK_CODE(aCrv->Init(aPoles, aWeights, aKnots, aMults, degree));
-
-      Naive_ROSTER_ADD(aCrv, *nurbs_curve);
-      return Naive_Code_ok;
-    }
-
-    case 3: {
-      Naive_Pnt3dList1 aPoles(n_poles, Naive_Pnt3d::Unset());
-      Naive_RealList1 aWeights(n_poles, 1.);
-
-      for (Naive_Pnt3d &aPole : aPoles) {
-        aPole.SetX(*(vertex++));
-        aPole.SetY(*(vertex++));
-        aPole.SetZ(*(vertex++));
-      }
-
-      Naive_RealList1 aKnots(knot, knot + n_knots);
-      Naive_IntegerList1 aMults(knot_mult, knot_mult + n_knots);
-
-      Handle_Naive_NurbsCurve aCrv = new Naive_NurbsCurve;
-      Naive_CHECK_CODE(aCrv->Init(aPoles, aWeights, aKnots, aMults, degree));
-
-      Naive_ROSTER_ADD(aCrv, *nurbs_curve);
-      return Naive_Code_ok;
-    }
-
-    default:
-      return Naive_Code_bad_dimension;
-    }
+  if ((nurbs_curve_sf->is_rational && nurbs_curve_sf->vertex_dim == 3) ||
+      (!nurbs_curve_sf->is_rational && nurbs_curve_sf->vertex_dim == 2)) {
+    Handle_Naive_NurbsCurve2d aCrv = new Naive_NurbsCurve2d;
+    Naive_CHECK_CODE(aCrv->Init(*nurbs_curve_sf));
+    Naive_ROSTER_ADD(aCrv, *nurbs_curve);
+    return Naive_Code_ok;
   }
+
+  if ((nurbs_curve_sf->is_rational && nurbs_curve_sf->vertex_dim == 4) ||
+      (!nurbs_curve_sf->is_rational && nurbs_curve_sf->vertex_dim == 3)) {
+    Handle_Naive_NurbsCurve aCrv = new Naive_NurbsCurve;
+    Naive_CHECK_CODE(aCrv->Init(*nurbs_curve_sf));
+    Naive_ROSTER_ADD(aCrv, *nurbs_curve);
+    return Naive_Code_ok;
+  }
+
+  return Naive_Code_bad_dimension;
 }
 
 Naive_Code_t Naive_NurbsCurve_raise_degree(Naive_NurbsCurve_t nurbs_curve,

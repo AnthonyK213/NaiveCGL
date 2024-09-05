@@ -45,7 +45,52 @@ Naive_Code NurbsCurve::Init(const Naive_Pnt3dList1 &thePoles,
 }
 
 Naive_Code NurbsCurve::Init(const Naive_NurbsCurve_sf_t &theSF) noexcept {
-  return Naive_Code_not_implemented;
+  int degree = theSF.degree;
+  int n_vertices = theSF.n_vertices;
+  int vertex_dim = theSF.vertex_dim;
+  double *vertex = theSF.vertex;
+  int n_knots = theSF.n_knots;
+  double *knot = theSF.knot;
+  int *knot_mult = theSF.knot_mult;
+
+  if (!vertex || !knot || !knot_mult)
+    return Naive_Code_invalid_value;
+
+  if (n_knots < 2)
+    return Naive_Code_insufficient_knots;
+
+  if (degree < 1)
+    return Naive_Code_value_out_of_range;
+
+  Naive_Integer nbCPs = n_vertices / vertex_dim;
+  if (nbCPs < 2)
+    return Naive_Code_insufficient_points;
+
+  Naive_XYZWList1 aCPs(nbCPs);
+
+  if (theSF.is_rational && vertex_dim == 4) {
+    for (Naive_XYZW &aCP : aCPs) {
+      aCP.x() = *(vertex++);
+      aCP.y() = *(vertex++);
+      aCP.z() = *(vertex++);
+      aCP.w() = *(vertex++);
+    }
+  } else if (!theSF.is_rational && vertex_dim == 3) {
+    for (Naive_XYZW &aCP : aCPs) {
+      aCP.x() = *(vertex++);
+      aCP.y() = *(vertex++);
+      aCP.z() = *(vertex++);
+      aCP.w() = 1.;
+    }
+  } else {
+    return Naive_Code_bad_dimension;
+  }
+
+  Naive_RealList1 aKnots(knot, knot + n_knots);
+  Naive_IntegerList1 aMults(knot_mult, knot_mult + n_knots);
+
+  return update(::std::move(aCPs), ::std::move(aKnots), ::std::move(aMults),
+                degree, theSF.is_periodic);
 }
 
 Naive_Bool NurbsCurve::IsValid() const { return myDegree > 0; }
@@ -118,13 +163,27 @@ Naive_Real NurbsCurve::LastParameter() const {
   return IsValid() ? myKnots[myKnots.size() - 1] : math::Constant::UnsetReal();
 }
 
+Naive_Pnt3d NurbsCurve::PointAt(const Naive_Real theT) const {
+  Naive_Vec3dList1 aD{};
+  if (Evaluate(theT, 0, aD) != Naive_Code_ok)
+    return Naive_Pnt3d::Unset();
+  return aD[0].XYZ();
+}
+
+Naive_Vec3d NurbsCurve::TangentAt(const Naive_Real theT) const {
+  Naive_Vec3dList1 aD{};
+  if (Evaluate(theT, 1, aD) != Naive_Code_ok)
+    return Naive_Vec3d::Unset();
+  return aD[1];
+}
+
 Naive_Code NurbsCurve::Evaluate(const Naive_Real theT, const Naive_Integer theN,
                                 Naive_Vec3dList1 &theD) const {
   if (!IsValid())
     return Naive_Code_invalid_object;
 
-  return math::Nurbs::EvaluateCurve<Naive_Vec3d, 3>(myCPs, myFlatKnots, myKnots,
-                                                    myMults, theT, theN, theD);
+  return math::Nurbs::CurveEvaluate<Naive_Vec3d, 3>(
+      myCPs, myFlatKnots, myKnots, myMults, myDegree, theT, theN, theD);
 }
 
 Naive_Code NurbsCurve::CurvatureAt(const Naive_Real theT,
@@ -146,133 +205,70 @@ Naive_Code NurbsCurve::CurvatureAt(const Naive_Real theT,
 }
 
 Naive_Code NurbsCurve::RaiseDegree(const Naive_Integer theDegree) {
-  if (!IsValid())
-    return Naive_Code_invalid_object;
+  Naive_XYZWList1 aCPs{};
+  Naive_RealList1 aKnots{};
+  Naive_IntegerList1 aMults{};
 
-  if (theDegree < 0)
-    return Naive_Code_value_out_of_range;
+  Naive_Code aCode = math::Nurbs::CurveRaiseDegree<3>(
+      myCPs, myFlatKnots, myKnots, myMults, myDegree, theDegree, aCPs, aKnots,
+      aMults);
 
-  return Naive_Code_not_implemented;
+  if (aCode != Naive_Code_ok)
+    return aCode;
+
+  return update(::std::move(aCPs), ::std::move(aKnots), ::std::move(aMults),
+                myDegree, myPeriodic);
 }
 
 Naive_Code NurbsCurve::IncreaseMultiplicity(const Naive_Integer theI,
                                             const Naive_Integer theM) {
-  // if (theI < 0 || theI >= myMults.size() || theM < 0)
-  //   return Naive_Code_value_out_of_range;
+  Naive_XYZWList1 aCPs{};
+  Naive_RealList1 aKnots{};
+  Naive_IntegerList1 aMults{};
 
-  // if (theM == 0)
-  //   return Naive_Code_ok;
+  Naive_Code aCode = math::Nurbs::CurveIncreaseMultiplicity<3>(
+      myCPs, myFlatKnots, myKnots, myMults, myDegree, theI, theM, aCPs, aKnots,
+      aMults);
 
-  // Naive_Real T = myKnots[theI];
-  // Naive_Integer S = myMults[theI];
+  if (aCode != Naive_Code_ok)
+    return aCode;
 
-  // if (theI != 0 && theI != myMults.size() - 1) {
-  //   if (theM + S > myDegree)
-  //     return Naive_Code_value_out_of_range;
-  // } else if (theM + S > myDegree + 1)
-  //   return Naive_Code_value_out_of_range;
-
-  // /* The last knot belongs to the last span. */
-  // Naive_Integer iSpan = (theI == myMults.size() - 1) ? theI - 1 : theI;
-  // Naive_Integer K = mySpanIdx[iSpan] - 1;
-
-  // Naive_Pnt3dList1 aPoles(myPoles.size() + theM, Naive_Pnt3d::Unset());
-  // Naive_RealList1 aWeights(myWeights.size() + theM,
-  //                          math::Constant::UnsetReal());
-  // Naive_IntegerList1 aMults = myMults;
-  // aMults[theI] += theM;
-
-  // for (Naive_Integer I = 0; I < aPoles.size(); ++I) {
-  //   Naive_XYZW q = math::Nurbs::PoleAfterInsertKnot<3>(
-  //       myPoles, myWeights, myFlatKnots, myDegree, T, K, S, I, theM);
-  //   aPoles[I].HomoCoord(q);
-  //   aWeights[I] = q(3);
-  // }
-
-  // return update(::std::move(aPoles), ::std::move(aWeights), myKnots,
-  //               ::std::move(aMults), myDegree);
-
-  return Naive_Code_not_implemented;
+  return update(::std::move(aCPs), ::std::move(aKnots), ::std::move(aMults),
+                myDegree, myPeriodic);
 }
 
 Naive_Code NurbsCurve::InsertKnot(const Naive_Real theT,
                                   const Naive_Integer theM) {
-  // if (theM < 0 || theM > Degree())
-  //   return Naive_Code_value_out_of_range;
+  Naive_XYZWList1 aCPs{};
+  Naive_RealList1 aKnots{};
+  Naive_IntegerList1 aMults{};
 
-  // Naive_Integer iSpan = math::Nurbs::FindSpan(myKnots, theT);
-  // if (iSpan < 0)
-  //   return Naive_Code_value_out_of_range;
-  // Naive_Integer K = mySpanIdx[iSpan] - 1;
+  Naive_Code aCode = math::Nurbs::CurveInsertKnot<3>(
+      myCPs, myFlatKnots, myKnots, myMults, myDegree, theT, theM, aCPs, aKnots,
+      aMults);
 
-  // if (theM == 0)
-  //   return Naive_Code_ok;
+  if (aCode != Naive_Code_ok)
+    return aCode;
 
-  // /* If |theT| is already in the |myKnots|, the operation would be a
-  //  * multiplicity increase. */
-
-  // /* FIXME: Float equality? */
-
-  // if (theT == myKnots[iSpan])
-  //   return IncreaseMultiplicity(iSpan, theM);
-
-  // if (theT == myKnots[iSpan + 1])
-  //   return IncreaseMultiplicity(iSpan + 1, theM);
-
-  // /* Makes no sense for a inner knot with a multiplicity greater than
-  //  * |myDegree|. */
-
-  // if (iSpan != 0 && iSpan != myMults.size() - 1) {
-  //   if (theM > myDegree)
-  //     return Naive_Code_value_out_of_range;
-  // } else if (theM > myDegree + 1)
-  //   return Naive_Code_value_out_of_range;
-
-  // Naive_Pnt3dList1 aPoles(myPoles.size() + theM, Naive_Pnt3d::Unset());
-  // Naive_RealList1 aWeights(myWeights.size() + theM,
-  //                          math::Constant::UnsetReal());
-  // Naive_RealList1 aKnots = myKnots;
-  // Naive_IntegerList1 aMults = myMults;
-  // aKnots.insert(aKnots.begin() + iSpan + 1, theT);
-  // aMults.insert(aMults.begin() + iSpan + 1, theM);
-
-  // for (Naive_Integer I = 0; I < aPoles.size(); ++I) {
-  //   Naive_XYZW q = math::Nurbs::PoleAfterInsertKnot<3>(
-  //       myPoles, myWeights, myFlatKnots, myDegree, theT, K, 0, I, theM);
-  //   aPoles[I].HomoCoord(q);
-  //   aWeights[I] = q(3);
-  // }
-
-  // return update(::std::move(aPoles), ::std::move(aWeights),
-  // ::std::move(aKnots),
-  //               ::std::move(aMults), myDegree);
-
-  return Naive_Code_not_implemented;
+  return update(::std::move(aCPs), ::std::move(aKnots), ::std::move(aMults),
+                myDegree, myPeriodic);
 }
 
 Naive_Code NurbsCurve::RemoveKnot(const Naive_Integer theI,
                                   const Naive_Integer theM) {
-  // Naive_Integer S = Multiplicity(theI);
-  // if (S == 0)
-  //   return Naive_Code_index_out_of_range;
+  Naive_XYZWList1 aCPs{};
+  Naive_RealList1 aKnots{};
+  Naive_IntegerList1 aMults{};
 
-  // Naive_Integer R = mySpanIdx[theI] - 1;
-  // Naive_Integer N = S - theM;
+  Naive_Code aCode = math::Nurbs::CurveRemoveKnot<3>(
+      myCPs, myFlatKnots, myKnots, myMults, myDegree, theI, theM, aCPs, aKnots,
+      aMults);
 
-  // if (theM < 0 || N < 0)
-  //   return Naive_Code_value_out_of_range;
+  if (aCode != Naive_Code_ok)
+    return aCode;
 
-  // /* Nothing to do... */
-  // if (N == 0)
-  //   return Naive_Code_ok;
-
-  // Naive_Integer aFirst = R - S;
-  // Naive_Integer aLast = R - Degree();
-
-  // for (Naive_Integer t = 0; t < N; ++t) {
-  // }
-
-  return Naive_Code_not_implemented;
+  return update(::std::move(aCPs), ::std::move(aKnots), ::std::move(aMults),
+                myDegree, myPeriodic);
 }
 
 Naive_Pnt3d NurbsCurve::EndPoint() const {
@@ -305,7 +301,7 @@ Naive_Bool NurbsCurve::IsPeriodic() const { return myPeriodic; }
 
 Naive_Real NurbsCurve::Period() const { return math::Constant::UnsetReal(); }
 
-Naive_Code NurbsCurve::Dump(Naive_NurbsCurve_sf_t &theSF) const {
+Naive_Code NurbsCurve::Dump(Naive_NurbsCurve_sf_t &nurbs_curve_sf) const {
   return Naive_Code_not_implemented;
 }
 

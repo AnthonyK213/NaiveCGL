@@ -151,6 +151,15 @@ Naive_XYZW Vec3d::HomoCoord() const {
   return Naive_XYZW{myXYZ.x(), myXYZ.y(), myXYZ.z(), 0.};
 }
 
+Naive_Bool Vec3d::HomoCoord(const Naive_XYZW &theXYZW) {
+  myXYZ = theXYZW.head<3>();
+  if (!Util::EpsilonEquals(theXYZW.w(), 0.)) {
+    myXYZ /= theXYZW(3);
+  }
+
+  return Naive_True;
+}
+
 Naive_Bool Vec3d::Dump(Naive_Vec3d_t &theVec) const {
   if (!IsValid())
     return Naive_False;
