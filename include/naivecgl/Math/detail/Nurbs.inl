@@ -3,12 +3,14 @@
 Naive_NAMESPACE_BEGIN(math);
 
 template <typename OutTy_, Naive_Integer Dim_>
-static Naive_Code Nurbs::CurveEvaluate(
-    const Naive_List1<Naive_VNd<Dim_ + 1>> &theCPs,
-    const Naive_RealList1 &theFlatKnots, const Naive_RealList1 &theKnots,
-    const Naive_IntegerList1 &theMults, const Naive_Integer theDegree,
-    const Naive_Real theT, const Naive_Integer theDerN,
-    Naive_List1<OutTy_> &theResult) {
+Naive_Code Nurbs::CurveEvaluate(const Naive_List1<Naive_VNd<Dim_ + 1>> &theCPs,
+                                const Naive_RealList1 &theFlatKnots,
+                                const Naive_RealList1 &theKnots,
+                                const Naive_IntegerList1 &theMults,
+                                const Naive_Integer theDegree,
+                                const Naive_Real theT,
+                                const Naive_Integer theDerN,
+                                Naive_List1<OutTy_> &theResult) {
   if (theDerN < 0)
     return Naive_Code_value_out_of_range;
 
@@ -36,14 +38,14 @@ static Naive_Code Nurbs::CurveEvaluate(
       v -= static_cast<Naive_Real>(math::Util::Combination(d, i)) *
            aCwDers[i](Dim_) * theResult[d - i].HomoCoord();
     }
-    theResult[d] = OutTy_(v.head<Dim_>() / aCwDers[0](Dim_));
+    theResult[d] = OutTy_(v.template head<Dim_>() / aCwDers[0](Dim_));
   }
 
   return Naive_Code_ok;
 }
 
 template <Naive_Integer Dim_>
-static Naive_VNd<Dim_ + 1>
+Naive_VNd<Dim_ + 1>
 Nurbs::PoleAfterInsertKnot(const Naive_List1<Naive_VNd<Dim_ + 1>> &theCPs,
                            const Naive_RealList1 &theFlatKnots,
                            const Naive_Integer theDegree, const Naive_Real theT,
@@ -72,7 +74,7 @@ Nurbs::PoleAfterInsertKnot(const Naive_List1<Naive_VNd<Dim_ + 1>> &theCPs,
 }
 
 template <Naive_Integer Dim_>
-static Naive_Code Nurbs::CurveRaiseDegree(
+Naive_Code Nurbs::CurveRaiseDegree(
     const Naive_List1<Naive_VNd<Dim_ + 1>> &theCPs,
     const Naive_RealList1 &theFlatKnots, const Naive_RealList1 &theKnots,
     const Naive_IntegerList1 &theMults, const Naive_Integer theDegree,
@@ -85,7 +87,7 @@ static Naive_Code Nurbs::CurveRaiseDegree(
 }
 
 template <Naive_Integer Dim_>
-static Naive_Code Nurbs::CurveIncreaseMultiplicity(
+Naive_Code Nurbs::CurveIncreaseMultiplicity(
     const Naive_List1<Naive_VNd<Dim_ + 1>> &theCPs,
     const Naive_RealList1 &theFlatKnots, const Naive_RealList1 &theKnots,
     const Naive_IntegerList1 &theMults, const Naive_Integer theDegree,
@@ -125,7 +127,7 @@ static Naive_Code Nurbs::CurveIncreaseMultiplicity(
 }
 
 template <Naive_Integer Dim_>
-static Naive_Code Nurbs::CurveInsertKnot(
+Naive_Code Nurbs::CurveInsertKnot(
     const Naive_List1<Naive_VNd<Dim_ + 1>> &theCPs,
     const Naive_RealList1 &theFlatKnots, const Naive_RealList1 &theKnots,
     const Naive_IntegerList1 &theMults, const Naive_Integer theDegree,
@@ -182,7 +184,7 @@ static Naive_Code Nurbs::CurveInsertKnot(
 }
 
 template <Naive_Integer Dim_>
-static Naive_Code Nurbs::CurveRemoveKnot(
+Naive_Code Nurbs::CurveRemoveKnot(
     const Naive_List1<Naive_VNd<Dim_ + 1>> &theCPs,
     const Naive_RealList1 &theFlatKnots, const Naive_RealList1 &theKnots,
     const Naive_IntegerList1 &theMults, const Naive_Integer theDegree,

@@ -3,6 +3,7 @@
 
 #include "Pnt3d.h"
 #include "Polynomial.h"
+#include "Util.h"
 #include "Vec3d.h"
 
 Naive_NAMESPACE_BEGIN(math);

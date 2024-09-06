@@ -1,7 +1,5 @@
 ﻿#include <naivecgl/Math/Constant.h>
 #include <naivecgl/Math/Nurbs.h>
-#include <naivecgl/Math/Polynomial.h>
-#include <naivecgl/Math/Util.h>
 
 #include <numeric>
 
