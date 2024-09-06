@@ -97,6 +97,15 @@ Naive_Real Vec2d::Crossed(const Vec2d &theV) const {
 
 Naive_XYZ Vec2d::HomoCoord() const { return Naive_XYZ{myXY.x(), myXY.y(), 0.}; }
 
+Naive_Bool Vec2d::HomoCoord(const Naive_XYZ &theXYZ) {
+  myXY = theXYZ.head<2>();
+  if (!Util::EpsilonEquals(theXYZ.z(), 0.)) {
+    myXY /= theXYZ(2);
+  }
+
+  return Naive_True;
+}
+
 Naive_Bool Vec2d::Dump(Naive_Vec2d_t &theV) const {
   if (!IsValid())
     return Naive_False;

@@ -15,7 +15,7 @@ public:
   Naive_EXPORT virtual Naive_Code Evaluate(const Naive_Real theU,
                                            const Naive_Real theV,
                                            const Naive_Integer theN,
-                                           Naive_Vec3dList1 &theD) const = 0;
+                                           Naive_Vec3dList2 &theD) const = 0;
 
   Naive_EXPORT virtual Naive_Bool Bounds(Naive_Real &theU0, Naive_Real &theU1,
                                          Naive_Real &theV0,

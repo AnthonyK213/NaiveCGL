@@ -17,7 +17,7 @@ public:
   Naive_EXPORT virtual Naive_Code
   Evaluate(const Naive_Real theU, const Naive_Real theV,
            const Naive_Integer theN,
-           Naive_Vec3dList1 &theD) const Naive_OVERRIDE;
+           Naive_Vec3dList2 &theD) const Naive_OVERRIDE;
 
   Naive_DEFINE_RTTI(CylindricalSurface, Naive_ElementarySurface);
 

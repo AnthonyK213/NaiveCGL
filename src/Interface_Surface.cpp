@@ -14,13 +14,13 @@ Naive_Code_t Naive_Surface_eval(Naive_Surface_t surface, double u, double v,
 
   Naive_Integer n_deriv = n_u_deriv + n_v_deriv;
   Naive_ROSTER_ASK(Naive_Surface, surface, H);
-  Naive_Vec3dList1 deriv{};
+  Naive_Vec3dList2 deriv{};
   Naive_CHECK_CODE(H->Evaluate(u, v, n_deriv, deriv));
 
   Naive_Integer index = 0;
   for (Naive_Integer j = 0; j <= n_v_deriv; ++j) {
     for (Naive_Integer i = 0; i <= n_u_deriv; ++i) {
-      deriv[(i + j) * (i + j + 1) / 2 + j].Dump(p[index++]);
+      deriv[i][j].Dump(p[index++]);
     }
   }
 

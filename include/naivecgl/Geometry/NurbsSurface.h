@@ -17,13 +17,21 @@ public:
       const Naive_Pnt3dList2 &thePoles, const Naive_RealList2 &theWeights,
       const Naive_RealList1 &theUKnots, const Naive_RealList1 &theVKnots,
       const Naive_IntegerList1 &theUMults, const Naive_IntegerList1 &theVMults,
-      const Naive_Integer theUDegree, const Naive_Integer theVDegree) noexcept;
+      const Naive_Integer theUDegree, const Naive_Integer theVDegree,
+      const Naive_Bool theUPeriodic = Naive_False,
+      const Naive_Bool theVPeriodic = Naive_False) noexcept;
+
+  Naive_EXPORT NurbsSurface(const Naive_NurbsSurface_sf_t &theSF) noexcept;
 
   Naive_EXPORT Naive_Code
   Init(const Naive_Pnt3dList2 &thePoles, const Naive_RealList2 &theWeights,
        const Naive_RealList1 &theUKnots, const Naive_RealList1 &theVKnots,
        const Naive_IntegerList1 &theUMults, const Naive_IntegerList1 &theVMults,
-       const Naive_Integer theUDegree, const Naive_Integer theVDegree) noexcept;
+       const Naive_Integer theUDegree, const Naive_Integer theVDegree,
+       const Naive_Bool theUPeriodic = Naive_False,
+       const Naive_Bool theVPeriodic = Naive_False) noexcept;
+
+  Naive_EXPORT Naive_Code Init(const Naive_NurbsSurface_sf_t &theSF) noexcept;
 
   Naive_EXPORT virtual Naive_Bool IsValid() const Naive_OVERRIDE;
 
@@ -56,7 +64,7 @@ public:
   Naive_EXPORT virtual Naive_Code
   Evaluate(const Naive_Real theU, const Naive_Real theV,
            const Naive_Integer theN,
-           Naive_Vec3dList1 &theD) const Naive_OVERRIDE;
+           Naive_Vec3dList2 &theD) const Naive_OVERRIDE;
 
   Naive_DEFINE_RTTI(NurbsSurface, Naive_BoundedSurface);
 
@@ -65,29 +73,27 @@ protected:
   transform(const math::Trsf3d &theTrsf) Naive_OVERRIDE;
 
 private:
-  template <typename P2, typename R2, typename R, typename I>
-  Naive_Code update(P2 &&thePoles, R2 &&theWeights, R &&theUKnots,
-                    R &&theVKnots, I &&theUMults, I &&theVMults,
-                    const Naive_Integer theUDegree,
-                    const Naive_Integer theVDegree);
+  template <typename CPs2_, typename Knots_, typename Mults_>
+  Naive_Code
+  update(CPs2_ &&theCPs, Knots_ &&theUKnots, Knots_ &&theVKnots,
+         Mults_ &&theUMults, Mults_ &&theVMults, const Naive_Integer theUDegree,
+         const Naive_Integer theVDegree, const Naive_Bool theUPeriodic,
+         const Naive_Bool theVPeriodic);
 
 private:
-  Naive_Bool myURational;
-  Naive_Bool myVRational;
-  Naive_Bool myUPeriodic;
-  Naive_Bool myVPeriodic;
-  Naive_Integer myUDegree;
-  Naive_Integer myVDegree;
-  Naive_Pnt3dList2 myPoles;
-  Naive_RealList2 myWeights;
+  Naive_XYZWList2 myCPs;
   Naive_RealList1 myUFlatKnots;
   Naive_RealList1 myVFlatKnots;
   Naive_RealList1 myUKnots;
   Naive_RealList1 myVKnots;
   Naive_IntegerList1 myUMults;
   Naive_IntegerList1 myVMults;
-  Naive_IntegerList1 myUSpanIdx;
-  Naive_IntegerList1 myVSpanIdx;
+  Naive_Integer myUDegree;
+  Naive_Integer myVDegree;
+  Naive_Bool myURational;
+  Naive_Bool myVRational;
+  Naive_Bool myUPeriodic;
+  Naive_Bool myVPeriodic;
 };
 
 Naive_NAMESPACE_END(geometry);

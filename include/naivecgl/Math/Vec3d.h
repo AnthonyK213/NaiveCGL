@@ -104,6 +104,8 @@ public:
 
   Naive_EXPORT Naive_XYZW HomoCoord() const;
 
+  Naive_EXPORT Naive_Bool HomoCoord(const Naive_XYZW &theXYZW);
+
   Naive_EXPORT Naive_Bool Dump(Naive_Vec3d_t &theVec) const;
 
 private:
