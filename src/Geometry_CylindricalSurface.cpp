@@ -16,7 +16,7 @@ Naive_Pnt3d CylindricalSurface::PointAt(const Naive_Real theU,
 Naive_Code CylindricalSurface::Evaluate(const Naive_Real theU,
                                         const Naive_Real theV,
                                         const Naive_Integer theN,
-                                        Naive_Vec3dList1 &theD) const {
+                                        Naive_Vec3dList2 &theD) const {
   Naive_TODO;
 }
 

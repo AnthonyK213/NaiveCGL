@@ -25,6 +25,13 @@ NurbsSurface::NurbsSurface(
        theUDegree, theVDegree, theUPeriodic, theVPeriodic);
 }
 
+NurbsSurface::NurbsSurface(const Naive_NurbsSurface_sf_t &theSF) noexcept
+    : myUDegree(0), myVDegree(0), myURational(Naive_False),
+      myVRational(Naive_False), myUPeriodic(Naive_False),
+      myVPeriodic(Naive_False) {
+  Init(theSF);
+}
+
 Naive_Code NurbsSurface::Init(
     const Naive_Pnt3dList2 &thePoles, const Naive_RealList2 &theWeights,
     const Naive_RealList1 &theUKnots, const Naive_RealList1 &theVKnots,
@@ -54,6 +61,71 @@ Naive_Code NurbsSurface::Init(
                 theUDegree, theVDegree, theUPeriodic, theVPeriodic);
 }
 
+Naive_Code NurbsSurface::Init(const Naive_NurbsSurface_sf_t &theSF) noexcept {
+  int u_degree = theSF.u_degree;
+  int v_degree = theSF.v_degree;
+  int n_u_vertices = theSF.n_u_vertices;
+  int n_v_vertices = theSF.n_v_vertices;
+  int vertex_dim = theSF.vertex_dim;
+  double *vertex = theSF.vertex;
+  int n_u_knots = theSF.n_u_knots;
+  int n_v_knots = theSF.n_v_knots;
+  int *u_knot_mult = theSF.u_knot_mult;
+  int *v_knot_mult = theSF.v_knot_mult;
+  double *u_knot = theSF.u_knot;
+  double *v_knot = theSF.v_knot;
+
+  if (!vertex || !u_knot_mult || !v_knot_mult || !u_knot || !v_knot)
+    return Naive_Code_invalid_value;
+
+  if (n_u_knots < 2 || n_v_knots < 2)
+    return Naive_Code_insufficient_knots;
+
+  if (u_degree < 1 || v_degree < 1)
+    return Naive_Code_value_out_of_range;
+
+  int nbUCPs = n_u_vertices / vertex_dim;
+  if (nbUCPs < 2)
+    return Naive_Code_insufficient_points;
+
+  int nbVCPs = n_v_vertices / vertex_dim;
+  if (nbVCPs < 2)
+    return Naive_Code_insufficient_points;
+
+  Naive_XYZWList2 aCPs(nbUCPs, Naive_XYZWList1(nbVCPs));
+
+  if (theSF.is_rational && vertex_dim == 4) {
+    for (Naive_XYZWList1 &aVP : aCPs) {
+      for (Naive_XYZW &aCP : aVP) {
+        aCP.x() = *(vertex++);
+        aCP.y() = *(vertex++);
+        aCP.z() = *(vertex++);
+        aCP.w() = *(vertex++);
+      }
+    }
+  } else if (!theSF.is_rational && vertex_dim == 3) {
+    for (Naive_XYZWList1 &aVP : aCPs) {
+      for (Naive_XYZW &aCP : aVP) {
+        aCP.x() = *(vertex++);
+        aCP.y() = *(vertex++);
+        aCP.z() = *(vertex++);
+        aCP.w() = 1.;
+      }
+    }
+  } else {
+    return Naive_Code_bad_dimension;
+  }
+
+  Naive_RealList1 aUKnots(u_knot, u_knot + n_u_knots);
+  Naive_RealList1 aVKnots(v_knot, v_knot + n_v_knots);
+  Naive_IntegerList1 aUMults(u_knot_mult, u_knot_mult + n_u_knots);
+  Naive_IntegerList1 aVMults(v_knot_mult, v_knot_mult + n_v_knots);
+
+  return update(::std::move(aCPs), ::std::move(aUKnots), ::std::move(aVKnots),
+                ::std::move(aUMults), ::std::move(aVMults), u_degree, v_degree,
+                theSF.is_u_periodic, theSF.is_v_periodic);
+}
+
 Naive_Bool NurbsSurface::IsValid() const {
   return myUDegree > 0 && myVDegree > 0;
 }
@@ -75,9 +147,17 @@ Naive_Bool NurbsSurface::Bounds(Naive_Real &theU0, Naive_Real &theU1,
   return Naive_True;
 }
 
+Naive_Pnt3d Surface::PointAt(const Naive_Real theU,
+                             const Naive_Real theV) const {
+  Naive_Vec3dList2 aD{};
+  if (Evaluate(theU, theV, 0, aD) != Naive_Code_ok)
+    return Naive_Pnt3d::Unset();
+  return aD[0][0].XYZ();
+}
+
 Naive_Code NurbsSurface::Evaluate(const Naive_Real theU, const Naive_Real theV,
                                   const Naive_Integer theN,
-                                  Naive_Vec3dList1 &theD) const {
+                                  Naive_Vec3dList2 &theD) const {
   if (!IsValid())
     return Naive_Code_invalid_object;
 

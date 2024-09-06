@@ -240,7 +240,7 @@ Naive_Code Nurbs::SurfaceEvaluate(
     const Naive_IntegerList1 &theVMults, const Naive_Integer theUDegree,
     const Naive_Integer theVDegree, const Naive_Real theU,
     const Naive_Real theV, const Naive_Integer theDerN,
-    Naive_Vec3dList1 &theResult) {
+    Naive_Vec3dList2 &theResult) {
   if (theDerN < 0)
     return Naive_Code_value_out_of_range;
 
@@ -251,72 +251,54 @@ Naive_Code Nurbs::SurfaceEvaluate(
   // if (iVSpan < 0)
   //   return Naive_Code_value_out_of_range;
 
-  // Naive_Integer aDerN = (::std::min)(theDerN, theUDegree + theVDegree);
+  Naive_Integer aDerN = (::std::min)(theDerN, theUDegree + theVDegree);
 
-  // Naive_IntegerList1 aHead(theDerN + 1, 0);
-  // for (Naive_Integer i = 1; i <= theDerN; ++i) {
-  //   aHead[i] = aHead[i - 1] + i;
-  // }
-  // Naive_Integer aN = aHead[theDerN] + theDerN + 1;
-  // Naive_RealList2 aWBuf(
-  //     theDerN + 1, Naive_RealList1(theDerN + 1, math::Constant::UnsetReal()));
-  // theResult.resize(aN, Naive_Vec3d::Unset());
-  // Naive_List1<math::Polynomial> anUA{};
-  // anUA.reserve(theUDegree + 1);
-  // Naive_List1<math::Polynomial> anVA{};
-  // anVA.reserve(theVDegree + 1);
-  // Naive_Integer pUBegin = (::std::max)(0, iUSpan - theUDegree);
-  // Naive_Integer pUEnd = iUSpan;
-  // Naive_Integer pVBegin = (::std::max)(0, iVSpan - theVDegree);
-  // Naive_Integer pVEnd = iVSpan;
-  // for (Naive_Integer i = pUBegin; i <= pUEnd; ++i) {
-  //   auto uB = math::Nurbs::BasisFn(theUFlatKnots, i, theUDegree, iUSpan);
-  //   anUA.emplace_back(::std::move(uB));
-  // }
-  // for (Naive_Integer j = pVBegin; j <= pVEnd; ++j) {
-  //   auto vB = math::Nurbs::BasisFn(theVFlatKnots, j, theVDegree, iVSpan);
-  //   anVA.emplace_back(::std::move(vB));
-  // }
+  Naive_RealList2 aUDers =
+      BasisFnDerEvalAll(theUFlatKnots, theUKnots, theUMults, theCPs.size(),
+                        theUDegree, theU, aDerN);
+  Naive_RealList2 aVDers =
+      BasisFnDerEvalAll(theVFlatKnots, theVKnots, theVMults, theCPs[0].size(),
+                        theVDegree, theV, aDerN);
+  Naive_XYZWList2 aSwDers(aDerN + 1,
+                          Naive_XYZWList1(aDerN + 1, Naive_XYZW::Zero()));
 
-  // for (Naive_Integer I = 0; I <= theDerN; ++I) {
-  //   for (Naive_Integer L = 0; L <= I; ++L) {
-  //     Naive_XYZ A{0., 0., 0.};
-  //     Naive_Real W = 0.0;
-  //     Naive_Integer K = I - L;
-  //     for (Naive_Integer i = pUBegin; i <= pUEnd; ++i) {
-  //       Naive_Real nU = anUA[i - pUBegin].Derivative(K).Evaluate(theU);
-  //       for (Naive_Integer j = pVBegin; j <= pVEnd; ++j) {
-  //         Naive_Real nV = anVA[j - pVBegin].Derivative(L).Evaluate(theV);
-  //         Naive_Real N = nU * nV * theWeights[i][j];
-  //         A += N * thePoles[i][j].XYZ();
-  //         W += N;
-  //       }
-  //     }
+  for (Naive_Integer du = 0; du <= aDerN; ++du) {
+    for (Naive_Integer dv = 0; dv <= aDerN; ++dv) {
+      for (Naive_Integer i = 0; i < aUDers[du].size(); ++i) {
+        for (Naive_Integer j = 0; j < aVDers[dv].size(); ++j) {
+          aSwDers[du][dv] += aUDers[du][i] * aVDers[dv][j] * theCPs[i][j];
+        }
+      }
+    }
+  }
 
-  //     aWBuf[K][L] = W;
+  theResult.resize(aDerN + 1,
+                   Naive_Vec3dList1(aDerN + 1, Naive_Vec3d::Unset()));
 
-  //     for (Naive_Integer i = 1; i <= K; ++i) {
-  //       A -= static_cast<Naive_Real>(math::Util::Combination(K, i)) *
-  //            aWBuf[i][0] * theResult[aHead[I - i] + L].XYZ();
-  //     }
+  for (Naive_Integer du = 0; du <= aDerN; ++du) {
+    for (Naive_Integer dv = 0; dv <= aDerN - du; ++dv) {
+      Naive_XYZW v = aSwDers[du][dv];
+      for (Naive_Integer j = 1; j <= dv; ++j) {
+        v -= static_cast<Naive_Real>(math::Util::Combination(dv, j)) *
+             aSwDers[0][j].w() * theResult[du][dv - j].HomoCoord();
+      }
 
-  //     for (Naive_Integer j = 1; j <= L; ++j) {
-  //       A -= static_cast<Naive_Real>(math::Util::Combination(L, j)) *
-  //            aWBuf[0][j] * theResult[aHead[I - j] + L - j].XYZ();
-  //     }
+      for (Naive_Integer i = 1; i <= du; ++i) {
+        v -= static_cast<Naive_Real>(math::Util::Combination(du, i)) *
+             aSwDers[i][0].w() * theResult[du - i][dv].HomoCoord();
 
-  //     for (Naive_Integer i = 1; i <= K; ++i) {
-  //       Naive_XYZ M = {0., 0., 0.};
-  //       for (Naive_Integer j = 1; j <= L; ++j) {
-  //         M += static_cast<Naive_Real>(math::Util::Combination(L, j)) *
-  //              aWBuf[i][j] * theResult[aHead[I - i - j] + L - j].XYZ();
-  //       }
-  //       A -= static_cast<Naive_Real>(math::Util::Combination(K, i)) * M;
-  //     }
+        Naive_XYZW v2 = Naive_XYZW::Zero();
+        for (Naive_Integer j = 1; j <= dv; ++j) {
+          v2 += static_cast<Naive_Real>(math::Util::Combination(dv, j)) *
+                aSwDers[i][j].w() * theResult[du - i][dv - j].HomoCoord();
+        }
 
-  //     theResult[aHead[I] + L].ChangeXYZ() = A / aWBuf[0][0];
-  //   }
-  // }
+        v -= static_cast<Naive_Real>(math::Util::Combination(du, i)) * v2;
+      }
+
+      theResult[du][dv] = Naive_Vec3d(v.head<3>() / aSwDers[0][0].w());
+    }
+  }
 
   return Naive_Code_ok;
 }

@@ -104,7 +104,7 @@ public:
       const Naive_IntegerList1 &theVMults, const Naive_Integer theUDegree,
       const Naive_Integer theVDegree, const Naive_Real theU,
       const Naive_Real theV, const Naive_Integer theDerN,
-      Naive_Vec3dList1 &theResult);
+      Naive_Vec3dList2 &theResult);
 };
 
 Naive_NAMESPACE_END(math);
