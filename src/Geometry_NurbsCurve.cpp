@@ -317,6 +317,7 @@ Naive_Code NurbsCurve::Dump(Naive_NurbsCurve_sf_t &theSF,
   theSF.vertex = nullptr;
   theSF.knot = nullptr;
   theSF.knot_mult = nullptr;
+  double *p_vertex = nullptr;
 
   Naive_Code aCode = Naive_Code_ok;
 
@@ -333,7 +334,7 @@ Naive_Code NurbsCurve::Dump(Naive_NurbsCurve_sf_t &theSF,
   if (aCode != Naive_Code_ok)
     goto CLEAN;
 
-  double *p_vertex = theSF.vertex;
+  p_vertex = theSF.vertex;
 
   if (IsRational()) {
     for (const Naive_XYZW &aCP : myCPs) {
