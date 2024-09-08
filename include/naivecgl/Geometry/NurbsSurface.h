@@ -1,6 +1,7 @@
 ﻿#ifndef _NaiveCGL_Geometry_NurbsSurface_HeaderFile
 #define _NaiveCGL_Geometry_NurbsSurface_HeaderFile
 
+#include "../Common/Memory.h"
 #include "../Math/Nurbs.h"
 #include "../Math/Util.h"
 #include "BoundedSurface.h"
@@ -65,6 +66,10 @@ public:
   Evaluate(const Naive_Real theU, const Naive_Real theV,
            const Naive_Integer theN,
            Naive_Vec3dList2 &theD) const Naive_OVERRIDE;
+
+  Naive_EXPORT Naive_Code
+  Dump(Naive_NurbsSurface_sf_t &theSF,
+       const common::MemHandler &theHandler = common::MemHandler()) const;
 
   Naive_DEFINE_RTTI(NurbsSurface, Naive_BoundedSurface);
 

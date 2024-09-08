@@ -258,6 +258,14 @@ Naive_API Naive_Code_t Naive_Plane_distance(Naive_Plane_t plane,
                                             const Naive_Pnt3d_t *point,
                                             double *const distance);
 
+/* Naive_Point */
+
+Naive_API Naive_Code_t Naive_Point_ask(Naive_Point_t point,
+                                       Naive_Point_sf_t *const point_sf);
+
+Naive_API Naive_Code_t Naive_Point_create(const Naive_Point_sf_t *point_sf,
+                                          Naive_Point_t *const point);
+
 /* Naive_Surface */
 
 Naive_API Naive_Code_t Naive_Surface_eval(Naive_Surface_t surface, double u,
@@ -306,7 +314,7 @@ Naive_API Naive_Code_t Naive_Triangulation_create(
  */
 Naive_API Naive_Code_t
 Naive_Vertex_attach_points(int n_vertices, const Naive_Vertex_t vertices[],
-                           const Naive_Pnt3d_t points[]);
+                           const Naive_Point_t points[]);
 
 #undef Naive_API
 

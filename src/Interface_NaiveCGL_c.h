@@ -18,9 +18,9 @@
   Naive_Handle<Tp_> Var_;                                                      \
   do {                                                                         \
     Naive_TObject __tobj__;                                                    \
-    Naive_CHECK_CODE(Naive_Roster::Resolve().Find(Tag_, __tobj__));            \
+    Naive_CHECK_CODE(Naive_Roster::Resolve().Find((Tag_), __tobj__));          \
     Var_ = Naive_Handle<Tp_>::DownCast(__tobj__.GetObject());                  \
-    if (!Var_) {                                                               \
+    if (!(Var_)) {                                                             \
       return Naive_Code_invalid_object;                                        \
     }                                                                          \
   } while (0)

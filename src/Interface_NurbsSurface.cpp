@@ -10,29 +10,14 @@ Naive_NurbsSurface_ask(Naive_NurbsSurface_t nurbs_surface,
     return Naive_Code_null_arg_address;
 
   Naive_ROSTER_ASK(Naive_NurbsSurface, nurbs_surface, H);
-
-  if (!H->IsValid())
-    return Naive_Code_invalid_object;
-
-  nurbs_surface_sf->u_degree = H->UDegree();
-  nurbs_surface_sf->v_degree = H->VDegree();
-  nurbs_surface_sf->is_rational = H->IsURational() || H->IsVRational();
-  nurbs_surface_sf->vertex_dim = nurbs_surface_sf->is_rational ? 4 : 3;
-  nurbs_surface_sf->form = Naive_NurbsSurface_form_unset_c;
-  nurbs_surface_sf->is_u_periodic = H->IsUPeriodic();
-  nurbs_surface_sf->is_v_periodic = H->IsVPeriodic();
-  nurbs_surface_sf->is_u_closed = H->IsUClosed();
-  nurbs_surface_sf->is_v_closed = H->IsVClosed();
-
-  /* TODO: Arrays. */
-
-  nurbs_surface_sf->vertex = nullptr;
-  nurbs_surface_sf->u_knot_mult = nullptr;
-  nurbs_surface_sf->v_knot_mult = nullptr;
-  nurbs_surface_sf->u_knot = nullptr;
-  nurbs_surface_sf->v_knot = nullptr;
-
-  return Naive_Code_ok;
+  naivecgl::common::MemHandler handler{};
+  handler.Allocator = +[](Naive_Size theNB, void **const thePtr) {
+    return static_cast<Naive_Code>(Naive_Memory_alloc(theNB, thePtr));
+  };
+  handler.Deleter = +[](void *thePtr) {
+    return static_cast<Naive_Code>(Naive_Memory_free(thePtr));
+  };
+  return H->Dump(*nurbs_surface_sf, handler);
 }
 
 Naive_Code_t

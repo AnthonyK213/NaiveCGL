@@ -19,6 +19,7 @@ typedef int Naive_NurbsCurve_t;
 typedef int Naive_NurbsSurface_t;
 typedef int Naive_Object_t;
 typedef int Naive_Plane_t;
+typedef int Naive_Point_t;
 typedef int Naive_Shell_t;
 typedef int Naive_Solid_t;
 typedef int Naive_Surface_t;
@@ -173,6 +174,12 @@ typedef struct Naive_NurbsSurface_sf_s {
   Naive_Logical_t is_u_closed;
   Naive_Logical_t is_v_closed;
 } Naive_NurbsSurface_sf_t;
+
+/* Naive_Point_sf_t */
+
+typedef struct Naive_Point_sf_s {
+  Naive_Pnt3d_t position;
+} Naive_Point_sf_t;
 
 /* Naive_Plane_sf_t */
 

@@ -41,111 +41,20 @@ Naive_Code_t Naive_NurbsCurve_ask(Naive_NurbsCurve_t nurbs_curve,
     return Naive_Code_null_arg_address;
 
   Naive_ROSTER_ASK(Naive_Object, nurbs_curve, Obj);
+  naivecgl::common::MemHandler handler{};
+  handler.Allocator = +[](Naive_Size theNB, void **const thePtr) {
+    return static_cast<Naive_Code>(Naive_Memory_alloc(theNB, thePtr));
+  };
+  handler.Deleter = +[](void *thePtr) {
+    return static_cast<Naive_Code>(Naive_Memory_free(thePtr));
+  };
 
   if (Obj->GetClassType()->IsSubClass(Naive_CLASS(Naive_NurbsCurve))) {
     Handle_Naive_NurbsCurve H = Handle_Naive_NurbsCurve::DownCast(Obj);
-
-    if (!H->IsValid())
-      return Naive_Code_invalid_object;
-
-    const Naive_Pnt3dList1 &aPoles = H->Poles();
-    const Naive_RealList1 &aWeights = H->Weights();
-    const Naive_RealList1 &aKnots = H->Knots();
-    const Naive_IntegerList1 &aMults = H->Multiplicities();
-
-    nurbs_curve_sf->degree = H->Degree();
-    nurbs_curve_sf->vertex_dim = H->IsRational() ? 4 : 3;
-    nurbs_curve_sf->is_rational = H->IsRational();
-    nurbs_curve_sf->form = Naive_NurbsCurve_form_unset_c;
-    nurbs_curve_sf->is_periodic = H->IsPeriodic();
-    nurbs_curve_sf->is_closed = H->IsClosed();
-
-    nurbs_curve_sf->n_vertices = nurbs_curve_sf->vertex_dim * aPoles.size();
-    nurbs_curve_sf->n_knots = static_cast<int>(aKnots.size());
-
-    Naive_unique_ptr<double> vertex{}, knot{};
-    Naive_unique_ptr<int> knot_mult{};
-
-    Naive_ALLOC_ARRAY(double, nurbs_curve_sf->n_vertices, &vertex);
-    Naive_ALLOC_ARRAY(double, nurbs_curve_sf->n_knots, &knot);
-    Naive_ALLOC_ARRAY(int, nurbs_curve_sf->n_knots, &knot_mult);
-
-    double *p_vertex = vertex.get();
-
-    if (H->IsRational()) {
-      Naive_Real aWeight;
-      for (Naive_Integer i = 0; i < aPoles.size(); ++i) {
-        aWeight = aWeights[i];
-        *(p_vertex++) = aPoles[i].X() * aWeight;
-        *(p_vertex++) = aPoles[i].Y() * aWeight;
-        *(p_vertex++) = aPoles[i].Z() * aWeight;
-        *(p_vertex++) = aWeight;
-      }
-    } else {
-      for (Naive_Integer i = 0; i < aPoles.size(); ++i) {
-        *(p_vertex++) = aPoles[i].X();
-        *(p_vertex++) = aPoles[i].Y();
-        *(p_vertex++) = aPoles[i].Z();
-      }
-    }
-
-    ::std::copy(aKnots.cbegin(), aKnots.cend(), knot.get());
-    ::std::copy(aMults.cbegin(), aMults.cend(), knot_mult.get());
-
-    nurbs_curve_sf->vertex = vertex.release();
-    nurbs_curve_sf->knot = knot.release();
-    nurbs_curve_sf->knot_mult = knot_mult.release();
+    return H->Dump(*nurbs_curve_sf, handler);
   } else if (Obj->GetClassType()->IsSubClass(Naive_CLASS(Naive_NurbsCurve2d))) {
     Handle_Naive_NurbsCurve2d H = Handle_Naive_NurbsCurve2d::DownCast(Obj);
-
-    if (!H->IsValid())
-      return Naive_Code_invalid_object;
-
-    const Naive_Pnt2dList1 &aPoles = H->Poles();
-    const Naive_RealList1 &aWeights = H->Weights();
-    const Naive_RealList1 &aKnots = H->Knots();
-    const Naive_IntegerList1 &aMults = H->Multiplicities();
-
-    nurbs_curve_sf->degree = H->Degree();
-    nurbs_curve_sf->vertex_dim = H->IsRational() ? 3 : 2;
-    nurbs_curve_sf->is_rational = H->IsRational();
-    nurbs_curve_sf->form = Naive_NurbsCurve_form_unset_c;
-    nurbs_curve_sf->is_periodic = H->IsPeriodic();
-    nurbs_curve_sf->is_closed = H->IsClosed();
-
-    nurbs_curve_sf->n_vertices = nurbs_curve_sf->vertex_dim * aPoles.size();
-    nurbs_curve_sf->n_knots = static_cast<int>(aKnots.size());
-
-    Naive_unique_ptr<double> vertex{}, knot{};
-    Naive_unique_ptr<int> knot_mult{};
-
-    Naive_ALLOC_ARRAY(double, nurbs_curve_sf->n_vertices, &vertex);
-    Naive_ALLOC_ARRAY(double, nurbs_curve_sf->n_knots, &knot);
-    Naive_ALLOC_ARRAY(int, nurbs_curve_sf->n_knots, &knot_mult);
-
-    double *p_vertex = vertex.get();
-
-    if (H->IsRational()) {
-      Naive_Real aWeight;
-      for (Naive_Integer i = 0; i < aPoles.size(); ++i) {
-        aWeight = aWeights[i];
-        *(p_vertex++) = aPoles[i].X() * aWeight;
-        *(p_vertex++) = aPoles[i].Y() * aWeight;
-        *(p_vertex++) = aWeight;
-      }
-    } else {
-      for (Naive_Integer i = 0; i < aPoles.size(); ++i) {
-        *(p_vertex++) = aPoles[i].X();
-        *(p_vertex++) = aPoles[i].Y();
-      }
-    }
-
-    ::std::copy(aKnots.cbegin(), aKnots.cend(), knot.get());
-    ::std::copy(aMults.cbegin(), aMults.cend(), knot_mult.get());
-
-    nurbs_curve_sf->vertex = vertex.release();
-    nurbs_curve_sf->knot = knot.release();
-    nurbs_curve_sf->knot_mult = knot_mult.release();
+    return H->Dump(*nurbs_curve_sf, handler);
   } else {
     return Naive_Code_invalid_tag;
   }

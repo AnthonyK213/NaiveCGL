@@ -16,6 +16,8 @@ public:
 
   Naive_EXPORT Point3d(const Naive_Pnt3d &thePnt);
 
+  Naive_EXPORT Point3d(const Naive_Point_sf_t &theSF);
+
   Naive_EXPORT void SetPnt(const Naive_Pnt3d &thePnt) { myPnt = thePnt; }
 
   Naive_EXPORT void SetX(const Naive_Real &theX) { myPnt.SetX(theX); }
@@ -40,6 +42,8 @@ public:
   Naive_EXPORT virtual Naive_Bool IsValid() const Naive_OVERRIDE;
 
   Naive_EXPORT virtual Handle_Naive_Geometry Clone() const Naive_OVERRIDE;
+
+  Naive_EXPORT Naive_Code Dump(Naive_Point_sf_t &theSF) const;
 
   Naive_DEFINE_RTTI(Point3d, Naive_Geometry);
 

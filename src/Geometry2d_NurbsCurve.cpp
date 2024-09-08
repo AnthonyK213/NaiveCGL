@@ -300,8 +300,66 @@ Naive_Bool NurbsCurve::IsPeriodic() const { return myPeriodic; }
 
 Naive_Real NurbsCurve::Period() const { return math::Constant::UnsetReal(); }
 
-Naive_Code NurbsCurve::Dump(Naive_NurbsCurve_sf_t &theSF) const {
-  return Naive_Code_not_implemented;
+Naive_Code NurbsCurve::Dump(Naive_NurbsCurve_sf_t &theSF,
+                            const common::MemHandler &theHandler) const {
+  if (!IsValid())
+    return Naive_Code_invalid_object;
+
+  theSF.degree = Degree();
+  theSF.vertex_dim = IsRational() ? 3 : 2;
+  theSF.is_rational = IsRational();
+  theSF.form = Naive_NurbsCurve_form_unset_c;
+  theSF.is_periodic = IsPeriodic();
+  theSF.is_closed = IsClosed();
+  theSF.n_vertices = theSF.vertex_dim * static_cast<int>(myCPs.size());
+  theSF.n_knots = static_cast<int>(myKnots.size());
+  theSF.vertex = nullptr;
+  theSF.knot = nullptr;
+  theSF.knot_mult = nullptr;
+
+  Naive_Code aCode = Naive_Code_ok;
+
+  aCode = theHandler.Allocator(theSF.n_vertices * sizeof(double),
+                               (void **)&(theSF.vertex));
+  if (aCode != Naive_Code_ok)
+    goto CLEAN;
+  aCode = theHandler.Allocator(theSF.n_knots * sizeof(double),
+                               (void **)&(theSF.knot));
+  if (aCode != Naive_Code_ok)
+    goto CLEAN;
+  aCode = theHandler.Allocator(theSF.n_knots * sizeof(int),
+                               (void **)&(theSF.knot_mult));
+  if (aCode != Naive_Code_ok)
+    goto CLEAN;
+
+  double *p_vertex = theSF.vertex;
+
+  if (IsRational()) {
+    for (const Naive_XYZ &aCP : myCPs) {
+      *(p_vertex++) = aCP.x();
+      *(p_vertex++) = aCP.y();
+      *(p_vertex++) = aCP.z();
+    }
+  } else {
+    for (const Naive_XYZ &aCP : myCPs) {
+      *(p_vertex++) = aCP.x();
+      *(p_vertex++) = aCP.y();
+    }
+  }
+
+  ::std::copy(myKnots.cbegin(), myKnots.cend(), theSF.knot);
+  ::std::copy(myMults.cbegin(), myMults.cend(), theSF.knot_mult);
+
+  return Naive_Code_ok;
+
+CLEAN:
+  theHandler.Deleter(theSF.vertex);
+  theHandler.Deleter(theSF.knot);
+  theHandler.Deleter(theSF.knot_mult);
+  theSF.vertex = nullptr;
+  theSF.knot = nullptr;
+  theSF.knot_mult = nullptr;
+  return aCode;
 }
 
 Naive_NAMESPACE_END(geometry2d);

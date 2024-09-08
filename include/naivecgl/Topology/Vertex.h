@@ -1,8 +1,13 @@
 #ifndef _NaiveCGL_Topology_Vertex_HeaderFile
 #define _NaiveCGL_Topology_Vertex_HeaderFile
 
-#include "../Math/Pnt3d.h"
 #include "Topol.h"
+
+Naive_NAMESPACE_BEGIN(geometry);
+
+class Point3d;
+
+Naive_NAMESPACE_END(geometry);
 
 Naive_NAMESPACE_BEGIN(topology);
 
@@ -14,11 +19,14 @@ public:
 
   Naive_EXPORT Naive_Handle<Edge> ParentEdge() const;
 
+  Naive_EXPORT Naive_Code
+  AttachPoint(const Naive_Handle<geometry::Point3d> &aPoint);
+
   Naive_DEFINE_RTTI(Vertex, Naive_Topol);
 
 private:
+  Naive_Handle<geometry::Point3d> myPnt;
   Naive_Real myTol;
-  Naive_Pnt3d myPnt;
 };
 
 Naive_NAMESPACE_END(topology);

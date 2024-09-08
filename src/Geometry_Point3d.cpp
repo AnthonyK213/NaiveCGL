@@ -15,6 +15,8 @@ Point3d::Point3d(const Naive_Real theX, const Naive_Real theY,
 
 Point3d::Point3d(const Naive_Pnt3d &thePnt) : myPnt(thePnt) {}
 
+Point3d::Point3d(const Naive_Point_sf_t &theSF) : myPnt(theSF.position) {}
+
 Naive_Real Point3d::DistanceTo(const Handle_Naive_Point3d &theP) const {
   if (theP.IsNull())
     return math::Constant::UnsetReal();
@@ -33,6 +35,12 @@ Handle_Naive_Geometry Point3d::Clone() const { return new Point3d(myPnt); }
 
 Naive_Code Point3d::transform(const Naive_Trsf3d &theTrsf) {
   myPnt.Transform(theTrsf);
+  return Naive_Code_ok;
+}
+
+Naive_Code Point3d::Dump(Naive_Point_sf_t &theSF) const {
+  if (!myPnt.Dump(theSF.position))
+    return Naive_Code_invalid_value;
   return Naive_Code_ok;
 }
 

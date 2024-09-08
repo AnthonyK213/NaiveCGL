@@ -98,6 +98,7 @@ typedef enum {
   Naive_Code_poles_weights_not_match,
   Naive_Code_knots_mults_not_match,
   Naive_Code_invalid_mults,
+  Naive_Code_geom_not_needed,
 } Naive_Code;
 
 /* Naive_Loop_type */

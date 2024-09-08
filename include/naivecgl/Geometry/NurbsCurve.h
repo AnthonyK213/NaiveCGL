@@ -1,6 +1,7 @@
 ﻿#ifndef _NaiveCGL_Geometry_NurbsCurve_HeaderFile
 #define _NaiveCGL_Geometry_NurbsCurve_HeaderFile
 
+#include "../Common/Memory.h"
 #include "../Math/Nurbs.h"
 #include "../Math/Util.h"
 #include "BoundedCurve.h"
@@ -101,7 +102,9 @@ public:
 
   Naive_EXPORT virtual Naive_Pnt3d StartPoint() const Naive_OVERRIDE;
 
-  Naive_EXPORT Naive_Code Dump(Naive_NurbsCurve_sf_t &theSF) const;
+  Naive_EXPORT Naive_Code
+  Dump(Naive_NurbsCurve_sf_t &theSF,
+       const common::MemHandler &theHandler = common::MemHandler()) const;
 
   Naive_DEFINE_RTTI(NurbsCurve, Naive_BoundedCurve);
 

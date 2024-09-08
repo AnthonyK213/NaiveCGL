@@ -178,6 +178,46 @@ Naive_Real NurbsSurface::UPeriod() const { return math::Constant::UnsetReal(); }
 
 Naive_Real NurbsSurface::VPeriod() const { return math::Constant::UnsetReal(); }
 
+Naive_Code NurbsSurface::Dump(Naive_NurbsSurface_sf_t &theSF,
+                              const common::MemHandler &theHandler) const {
+  if (!IsValid())
+    return Naive_Code_invalid_object;
+
+  theSF.u_degree = UDegree();
+  theSF.v_degree = VDegree();
+  theSF.is_rational = IsURational() || IsVRational();
+  theSF.vertex_dim = theSF.is_rational ? 4 : 3;
+  theSF.form = Naive_NurbsSurface_form_unset_c;
+  theSF.is_u_periodic = IsUPeriodic();
+  theSF.is_v_periodic = IsVPeriodic();
+  theSF.is_u_closed = IsUClosed();
+  theSF.is_v_closed = IsVClosed();
+  theSF.vertex = nullptr;
+  theSF.u_knot_mult = nullptr;
+  theSF.v_knot_mult = nullptr;
+  theSF.u_knot = nullptr;
+  theSF.v_knot = nullptr;
+
+  Naive_Code aCode;
+
+  /* TODO: Arrays. */
+
+  return Naive_Code_not_implemented;
+
+CLEAN:
+  theHandler.Deleter(theSF.vertex);
+  theHandler.Deleter(theSF.u_knot_mult);
+  theHandler.Deleter(theSF.v_knot_mult);
+  theHandler.Deleter(theSF.u_knot);
+  theHandler.Deleter(theSF.v_knot);
+  theSF.vertex = nullptr;
+  theSF.u_knot_mult = nullptr;
+  theSF.v_knot_mult = nullptr;
+  theSF.u_knot = nullptr;
+  theSF.v_knot = nullptr;
+  return aCode;
+}
+
 Naive_Code NurbsSurface::transform(const Naive_Trsf3d &theTrsf) {
   return Naive_Code_not_implemented;
 }
