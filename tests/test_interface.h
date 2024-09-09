@@ -95,7 +95,7 @@ TEST(NaiveCGLTest_Interface, Curve2d) {
   nurbs_curve_sf.degree = 2;
   nurbs_curve_sf.vertex_dim = 3;
   nurbs_curve_sf.is_rational = Naive_Logical_true;
-  nurbs_curve_sf.n_vertices = vertex.size();
+  nurbs_curve_sf.n_vertices = vertex.size() / 3;
   nurbs_curve_sf.vertex = vertex.data();
   nurbs_curve_sf.n_knots = knot.size();
   nurbs_curve_sf.knot_mult = knot_mult.data();
@@ -148,7 +148,7 @@ TEST(NaiveCGLTest_Interface, Curve) {
   nurbs_curve_sf.degree = 3;
   nurbs_curve_sf.vertex_dim = 4;
   nurbs_curve_sf.is_rational = Naive_Logical_true;
-  nurbs_curve_sf.n_vertices = vertex.size();
+  nurbs_curve_sf.n_vertices = vertex.size() / 4;
   nurbs_curve_sf.vertex = vertex.data();
   nurbs_curve_sf.n_knots = knot.size();
   nurbs_curve_sf.knot_mult = knot_mult.data();
@@ -194,8 +194,8 @@ TEST(NaiveCGLTest_Interface, Surface) {
   nurbs_surface_sf.v_degree = 2;
   nurbs_surface_sf.vertex_dim = 4;
   nurbs_surface_sf.is_rational = Naive_Logical_true;
-  nurbs_surface_sf.n_u_vertices = 12;
-  nurbs_surface_sf.n_v_vertices = 12;
+  nurbs_surface_sf.n_u_vertices = 3;
+  nurbs_surface_sf.n_v_vertices = 3;
   nurbs_surface_sf.vertex = vertex.data();
   nurbs_surface_sf.n_u_knots = u_knot.size();
   nurbs_surface_sf.n_v_knots = v_knot.size();

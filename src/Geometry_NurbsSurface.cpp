@@ -78,21 +78,16 @@ Naive_Code NurbsSurface::Init(const Naive_NurbsSurface_sf_t &theSF) noexcept {
   if (!vertex || !u_knot_mult || !v_knot_mult || !u_knot || !v_knot)
     return Naive_Code_invalid_value;
 
+  if (n_u_vertices < 2 || n_v_vertices < 2)
+    return Naive_Code_insufficient_points;
+
   if (n_u_knots < 2 || n_v_knots < 2)
     return Naive_Code_insufficient_knots;
 
   if (u_degree < 1 || v_degree < 1)
     return Naive_Code_value_out_of_range;
 
-  int nbUCPs = n_u_vertices / vertex_dim;
-  if (nbUCPs < 2)
-    return Naive_Code_insufficient_points;
-
-  int nbVCPs = n_v_vertices / vertex_dim;
-  if (nbVCPs < 2)
-    return Naive_Code_insufficient_points;
-
-  Naive_XYZWList2 aCPs(nbUCPs, Naive_XYZWList1(nbVCPs));
+  Naive_XYZWList2 aCPs(n_u_vertices, Naive_XYZWList1(n_v_vertices));
 
   if (theSF.is_rational && vertex_dim == 4) {
     for (Naive_XYZWList1 &aVP : aCPs) {

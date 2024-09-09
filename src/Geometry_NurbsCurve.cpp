@@ -56,17 +56,16 @@ Naive_Code NurbsCurve::Init(const Naive_NurbsCurve_sf_t &theSF) noexcept {
   if (!vertex || !knot || !knot_mult)
     return Naive_Code_invalid_value;
 
+  if (n_vertices < 2)
+    return Naive_Code_insufficient_points;
+
   if (n_knots < 2)
     return Naive_Code_insufficient_knots;
 
   if (degree < 1)
     return Naive_Code_value_out_of_range;
 
-  Naive_Integer nbCPs = n_vertices / vertex_dim;
-  if (nbCPs < 2)
-    return Naive_Code_insufficient_points;
-
-  Naive_XYZWList1 aCPs(nbCPs);
+  Naive_XYZWList1 aCPs(n_vertices);
 
   if (theSF.is_rational && vertex_dim == 4) {
     for (Naive_XYZW &aCP : aCPs) {
@@ -312,7 +311,7 @@ Naive_Code NurbsCurve::Dump(Naive_NurbsCurve_sf_t &theSF,
   theSF.form = Naive_NurbsCurve_form_unset_c;
   theSF.is_periodic = IsPeriodic();
   theSF.is_closed = IsClosed();
-  theSF.n_vertices = theSF.vertex_dim * static_cast<int>(myCPs.size());
+  theSF.n_vertices = static_cast<int>(myCPs.size());
   theSF.n_knots = static_cast<int>(myKnots.size());
   theSF.vertex = nullptr;
   theSF.knot = nullptr;
@@ -321,15 +320,17 @@ Naive_Code NurbsCurve::Dump(Naive_NurbsCurve_sf_t &theSF,
 
   Naive_Code aCode = Naive_Code_ok;
 
-  aCode = theHandler.Allocator(theSF.n_vertices * sizeof(double),
-                               (void **)&(theSF.vertex));
+  aCode =
+      theHandler.Allocator(theSF.n_vertices * theSF.vertex_dim * sizeof(double),
+                           (void **)&(theSF.vertex));
   if (aCode != Naive_Code_ok)
     goto CLEAN;
-  aCode = theHandler.Allocator(theSF.n_knots * sizeof(double),
-                               (void **)&(theSF.knot));
+  aCode =
+      theHandler.Allocator(theSF.n_knots * theSF.vertex_dim * sizeof(double),
+                           (void **)&(theSF.knot));
   if (aCode != Naive_Code_ok)
     goto CLEAN;
-  aCode = theHandler.Allocator(theSF.n_knots * sizeof(int),
+  aCode = theHandler.Allocator(theSF.n_knots * theSF.vertex_dim * sizeof(int),
                                (void **)&(theSF.knot_mult));
   if (aCode != Naive_Code_ok)
     goto CLEAN;
