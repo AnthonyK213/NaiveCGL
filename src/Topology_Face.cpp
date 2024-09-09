@@ -13,4 +13,11 @@ Handle_Naive_Shell Face::ParentShell() const {
   return Handle_Naive_Shell::DownCast(myParent);
 }
 
+void Face::UpdateBox(math::Box *theBox) {
+  if (theBox) {
+    *theBox = myBox;
+    return;
+  }
+}
+
 Naive_NAMESPACE_END(topology);

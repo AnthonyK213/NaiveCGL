@@ -41,7 +41,9 @@ install(
   DIRECTORY ${PROJECT_SOURCE_DIR}/include/
   DESTINATION include
   COMPONENT header_files
-  FILES_MATCHING PATTERN "*.h"
+  FILES_MATCHING
+    PATTERN "*.h"
+    PATTERN "*.inl"
   )
 
 install(

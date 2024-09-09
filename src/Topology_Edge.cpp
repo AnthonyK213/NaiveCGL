@@ -31,4 +31,11 @@ Naive_LinkedList<Handle_Naive_Fin> Edge::GetFins() const {
   return aResult;
 }
 
+void Edge::UpdateBox(math::Box *theBox) {
+  if (theBox) {
+    *theBox = myBox;
+    return;
+  }
+}
+
 Naive_NAMESPACE_END(topology);

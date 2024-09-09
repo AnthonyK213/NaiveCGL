@@ -2,6 +2,7 @@
 #define _NaiveCGL_Topology_Face_HeaderFile
 
 #include "../Collection/LinkedList.h"
+#include "../Math/Box.h"
 #include "Topol.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
@@ -23,10 +24,14 @@ public:
 
   Naive_DEFINE_RTTI(Face, Naive_Topol);
 
+protected:
+  Naive_EXPORT virtual void UpdateBox(math::Box *theBox) Naive_OVERRIDE;
+
 private:
-  Naive_Real myTol;
-  Naive_Handle<geometry::Surface> mySrf;
   Naive_LinkedList<Naive_Handle<Loop>> myLoops;
+  Naive_Handle<geometry::Surface> mySrf;
+  Naive_Box myBox;
+  Naive_Real myTol;
 };
 
 Naive_NAMESPACE_END(topology);

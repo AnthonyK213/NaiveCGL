@@ -1,9 +1,9 @@
 #ifndef _NaiveCGL_Topology_Edge_HeaderFile
 #define _NaiveCGL_Topology_Edge_HeaderFile
 
-#include "Topol.h"
-
 #include "../Collection/LinkedList.h"
+#include "../Math/Box.h"
+#include "Topol.h"
 
 Naive_NAMESPACE_BEGIN(geometry);
 
@@ -29,10 +29,14 @@ public:
 
   Naive_DEFINE_RTTI(Edge, Naive_Topol);
 
+protected:
+  Naive_EXPORT virtual void UpdateBox(math::Box *theBox) Naive_OVERRIDE;
+
 private:
   Naive_Handle<geometry::Curve> myCrv;
   Naive_Handle<Vertex> myVerts[2];
   Naive_Handle<Fin> myFin;
+  Naive_Box myBox;
   Naive_Real myTol;
 };
 

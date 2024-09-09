@@ -43,6 +43,22 @@ public:
    */
   Naive_EXPORT Naive_Handle<Geometry> Transformed(const math::Trsf3d &theTrsf);
 
+  /**
+   * @brief Get the owner object.
+   *
+   * @return The owner object.
+   */
+  const Handle_Naive_Object &GetOwner() const { return myOwner; }
+
+  /**
+   * @brief Set the owner object.
+   *
+   * @param theOwner
+   */
+  const void SetOwner(const Handle_Naive_Object &theOwner) {
+    myOwner = theOwner;
+  }
+
   Naive_DEFINE_RTTI(Geometry, Naive_Object);
 
 protected:
@@ -53,6 +69,9 @@ protected:
    * @return Code.
    */
   Naive_EXPORT virtual Naive_Code transform(const math::Trsf3d &theTrsf) = 0;
+
+protected:
+  Handle_Naive_Object myOwner;
 };
 
 Naive_NAMESPACE_END(geometry);

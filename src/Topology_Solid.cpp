@@ -12,4 +12,11 @@ Handle_Naive_Body Solid::ParentBody() const {
   return Handle_Naive_Body::DownCast(myParent);
 }
 
+void Solid::UpdateBox(math::Box *theBox) {
+  if (theBox) {
+    *theBox = myBox;
+    return;
+  }
+}
+
 Naive_NAMESPACE_END(topology);

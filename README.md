@@ -1,6 +1,6 @@
 # NaiveCGL
 
-A naive computational geometry library.
+A Naive Computational Geometry Library for learning purposes. WIP.
 
 ## Build
 - Clone the repository

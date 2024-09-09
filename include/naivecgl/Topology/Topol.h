@@ -4,6 +4,12 @@
 #include "../Common/ClassType.h"
 #include "Location.h"
 
+Naive_NAMESPACE_BEGIN(math);
+
+class Box;
+
+Naive_NAMESPACE_END(math);
+
 Naive_NAMESPACE_BEGIN(eulerop);
 
 class MakeBodyFaceVertex;
@@ -50,16 +56,24 @@ public:
 
   Naive_EXPORT virtual Naive_Handle<Topol> TopTopol() const;
 
+  Naive_EXPORT void GetBox(math::Box &theBox);
+
   Naive_DEFINE_RTTI(Topol, Naive_Object);
 
 protected:
-  Topol()
-      : myParent(0), myFlags(0), myLocation(),
-        myOrient(Naive_Orientation_forward_c) {}
+  Naive_EXPORT Topol();
 
   void SetParent(const Naive_Handle<Topol> &theParent) {
     myParent = theParent.get();
   }
+
+  /**
+   * @brief If `theBox` is null, update the cached box; otherwise, just copy the
+   * cached box to `theBox`.
+   *
+   * @param theBox
+   */
+  Naive_EXPORT virtual void UpdateBox(math::Box *theBox = nullptr);
 
 protected:
   Naive_Location myLocation;
