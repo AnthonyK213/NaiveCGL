@@ -7,52 +7,24 @@
 
 Naive_NAMESPACE_BEGIN(geometry);
 
-class Point3d final : public Naive_Geometry {
+class Point3d : public Naive_Geometry {
 public:
-  Naive_EXPORT Point3d();
+  Naive_EXPORT virtual Naive_Pnt3d Pnt() const = 0;
 
-  Naive_EXPORT Point3d(const Naive_Real theX, const Naive_Real theY,
-                       const Naive_Real theZ);
+  Naive_EXPORT virtual Naive_Real X() const = 0;
 
-  Naive_EXPORT Point3d(const Naive_Pnt3d &thePnt);
+  Naive_EXPORT virtual Naive_Real Y() const = 0;
 
-  Naive_EXPORT Point3d(const Naive_Point_sf_t &theSF);
-
-  Naive_EXPORT void SetPnt(const Naive_Pnt3d &thePnt) { myPnt = thePnt; }
-
-  Naive_EXPORT void SetX(const Naive_Real &theX) { myPnt.SetX(theX); }
-
-  Naive_EXPORT void SetY(const Naive_Real &theY) { myPnt.SetY(theY); }
-
-  Naive_EXPORT void SetZ(const Naive_Real &theZ) { myPnt.SetZ(theZ); }
-
-  Naive_EXPORT const Naive_Pnt3d &Pnt() const { return myPnt; }
-
-  Naive_EXPORT Naive_Real X() const { return myPnt.X(); }
-
-  Naive_EXPORT Naive_Real Y() const { return myPnt.Y(); }
-
-  Naive_EXPORT Naive_Real Z() const { return myPnt.Z(); }
+  Naive_EXPORT virtual Naive_Real Z() const = 0;
 
   Naive_EXPORT Naive_Real DistanceTo(const Naive_Handle<Point3d> &theP) const;
 
   Naive_EXPORT Naive_Real
   DistanceToSquared(const Naive_Handle<Point3d> &theP) const;
 
-  Naive_EXPORT virtual Naive_Bool IsValid() const Naive_OVERRIDE;
-
-  Naive_EXPORT virtual Handle_Naive_Geometry Clone() const Naive_OVERRIDE;
-
-  Naive_EXPORT Naive_Code Dump(Naive_Point_sf_t &theSF) const;
+  Naive_EXPORT virtual Naive_Code Dump(Naive_Point_sf_t &theSF) const;
 
   Naive_DEFINE_RTTI(Point3d, Naive_Geometry);
-
-protected:
-  Naive_EXPORT virtual Naive_Code
-  transform(const math::Trsf3d &theTrsf) Naive_OVERRIDE;
-
-private:
-  Naive_Pnt3d myPnt;
 };
 
 Naive_NAMESPACE_END(geometry);

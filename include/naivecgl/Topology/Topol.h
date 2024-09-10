@@ -56,7 +56,7 @@ public:
 
   Naive_EXPORT virtual Naive_Handle<Topol> TopTopol() const;
 
-  Naive_EXPORT void GetBox(math::Box &theBox);
+  Naive_EXPORT virtual void GetBox(math::Box &theBox);
 
   Naive_DEFINE_RTTI(Topol, Naive_Object);
 
@@ -66,14 +66,6 @@ protected:
   void SetParent(const Naive_Handle<Topol> &theParent) {
     myParent = theParent.get();
   }
-
-  /**
-   * @brief If `theBox` is null, update the cached box; otherwise, just copy the
-   * cached box to `theBox`.
-   *
-   * @param theBox
-   */
-  Naive_EXPORT virtual void UpdateBox(math::Box *theBox = nullptr);
 
 protected:
   Naive_Location myLocation;

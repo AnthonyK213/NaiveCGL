@@ -1,7 +1,7 @@
 #ifndef _NaiveCGL_Topology_Loop_HeaderFile
 #define _NaiveCGL_Topology_Loop_HeaderFile
 
-#include "../Collection/LinkedList.h"
+#include "Topol.h"
 
 Naive_NAMESPACE_BEGIN(topology);
 
@@ -17,7 +17,7 @@ public:
   Naive_DEFINE_RTTI(Loop, Naive_Topol);
 
 private:
-  Naive_LinkedList<Naive_Handle<Fin>> myFins;
+  Naive_Handle<Fin> myFin;
   Naive_Loop_type myType;
 };
 

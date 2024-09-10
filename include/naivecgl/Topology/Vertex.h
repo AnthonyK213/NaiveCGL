@@ -22,6 +22,8 @@ public:
   Naive_EXPORT Naive_Code
   AttachPoint(const Naive_Handle<geometry::Point3d> &aPoint);
 
+  Naive_EXPORT virtual void GetBox(math::Box &theBox) Naive_OVERRIDE;
+
   Naive_DEFINE_RTTI(Vertex, Naive_Topol);
 
 private:

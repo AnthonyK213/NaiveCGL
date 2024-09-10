@@ -27,15 +27,14 @@ public:
 
   Naive_EXPORT Naive_LinkedList<Naive_Handle<Fin>> GetFins() const;
 
+  Naive_EXPORT virtual void GetBox(math::Box &theBox) Naive_OVERRIDE;
+
   Naive_DEFINE_RTTI(Edge, Naive_Topol);
 
-protected:
-  Naive_EXPORT virtual void UpdateBox(math::Box *theBox) Naive_OVERRIDE;
-
 private:
+  Naive_Handle<Fin> myFin;
   Naive_Handle<geometry::Curve> myCrv;
   Naive_Handle<Vertex> myVerts[2];
-  Naive_Handle<Fin> myFin;
   Naive_Box myBox;
   Naive_Real myTol;
 };

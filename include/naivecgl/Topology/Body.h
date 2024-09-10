@@ -2,7 +2,6 @@
 #define _NaiveCGL_Topology_Body_HeaderFile
 
 #include "../Collection/LinkedList.h"
-#include "../Math/Box.h"
 #include "Topol.h"
 
 Naive_NAMESPACE_BEGIN(topology);
@@ -19,10 +18,9 @@ class Body final : public Naive_Topol {
 public:
   Naive_EXPORT Body();
 
-  Naive_DEFINE_RTTI(Body, Naive_Topol);
+  Naive_EXPORT virtual void GetBox(math::Box &theBox) Naive_OVERRIDE;
 
-protected:
-  Naive_EXPORT virtual void UpdateBox(math::Box *theBox) Naive_OVERRIDE;
+  Naive_DEFINE_RTTI(Body, Naive_Topol);
 
 private:
   Naive_LinkedList<Naive_Handle<Body>> myBodies;
@@ -31,7 +29,6 @@ private:
   Naive_LinkedList<Naive_Handle<Face>> myFaces;
   Naive_LinkedList<Naive_Handle<Edge>> myEdges;
   Naive_LinkedList<Naive_Handle<Vertex>> myVertices;
-  Naive_Box myBox;
 };
 
 Naive_NAMESPACE_END(topology);

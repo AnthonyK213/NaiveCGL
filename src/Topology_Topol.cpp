@@ -32,13 +32,6 @@ Naive_Handle<Topol> Topol::TopTopol() const {
   return aCurrent;
 }
 
-void Topol::GetBox(Naive_Box &theBox) {
-  /* TODO: When to update the cache? */
-  if (Naive_False)
-    UpdateBox();
-  UpdateBox(&theBox);
-}
-
-void Topol::UpdateBox(math::Box *theBox) {}
+void Topol::GetBox(Naive_Box &theBox) {}
 
 Naive_NAMESPACE_END(topology);

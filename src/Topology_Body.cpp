@@ -1,3 +1,4 @@
+#include <naivecgl/Math/Box.h>
 #include <naivecgl/Topology/Body.h>
 #include <naivecgl/Topology/Edge.h>
 #include <naivecgl/Topology/Face.h>
@@ -13,11 +14,6 @@ Naive_IMPLEMENT_RTTI(Body);
 
 Body::Body() : Naive_Topol() {}
 
-void Body::UpdateBox(math::Box *theBox) {
-  if (theBox) {
-    *theBox = myBox;
-    return;
-  }
-}
+void Body::GetBox(Naive_Box &theBox) {}
 
 Naive_NAMESPACE_END(topology);

@@ -20,4 +20,9 @@ Naive_Code Vertex::AttachPoint(const Handle_Naive_Point3d &aPoint) {
   return Naive_Code_ok;
 }
 
+void Vertex::GetBox(Naive_Box &theBox) {
+  if (myPnt)
+    theBox = Naive_Box(myPnt->Pnt(), myPnt->Pnt());
+}
+
 Naive_NAMESPACE_END(topology);

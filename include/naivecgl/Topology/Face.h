@@ -22,10 +22,9 @@ public:
 
   Naive_EXPORT Naive_Handle<Shell> ParentShell() const;
 
-  Naive_DEFINE_RTTI(Face, Naive_Topol);
+  Naive_EXPORT virtual void GetBox(math::Box &theBox) Naive_OVERRIDE;
 
-protected:
-  Naive_EXPORT virtual void UpdateBox(math::Box *theBox) Naive_OVERRIDE;
+  Naive_DEFINE_RTTI(Face, Naive_Topol);
 
 private:
   Naive_LinkedList<Naive_Handle<Loop>> myLoops;

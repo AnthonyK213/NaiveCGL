@@ -1,3 +1,4 @@
+#include <naivecgl/Math/Box.h>
 #include <naivecgl/Topology/Face.h>
 #include <naivecgl/Topology/Shell.h>
 #include <naivecgl/Topology/Solid.h>
@@ -12,11 +13,6 @@ Handle_Naive_Solid Shell::ParentShell() const {
   return Handle_Naive_Solid::DownCast(myParent);
 }
 
-void Shell::UpdateBox(math::Box *theBox) {
-  if (theBox) {
-    *theBox = myBox;
-    return;
-  }
-}
+void Shell::GetBox(Naive_Box &theBox) {}
 
 Naive_NAMESPACE_END(topology);
