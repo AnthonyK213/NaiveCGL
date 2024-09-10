@@ -9,12 +9,10 @@ Naive_NAMESPACE_BEGIN(topology);
 Naive_IMPLEMENT_RTTI(Edge);
 
 Edge::Edge()
-    : Naive_Topol(), myCrv(nullptr), myVerts(), myFin(nullptr),
+    : myFin(nullptr), myCrv(nullptr), myBox(),
       myTol(math::Precision::Epsilon0()) {}
 
-Handle_Naive_Body Edge::ParentBody() const {
-  return Handle_Naive_Body::DownCast(myParent);
-}
+Handle_Naive_Topol Edge::Parent() const { return myParent; }
 
 Naive_LinkedList<Handle_Naive_Fin> Edge::GetFins() const {
   if (!myFin)
@@ -32,5 +30,9 @@ Naive_LinkedList<Handle_Naive_Fin> Edge::GetFins() const {
 }
 
 void Edge::GetBox(Naive_Box &theBox) {}
+
+void Edge::SetParent(const Handle_Naive_Topol &theParent) {
+  myParent = theParent.get();
+}
 
 Naive_NAMESPACE_END(topology);

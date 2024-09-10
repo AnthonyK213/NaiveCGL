@@ -23,7 +23,7 @@ class Edge final : public Naive_Topol {
 public:
   Naive_EXPORT Edge();
 
-  Naive_EXPORT Naive_Handle<Body> ParentBody() const;
+  Naive_EXPORT virtual Naive_Handle<Topol> Parent() const Naive_OVERRIDE;
 
   Naive_EXPORT Naive_LinkedList<Naive_Handle<Fin>> GetFins() const;
 
@@ -31,10 +31,14 @@ public:
 
   Naive_DEFINE_RTTI(Edge, Naive_Topol);
 
+protected:
+  Naive_EXPORT virtual void
+  SetParent(const Handle_Naive_Topol &theParent) Naive_OVERRIDE;
+
 private:
+  Naive_Topol *myParent;
   Naive_Handle<Fin> myFin;
   Naive_Handle<geometry::Curve> myCrv;
-  Naive_Handle<Vertex> myVerts[2];
   Naive_Box myBox;
   Naive_Real myTol;
 };

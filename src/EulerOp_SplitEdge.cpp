@@ -42,12 +42,6 @@ void SplitEdge::Perform() {
   Handle_Naive_Vertex aV = new Naive_Vertex();
 
   if (myForward) {
-    Handle_Naive_Vertex aVertex = myEdge->myVerts[0];
-    myEdge->myVerts[0] = aV;
-    aE->myVerts[0] = aVertex;
-    aE->myVerts[1] = aV;
-
-    /* TODO: Handle fins, loops... */
   } else {
   }
 

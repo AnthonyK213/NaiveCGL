@@ -18,9 +18,17 @@ class Body final : public Naive_Topol {
 public:
   Naive_EXPORT Body();
 
+  Naive_EXPORT virtual Naive_Handle<Topol> Parent() const Naive_OVERRIDE;
+
+  Naive_EXPORT Naive_Handle<Body> ParentBody() const;
+
   Naive_EXPORT virtual void GetBox(math::Box &theBox) Naive_OVERRIDE;
 
   Naive_DEFINE_RTTI(Body, Naive_Topol);
+
+protected:
+  Naive_EXPORT virtual void
+  SetParent(const Handle_Naive_Topol &theParent) Naive_OVERRIDE;
 
 private:
   Naive_LinkedList<Naive_Handle<Body>> myBodies;
@@ -29,6 +37,7 @@ private:
   Naive_LinkedList<Naive_Handle<Face>> myFaces;
   Naive_LinkedList<Naive_Handle<Edge>> myEdges;
   Naive_LinkedList<Naive_Handle<Vertex>> myVertices;
+  Body *myParent;
 };
 
 Naive_NAMESPACE_END(topology);

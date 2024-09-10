@@ -12,12 +12,15 @@ class Loop final : public Naive_Topol {
 public:
   Naive_EXPORT Loop();
 
-  Naive_EXPORT Naive_Handle<Face> ParentFace() const;
+  Naive_EXPORT virtual Naive_Handle<Topol> Parent() const Naive_OVERRIDE;
+
+  Naive_Handle<Face> ParentFace() const;
 
   Naive_DEFINE_RTTI(Loop, Naive_Topol);
 
 private:
-  Naive_Handle<Fin> myFin;
+  Face *myFace;
+  Fin *myFin;
   Naive_Loop_type myType;
 };
 

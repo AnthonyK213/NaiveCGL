@@ -7,31 +7,24 @@ Naive_NAMESPACE_BEGIN(topology);
 
 Naive_IMPLEMENT_RTTI(Topol);
 
-Topol::Topol()
-    : myParent(0), myFlags(0), myLocation(),
-      myOrient(Naive_Orientation_forward_c) {}
+Topol::Topol() {}
 
-Naive_Location Topol::Location() const { Naive_TODO; }
-
-Naive_Orientation Topol::Orientation() const {
-  Naive_Orientation anOri = myOrient;
-  Topol *aParent = myParent;
-  while (aParent) {
-    anOri = Util::Compose(anOri, aParent->myOrient);
-  }
-  return anOri;
-}
+Handle_Naive_Topol Topol::Parent() const { return nullptr; }
 
 Naive_Handle<Topol> Topol::TopTopol() const {
   const Topol *aCurrent = this;
-  Topol *aParent = myParent;
+  Topol *aParent = Parent().get();
+
   while (aParent) {
     aCurrent = aParent;
-    aParent = aParent->myParent;
+    aParent = aParent->Parent().get();
   }
+
   return aCurrent;
 }
 
 void Topol::GetBox(Naive_Box &theBox) {}
+
+void Topol::SetParent(const Naive_Handle<Topol> &theParent) {}
 
 Naive_NAMESPACE_END(topology);

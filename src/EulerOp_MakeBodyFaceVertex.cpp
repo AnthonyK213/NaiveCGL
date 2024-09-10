@@ -14,9 +14,7 @@ Naive_IMPLEMENT_EO(MakeBodyFaceVertex, 1, 0, 1, 0, 0, 1);
 #define MBFV_F (myNew[2])
 #define MBFV_V (myNew[3])
 
-MakeBodyFaceVertex::MakeBodyFaceVertex() : Operator() {
-  Perform();
-}
+MakeBodyFaceVertex::MakeBodyFaceVertex() : Operator() { Perform(); }
 
 void MakeBodyFaceVertex::Perform() {
   if (Status() != Naive_Code_initialized)

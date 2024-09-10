@@ -15,14 +15,21 @@ class Shell final : public Naive_Topol {
 public:
   Naive_EXPORT Shell();
 
-  Naive_EXPORT Naive_Handle<Solid> ParentShell() const;
+  Naive_EXPORT virtual Naive_Handle<Topol> Parent() const Naive_OVERRIDE;
+
+  Naive_EXPORT Naive_Handle<Solid> ParentSolid() const;
 
   Naive_EXPORT virtual void GetBox(math::Box &theBox) Naive_OVERRIDE;
 
   Naive_DEFINE_RTTI(Shell, Naive_Topol);
 
+protected:
+  Naive_EXPORT virtual void
+  SetParent(const Handle_Naive_Topol &theParent) Naive_OVERRIDE;
+
 private:
   Naive_LinkedList<Naive_Handle<Face>> myFaces;
+  Naive_Topol *myParent;
 };
 
 Naive_NAMESPACE_END(topology);

@@ -17,8 +17,12 @@ class Shell;
 class Loop;
 
 class Face final : public Naive_Topol {
+  friend class eulerop::MakeBodyFaceVertex;
+
 public:
   Naive_EXPORT Face();
+
+  Naive_EXPORT virtual Naive_Handle<Topol> Parent() const Naive_OVERRIDE;
 
   Naive_EXPORT Naive_Handle<Shell> ParentShell() const;
 
@@ -26,7 +30,12 @@ public:
 
   Naive_DEFINE_RTTI(Face, Naive_Topol);
 
+protected:
+  Naive_EXPORT virtual void
+  SetParent(const Handle_Naive_Topol &theParent) Naive_OVERRIDE;
+
 private:
+  Shell *myShell;
   Naive_LinkedList<Naive_Handle<Loop>> myLoops;
   Naive_Handle<geometry::Surface> mySrf;
   Naive_Box myBox;

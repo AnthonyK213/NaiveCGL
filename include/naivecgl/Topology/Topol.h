@@ -34,25 +34,7 @@ class Topol : public Naive_Object {
 public:
   Topol(const Topol &theOther) Naive_DELETE;
 
-  Naive_EXPORT Naive_Handle<Topol> Parent() const { return myParent; }
-
-  Naive_EXPORT const Naive_Location &LocationLocal() const {
-    return myLocation;
-  }
-
-  Naive_EXPORT void SetLocationLocal(const Naive_Location theLoc) {
-    myLocation = theLoc;
-  }
-
-  Naive_EXPORT Naive_Orientation OrientationLocal() const { return myOrient; }
-
-  Naive_EXPORT void SetOrientationLocal(const Naive_Orientation theOrient) {
-    myOrient = theOrient;
-  }
-
-  Naive_EXPORT virtual Naive_Location Location() const;
-
-  Naive_EXPORT virtual Naive_Orientation Orientation() const;
+  Naive_EXPORT virtual Naive_Handle<Topol> Parent() const;
 
   Naive_EXPORT virtual Naive_Handle<Topol> TopTopol() const;
 
@@ -63,9 +45,7 @@ public:
 protected:
   Naive_EXPORT Topol();
 
-  void SetParent(const Naive_Handle<Topol> &theParent) {
-    myParent = theParent.get();
-  }
+  Naive_EXPORT virtual void SetParent(const Naive_Handle<Topol> &theParent);
 
 protected:
   Naive_Location myLocation;
