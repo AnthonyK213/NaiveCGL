@@ -6,7 +6,7 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
-class Solid;
+class Region;
 class Shell;
 class Face;
 class Edge;
@@ -18,26 +18,25 @@ class Body final : public Naive_Topol {
 public:
   Naive_EXPORT Body();
 
-  Naive_EXPORT virtual Naive_Handle<Topol> Parent() const Naive_OVERRIDE;
+  Naive_EXPORT virtual Topol *Parent() const Naive_OVERRIDE;
 
-  Naive_EXPORT Naive_Handle<Body> ParentBody() const;
+  Naive_EXPORT Body *ParentBody() const;
 
   Naive_EXPORT virtual void GetBox(math::Box &theBox) Naive_OVERRIDE;
 
   Naive_DEFINE_RTTI(Body, Naive_Topol);
 
 protected:
-  Naive_EXPORT virtual void
-  SetParent(const Handle_Naive_Topol &theParent) Naive_OVERRIDE;
+  Naive_EXPORT virtual void SetParent(Naive_Topol *theParent) Naive_OVERRIDE;
 
 private:
-  Naive_LinkedList<Naive_Handle<Body>> myBodies;
-  Naive_LinkedList<Naive_Handle<Solid>> mySolids;
-  Naive_LinkedList<Naive_Handle<Shell>> myShells;
-  Naive_LinkedList<Naive_Handle<Face>> myFaces;
-  Naive_LinkedList<Naive_Handle<Edge>> myEdges;
-  Naive_LinkedList<Naive_Handle<Vertex>> myVertices;
-  Body *myParent;
+  Body *myBody;                  /* Parent body. */
+  Body *myPrev;                  /* Previous body in myBody. */
+  Naive_Handle<Body> myNext;     /* Next body in myBody. */
+  Naive_Handle<Body> myChild;    /* Head of child bodies in the body. */
+  Naive_Handle<Region> myRegion; /* Head of regions in the body. */
+  Naive_Handle<Edge> myEdge;     /* Head of non-wireframe edges in the body. */
+  Naive_Handle<Vertex> myVertex; /* Head of vertices in the body. */
 };
 
 Naive_NAMESPACE_END(topology);

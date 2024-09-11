@@ -13,8 +13,6 @@ public:
 
   Naive_EXPORT Naive_Handle<topology::Body> NewBody() const;
 
-  Naive_EXPORT Naive_Handle<topology::Shell> NewShell() const;
-
   Naive_EXPORT Naive_Handle<topology::Face> NewFace() const;
 
   Naive_EXPORT Naive_Handle<topology::Vertex> NewVertex() const;

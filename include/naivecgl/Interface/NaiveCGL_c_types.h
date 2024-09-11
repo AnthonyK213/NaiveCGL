@@ -21,7 +21,7 @@ typedef int Naive_Object_t;
 typedef int Naive_Plane_t;
 typedef int Naive_Point_t;
 typedef int Naive_Shell_t;
-typedef int Naive_Solid_t;
+typedef int Naive_Region_t;
 typedef int Naive_Surface_t;
 typedef int Naive_Transform3d_t;
 typedef int Naive_Triangulation_t;

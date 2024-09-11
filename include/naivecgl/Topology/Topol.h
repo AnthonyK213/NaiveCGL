@@ -34,9 +34,9 @@ class Topol : public Naive_Object {
 public:
   Topol(const Topol &theOther) Naive_DELETE;
 
-  Naive_EXPORT virtual Naive_Handle<Topol> Parent() const;
+  Naive_EXPORT virtual Topol *Parent() const;
 
-  Naive_EXPORT virtual Naive_Handle<Topol> TopTopol() const;
+  Naive_EXPORT virtual Topol *TopTopol() const;
 
   Naive_EXPORT virtual void GetBox(math::Box &theBox);
 
@@ -45,13 +45,7 @@ public:
 protected:
   Naive_EXPORT Topol();
 
-  Naive_EXPORT virtual void SetParent(const Naive_Handle<Topol> &theParent);
-
-protected:
-  Naive_Location myLocation;
-  Topol *myParent;
-  Naive_Orientation myOrient;
-  Naive_Integer myFlags;
+  Naive_EXPORT virtual void SetParent(Topol *theParent);
 };
 
 Naive_NAMESPACE_END(topology);

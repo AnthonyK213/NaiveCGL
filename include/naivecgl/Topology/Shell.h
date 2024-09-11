@@ -6,8 +6,10 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
-class Solid;
+class Region;
 class Face;
+class Edge;
+class Vertex;
 
 class Shell final : public Naive_Topol {
   friend class eulerop::MakeBodyFaceVertex;
@@ -15,21 +17,23 @@ class Shell final : public Naive_Topol {
 public:
   Naive_EXPORT Shell();
 
-  Naive_EXPORT virtual Naive_Handle<Topol> Parent() const Naive_OVERRIDE;
+  Naive_EXPORT virtual Topol *Parent() const Naive_OVERRIDE;
 
-  Naive_EXPORT Naive_Handle<Solid> ParentSolid() const;
+  Naive_EXPORT Region *ParentRegion() const;
 
   Naive_EXPORT virtual void GetBox(math::Box &theBox) Naive_OVERRIDE;
 
   Naive_DEFINE_RTTI(Shell, Naive_Topol);
 
 protected:
-  Naive_EXPORT virtual void
-  SetParent(const Handle_Naive_Topol &theParent) Naive_OVERRIDE;
+  Naive_EXPORT virtual void SetParent(Naive_Topol *theParent) Naive_OVERRIDE;
 
 private:
-  Naive_LinkedList<Naive_Handle<Face>> myFaces;
-  Naive_Topol *myParent;
+  Region *myRegion;              /* Parent region. */
+  Naive_Handle<Face> myFace;     /* Head of faces in the shell. */
+  Naive_Handle<Edge> myEdge;     /* Head of wireframe edges in the body. */
+  Naive_Handle<Vertex> myVertex; /* If shell consists of a single vertex, this
+                                    is it; else null. */
 };
 
 Naive_NAMESPACE_END(topology);

@@ -67,7 +67,7 @@ typedef enum {
   Naive_Class_curve_on_surface,
   Naive_Class_topol,
   Naive_Class_body,
-  Naive_Class_solid,
+  Naive_Class_region,
   Naive_Class_shell,
   Naive_Class_face,
   Naive_Class_loop,

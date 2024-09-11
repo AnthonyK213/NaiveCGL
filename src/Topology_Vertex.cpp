@@ -7,9 +7,10 @@ Naive_NAMESPACE_BEGIN(topology);
 Naive_IMPLEMENT_RTTI(Vertex);
 
 Vertex::Vertex()
-    : myFin(nullptr), myPnt(nullptr), myTol(math::Precision::Epsilon0()) {}
+    : myParent(nullptr), myFin(nullptr), myPrev(nullptr), myNext(nullptr),
+      myPnt(nullptr), myTol(math::Precision::Epsilon0()) {}
 
-Handle_Naive_Topol Vertex::Parent() const { return myParent; }
+Naive_Topol *Vertex::Parent() const { return myParent; }
 
 Naive_Code Vertex::AttachPoint(const Handle_Naive_Point3d &aPoint) {
   if (myPnt)
@@ -23,8 +24,6 @@ void Vertex::GetBox(Naive_Box &theBox) {
     theBox = Naive_Box(myPnt->Pnt(), myPnt->Pnt());
 }
 
-void Vertex::SetParent(const Handle_Naive_Topol &theParent) {
-  myParent = theParent.get();
-}
+void Vertex::SetParent(Naive_Topol *theParent) { myParent = theParent; }
 
 Naive_NAMESPACE_END(topology);

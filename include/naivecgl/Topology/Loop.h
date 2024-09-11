@@ -12,15 +12,23 @@ class Loop final : public Naive_Topol {
 public:
   Naive_EXPORT Loop();
 
-  Naive_EXPORT virtual Naive_Handle<Topol> Parent() const Naive_OVERRIDE;
+  Naive_EXPORT virtual Topol *Parent() const Naive_OVERRIDE;
 
-  Naive_Handle<Face> ParentFace() const;
+  Naive_EXPORT Face *ParentFace() const;
+
+  Naive_Loop_type Type() const { return myType; }
+
+  Naive_EXPORT Naive_Bool IsTopologicalClosed() const;
+
+  Naive_EXPORT Naive_Code AppendFin(Fin *theFin);
+
+  Naive_EXPORT Naive_Code RemoveFin(Fin *theFin);
 
   Naive_DEFINE_RTTI(Loop, Naive_Topol);
 
 private:
-  Face *myFace;
-  Fin *myFin;
+  Face *myFace; /* Parent face. */
+  Fin *myFin;   /* Head of fins in the loop. */
   Naive_Loop_type myType;
 };
 

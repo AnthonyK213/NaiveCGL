@@ -54,7 +54,7 @@
 
 #include <naivecgl/Topology/Topol.h>
 #include <naivecgl/Topology/Body.h>
-#include <naivecgl/Topology/Solid.h>
+#include <naivecgl/Topology/Region.h>
 #include <naivecgl/Topology/Shell.h>
 #include <naivecgl/Topology/Face.h>
 #include <naivecgl/Topology/Loop.h>
@@ -181,7 +181,7 @@ const TClassType::Registry &TClassType::getRegistry() {
 
       Naive_CLASS_ENUM_PAIR(Naive_Topol, Naive_Class_topol),
       Naive_CLASS_ENUM_PAIR(Naive_Body, Naive_Class_body),
-      Naive_CLASS_ENUM_PAIR(Naive_Solid, Naive_Class_solid),
+      Naive_CLASS_ENUM_PAIR(Naive_Region, Naive_Class_region),
       Naive_CLASS_ENUM_PAIR(Naive_Shell, Naive_Class_shell),
       Naive_CLASS_ENUM_PAIR(Naive_Face, Naive_Class_face),
       Naive_CLASS_ENUM_PAIR(Naive_Loop, Naive_Class_loop),

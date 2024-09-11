@@ -23,21 +23,39 @@ class Edge final : public Naive_Topol {
 public:
   Naive_EXPORT Edge();
 
-  Naive_EXPORT virtual Naive_Handle<Topol> Parent() const Naive_OVERRIDE;
+  Naive_EXPORT Edge(const Naive_Handle<Vertex> &theBackward,
+                    const Naive_Handle<Vertex> &theForward);
+
+  Naive_EXPORT virtual Topol *Parent() const Naive_OVERRIDE;
+
+  Naive_EXPORT const Naive_Handle<Vertex> &GetVertex(Naive_Bool theForward);
+
+  Naive_EXPORT const Naive_Handle<Fin> &GetHeadFin() const;
 
   Naive_EXPORT Naive_LinkedList<Naive_Handle<Fin>> GetFins() const;
 
+  Naive_EXPORT const Naive_Handle<geometry::Curve> &GetCurve() const;
+
   Naive_EXPORT virtual void GetBox(math::Box &theBox) Naive_OVERRIDE;
+
+  Naive_EXPORT virtual ~Edge();
 
   Naive_DEFINE_RTTI(Edge, Naive_Topol);
 
 protected:
-  Naive_EXPORT virtual void
-  SetParent(const Handle_Naive_Topol &theParent) Naive_OVERRIDE;
+  Naive_EXPORT virtual void SetParent(Naive_Topol *theParent) Naive_OVERRIDE;
 
 private:
-  Naive_Topol *myParent;
-  Naive_Handle<Fin> myFin;
+  Naive_EXPORT void init();
+
+  Naive_EXPORT void setVertex(const Naive_Handle<Vertex> &theVert,
+                              Naive_Bool theForward);
+
+private:
+  Naive_Topol *myParent;     /* Parent shell or body. */
+  Edge *myPrev;              /* Previous edge in myParent. */
+  Naive_Handle<Edge> myNext; /* Next edge in myParent. */
+  Naive_Handle<Fin> myFin;   /* Head of fins around the edge. */
   Naive_Handle<geometry::Curve> myCrv;
   Naive_Box myBox;
   Naive_Real myTol;

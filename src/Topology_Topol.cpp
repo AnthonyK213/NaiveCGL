@@ -9,15 +9,15 @@ Naive_IMPLEMENT_RTTI(Topol);
 
 Topol::Topol() {}
 
-Handle_Naive_Topol Topol::Parent() const { return nullptr; }
+Topol *Topol::Parent() const { return nullptr; }
 
-Naive_Handle<Topol> Topol::TopTopol() const {
-  const Topol *aCurrent = this;
-  Topol *aParent = Parent().get();
+Topol *Topol::TopTopol() const {
+  Topol *aCurrent = const_cast<Topol *>(this);
+  Topol *aParent = Parent();
 
   while (aParent) {
     aCurrent = aParent;
-    aParent = aParent->Parent().get();
+    aParent = aParent->Parent();
   }
 
   return aCurrent;
@@ -25,6 +25,6 @@ Naive_Handle<Topol> Topol::TopTopol() const {
 
 void Topol::GetBox(Naive_Box &theBox) {}
 
-void Topol::SetParent(const Naive_Handle<Topol> &theParent) {}
+void Topol::SetParent(Naive_Topol *theParent) {}
 
 Naive_NAMESPACE_END(topology);

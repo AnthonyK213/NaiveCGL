@@ -22,21 +22,22 @@ class Face final : public Naive_Topol {
 public:
   Naive_EXPORT Face();
 
-  Naive_EXPORT virtual Naive_Handle<Topol> Parent() const Naive_OVERRIDE;
+  Naive_EXPORT virtual Topol *Parent() const Naive_OVERRIDE;
 
-  Naive_EXPORT Naive_Handle<Shell> ParentShell() const;
+  Naive_EXPORT Shell *ParentShell() const;
 
   Naive_EXPORT virtual void GetBox(math::Box &theBox) Naive_OVERRIDE;
 
   Naive_DEFINE_RTTI(Face, Naive_Topol);
 
 protected:
-  Naive_EXPORT virtual void
-  SetParent(const Handle_Naive_Topol &theParent) Naive_OVERRIDE;
+  Naive_EXPORT virtual void SetParent(Naive_Topol *theParent) Naive_OVERRIDE;
 
 private:
-  Shell *myShell;
   Naive_LinkedList<Naive_Handle<Loop>> myLoops;
+  Shell *myShell;            /* Parent shell. */
+  Face *myPrev;              /* Previous face in myShell. */
+  Naive_Handle<Face> myNext; /* Next face in myShell. */
   Naive_Handle<geometry::Surface> mySrf;
   Naive_Box myBox;
   Naive_Real myTol;

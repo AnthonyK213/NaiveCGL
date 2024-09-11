@@ -38,15 +38,16 @@ void SplitEdge::Perform() {
     return;
   }
 
-  Handle_Naive_Edge aE = new Naive_Edge();
-  Handle_Naive_Vertex aV = new Naive_Vertex();
+  Handle_Naive_Vertex aV = new Naive_Vertex;
+  Handle_Naive_Edge aE = new Naive_Edge;
+  Handle_Naive_Vertex aToSplit = myEdge->GetVertex(myForward);
 
-  if (myForward) {
-  } else {
-  }
+  myEdge->setVertex(aV, myForward);
+  aE->setVertex(aToSplit, myForward);
+  aE->setVertex(aV, !myForward);
 
-  aE->SetParent(aBody);
-  aV->SetParent(aE);
+  aE->SetParent(myEdge->Parent());
+  aV->SetParent(aBody.get());
 
   myNew.resize(2);
   MEV_E = aE;

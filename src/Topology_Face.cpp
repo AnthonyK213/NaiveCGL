@@ -8,18 +8,18 @@ Naive_NAMESPACE_BEGIN(topology);
 
 Naive_IMPLEMENT_RTTI(Face);
 
-Face::Face() : Naive_Topol(), myTol(math::Precision::Epsilon0()) {}
+Face::Face()
+    : myLoops(), myShell(nullptr), myPrev(nullptr), myNext(nullptr),
+      mySrf(nullptr), myBox(), myTol(math::Precision::Epsilon0()) {}
 
-Handle_Naive_Topol Face::Parent() const { return myShell; }
+Naive_Topol *Face::Parent() const { return myShell; }
 
-Handle_Naive_Shell Face::ParentShell() const { return myShell; }
+Naive_Shell *Face::ParentShell() const { return myShell; }
 
 void Face::GetBox(Naive_Box &theBox) {}
 
-void Face::SetParent(const Handle_Naive_Topol &theParent) {
-  auto aShell = Handle_Naive_Shell::DownCast(theParent);
-  if (aShell)
-    myShell = aShell.get();
+void Face::SetParent(Naive_Topol *theParent) {
+  myShell = dynamic_cast<Naive_Shell *>(theParent);
 }
 
 Naive_NAMESPACE_END(topology);

@@ -4,26 +4,26 @@
 #include <naivecgl/Topology/Face.h>
 #include <naivecgl/Topology/Fin.h>
 #include <naivecgl/Topology/Loop.h>
+#include <naivecgl/Topology/Region.h>
 #include <naivecgl/Topology/Shell.h>
-#include <naivecgl/Topology/Solid.h>
 #include <naivecgl/Topology/Vertex.h>
 
 Naive_NAMESPACE_BEGIN(topology);
 
 Naive_IMPLEMENT_RTTI(Body);
 
-Body::Body() {}
+Body::Body()
+    : myBody(nullptr), myPrev(nullptr), myNext(nullptr), myChild(nullptr),
+      myRegion(nullptr), myEdge(nullptr), myVertex(nullptr) {}
 
-Handle_Naive_Topol Body::Parent() const { return myParent; }
+Naive_Topol *Body::Parent() const { return myBody; }
 
-Handle_Naive_Body Body::ParentBody() const { return myParent; }
+Naive_Body *Body::ParentBody() const { return myBody; }
 
 void Body::GetBox(Naive_Box &theBox) {}
 
-void Body::SetParent(const Handle_Naive_Topol &theParent) {
-  auto aBody = Handle_Naive_Body::DownCast(theParent);
-  if (aBody)
-    myParent = aBody.get();
+void Body::SetParent(Naive_Topol *theParent) {
+  myBody = dynamic_cast<Naive_Body *>(theParent);
 }
 
 Naive_NAMESPACE_END(topology);

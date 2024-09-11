@@ -9,7 +9,7 @@ Naive_NAMESPACE_BEGIN(topology);
 
 class Topol;
 class Body;
-class Solid;
+class Region;
 class Shell;
 class Face;
 class Loop;
