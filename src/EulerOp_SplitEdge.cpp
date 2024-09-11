@@ -8,12 +8,11 @@ Naive_NAMESPACE_BEGIN(eulerop);
 #define MEV_E (myNew[0])
 #define MEV_V (myNew[1])
 
-SplitEdge::SplitEdge()
-    : MakeEdgeVertex(), myEdge(nullptr), myForward(Naive_True) {}
+SplitEdge::SplitEdge() : myEdge(nullptr), myForward(Naive_True) {}
 
 SplitEdge::SplitEdge(const Handle_Naive_Edge &theEdge,
                      const Naive_Bool theForward)
-    : MakeEdgeVertex(), myEdge(theEdge), myForward(theForward) {
+    : myEdge(theEdge), myForward(theForward) {
   Perform();
 }
 

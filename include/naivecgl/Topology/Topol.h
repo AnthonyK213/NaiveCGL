@@ -18,6 +18,7 @@ class MakeEdgeVertex;
 class MakeFaceEdge;
 class MakeGenusBody;
 class SplitEdge;
+class SpurEdgeVertex;
 
 Naive_NAMESPACE_END(eulerop);
 
@@ -30,6 +31,7 @@ class Topol : public Naive_Object {
   friend class eulerop::MakeFaceEdge;
   friend class eulerop::MakeGenusBody;
   friend class eulerop::SplitEdge;
+  friend class eulerop::SpurEdgeVertex;
 
 public:
   Topol(const Topol &theOther) Naive_DELETE;
