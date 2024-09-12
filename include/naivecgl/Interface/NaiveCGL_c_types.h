@@ -60,6 +60,10 @@ typedef Naive_XY_t Naive_Pnt2d_t;
 
 typedef Naive_XY_t Naive_Vec2d_t;
 
+/* Naive_UV_t */
+
+typedef Naive_XY_t Naive_UV_t;
+
 /* Naive_Pnt3d_t */
 
 typedef Naive_XYZ_t Naive_Pnt3d_t;

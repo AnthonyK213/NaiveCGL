@@ -346,9 +346,9 @@ Naive_Code NurbsCurve::Dump(Naive_NurbsCurve_sf_t &theSF,
     }
   } else {
     for (const Naive_XYZW &aCP : myCPs) {
-      *(p_vertex++) = aCP.x();
-      *(p_vertex++) = aCP.y();
-      *(p_vertex++) = aCP.z();
+      *(p_vertex++) = aCP.x() / aCP.w();
+      *(p_vertex++) = aCP.y() / aCP.w();
+      *(p_vertex++) = aCP.z() / aCP.w();
     }
   }
 

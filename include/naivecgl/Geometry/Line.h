@@ -46,6 +46,8 @@ public:
 
   Naive_EXPORT virtual Naive_Real Period() const Naive_OVERRIDE;
 
+  Naive_EXPORT Naive_Code Dump(Naive_Line_sf_t &theSF) const;
+
   Naive_DEFINE_RTTI(Line, Naive_Curve);
 
 protected:

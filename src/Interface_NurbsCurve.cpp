@@ -41,20 +41,13 @@ Naive_Code_t Naive_NurbsCurve_ask(Naive_NurbsCurve_t nurbs_curve,
     return Naive_Code_null_arg_address;
 
   Naive_ROSTER_ASK(Naive_Object, nurbs_curve, Obj);
-  naivecgl::common::MemHandler handler{};
-  handler.Allocator = +[](Naive_Size theNB, void **const thePtr) {
-    return static_cast<Naive_Code>(Naive_Memory_alloc(theNB, thePtr));
-  };
-  handler.Deleter = +[](void *thePtr) {
-    return static_cast<Naive_Code>(Naive_Memory_free(thePtr));
-  };
 
   if (Obj->GetClassType()->IsSubClass(Naive_CLASS(Naive_NurbsCurve))) {
     Handle_Naive_NurbsCurve H = Handle_Naive_NurbsCurve::DownCast(Obj);
-    return H->Dump(*nurbs_curve_sf, handler);
+    return H->Dump(*nurbs_curve_sf, Naive_default_mem_handler());
   } else if (Obj->GetClassType()->IsSubClass(Naive_CLASS(Naive_NurbsCurve2d))) {
     Handle_Naive_NurbsCurve2d H = Handle_Naive_NurbsCurve2d::DownCast(Obj);
-    return H->Dump(*nurbs_curve_sf, handler);
+    return H->Dump(*nurbs_curve_sf, Naive_default_mem_handler());
   } else {
     return Naive_Code_invalid_tag;
   }

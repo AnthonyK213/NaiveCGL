@@ -13,11 +13,13 @@ public:
 
   Naive_EXPORT Naive_Integer GetRefCount() const noexcept;
 
-  Naive_Tag Tag() const { return myObj ? myObj->myTag_ : 0; }
-
   const Handle_Naive_Object &GetObject() const { return myObj; }
 
-  Naive_Bool IsNull() const { return myObj.IsNull(); }
+  Naive_EXPORT Naive_Bool IsNull() const;
+
+  Naive_EXPORT Naive_Tag Tag() const;
+
+  Naive_EXPORT static Naive_Tag Tag(const Naive_Object *theObj);
 
 private:
   Handle_Naive_Object myObj;

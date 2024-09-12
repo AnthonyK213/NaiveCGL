@@ -27,10 +27,10 @@ Naive_Bool Vec3d::IsValid() const {
 }
 
 Naive_Bool Vec3d::IsUnitVector() const {
-  return ::std::abs(Length() - 1.) <= Precision::Epsilon0();
+  return ::std::abs(Length() - 1.) <= Precision::Zero();
 }
 
-Naive_Bool Vec3d::IsZero() const { return myXYZ.isZero(Precision::Epsilon0()); }
+Naive_Bool Vec3d::IsZero() const { return myXYZ.isZero(Precision::Zero()); }
 
 Naive_Real Vec3d::Length() const {
   if (!IsValid())

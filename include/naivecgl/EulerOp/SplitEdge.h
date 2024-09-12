@@ -22,7 +22,6 @@ public:
    * @brief Set which vertex of the edge to be split.
    *
    * @param theForward
-   * @return Naive_EXPORT
    */
   Naive_EXPORT void SetForward(const Naive_Bool theForward);
 

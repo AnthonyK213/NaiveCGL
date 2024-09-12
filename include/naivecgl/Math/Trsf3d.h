@@ -23,7 +23,7 @@ public:
   Naive_EXPORT Naive_Bool IsValid() const;
 
   Naive_EXPORT Naive_Bool
-  IsIdentity(const Naive_Real theTol = Precision::Epsilon0()) const;
+  IsIdentity(const Naive_Real theTol = Precision::Zero()) const;
 
   Naive_EXPORT static const Trsf3d &Unset();
 

@@ -77,4 +77,9 @@ Naive_Bool Line::IsPeriodic() const { return Naive_False; }
 
 Naive_Real Line::Period() const { return math::Constant::UnsetReal(); }
 
+Naive_Code Line::Dump(Naive_Line_sf_t &theSF) const {
+  return myPos.Dump(theSF.basis_set) ? Naive_Code_ok
+                                     : Naive_Code_invalid_object;
+}
+
 Naive_NAMESPACE_END(geometry);

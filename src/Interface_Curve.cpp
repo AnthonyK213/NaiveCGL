@@ -4,7 +4,7 @@
 
 #include "Interface_NaiveCGL_c.h"
 
-Naive_Code_t Naive_Curve_ask_bound(Naive_Curve_t curve,
+Naive_Code_t Naive_Curve_ask_interval(Naive_Curve_t curve,
                                    Naive_Interval_t *const bound) {
   if (!bound)
     return Naive_Code_null_arg_address;

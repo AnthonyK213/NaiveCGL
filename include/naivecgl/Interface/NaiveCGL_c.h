@@ -16,63 +16,206 @@
 
 /* Naive_Body */
 
+/**
+ * @brief This function returns the set of edges in the given body.
+ *
+ * @param body [I] A body.
+ * @param n_edges [O] Number of edges (>= 0).
+ * @param edges [O] Edges (optional).
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Body_ask_edges(Naive_Body_t body,
                                             int *const n_edges,
                                             Naive_Edge_t **const edges);
 
+/**
+ * @brief This function returns the set of faces in the given body.
+ *
+ * @param body [I] A body.
+ * @param n_faces [O] Number of faces (>= 0).
+ * @param faces [O] Faces (optional).
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Body_ask_faces(Naive_Body_t body,
                                             int *const n_faces,
                                             Naive_Face_t **const faces);
 
+/**
+ * @brief This function returns the set of fins in the given body.
+ *
+ * @param body [I] A body.
+ * @param n_fins [O] Number of fins (>= 0).
+ * @param fins [O] Fins (optional).
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Body_ask_fins(Naive_Body_t body, int *const n_fins,
                                            Naive_Fin_t **const fins);
 
-Naive_API Naive_Code_t
-Naive_Body_ask_location(Naive_Body_t body, Naive_Transform3d_t *const location);
-
+/**
+ * @brief This function return the set of loops in the given body.
+ *
+ * @param body [I] A body.
+ * @param n_loops [O] Number of loops (>= 0).
+ * @param loops [O] Loops (optional).
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Body_ask_loops(Naive_Body_t body,
                                             int *const n_loops,
                                             Naive_Loop_t **const loops);
 
-Naive_API Naive_Code_t Naive_Body_ask_orient(
-    Naive_Body_t body, Naive_Orientation_t *const orientation);
+/**
+ * @brief This function returns the compound body containing `body`, if any.
+ * Otherwise it returns Naive_Object_null.
+ *
+ * @param body [I] Body.
+ * @param parent [O] Parent (possibly Naive_Object_null).
+ * @return Code.
+ */
+Naive_API Naive_Code_t Naive_Body_ask_parent(Naive_Body_t body,
+                                             Naive_Body_t *const parent);
 
+/**
+ * @brief This function returns the set of regions in the given body.
+ *
+ * @param body [I] A body.
+ * @param n_regions [O] Number of regions (>= 0).
+ * @param regions [O] regions (optional).
+ * @return Code.
+ */
+Naive_API Naive_Code_t Naive_Body_ask_regions(Naive_Body_t body,
+                                              int *const n_regions,
+                                              Naive_Region_t **const regions);
+
+/**
+ * @brief This function returns the set of shells in the given body.
+ *
+ * @param body [I] A body.
+ * @param n_shells [O] Number of shells (>= 0).
+ * @param shells [O] Shells (optional).
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Body_ask_shells(Naive_Body_t body,
                                              int *const n_shells,
                                              Naive_Shell_t **const shells);
 
+/**
+ * @brief This function returns the set of vertices in the given body.
+ *
+ * @param body [I] A body.
+ * @param n_vertices [O] Number of vertices (>= 0).
+ * @param vertices [O] Vertices (optional).
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Body_ask_vertices(Naive_Body_t body,
                                                int *const n_vertices,
                                                Naive_Vertex_t **const vertices);
 
+/**
+ * @brief This function performs a boolean operation between the target body and
+ * the list of tool bodies.
+ *
+ * @param target [I] Target body.
+ * @param n_tools [I] Number of tool bodies.
+ * @param tools [I] Tool bodies.
+ * @param options [I] Boolean options.
+ * @return Code.
+ */
 Naive_API Naive_Code_t
 Naive_Body_boolean(Naive_Body_t target, int n_tools, const Naive_Body_t *tools,
                    const Naive_Body_boolean_o_t *options);
 
+/**
+ * @brief This function creates a solid block.
+ *
+ * @param x [I] Block extent in local x direction (>0).
+ * @param y [I] Block extent in local y direction (>0).
+ * @param z [I] Block extent in local z direction (>0).
+ * @param basis_set [I] Position and orientation (may be NULL).
+ * @param body [O] Solid body returned.
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Body_create_solid_block(
     double x, double y, double z, const Naive_Ax2_sf_t *basis_set,
     Naive_Body_t *const body);
 
 /* Naive_Class */
 
+/**
+ * @brief This function return the class token of the given class's immediate
+ * superclass.
+ *
+ * @param class_ [I] A class.
+ * @param superclass [O] Immediate superclass of class.
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Class_ask_superclass(
     Naive_Class_t class_, Naive_Class_t *const superclass);
 
+/**
+ * @brief This function returns whether `may_be_subclass` is a subclass of
+ * `class_`.
+ *
+ * @param may_be_subclass [I] A potential subclass.
+ * @param class_ [I] A class.
+ * @param is_subclass [O] Whether it was a subclass.
+ * @return Code.
+ */
 Naive_API Naive_Code_t
 Naive_Class_is_subclass(Naive_Class_t may_be_subclass, Naive_Class_t class_,
                         Naive_Logical_t *const is_subclass);
 
 /* Naive_Curve */
 
-Naive_API Naive_Code_t Naive_Curve_ask_bound(Naive_Curve_t curve,
-                                             Naive_Interval_t *const bound);
+/**
+ * @brief This function returns an interval indicating the parametric bounds of
+ * the given curve.
+ *
+ * @param curve [I] A curve.
+ * @param interval [O] Parametric bounds of the curve.
+ * @return Code.
+ */
+Naive_API Naive_Code_t
+Naive_Curve_ask_interval(Naive_Curve_t curve, Naive_Interval_t *const interval);
 
+/**
+ * @brief This function evaluates a point and derivatives at a given parameter
+ * on the given curve.
+ *
+ * @param curve [I] Curve.
+ * @param t [I] Curve parameter.
+ * @param n_deriv [I] Number of derivatives.
+ * @param p [O] Point and derivatives.
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Curve_eval(Naive_Curve_t curve, double t,
                                         int n_deriv, Naive_Vec3d_t p[]);
 
+/**
+ * @brief
+ *
+ * @param curve
+ * @param t
+ * @param curvature
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Curve_eval_curvature(
     Naive_Curve_t curve, double t, Naive_Vec3d_t *const curvature);
 
+/**
+ * @brief This function creates a wire body from an array of curves and
+ * intervals. The curves do not need to be ordered (unless specified otherwise)
+ * or directed.
+ *
+ * @param n_curves [I] Number of curves.
+ * @param curves [I] Curves to create a wire.
+ * @param bounds [I] Bounds of each curve.
+ * @param options [I] Options structure.
+ * @param body [O] The created wire body.
+ * @param n_new_edges [O] Number of new edges.
+ * @param new_edges [O] New edges.
+ * @param edge_index [O] Pos in original array.
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Curve_make_wire_body(
     int n_curves, const Naive_Curve_t curves[], const Naive_Interval_t bounds[],
     const Naive_Curve_make_wire_body_o_t *options, Naive_Body_t *const body,
@@ -112,21 +255,65 @@ Naive_API Naive_Code_t Naive_Geom2dAPI_enclosing_disc(
 
 /* Naive_Geometry */
 
+/**
+ * @brief
+ *
+ * @param geometry
+ * @param clone
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Geometry_clone(Naive_Geometry_t geometry,
                                             Naive_Geometry_t *const clone);
 
+/**
+ * @brief
+ *
+ * @param geometry
+ * @param is_valid
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Geometry_is_valid(Naive_Geometry_t geometry,
                                                Naive_Logical_t *const is_valid);
 
 /* Naive_Line */
 
+/**
+ * @brief This function writes the standard form of a line at the given address.
+ *
+ * @param line [I] Line.
+ * @param line_sf [O] Line standard form.
+ * @return Code.
+ */
+Naive_API Naive_Code_t Naive_Line_ask(Naive_Line_t line,
+                                      Naive_Line_sf_t *const line_sf);
+
+/**
+ * @brief This function creates a line from the given standard form.
+ *
+ * @param line_sf [I] Line standard form.
+ * @param line [O] Line.
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Line_create(const Naive_Line_sf_t *line_sf,
                                          Naive_Line_t *const line);
 
 /* Naive_Memory */
 
+/**
+ * @brief
+ *
+ * @param nbytes
+ * @param pointer
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Memory_alloc(size_t nbytes, void **const pointer);
 
+/**
+ * @brief
+ *
+ * @param pointer
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Memory_free(void *pointer);
 
 /* Naive_NurbsCurve */
@@ -248,28 +435,75 @@ Naive_API Naive_Code_t Naive_Object_delete(Naive_Object_t object);
 
 /* Naive_Plane */
 
+/**
+ * @brief This function returns the standard form of the given plane.
+ *
+ * @param plane [I] A plane.
+ * @param plane_sf [O] The standard form of the plane
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Plane_ask(Naive_Plane_t plane,
                                        Naive_Plane_sf_t *const plane_sf);
 
+/**
+ * @brief This function creates a plane from the given standard form.
+ *
+ * @param plane_sf [I] Standard form of a plane.
+ * @param plane [O] The plane.
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Plane_create(const Naive_Plane_sf_t *plane_sf,
                                           Naive_Plane_t *const plane);
 
+/**
+ * @brief
+ *
+ * @param plane
+ * @param point
+ * @param distance
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Plane_distance(Naive_Plane_t plane,
                                             const Naive_Pnt3d_t *point,
                                             double *const distance);
 
 /* Naive_Point */
 
+/**
+ * @brief This function returns the standard form of the given point.
+ *
+ * @param point [I] Point.
+ * @param point_sf [O] Point standard form.
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Point_ask(Naive_Point_t point,
                                        Naive_Point_sf_t *const point_sf);
 
+/**
+ * @brief This function creates a point from the given standard form.
+ *
+ * @param point_sf [I] Point standard form.
+ * @param point [O] Created point.
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Point_create(const Naive_Point_sf_t *point_sf,
                                           Naive_Point_t *const point);
 
 /* Naive_Surface */
 
-Naive_API Naive_Code_t Naive_Surface_eval(Naive_Surface_t surface, double u,
-                                          double v, int n_u_deriv,
+/**
+ * @brief This function evaluates a point and derivatives at a parameter pair on
+ * the given surface.
+ *
+ * @param surface [I] Surface.
+ * @param uv [I] u and v parameter pair.
+ * @param n_u_deriv [I] Number of u derivatives.
+ * @param n_v_deriv [I] Number of v derivatives.
+ * @param p [O] Point and derivatives.
+ * @return Code.
+ */
+Naive_API Naive_Code_t Naive_Surface_eval(Naive_Surface_t surface,
+                                          Naive_UV_t uv, int n_u_deriv,
                                           int n_v_deriv, Naive_Vec3d_t p[]);
 
 /* Naive_Tessellation */
@@ -289,14 +523,41 @@ Naive_API Naive_Code_t Naive_Tessellation_create_tetrasphere(
 
 /* Naive_Triangulation */
 
+/**
+ * @brief
+ *
+ * @param triangulation
+ * @param n_triangles
+ * @param triangles
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Triangulation_ask_triangles(
     Naive_Triangulation_t triangulation, int *const n_triangles,
     Naive_Triangle_t **const triangles);
 
+/**
+ * @brief
+ *
+ * @param triangulation
+ * @param n_vertices
+ * @param vertices
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Triangulation_ask_vertices(
     Naive_Triangulation_t triangulation, int *const n_vertices,
     Naive_Pnt3d_t **const vertices);
 
+/**
+ * @brief
+ *
+ * @param n_vertices
+ * @param vertices
+ * @param n_triangles
+ * @param triangles
+ * @param i_offset
+ * @param triangulation
+ * @return Code.
+ */
 Naive_API Naive_Code_t Naive_Triangulation_create(
     int n_vertices, const Naive_Pnt3d_t *vertices, int n_triangles,
     const Naive_Triangle_t *triangles, int i_offset,

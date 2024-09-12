@@ -16,7 +16,7 @@ Naive_Bool Vec2d::IsValid() const {
   return Util::IsValidReal(X()) && Util::IsValidReal(Y());
 }
 
-Naive_Bool Vec2d::IsZero() const { return myXY.isZero(Precision::Epsilon0()); }
+Naive_Bool Vec2d::IsZero() const { return myXY.isZero(Precision::Zero()); }
 
 Naive_Real Vec2d::Length() const { return myXY.norm(); }
 

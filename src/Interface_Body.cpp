@@ -19,18 +19,30 @@ Naive_Code_t Naive_Body_ask_fins(Naive_Body_t body, int *const n_fins,
   return Naive_Code_not_implemented;
 }
 
-Naive_Code_t Naive_Body_ask_location(Naive_Body_t body,
-                                     Naive_Transform3d_t *const location) {
-  return Naive_Code_not_implemented;
-}
-
 Naive_Code_t Naive_Body_ask_loops(Naive_Body_t body, int *const n_loops,
                                   Naive_Loop_t **const loops) {
   return Naive_Code_not_implemented;
 }
 
-Naive_Code_t Naive_Body_ask_orient(Naive_Body_t body,
-                                   Naive_Orientation_t *const orientation) {
+Naive_Code_t Naive_Body_ask_parent(Naive_Body_t body,
+                                   Naive_Body_t *const parent) {
+  if (!parent)
+    return Naive_Code_null_arg_address;
+
+  Naive_ROSTER_ASK(Naive_Body, body, H);
+  Naive_Body *aParent = H->ParentBody();
+
+  if (!aParent) {
+    *parent = Naive_TObject::Tag(aParent);
+  } else {
+    *parent = Naive_Object_null;
+  }
+
+  return Naive_Code_ok;
+}
+
+Naive_Code_t Naive_Body_ask_regions(Naive_Body_t body, int *const n_regions,
+                                    Naive_Region_t **const regions) {
   return Naive_Code_not_implemented;
 }
 

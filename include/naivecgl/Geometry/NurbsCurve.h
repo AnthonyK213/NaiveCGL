@@ -3,6 +3,7 @@
 
 #include "../Common/Memory.h"
 #include "../Math/Nurbs.h"
+#include "../Math/Precision.h"
 #include "../Math/Util.h"
 #include "BoundedCurve.h"
 

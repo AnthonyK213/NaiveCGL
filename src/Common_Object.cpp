@@ -1,11 +1,12 @@
 ﻿#include <naivecgl/Common/ClassType.h>
 #include <naivecgl/Common/Object.h>
+#include <naivecgl/Interface/NaiveCGL_c_macros.h>
 
 Naive_NAMESPACE_BEGIN(common);
 
-Object::Object() : myRefCount_(0), myTag_(0) {}
+Object::Object() : myRefCount_(0), myTag_(Naive_Object_null) {}
 
-Object::Object(const Object &) : myRefCount_(0), myTag_(0) {}
+Object::Object(const Object &) : myRefCount_(0), myTag_(Naive_Object_null) {}
 
 Object &Object::operator=(const Object &) { return *this; }
 

@@ -18,7 +18,7 @@ Naive_Code NurbsCurve::update(CPs_ &&theCPs, Knots_ &&theKnots,
     if (!math::Util::IsValidReal(theCPs[i].w()))
       return Naive_Code_invalid_value;
 
-    if (theCPs[i].w() <= 0)
+    if (theCPs[i].w() <= math::Precision::Zero())
       return Naive_Code_weight_le_0;
   }
 

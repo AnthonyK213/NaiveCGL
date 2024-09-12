@@ -10,14 +10,7 @@ Naive_NurbsSurface_ask(Naive_NurbsSurface_t nurbs_surface,
     return Naive_Code_null_arg_address;
 
   Naive_ROSTER_ASK(Naive_NurbsSurface, nurbs_surface, H);
-  naivecgl::common::MemHandler handler{};
-  handler.Allocator = +[](Naive_Size theNB, void **const thePtr) {
-    return static_cast<Naive_Code>(Naive_Memory_alloc(theNB, thePtr));
-  };
-  handler.Deleter = +[](void *thePtr) {
-    return static_cast<Naive_Code>(Naive_Memory_free(thePtr));
-  };
-  return H->Dump(*nurbs_surface_sf, handler);
+  return H->Dump(*nurbs_surface_sf, Naive_default_mem_handler());
 }
 
 Naive_Code_t

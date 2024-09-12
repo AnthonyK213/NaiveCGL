@@ -11,7 +11,7 @@ class Util {
 public:
   Naive_EXPORT static Naive_Bool
   EpsilonEquals(Naive_Real theX, Naive_Real theY,
-                Naive_Real theEpsilon = math::Precision::Epsilon0());
+                Naive_Real theEpsilon = math::Precision::Zero());
 
   Naive_EXPORT static Naive_Bool IsInfinite(const Naive_Real theR);
 

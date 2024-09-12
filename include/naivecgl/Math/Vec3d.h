@@ -94,7 +94,7 @@ public:
   Naive_EXPORT void Reverse();
 
   Naive_EXPORT Naive_Bool EpsilonEquals(
-      const Vec3d &theVec, const Naive_Real theE = math::Precision::Epsilon0());
+      const Vec3d &theVec, const Naive_Real theE = math::Precision::Zero());
 
   Naive_EXPORT Naive_Bool Equals(const Vec3d &theVec);
 
