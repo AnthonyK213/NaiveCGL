@@ -18,6 +18,7 @@ class Vertex;
 class Fin final : public Naive_Topol {
   friend class Loop;
   friend class Edge;
+  friend class eulerop::SplitEdge;
 
 public:
   Naive_EXPORT virtual Topol *Parent() const Naive_OVERRIDE;
@@ -39,6 +40,8 @@ public:
   Naive_EXPORT Fin *Comp() const;
 
   Naive_EXPORT Naive_Bool Sense() const;
+
+  Naive_EXPORT Naive_Bool IsDummy() const;
 
   Naive_DEFINE_RTTI(Fin, Naive_Topol);
 

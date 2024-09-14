@@ -18,6 +18,7 @@ class Loop;
 
 class Face final : public Naive_Topol {
   friend class eulerop::MakeBodyFaceVertex;
+  friend class eulerop::MakeFaceEdge;
 
 public:
   Naive_EXPORT Face();

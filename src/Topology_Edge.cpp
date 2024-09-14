@@ -30,21 +30,36 @@ Edge::~Edge() { myFin.Nullify(); }
 Naive_Topol *Edge::Parent() const { return myParent; }
 
 const Handle_Naive_Vertex &Edge::GetVertex(Naive_Bool theForward) {
-  return theForward ? (myFin->GetVertex()) : (myFin->myTwin->GetVertex());
+  return theForward ? (ForwardFin()->GetVertex())
+                    : (BackwardFin()->GetVertex());
 }
 
-const Handle_Naive_Fin &Edge::GetHeadFin() const { return myFin; }
+const Handle_Naive_Fin &Edge::ForwardFin() const { return myFin; }
 
-Naive_LinkedList<Handle_Naive_Fin> Edge::GetFins() const {
-  if (!myFin)
-    return {};
+const Handle_Naive_Fin &Edge::BackwardFin() const { return myFin->Twin(); }
 
-  Naive_LinkedList<Handle_Naive_Fin> aResult{myFin};
+Naive_LinkedList<Handle_Naive_Fin>
+Edge::GetFins(const Naive_Bool theIncludeDummy) const {
+  Naive_LinkedList<Handle_Naive_Fin> aResult{};
 
-  Handle_Naive_Fin aTwin = myFin->Twin();
-  while (aTwin != myFin) {
-    aResult.push_back(aTwin);
-    aTwin = aTwin->Twin();
+  if (theIncludeDummy) {
+    aResult.push_back(myFin);
+
+    Handle_Naive_Fin aTwin = myFin->Twin();
+    while (aTwin != myFin) {
+      aResult.push_back(aTwin);
+      aTwin = aTwin->Twin();
+    }
+  } else {
+    if (!myFin->IsDummy())
+      aResult.push_back(myFin);
+
+    Handle_Naive_Fin aTwin = myFin->Twin();
+    while (aTwin != myFin) {
+      if (!aTwin->IsDummy())
+        aResult.push_back(aTwin);
+      aTwin = aTwin->Twin();
+    }
   }
 
   return aResult;
@@ -52,7 +67,11 @@ Naive_LinkedList<Handle_Naive_Fin> Edge::GetFins() const {
 
 const Handle_Naive_Curve &Edge::GetCurve() const { return myCrv; }
 
-void Edge::GetBox(Naive_Box &theBox) {}
+void Edge::GetBox(Naive_Box &theBox) { Naive_TODO; }
+
+Naive_Bool Edge::IsManifold() const {
+  return BackwardFin()->Twin() == ForwardFin();
+}
 
 void Edge::SetParent(Naive_Topol *theParent) { myParent = theParent; }
 
@@ -65,13 +84,10 @@ void Edge::init() {
 
 void Edge::setVertex(const Handle_Naive_Vertex &theVert,
                      Naive_Bool theForward) {
-  if (theForward) {
-    myFin->myVert = theVert;
-    theVert->myFin = myFin.get();
-  } else {
-    myFin->Twin()->myVert = theVert;
-    theVert->myFin = myFin->Twin().get();
-  }
+  Naive_Fin *aFin = (theForward ? ForwardFin() : BackwardFin()).get();
+  aFin->myVert = theVert;
+  aFin->myComp = theVert->myFin;
+  theVert->myFin = aFin;
 }
 
 Naive_NAMESPACE_END(topology);

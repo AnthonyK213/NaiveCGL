@@ -25,6 +25,8 @@ Topol *Topol::TopTopol() const {
 
 void Topol::GetBox(Naive_Box &theBox) {}
 
+Naive_Bool Topol::IsManifold() const { return Naive_True; }
+
 void Topol::SetParent(Naive_Topol *theParent) {}
 
 Naive_NAMESPACE_END(topology);

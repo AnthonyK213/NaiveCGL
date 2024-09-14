@@ -16,10 +16,7 @@ Naive_IMPLEMENT_EO(MakeBodyFaceVertex, 1, 0, 1, 0, 0, 1);
 
 MakeBodyFaceVertex::MakeBodyFaceVertex() : Operator() { Perform(); }
 
-void MakeBodyFaceVertex::Perform() {
-  if (Status() != Naive_Code_initialized)
-    return;
-
+Naive_Code MakeBodyFaceVertex::PerformInternal() {
   Handle_Naive_Body aB = new Naive_Body();
   Handle_Naive_Region aR = new Naive_Region();
   Handle_Naive_Shell aS = new Naive_Shell();
@@ -42,7 +39,7 @@ void MakeBodyFaceVertex::Perform() {
   MBFV_F = aF;
   MBFV_V = aV;
 
-  Done();
+  return Naive_Code_ok;
 }
 
 Handle_Naive_Body MakeBodyFaceVertex::NewBody() const {

@@ -9,6 +9,8 @@ class Face;
 class Fin;
 
 class Loop final : public Naive_Topol {
+  friend class Face;
+
 public:
   Naive_EXPORT Loop();
 

@@ -17,6 +17,6 @@ Naive_Code_t Naive_Line_create(const Naive_Line_sf_t *line_sf,
     return Naive_Code_null_arg_address;
 
   Handle_Naive_Line aLine = new Naive_Line(*line_sf);
-  Naive_ROSTER_ADD(aLine, *line);
+  Naive_ROSTER_ADD(aLine, Naive_True, *line);
   return Naive_Code_ok;
 }

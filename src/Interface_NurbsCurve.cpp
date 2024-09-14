@@ -87,7 +87,7 @@ Naive_NurbsCurve_create(const Naive_NurbsCurve_sf_t *nurbs_curve_sf,
       (!nurbs_curve_sf->is_rational && nurbs_curve_sf->vertex_dim == 2)) {
     Handle_Naive_NurbsCurve2d aCrv = new Naive_NurbsCurve2d;
     Naive_CHECK_CODE(aCrv->Init(*nurbs_curve_sf));
-    Naive_ROSTER_ADD(aCrv, *nurbs_curve);
+    Naive_ROSTER_ADD(aCrv, Naive_True, *nurbs_curve);
     return Naive_Code_ok;
   }
 
@@ -95,7 +95,7 @@ Naive_NurbsCurve_create(const Naive_NurbsCurve_sf_t *nurbs_curve_sf,
       (!nurbs_curve_sf->is_rational && nurbs_curve_sf->vertex_dim == 3)) {
     Handle_Naive_NurbsCurve aCrv = new Naive_NurbsCurve;
     Naive_CHECK_CODE(aCrv->Init(*nurbs_curve_sf));
-    Naive_ROSTER_ADD(aCrv, *nurbs_curve);
+    Naive_ROSTER_ADD(aCrv, Naive_True, *nurbs_curve);
     return Naive_Code_ok;
   }
 

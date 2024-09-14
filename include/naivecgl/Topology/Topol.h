@@ -42,6 +42,8 @@ public:
 
   Naive_EXPORT virtual void GetBox(math::Box &theBox);
 
+  Naive_EXPORT virtual Naive_Bool IsManifold() const;
+
   Naive_DEFINE_RTTI(Topol, Naive_Object);
 
 protected:

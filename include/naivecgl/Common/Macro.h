@@ -25,8 +25,8 @@
 
 #define Naive_DEFINE_HANDLE(T) using Handle_##T = ::naivecgl::common::handle<T>
 
-#define Naive_True true
-#define Naive_False false
+#define Naive_True (true)
+#define Naive_False (false)
 
 #define Naive_TODO throw ::std::runtime_error("Not implemented")
 

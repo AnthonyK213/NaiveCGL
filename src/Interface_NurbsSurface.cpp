@@ -21,6 +21,6 @@ Naive_NurbsSurface_create(const Naive_NurbsSurface_sf_t *nurbs_surface_sf,
 
   Handle_Naive_NurbsSurface aSrf = new Naive_NurbsSurface;
   Naive_CHECK_CODE(aSrf->Init(*nurbs_surface_sf));
-  Naive_ROSTER_ADD(aSrf, *nurbs_surface);
+  Naive_ROSTER_ADD(aSrf, Naive_True, *nurbs_surface);
   return Naive_Code_ok;
 }

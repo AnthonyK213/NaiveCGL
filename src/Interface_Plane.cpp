@@ -19,7 +19,7 @@ Naive_Code_t Naive_Plane_create(const Naive_Plane_sf_t *plane_sf,
     return Naive_Code_null_arg_address;
 
   Handle_Naive_Plane aPlane = new Naive_Plane(*plane_sf);
-  Naive_ROSTER_ADD(aPlane, *plane);
+  Naive_ROSTER_ADD(aPlane, Naive_True, *plane);
   return Naive_Code_ok;
 }
 

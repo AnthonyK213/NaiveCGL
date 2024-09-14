@@ -9,8 +9,6 @@ class MakeBodyFaceVertex : public Operator {
 public:
   Naive_EXPORT MakeBodyFaceVertex();
 
-  Naive_EXPORT void Perform() Naive_OVERRIDE;
-
   Naive_EXPORT Naive_Handle<topology::Body> NewBody() const;
 
   Naive_EXPORT Naive_Handle<topology::Face> NewFace() const;
@@ -18,6 +16,9 @@ public:
   Naive_EXPORT Naive_Handle<topology::Vertex> NewVertex() const;
 
   Naive_DEFINE_EO(MakeBodyFaceVertex);
+
+protected:
+  Naive_EXPORT virtual Naive_Code PerformInternal() Naive_OVERRIDE;
 };
 
 Naive_NAMESPACE_END(eulerop);

@@ -30,15 +30,17 @@ public:
 
   Naive_EXPORT virtual void GetBox(math::Box &theBox) Naive_OVERRIDE;
 
+  Naive_EXPORT virtual Naive_Bool IsManifold() const;
+
   Naive_DEFINE_RTTI(Vertex, Naive_Topol);
 
 protected:
   Naive_EXPORT virtual void SetParent(Naive_Topol *theParent) Naive_OVERRIDE;
 
 private:
-  Naive_Topol *myParent;       /* Parent shell or body. */
-  Fin *myFin;                  /* Head of fins ponit to the vertex. */
-  Vertex *myPrev;              /* Previous vertex in myParent. */
+  Naive_Topol *myParent; /* Parent shell or body. */
+  Fin *myFin;     /* Head of single-linked list of fins ponit to the vertex. */
+  Vertex *myPrev; /* Previous vertex in myParent. */
   Naive_Handle<Vertex> myNext; /* Next vertex in myParent. */
   Naive_Handle<geometry::Point3d> myPnt;
   Naive_Real myTol;

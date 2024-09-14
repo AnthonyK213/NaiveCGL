@@ -25,9 +25,10 @@ Naive_Code Roster::Erase(Naive_Tag theTag) {
   if (aCode != Naive_Code_ok)
     return aCode;
 
-  if (anObj.GetRefCount() > 2)
+  if (anObj.GetRefCount() > 1)
     return Naive_Code_still_referenced;
 
+  anObj.Delete();
   myTable.erase(theTag);
   return Naive_Code_ok;
 }

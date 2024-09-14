@@ -21,6 +21,8 @@ public:
 
   Naive_EXPORT Region *ParentRegion() const;
 
+  Naive_EXPORT const Naive_Handle<Vertex> GetVertex() const { return myVertex; }
+
   Naive_EXPORT virtual void GetBox(math::Box &theBox) Naive_OVERRIDE;
 
   Naive_DEFINE_RTTI(Shell, Naive_Topol);

@@ -25,9 +25,9 @@
     }                                                                          \
   } while (0)
 
-#define Naive_ROSTER_ADD(Obj_, Tag_)                                           \
+#define Naive_ROSTER_ADD(Obj_, Strong_, Tag_)                                  \
   do {                                                                         \
-    Naive_TObject __tobj__{(Obj_)};                                            \
+    Naive_TObject __tobj__{(Obj_), (Strong_)};                                 \
     Naive_CHECK_CODE(Naive_Roster::Resolve().Insert(__tobj__));                \
     (Tag_) = __tobj__.Tag();                                                   \
   } while (0)

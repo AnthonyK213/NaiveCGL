@@ -22,20 +22,18 @@ void SpurEdgeVertex::SetForward(const Naive_Bool theForward) {
   myForward = theForward;
 }
 
-void SpurEdgeVertex::Perform() {
-  if (Status() != Naive_Code_initialized)
-    return;
+Naive_Code SpurEdgeVertex::CheckParams() const {
+  if (!myVertex)
+    return Naive_Code_null_arg_address;
 
-  if (!myVertex) {
-    SetStatus(Naive_Code_null_arg_address);
-    return;
-  }
+  return Naive_Code_ok;
+}
 
+Naive_Code SpurEdgeVertex::PerformInternal() {
   Handle_Naive_Body aBody;
-  if (!(aBody = Handle_Naive_Body::DownCast(myVertex->TopTopol()))) {
-    SetStatus(Naive_Code_invalid_object);
-    return;
-  }
+
+  if (!(aBody = Handle_Naive_Body::DownCast(myVertex->TopTopol())))
+    return Naive_Code_invalid_object;
 
   Handle_Naive_Vertex aV = new Naive_Vertex;
   Handle_Naive_Edge aE = new Naive_Edge;
@@ -47,7 +45,7 @@ void SpurEdgeVertex::Perform() {
   MEV_E = aE;
   MEV_V = aV;
 
-  Done();
+  return Naive_Code_ok;
 }
 
 Naive_NAMESPACE_END(eulerop);

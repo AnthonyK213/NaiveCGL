@@ -25,7 +25,7 @@ class TEV;
 
 class Operator : public common::Command {
 public:
-  Naive_EXPORT virtual void Perform() = 0;
+  Naive_EXPORT virtual void Perform();
 
   Naive_EXPORT virtual const TEV &GetTEV() const = 0;
 
@@ -39,6 +39,10 @@ public:
 
 protected:
   Naive_EXPORT Operator() : common::Command(), myNew(), myDel() {}
+
+  Naive_EXPORT virtual Naive_Code CheckParams() const;
+
+  Naive_EXPORT virtual Naive_Code PerformInternal() = 0;
 
 protected:
   Naive_List1<Naive_Handle<topology::Topol>> myNew;

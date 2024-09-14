@@ -25,7 +25,10 @@ public:
    */
   Naive_EXPORT void SetForward(const Naive_Bool theForward);
 
-  Naive_EXPORT void Perform() Naive_OVERRIDE;
+protected:
+  Naive_EXPORT virtual Naive_Code CheckParams() const Naive_OVERRIDE;
+
+  Naive_EXPORT virtual Naive_Code PerformInternal() Naive_OVERRIDE;
 
 private:
   Naive_Handle<topology::Edge> myEdge;

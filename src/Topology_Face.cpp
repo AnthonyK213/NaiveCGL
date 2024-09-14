@@ -10,7 +10,11 @@ Naive_IMPLEMENT_RTTI(Face);
 
 Face::Face()
     : myLoops(), myShell(nullptr), myPrev(nullptr), myNext(nullptr),
-      mySrf(nullptr), myBox(), myTol(math::Precision::Epsilon0()) {}
+      mySrf(nullptr), myBox(), myTol(math::Precision::Epsilon0()) {
+  Handle_Naive_Loop aLoop = new Naive_Loop;
+  aLoop->myFace = this;
+  myLoops.push_back(aLoop);
+}
 
 Naive_Topol *Face::Parent() const { return myShell; }
 

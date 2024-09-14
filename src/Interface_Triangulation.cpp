@@ -67,6 +67,6 @@ Naive_Triangulation_create(int n_vertices, const Naive_Pnt3d_t *vertices,
 
   Handle_Naive_Triangulation aPoly =
       new Naive_Triangulation(::std::move(aVerts), ::std::move(aTris));
-  Naive_ROSTER_ADD(aPoly, *triangulation);
+  Naive_ROSTER_ADD(aPoly, Naive_True, *triangulation);
   return Naive_Code_ok;
 }

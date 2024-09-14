@@ -18,6 +18,6 @@ Naive_Code_t Naive_Point_create(const Naive_Point_sf_t *point_sf,
     return Naive_Code_null_arg_address;
 
   Handle_Naive_CartesianPoint3d aPoint = new Naive_CartesianPoint3d(*point_sf);
-  Naive_ROSTER_ADD(aPoint, *point);
+  Naive_ROSTER_ADD(aPoint, Naive_True, *point);
   return Naive_Code_ok;
 }

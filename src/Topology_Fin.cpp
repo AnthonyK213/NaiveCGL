@@ -38,4 +38,6 @@ Naive_Fin *Fin::Comp() const { return myComp; }
 
 Naive_Bool Fin::Sense() const { return mySense; }
 
+Naive_Bool Fin::IsDummy() const { return myLoop == nullptr; }
+
 Naive_NAMESPACE_END(topology);

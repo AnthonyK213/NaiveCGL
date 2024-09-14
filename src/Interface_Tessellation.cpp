@@ -18,6 +18,6 @@ Naive_Code_t Naive_Tessellation_create_tetrasphere(
   if (!aPoly)
     return Naive_Code_err;
 
-  Naive_ROSTER_ADD(aPoly, *triangulation);
+  Naive_ROSTER_ADD(aPoly, Naive_True, *triangulation);
   return Naive_Code_ok;
 }

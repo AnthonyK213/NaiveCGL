@@ -1,6 +1,7 @@
 #include <naivecgl/EulerOp/SplitEdge.h>
 #include <naivecgl/Topology/Body.h>
 #include <naivecgl/Topology/Edge.h>
+#include <naivecgl/Topology/Fin.h>
 #include <naivecgl/Topology/Vertex.h>
 
 Naive_NAMESPACE_BEGIN(eulerop);
@@ -22,20 +23,25 @@ void SplitEdge::SetForward(const Naive_Bool theForward) {
   myForward = theForward;
 }
 
-void SplitEdge::Perform() {
-  if (Status() != Naive_Code_initialized)
-    return;
+Naive_Code SplitEdge::CheckParams() const {
+  if (!myEdge)
+    return Naive_Code_null_arg_address;
 
-  if (!myEdge) {
-    SetStatus(Naive_Code_null_arg_address);
-    return;
-  }
+  if (!myEdge->IsManifold())
+    return Naive_Code_edge_not_manifold;
 
+  if (!myEdge->GetVertex(0)->IsManifold() ||
+      !myEdge->GetVertex(1)->IsManifold())
+    return Naive_Code_vertex_not_manifold;
+
+  return Naive_Code_ok;
+}
+
+Naive_Code SplitEdge::PerformInternal() {
   Handle_Naive_Body aBody;
-  if (!(aBody = Handle_Naive_Body::DownCast(myEdge->TopTopol()))) {
-    SetStatus(Naive_Code_invalid_object);
-    return;
-  }
+
+  if (!(aBody = Handle_Naive_Body::DownCast(myEdge->TopTopol())))
+    return Naive_Code_invalid_object;
 
   Handle_Naive_Vertex aV = new Naive_Vertex;
   Handle_Naive_Edge aE = new Naive_Edge;
@@ -48,11 +54,47 @@ void SplitEdge::Perform() {
   aE->SetParent(myEdge->Parent());
   aV->SetParent(aBody.get());
 
+  Naive_Fin *aOld, *aNew;
+
+  if (myEdge->ForwardFin()->ParentLoop()) {
+    aOld = myEdge->ForwardFin().get();
+    aNew = aE->ForwardFin().get();
+
+    if (myForward) {
+      aNew->myPrev = aOld;
+      aNew->myNext = aOld->Next();
+      aOld->myNext = aNew;
+    } else {
+      aNew->myNext = aOld;
+      aNew->myPrev = aOld->Prev();
+      aOld->myPrev = aNew;
+    }
+
+    aNew->myLoop = aOld->ParentLoop();
+  }
+
+  if (myEdge->BackwardFin()->ParentLoop()) {
+    aOld = myEdge->BackwardFin().get();
+    aNew = aE->BackwardFin().get();
+
+    if (myForward) {
+      aNew->myNext = aOld;
+      aNew->myPrev = aOld->Prev();
+      aOld->myPrev = aNew;
+    } else {
+      aNew->myPrev = aOld;
+      aNew->myNext = aOld->Next();
+      aOld->myNext = aNew;
+    }
+
+    aNew->myLoop = aOld->ParentLoop();
+  }
+
   myNew.resize(2);
   MEV_E = aE;
   MEV_V = aV;
 
-  Done();
+  return Naive_Code_ok;
 }
 
 Naive_NAMESPACE_END(eulerop);

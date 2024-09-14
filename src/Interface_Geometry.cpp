@@ -9,7 +9,7 @@ Naive_Code_t Naive_Geometry_clone(Naive_Geometry_t geometry,
     return Naive_Code_null_arg_address;
 
   Naive_ROSTER_ASK(Naive_Geometry, geometry, H);
-  Naive_ROSTER_ADD(H->Clone(), *clone);
+  Naive_ROSTER_ADD(H->Clone(), Naive_True, *clone);
   return Naive_Code_ok;
 }
 

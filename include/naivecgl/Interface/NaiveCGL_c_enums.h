@@ -106,6 +106,11 @@ typedef enum {
   Naive_Code_knots_mults_not_match,
   Naive_Code_invalid_mults,
   Naive_Code_geom_not_needed,
+  Naive_Code_fin_not_in_loop,
+  Naive_Code_fins_not_distinct,
+  Naive_Code_edge_not_manifold,
+  Naive_Code_vertex_not_manifold,
+  Naive_Code_no_common_vertex,
 } Naive_Code;
 
 /* Naive_Loop_type */

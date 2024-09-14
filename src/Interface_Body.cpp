@@ -31,12 +31,7 @@ Naive_Code_t Naive_Body_ask_parent(Naive_Body_t body,
 
   Naive_ROSTER_ASK(Naive_Body, body, H);
   Naive_Body *aParent = H->ParentBody();
-
-  if (!aParent) {
-    *parent = Naive_TObject::Tag(aParent);
-  } else {
-    *parent = Naive_Object_null;
-  }
+  *parent = Naive_TObject::Tag(aParent);
 
   return Naive_Code_ok;
 }
@@ -70,7 +65,7 @@ Naive_Code_t Naive_Body_create_solid_block(double x, double y, double z,
 
   ::naivecgl::brepbuilderapi::BuildSolidBlock aBuilder{*basis_set, x, y, z};
   Naive_CHECK_CODE(aBuilder.Status());
-  Naive_ROSTER_ADD(aBuilder.Body(), *body);
+  Naive_ROSTER_ADD(aBuilder.Body(), Naive_True, *body);
 
   return Naive_Code_ok;
 }

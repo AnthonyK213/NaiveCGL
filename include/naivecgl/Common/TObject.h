@@ -9,20 +9,29 @@ class TObject final {
 public:
   Naive_EXPORT TObject();
 
-  Naive_EXPORT TObject(const Handle_Naive_Object &theObj);
+  Naive_EXPORT TObject(const Handle_Naive_Object &theObj,
+                       Naive_Bool theStrong = Naive_False);
 
   Naive_EXPORT Naive_Integer GetRefCount() const noexcept;
 
-  const Handle_Naive_Object &GetObject() const { return myObj; }
+  Naive_EXPORT Handle_Naive_Object GetObject() const;
 
   Naive_EXPORT Naive_Bool IsNull() const;
+
+  Naive_EXPORT Naive_Bool IsStrong() const;
+
+  Naive_EXPORT Naive_Bool IsDeleted() const;
 
   Naive_EXPORT Naive_Tag Tag() const;
 
   Naive_EXPORT static Naive_Tag Tag(const Naive_Object *theObj);
 
+  Naive_EXPORT void Delete();
+
 private:
-  Handle_Naive_Object myObj;
+  Naive_Object *myObj;
+  Naive_Bool myStrong;
+  Naive_Bool myDeleted;
 };
 
 Naive_NAMESPACE_END(common);

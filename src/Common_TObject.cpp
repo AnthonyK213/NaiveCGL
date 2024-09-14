@@ -4,23 +4,49 @@
 
 Naive_NAMESPACE_BEGIN(common);
 
-TObject::TObject() : myObj() {}
+TObject::TObject()
+    : myObj(nullptr), myStrong(Naive_False), myDeleted(Naive_False) {}
 
-TObject::TObject(const Handle_Naive_Object &theObj) : myObj(theObj) {
-  if (myObj)
+TObject::TObject(const Handle_Naive_Object &theObj, Naive_Bool theStrong)
+    : myObj(theObj.get()), myStrong(theStrong), myDeleted(Naive_False) {
+  if (myObj) {
     myObj->myTag_ = Naive_Roster::Resolve().NewTag();
+    if (myStrong)
+      myObj->IncrementRefCounter();
+  }
 }
 
 Naive_Integer TObject::GetRefCount() const noexcept {
   return myObj ? myObj->GetRefCount() : 0;
 }
 
-Naive_Bool TObject::IsNull() const { return myObj.IsNull(); }
+Handle_Naive_Object TObject::GetObject() const { return myObj; }
 
-Naive_Tag TObject::Tag() const { return Tag(myObj.get()); }
+Naive_Bool TObject::IsNull() const { return myObj == nullptr; }
+
+Naive_Bool TObject::IsStrong() const { return myStrong; }
+
+Naive_Bool TObject::IsDeleted() const { return myDeleted; }
+
+Naive_Tag TObject::Tag() const {
+  return myDeleted ? Naive_Object_null : Tag(myObj);
+}
 
 Naive_Tag TObject::Tag(const Naive_Object *theObj) {
   return theObj ? theObj->myTag_ : Naive_Object_null;
+}
+
+void TObject::Delete() {
+  if (IsDeleted())
+    return;
+
+  if (IsStrong()) {
+    Handle_Naive_Object anObj = myObj;
+    anObj->DecrementRefCounter();
+  }
+
+  myObj = nullptr;
+  myDeleted = Naive_True;
 }
 
 Naive_NAMESPACE_END(common);

@@ -24,6 +24,11 @@ void Vertex::GetBox(Naive_Box &theBox) {
     theBox = Naive_Box(myPnt->Pnt(), myPnt->Pnt());
 }
 
+Naive_Bool Vertex::IsManifold() const {
+  /* TODO */
+  return Naive_True;
+}
+
 void Vertex::SetParent(Naive_Topol *theParent) { myParent = theParent; }
 
 Naive_NAMESPACE_END(topology);
