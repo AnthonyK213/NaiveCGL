@@ -3,7 +3,7 @@
 
 #include "../Math/Pnt2d.h"
 
-Naive_NAMESPACE_BEGIN(geom2dapi);
+Naive_NAMESPACE_BEGIN(geom2d_api);
 
 class EnclosingDisc final {
 public:
@@ -34,6 +34,6 @@ private:
   Naive_Real myR;
 };
 
-Naive_NAMESPACE_END(geom2dapi);
+Naive_NAMESPACE_END(geom2d_api);
 
 #endif

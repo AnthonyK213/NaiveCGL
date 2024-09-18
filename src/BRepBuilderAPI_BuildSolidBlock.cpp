@@ -9,7 +9,7 @@
 #include <naivecgl/Topology/Loop.h>
 #include <naivecgl/Topology/Vertex.h>
 
-Naive_NAMESPACE_BEGIN(brepbuilderapi);
+Naive_NAMESPACE_BEGIN(brep_builder_api);
 
 BuildSolidBlock::BuildSolidBlock() : myAx2(), myX(0.), myY(0.), myZ(0.) {}
 
@@ -37,12 +37,12 @@ void BuildSolidBlock::Build() {
   anEdges.reserve(12);
   aFaces.reserve(6);
 
-  eulerop::MakeBodyFaceVertex aMBFV{};
+  euler_op::MakeBodyFaceVertex aMBFV{};
   myBody = aMBFV.NewBody();
   aFaces.push_back(aMBFV.NewFace());   /* F00 */
   aVerts.push_back(aMBFV.NewVertex()); /* V00 */
 
-  eulerop::MakeFaceEdge aMFE(aFaces[0]->OuterLoop(), nullptr, nullptr);
+  euler_op::MakeFaceEdge aMFE(aFaces[0]->OuterLoop(), nullptr, nullptr);
   aFaces.push_back(aMFE.NewFace());  /* F01 */
   anEdges.push_back(aMFE.NewEdge()); /* E00 */
 
@@ -53,7 +53,15 @@ void BuildSolidBlock::Build() {
   for (Naive_Integer i = 0; i < 7; ++i) {
   }
 
+  /* F02, E08 */
+
+  /* F03, E09 */
+
+  /* F04, E10 */
+
+  /* F05, E11 */
+
   Done();
 }
 
-Naive_NAMESPACE_END(brepbuilderapi);
+Naive_NAMESPACE_END(brep_builder_api);

@@ -6,7 +6,7 @@
 #include "../Common/Macro.h"
 #include "../Common/Type.h"
 
-Naive_NAMESPACE_BEGIN(eulerop);
+Naive_NAMESPACE_BEGIN(euler_op);
 
 /**
  * @brief Topological Element Vector:
@@ -65,6 +65,6 @@ private:
   Value myVal;
 };
 
-Naive_NAMESPACE_END(eulerop);
+Naive_NAMESPACE_END(euler_op);
 
 #endif

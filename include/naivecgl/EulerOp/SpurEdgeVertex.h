@@ -3,7 +3,7 @@
 
 #include "MakeEdgeVertex.h"
 
-Naive_NAMESPACE_BEGIN(eulerop);
+Naive_NAMESPACE_BEGIN(euler_op);
 
 class SpurEdgeVertex : public MakeEdgeVertex {
 public:
@@ -33,6 +33,6 @@ private:
   Naive_Bool myForward;
 };
 
-Naive_NAMESPACE_END(eulerop);
+Naive_NAMESPACE_END(euler_op);
 
 #endif

@@ -3,7 +3,7 @@
 
 #include "Operator.h"
 
-Naive_NAMESPACE_BEGIN(eulerop);
+Naive_NAMESPACE_BEGIN(euler_op);
 
 class MakeBodyFaceVertex : public Operator {
 public:
@@ -21,6 +21,6 @@ protected:
   Naive_EXPORT virtual Naive_Code PerformInternal() Naive_OVERRIDE;
 };
 
-Naive_NAMESPACE_END(eulerop);
+Naive_NAMESPACE_END(euler_op);
 
 #endif

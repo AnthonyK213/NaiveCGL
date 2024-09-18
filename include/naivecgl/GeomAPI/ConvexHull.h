@@ -7,7 +7,7 @@
 
 #include <memory>
 
-Naive_NAMESPACE_BEGIN(geomapi);
+Naive_NAMESPACE_BEGIN(geom_api);
 
 /**
  * @brief  Calculates the convex hull of a set of 3d points.
@@ -49,6 +49,6 @@ private:
   Naive_Algorithm myAlgo;
 };
 
-Naive_NAMESPACE_END(geomapi);
+Naive_NAMESPACE_END(geom_api);
 
 #endif

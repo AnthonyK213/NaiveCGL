@@ -8,7 +8,7 @@
 #include <naivecgl/Topology/Shell.h>
 #include <naivecgl/Topology/Vertex.h>
 
-Naive_NAMESPACE_BEGIN(eulerop);
+Naive_NAMESPACE_BEGIN(euler_op);
 
 #define MEV_F (myNew[0])
 #define MEV_E (myNew[1])
@@ -97,4 +97,4 @@ Naive_Code MakeFaceEdge::PerformInternal() {
 
 Naive_IMPLEMENT_EO(MakeFaceEdge, 0, 1, 1, 0, 0, 0);
 
-Naive_NAMESPACE_END(eulerop);
+Naive_NAMESPACE_END(euler_op);

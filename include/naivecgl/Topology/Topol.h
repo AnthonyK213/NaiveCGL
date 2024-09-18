@@ -10,7 +10,7 @@ class Box;
 
 Naive_NAMESPACE_END(math);
 
-Naive_NAMESPACE_BEGIN(eulerop);
+Naive_NAMESPACE_BEGIN(euler_op);
 
 class MakeBodyFaceVertex;
 class MakeEdgeKillLoop;
@@ -20,18 +20,18 @@ class MakeGenusBody;
 class SplitEdge;
 class SpurEdgeVertex;
 
-Naive_NAMESPACE_END(eulerop);
+Naive_NAMESPACE_END(euler_op);
 
 Naive_NAMESPACE_BEGIN(topology);
 
 class Topol : public Naive_Object {
-  friend class eulerop::MakeBodyFaceVertex;
-  friend class eulerop::MakeEdgeKillLoop;
-  friend class eulerop::MakeEdgeVertex;
-  friend class eulerop::MakeFaceEdge;
-  friend class eulerop::MakeGenusBody;
-  friend class eulerop::SplitEdge;
-  friend class eulerop::SpurEdgeVertex;
+  friend class euler_op::MakeBodyFaceVertex;
+  friend class euler_op::MakeEdgeKillLoop;
+  friend class euler_op::MakeEdgeVertex;
+  friend class euler_op::MakeFaceEdge;
+  friend class euler_op::MakeGenusBody;
+  friend class euler_op::SplitEdge;
+  friend class euler_op::SpurEdgeVertex;
 
 public:
   Topol(const Topol &theOther) Naive_DELETE;

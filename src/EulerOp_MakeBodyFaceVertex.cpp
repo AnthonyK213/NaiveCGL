@@ -6,7 +6,7 @@
 #include <naivecgl/Topology/Shell.h>
 #include <naivecgl/Topology/Vertex.h>
 
-Naive_NAMESPACE_BEGIN(eulerop);
+Naive_NAMESPACE_BEGIN(euler_op);
 
 Naive_IMPLEMENT_EO(MakeBodyFaceVertex, 1, 0, 1, 0, 0, 1);
 
@@ -60,4 +60,4 @@ Handle_Naive_Vertex MakeBodyFaceVertex::NewVertex() const {
   return Handle_Naive_Vertex::DownCast(MBFV_V);
 }
 
-Naive_NAMESPACE_END(eulerop);
+Naive_NAMESPACE_END(euler_op);

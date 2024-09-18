@@ -1,7 +1,7 @@
 #include <naivecgl/EulerOp/EOLib.h>
 #include <naivecgl/EulerOp/TEV.h>
 
-Naive_NAMESPACE_BEGIN(eulerop);
+Naive_NAMESPACE_BEGIN(euler_op);
 
 Naive_Code EOLib::GetTEV(const Naive_Handle<topology::Topol> &theTopol,
                          TEV &theTEV) {
@@ -47,4 +47,4 @@ const EOLib::TransfMat &EOLib::invA() {
   return m;
 }
 
-Naive_NAMESPACE_END(eulerop);
+Naive_NAMESPACE_END(euler_op);

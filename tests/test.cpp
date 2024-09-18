@@ -1,4 +1,4 @@
-﻿#include "test_geom2dapi.h"
+﻿#include "test_geom2d_api.h"
 #include "test_geometry.h"
 #include "test_interface.h"
 #include "test_intersect.h"

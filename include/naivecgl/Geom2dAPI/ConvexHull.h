@@ -6,7 +6,7 @@
 
 #include <memory>
 
-Naive_NAMESPACE_BEGIN(geom2dapi);
+Naive_NAMESPACE_BEGIN(geom2d_api);
 
 /**
  * @brief Calculates the convex hull of a set of 2d points.
@@ -57,6 +57,6 @@ private:
   Naive_Algorithm myAlgo;
 };
 
-Naive_NAMESPACE_END(geom2dapi);
+Naive_NAMESPACE_END(geom2d_api);
 
 #endif

@@ -4,7 +4,7 @@
 #include <naivecgl/Topology/Fin.h>
 #include <naivecgl/Topology/Vertex.h>
 
-Naive_NAMESPACE_BEGIN(eulerop);
+Naive_NAMESPACE_BEGIN(euler_op);
 
 #define MEV_E (myNew[0])
 #define MEV_V (myNew[1])
@@ -97,4 +97,4 @@ Naive_Code SplitEdge::PerformInternal() {
   return Naive_Code_ok;
 }
 
-Naive_NAMESPACE_END(eulerop);
+Naive_NAMESPACE_END(euler_op);

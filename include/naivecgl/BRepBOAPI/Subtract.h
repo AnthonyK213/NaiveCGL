@@ -3,7 +3,7 @@
 
 #include "BO.h"
 
-Naive_NAMESPACE_BEGIN(brepboapi);
+Naive_NAMESPACE_BEGIN(brep_bo_api);
 
 class Subtract : public BO {
 public:
@@ -11,6 +11,6 @@ protected:
 private:
 };
 
-Naive_NAMESPACE_END(brepboapi);
+Naive_NAMESPACE_END(brep_bo_api);
 
 #endif

@@ -9,7 +9,7 @@ TEST(NaiveCGLTest_Geom2dAPI, ConvexHull) {
       {0, 2}, {1, 3}, {2, 2}, {2, 0}, {3, 1}, {3, 4}, {4, 2}, {4, 3},
   };
 
-  ::naivecgl::geom2dapi::ConvexHull aCH2d{::std::move(points)};
+  ::naivecgl::geom2d_api::ConvexHull aCH2d{::std::move(points)};
   aCH2d.Perform();
 
   Naive_Code code = aCH2d.Status();
@@ -24,7 +24,7 @@ TEST(NaiveCGLTest_Geom2dAPI, EnclosingDisc) {
       {0, 2}, {1, 3}, {2, 2}, {2, 0}, {3, 1}, {3, 4}, {4, 2}, {4, 3},
   };
 
-  ::naivecgl::geom2dapi::EnclosingDisc aDisc{};
+  ::naivecgl::geom2d_api::EnclosingDisc aDisc{};
   aDisc.ReBuild(points);
 
   Naive_Pnt2d anOrigin{};

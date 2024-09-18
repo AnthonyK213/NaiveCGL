@@ -63,7 +63,7 @@ Naive_Code_t Naive_Body_create_solid_block(double x, double y, double z,
   if (!basis_set || !body)
     return Naive_Code_null_arg_address;
 
-  ::naivecgl::brepbuilderapi::BuildSolidBlock aBuilder{*basis_set, x, y, z};
+  ::naivecgl::brep_builder_api::BuildSolidBlock aBuilder{*basis_set, x, y, z};
   Naive_CHECK_CODE(aBuilder.Status());
   Naive_ROSTER_ADD(aBuilder.Body(), Naive_True, *body);
 

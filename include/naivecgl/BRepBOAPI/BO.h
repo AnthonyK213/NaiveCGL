@@ -3,7 +3,7 @@
 
 #include "../Common/Command.h"
 
-Naive_NAMESPACE_BEGIN(brepboapi);
+Naive_NAMESPACE_BEGIN(brep_bo_api);
 
 class BO : public common::Command {
 public:
@@ -15,6 +15,6 @@ protected:
   Naive_Real myFuzzy;
 };
 
-Naive_NAMESPACE_END(brepboapi);
+Naive_NAMESPACE_END(brep_bo_api);
 
 #endif

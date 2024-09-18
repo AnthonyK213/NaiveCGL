@@ -8,9 +8,9 @@ Naive_NAMESPACE_BEGIN(topology);
 
 Naive_IMPLEMENT_RTTI(Fin);
 
-Fin::Fin(const Handle_Naive_Edge &theEdge, const Handle_Naive_Vertex &theVert,
+Fin::Fin(Naive_Edge *theEdge, const Handle_Naive_Vertex &theVert,
          Naive_Bool theSense)
-    : myLoop(nullptr), myEdge(theEdge.get()), myCrv(nullptr), myVert(theVert),
+    : myLoop(nullptr), myEdge(theEdge), myCrv(nullptr), myVert(theVert),
       myTwin(nullptr), myPrev(nullptr), myNext(nullptr), myComp(nullptr),
       mySense(theSense) {
   if (myVert)

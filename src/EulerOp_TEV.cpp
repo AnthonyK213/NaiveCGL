@@ -1,6 +1,6 @@
 #include <naivecgl/EulerOp/TEV.h>
 
-Naive_NAMESPACE_BEGIN(eulerop);
+Naive_NAMESPACE_BEGIN(euler_op);
 
 TEV::TEV() noexcept : myVal() { myVal << 0.0, 0.0, 0.0, 0.0, 0.0, 0.0; }
 
@@ -24,4 +24,4 @@ TEV TEV::Subtracted(const TEV &theOther) const {
   return TEV{myVal - theOther.myVal};
 }
 
-Naive_NAMESPACE_END(eulerop);
+Naive_NAMESPACE_END(euler_op);

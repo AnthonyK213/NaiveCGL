@@ -3,7 +3,7 @@
 
 #include "Operator.h"
 
-Naive_NAMESPACE_BEGIN(eulerop);
+Naive_NAMESPACE_BEGIN(euler_op);
 
 class MakeFaceEdge : Operator {
 public:
@@ -42,6 +42,6 @@ private:
   Naive_Handle<topology::Fin> myFin2;
 };
 
-Naive_NAMESPACE_END(eulerop);
+Naive_NAMESPACE_END(euler_op);
 
 #endif

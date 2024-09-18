@@ -1,7 +1,7 @@
 ﻿#include <naivecgl/Geom2dAPI/ConvexHull.h>
 #include <naivecgl/Math/Constant.h>
 
-Naive_NAMESPACE_BEGIN(geom2dapi);
+Naive_NAMESPACE_BEGIN(geom2d_api);
 
 /* ConvexHull::Impl */
 
@@ -340,4 +340,4 @@ Naive_Pnt2dList1 ConvexHull::ConvexPoints() const {
   return myImpl->ConvexPoints();
 }
 
-Naive_NAMESPACE_END(geom2dapi);
+Naive_NAMESPACE_END(geom2d_api);

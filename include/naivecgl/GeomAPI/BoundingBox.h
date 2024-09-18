@@ -4,7 +4,7 @@
 #include "../Math/Box.h"
 #include "../Math/OBB.h"
 
-Naive_NAMESPACE_BEGIN(geomapi);
+Naive_NAMESPACE_BEGIN(geom_api);
 
 class BoundingBox final {
 public:
@@ -15,6 +15,6 @@ public:
   OBBFromPoints(const Naive_Pnt3dList1 &thePoints, Naive_OBB &theOBB);
 };
 
-Naive_NAMESPACE_END(geomapi);
+Naive_NAMESPACE_END(geom_api);
 
 #endif

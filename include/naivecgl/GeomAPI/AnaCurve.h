@@ -3,7 +3,7 @@
 
 #include "../Geometry/Curve.h"
 
-Naive_NAMESPACE_BEGIN(geomapi);
+Naive_NAMESPACE_BEGIN(geom_api);
 
 class AnaCurve {
 public:
@@ -24,6 +24,6 @@ public:
            const Naive_Real theTol = math::Precision::Epsilon0());
 };
 
-Naive_NAMESPACE_END(geomapi);
+Naive_NAMESPACE_END(geom_api);
 
 #endif

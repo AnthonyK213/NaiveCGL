@@ -4,7 +4,7 @@
 #include "../Math/Ax2.h"
 #include "Builder.h"
 
-Naive_NAMESPACE_BEGIN(brepbuilderapi);
+Naive_NAMESPACE_BEGIN(brep_builder_api);
 
 class BuildSolidBlock : public Builder {
 public:
@@ -25,6 +25,6 @@ private:
   Naive_Real myZ;
 };
 
-Naive_NAMESPACE_END(brepbuilderapi);
+Naive_NAMESPACE_END(brep_builder_api);
 
 #endif

@@ -12,7 +12,7 @@ class Edge;
 class Vertex;
 
 class Shell final : public Naive_Topol {
-  friend class eulerop::MakeBodyFaceVertex;
+  friend class euler_op::MakeBodyFaceVertex;
 
 public:
   Naive_EXPORT Shell();

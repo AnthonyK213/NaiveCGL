@@ -1,6 +1,6 @@
 ﻿#include <naivecgl/GeomAPI/ConvexHull.h>
 
-Naive_NAMESPACE_BEGIN(geomapi);
+Naive_NAMESPACE_BEGIN(geom_api);
 
 /* ConvexHull::Impl */
 
@@ -142,4 +142,4 @@ Handle_Naive_Triangulation ConvexHull::Result() const {
   return myImpl->Result();
 }
 
-Naive_NAMESPACE_END(geomapi);
+Naive_NAMESPACE_END(geom_api);

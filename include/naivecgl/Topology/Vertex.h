@@ -17,8 +17,8 @@ class Fin;
 class Vertex final : public Naive_Topol {
   friend class Edge;
   friend class Fin;
-  friend class eulerop::MakeBodyFaceVertex;
-  friend class eulerop::SplitEdge;
+  friend class euler_op::MakeBodyFaceVertex;
+  friend class euler_op::SplitEdge;
 
 public:
   Naive_EXPORT Vertex();

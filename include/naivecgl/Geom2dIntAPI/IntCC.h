@@ -10,7 +10,7 @@ class NurbsCurve;
 
 Naive_NAMESPACE_END(geometry2d);
 
-Naive_NAMESPACE_BEGIN(geom2dintapi);
+Naive_NAMESPACE_BEGIN(geom2d_int_api);
 
 class IntCC final {
 public:
@@ -21,6 +21,6 @@ public:
 private:
 };
 
-Naive_NAMESPACE_END(geom2dintapi);
+Naive_NAMESPACE_END(geom2d_int_api);
 
 #endif

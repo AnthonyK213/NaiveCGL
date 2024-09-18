@@ -3,8 +3,8 @@
 
 #include "../Geometry/Surface.h"
 
-Naive_NAMESPACE_BEGIN(geomapi);
+Naive_NAMESPACE_BEGIN(geom_api);
 
-Naive_NAMESPACE_END(geomapi);
+Naive_NAMESPACE_END(geom_api);
 
 #endif

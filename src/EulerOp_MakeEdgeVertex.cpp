@@ -3,7 +3,7 @@
 #include <naivecgl/Topology/Edge.h>
 #include <naivecgl/Topology/Vertex.h>
 
-Naive_NAMESPACE_BEGIN(eulerop);
+Naive_NAMESPACE_BEGIN(euler_op);
 
 Naive_IMPLEMENT_EO(MakeEdgeVertex, 1, 1, 0, 0, 0, 0);
 
@@ -21,4 +21,4 @@ Handle_Naive_Edge MakeEdgeVertex::NewEdge() const {
   return Handle_Naive_Edge::DownCast(myNew[1]);
 }
 
-Naive_NAMESPACE_END(eulerop);
+Naive_NAMESPACE_END(euler_op);

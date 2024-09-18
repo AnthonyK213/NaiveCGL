@@ -4,7 +4,7 @@
 #include "../Geometry2d/Curve.h"
 #include "../Math/Precision.h"
 
-Naive_NAMESPACE_BEGIN(geom2dapi);
+Naive_NAMESPACE_BEGIN(geom2d_api);
 
 class AnaCurve {
 public:
@@ -25,6 +25,6 @@ public:
            const Naive_Real theTol = math::Precision::Epsilon0());
 };
 
-Naive_NAMESPACE_END(geom2dapi);
+Naive_NAMESPACE_END(geom2d_api);
 
 #endif

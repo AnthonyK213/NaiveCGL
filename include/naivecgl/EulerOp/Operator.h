@@ -19,7 +19,7 @@ class Vertex;
 
 Naive_NAMESPACE_END(topology);
 
-Naive_NAMESPACE_BEGIN(eulerop);
+Naive_NAMESPACE_BEGIN(euler_op);
 
 class TEV;
 
@@ -61,6 +61,6 @@ public:                                                                        \
     return aTEV;                                                               \
   }
 
-Naive_NAMESPACE_END(eulerop);
+Naive_NAMESPACE_END(euler_op);
 
 #endif

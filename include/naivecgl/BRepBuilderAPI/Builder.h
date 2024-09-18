@@ -10,7 +10,7 @@ class Body;
 
 Naive_NAMESPACE_END(topology);
 
-Naive_NAMESPACE_BEGIN(brepbuilderapi);
+Naive_NAMESPACE_BEGIN(brep_builder_api);
 
 class Builder : public common::Command {
 public:
@@ -25,6 +25,6 @@ protected:
   Naive_Handle<topology::Body> myBody;
 };
 
-Naive_NAMESPACE_END(brepbuilderapi);
+Naive_NAMESPACE_END(brep_builder_api);
 
 #endif

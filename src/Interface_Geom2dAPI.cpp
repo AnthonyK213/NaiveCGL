@@ -18,7 +18,7 @@ Naive_Code_t Naive_Geom2dAPI_convex_hull(int n_points,
 
   Naive_Pnt2dList1 aPoints(points, points + n_points);
   Naive_ENUM_CAST(Naive_Algorithm, algo, algo_enum);
-  ::naivecgl::geom2dapi::ConvexHull CH{::std::move(aPoints), algo_enum};
+  ::naivecgl::geom2d_api::ConvexHull CH{::std::move(aPoints), algo_enum};
 
   CH.Perform();
 
@@ -55,7 +55,7 @@ Naive_Code_t Naive_Geom2dAPI_enclosing_disc(int n_points,
 
   Naive_Pnt2dList1 aPoints(points, points + n_points);
 
-  ::naivecgl::geom2dapi::EnclosingDisc ED{};
+  ::naivecgl::geom2d_api::EnclosingDisc ED{};
   ED.ReBuild(aPoints);
 
   Naive_Pnt2d O;
