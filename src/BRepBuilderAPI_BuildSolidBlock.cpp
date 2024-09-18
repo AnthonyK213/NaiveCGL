@@ -1,6 +1,13 @@
 #include <naivecgl/BRepBuilderAPI/BuildSolidBlock.h>
 #include <naivecgl/EulerOp/MakeBodyFaceVertex.h>
+#include <naivecgl/EulerOp/MakeFaceEdge.h>
 #include <naivecgl/Math/Constant.h>
+#include <naivecgl/Topology/Body.h>
+#include <naivecgl/Topology/Edge.h>
+#include <naivecgl/Topology/Face.h>
+#include <naivecgl/Topology/Fin.h>
+#include <naivecgl/Topology/Loop.h>
+#include <naivecgl/Topology/Vertex.h>
 
 Naive_NAMESPACE_BEGIN(brepbuilderapi);
 
@@ -22,8 +29,29 @@ void BuildSolidBlock::Init(const Naive_Ax2 &theAx2, const Naive_Real theX,
 }
 
 void BuildSolidBlock::Build() {
+  Naive_List1<Handle_Naive_Vertex> aVerts{};
+  Naive_List1<Handle_Naive_Edge> anEdges{};
+  Naive_List1<Handle_Naive_Face> aFaces{};
+
+  aVerts.reserve(8);
+  anEdges.reserve(12);
+  aFaces.reserve(6);
+
   eulerop::MakeBodyFaceVertex aMBFV{};
   myBody = aMBFV.NewBody();
+  aFaces.push_back(aMBFV.NewFace());   /* F00 */
+  aVerts.push_back(aMBFV.NewVertex()); /* V00 */
+
+  eulerop::MakeFaceEdge aMFE(aFaces[0]->OuterLoop(), nullptr, nullptr);
+  aFaces.push_back(aMFE.NewFace());  /* F01 */
+  anEdges.push_back(aMFE.NewEdge()); /* E00 */
+
+  /**
+   * E01 ~ E07
+   * V01 ~ V07
+   */
+  for (Naive_Integer i = 0; i < 7; ++i) {
+  }
 
   Done();
 }

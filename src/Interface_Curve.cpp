@@ -5,7 +5,7 @@
 #include "Interface_NaiveCGL_c.h"
 
 Naive_Code_t Naive_Curve_ask_interval(Naive_Curve_t curve,
-                                   Naive_Interval_t *const bound) {
+                                      Naive_Interval_t *const bound) {
   if (!bound)
     return Naive_Code_null_arg_address;
 
@@ -30,12 +30,12 @@ Naive_Code_t Naive_Curve_ask_interval(Naive_Curve_t curve,
   return Naive_Code_ok;
 }
 
-Naive_Code_t Naive_Curve_eval(Naive_Curve_t curve, double t, int n_deriv,
+Naive_Code_t Naive_Curve_eval(Naive_Curve_t curve, double t, int n_derivs,
                               Naive_Vec3d_t p[]) {
   if (!p)
     return Naive_Code_null_arg_address;
 
-  if (n_deriv < 0 || n_deriv > 4)
+  if (n_derivs < 0 || n_derivs > 4)
     return Naive_Code_value_out_of_range;
 
   Naive_ROSTER_ASK(Naive_Object, curve, Obj);
@@ -44,7 +44,7 @@ Naive_Code_t Naive_Curve_eval(Naive_Curve_t curve, double t, int n_deriv,
     Handle_Naive_Curve H = Handle_Naive_Curve::DownCast(Obj);
 
     Naive_Vec3dList1 aD{};
-    Naive_CHECK_CODE(H->Evaluate(t, n_deriv, aD));
+    Naive_CHECK_CODE(H->Evaluate(t, n_derivs, aD));
 
     for (Naive_Integer i = 0; i < aD.size(); ++i) {
       aD[i].Dump(p[i]);
@@ -53,7 +53,7 @@ Naive_Code_t Naive_Curve_eval(Naive_Curve_t curve, double t, int n_deriv,
     Handle_Naive_Curve2d H = Handle_Naive_Curve2d::DownCast(Obj);
 
     Naive_Vec2dList1 aD{};
-    Naive_CHECK_CODE(H->Evaluate(t, n_deriv, aD));
+    Naive_CHECK_CODE(H->Evaluate(t, n_derivs, aD));
 
     for (Naive_Integer i = 0; i < aD.size(); ++i) {
       p[i].x = aD[i].X();

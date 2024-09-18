@@ -13,7 +13,8 @@ Fin::Fin(const Handle_Naive_Edge &theEdge, const Handle_Naive_Vertex &theVert,
     : myLoop(nullptr), myEdge(theEdge.get()), myCrv(nullptr), myVert(theVert),
       myTwin(nullptr), myPrev(nullptr), myNext(nullptr), myComp(nullptr),
       mySense(theSense) {
-  theVert->myFin = this;
+  if (myVert)
+    myVert->myFin = this;
 }
 
 Naive_Topol *Fin::Parent() const { return myEdge; }

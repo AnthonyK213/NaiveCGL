@@ -20,6 +20,8 @@ Naive_Topol *Face::Parent() const { return myShell; }
 
 Naive_Shell *Face::ParentShell() const { return myShell; }
 
+Handle_Naive_Loop Face::OuterLoop() const { return myLoops.front(); }
+
 void Face::GetBox(Naive_Box &theBox) {}
 
 void Face::SetParent(Naive_Topol *theParent) {

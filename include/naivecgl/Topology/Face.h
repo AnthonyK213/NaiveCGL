@@ -27,6 +27,8 @@ public:
 
   Naive_EXPORT Shell *ParentShell() const;
 
+  Naive_EXPORT Naive_Handle<Loop> OuterLoop() const;
+
   Naive_EXPORT virtual void GetBox(math::Box &theBox) Naive_OVERRIDE;
 
   Naive_DEFINE_RTTI(Face, Naive_Topol);

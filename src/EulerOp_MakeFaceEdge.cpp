@@ -1,5 +1,6 @@
 #include <naivecgl/EulerOp/MakeFaceEdge.h>
 #include <naivecgl/EulerOp/TEV.h>
+#include <naivecgl/Topology/Body.h>
 #include <naivecgl/Topology/Edge.h>
 #include <naivecgl/Topology/Face.h>
 #include <naivecgl/Topology/Fin.h>
@@ -8,6 +9,9 @@
 #include <naivecgl/Topology/Vertex.h>
 
 Naive_NAMESPACE_BEGIN(eulerop);
+
+#define MEV_F (myNew[0])
+#define MEV_E (myNew[1])
 
 MakeFaceEdge::MakeFaceEdge() {}
 
@@ -28,6 +32,14 @@ void MakeFaceEdge::SetFin1(const Naive_Handle<topology::Fin> &theFin) {
 
 void MakeFaceEdge::SetFin2(const Naive_Handle<topology::Fin> &theFin) {
   myFin2 = theFin;
+}
+
+Handle_Naive_Face MakeFaceEdge::NewFace() const {
+  return Handle_Naive_Face::DownCast(MEV_F);
+}
+
+Handle_Naive_Edge MakeFaceEdge::NewEdge() const {
+  return Handle_Naive_Edge::DownCast(MEV_E);
 }
 
 Naive_Code MakeFaceEdge::CheckParams() const {
@@ -51,18 +63,32 @@ Naive_Code MakeFaceEdge::CheckParams() const {
 
 Naive_Code MakeFaceEdge::PerformInternal() {
   if (!myFin1 && !myFin2) {
-    // Naive_Face *aParentFace = myLoop->ParentFace();
-    // if (!aParentFace)
-    //   return Naive_Code_err;
-    // Naive_Shell *aParentShell = aParentFace->ParentShell();
-    // if (!aParentShell)
-    //   return Naive_Code_err;
-    // Handle_Naive_Vertex aVert = aParentShell->GetVertex();
+    Naive_Face *aParentFace = myLoop->ParentFace();
+    if (!aParentFace)
+      return Naive_Code_err;
+    Naive_Shell *aShell = aParentFace->ParentShell();
+    if (!aShell)
+      return Naive_Code_err;
+    Handle_Naive_Vertex aVert = aShell->GetVertex();
+    if (!aVert)
+      return Naive_Code_err;
+    Naive_Body *aBody = dynamic_cast<Naive_Body *>(aShell->TopTopol());
+    if (!aBody)
+      return Naive_Code_err;
 
-    Handle_Naive_Vertex aVert =
-        myLoop->ParentFace()->ParentShell()->GetVertex();
-    // if (!aVert)
-    //   return Naive_Code_err;
+    Handle_Naive_Edge anEdge = new Naive_Edge(aVert, aVert);
+    Handle_Naive_Face aFace = new Naive_Face;
+
+    myLoop->AppendFin(anEdge->ForwardFin().get());
+    aFace->myLoops.front()->AppendFin(anEdge->BackwardFin().get());
+    aFace->SetParent(aShell);
+    anEdge->SetParent(aBody);
+    aFace->myPrev = aParentFace;
+    aParentFace->myNext = anEdge;
+
+    myNew.resize(2);
+    MEV_F = aFace;
+    MEV_E = anEdge;
   } else {
   }
 

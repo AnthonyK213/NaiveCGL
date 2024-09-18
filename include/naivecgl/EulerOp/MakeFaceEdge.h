@@ -25,6 +25,10 @@ public:
 
   Naive_EXPORT void SetFin2(const Naive_Handle<topology::Fin> &theFin);
 
+  Naive_EXPORT Naive_Handle<topology::Face> NewFace() const;
+
+  Naive_EXPORT Naive_Handle<topology::Edge> NewEdge() const;
+
   Naive_DEFINE_EO(MakeFaceEdge);
 
 protected:

@@ -183,12 +183,12 @@ Naive_Curve_ask_interval(Naive_Curve_t curve, Naive_Interval_t *const interval);
  *
  * @param curve [I] Curve.
  * @param t [I] Curve parameter.
- * @param n_deriv [I] Number of derivatives.
+ * @param n_derivs [I] Number of derivatives.
  * @param p [O] Point and derivatives.
  * @return Code.
  */
 Naive_API Naive_Code_t Naive_Curve_eval(Naive_Curve_t curve, double t,
-                                        int n_deriv, Naive_Vec3d_t p[]);
+                                        int n_derivs, Naive_Vec3d_t p[]);
 
 /**
  * @brief
@@ -497,14 +497,14 @@ Naive_API Naive_Code_t Naive_Point_create(const Naive_Point_sf_t *point_sf,
  *
  * @param surface [I] Surface.
  * @param uv [I] u and v parameter pair.
- * @param n_u_deriv [I] Number of u derivatives.
- * @param n_v_deriv [I] Number of v derivatives.
+ * @param n_u_derivs [I] Number of u derivatives.
+ * @param n_v_derivs [I] Number of v derivatives.
  * @param p [O] Point and derivatives.
  * @return Code.
  */
 Naive_API Naive_Code_t Naive_Surface_eval(Naive_Surface_t surface,
-                                          Naive_UV_t uv, int n_u_deriv,
-                                          int n_v_deriv, Naive_Vec3d_t p[]);
+                                          Naive_UV_t uv, int n_u_derivs,
+                                          int n_v_derivs, Naive_Vec3d_t p[]);
 
 /* Naive_Tessellation */
 
