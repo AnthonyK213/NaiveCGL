@@ -66,8 +66,8 @@ Naive_Pnt3d Ax2::ToGlobal(const Naive_Pnt3d &thePnt) const {
 
 Naive_Pnt3d Ax2::ToGlobal(const Naive_Real theX, const Naive_Real theY,
                           const Naive_Real theZ) const {
-                            // return 
-                          }
+  return {(myXDir * theX + myYDir * theY + Direction() * theZ).XYZ()};
+}
 
 const Ax2 &Ax2::Unset() {
   static Ax2 ax2{};
