@@ -51,9 +51,6 @@ Naive_Code SplitEdge::PerformInternal() {
   aE->setVertex(aToSplit, myForward);
   aE->setVertex(aV, !myForward);
 
-  aE->SetParent(myEdge->Parent());
-  aV->SetParent(aBody.get());
-
   Naive_Fin *aOld, *aNew;
 
   if (myEdge->ForwardFin()->ParentLoop()) {
@@ -89,6 +86,9 @@ Naive_Code SplitEdge::PerformInternal() {
 
     aNew->myLoop = aOld->ParentLoop();
   }
+
+  /* TODO: What if a wire body? */
+  aBody->AppendEdge(aE);
 
   myNew.resize(2);
   MEV_E = aE;

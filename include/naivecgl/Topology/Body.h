@@ -24,6 +24,16 @@ public:
 
   Naive_EXPORT virtual void GetBox(math::Box &theBox) Naive_OVERRIDE;
 
+  Naive_EXPORT Naive_Code AppendVertex(const Naive_Handle<Vertex> &theVert);
+
+  Naive_EXPORT Naive_Code AppendEdge(const Naive_Handle<Edge> &theEdge);
+
+  Naive_EXPORT Naive_LinkedList<Naive_Handle<Face>> GetFaces() const;
+
+  Naive_EXPORT Naive_LinkedList<Naive_Handle<Edge>> GetEdges() const;
+
+  Naive_EXPORT Naive_LinkedList<Naive_Handle<Vertex>> GetVertices() const;
+
   Naive_DEFINE_RTTI(Body, Naive_Topol);
 
 protected:

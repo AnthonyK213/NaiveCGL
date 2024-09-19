@@ -6,13 +6,16 @@
 
 Naive_NAMESPACE_BEGIN(topology);
 
+class Body;
 class Region;
 class Face;
 class Edge;
 class Vertex;
 
 class Shell final : public Naive_Topol {
+  friend class Body;
   friend class euler_op::MakeBodyFaceVertex;
+  friend class euler_op::MakeFaceEdge;
 
 public:
   Naive_EXPORT Shell();
@@ -24,6 +27,12 @@ public:
   Naive_EXPORT const Naive_Handle<Vertex> GetVertex() const { return myVertex; }
 
   Naive_EXPORT virtual void GetBox(math::Box &theBox) Naive_OVERRIDE;
+
+  Naive_EXPORT Naive_Code SetVertex(const Naive_Handle<Vertex> &theVert);
+
+  Naive_EXPORT Naive_Code AppendFace(const Naive_Handle<Face> &theFace);
+
+  Naive_EXPORT Naive_LinkedList<Naive_Handle<Face>> GetFaces() const;
 
   Naive_DEFINE_RTTI(Shell, Naive_Topol);
 

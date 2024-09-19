@@ -10,6 +10,7 @@ class Fin;
 
 class Loop final : public Naive_Topol {
   friend class Face;
+  friend class euler_op::MakeFaceEdge;
 
 public:
   Naive_EXPORT Loop();

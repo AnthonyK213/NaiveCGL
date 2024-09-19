@@ -1,17 +1,40 @@
 #include <naivecgl/BRepBuilderAPI/BuildSolidBlock.h>
 #include <naivecgl/Common/Roster.h>
 #include <naivecgl/Topology/Body.h>
+#include <naivecgl/Topology/Edge.h>
+#include <naivecgl/Topology/Face.h>
+#include <naivecgl/Topology/Vertex.h>
 
 #include "Interface_NaiveCGL_c.h"
 
 Naive_Code_t Naive_Body_ask_edges(Naive_Body_t body, int *const n_edges,
                                   Naive_Edge_t **const edges) {
-  return Naive_Code_not_implemented;
+  if (!n_edges)
+    return Naive_Code_null_arg_address;
+
+  Naive_ROSTER_ASK(Naive_Body, body, H);
+  Naive_LinkedList<Handle_Naive_Edge> anEdges = H->GetEdges();
+  *n_edges = static_cast<int>(anEdges.size());
+
+  if (edges) {
+  }
+
+  return Naive_Code_ok;
 }
 
 Naive_Code_t Naive_Body_ask_faces(Naive_Body_t body, int *const n_faces,
                                   Naive_Face_t **const faces) {
-  return Naive_Code_not_implemented;
+  if (!n_faces)
+    return Naive_Code_null_arg_address;
+
+  Naive_ROSTER_ASK(Naive_Body, body, H);
+  Naive_LinkedList<Handle_Naive_Face> aFaces = H->GetFaces();
+  *n_faces = static_cast<int>(aFaces.size());
+
+  if (faces) {
+  }
+
+  return Naive_Code_ok;
 }
 
 Naive_Code_t Naive_Body_ask_fins(Naive_Body_t body, int *const n_fins,
@@ -48,7 +71,17 @@ Naive_Code_t Naive_Body_ask_shells(Naive_Body_t body, int *const n_shells,
 
 Naive_Code_t Naive_Body_ask_vertices(Naive_Body_t body, int *const n_vertices,
                                      Naive_Vertex_t **const vertices) {
-  return Naive_Code_not_implemented;
+  if (!n_vertices)
+    return Naive_Code_null_arg_address;
+
+  Naive_ROSTER_ASK(Naive_Body, body, H);
+  Naive_LinkedList<Handle_Naive_Vertex> aVerts = H->GetVertices();
+  *n_vertices = static_cast<int>(aVerts.size());
+
+  if (vertices) {
+  }
+
+  return Naive_Code_ok;
 }
 
 Naive_Code_t Naive_Body_boolean(Naive_Body_t target, int n_tools,

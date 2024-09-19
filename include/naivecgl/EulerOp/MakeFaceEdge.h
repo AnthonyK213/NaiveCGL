@@ -5,7 +5,7 @@
 
 Naive_NAMESPACE_BEGIN(euler_op);
 
-class MakeFaceEdge : Operator {
+class MakeFaceEdge : public Operator {
 public:
   Naive_EXPORT MakeFaceEdge();
 

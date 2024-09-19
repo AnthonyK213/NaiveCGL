@@ -10,6 +10,7 @@ class Body;
 class Shell;
 
 class Region final : public Naive_Topol {
+  friend class Body;
   friend class euler_op::MakeBodyFaceVertex;
 
 public:
@@ -20,6 +21,8 @@ public:
   Naive_EXPORT Body *ParentBody() const;
 
   Naive_EXPORT virtual void GetBox(math::Box &theBox) Naive_OVERRIDE;
+
+  Naive_EXPORT const Naive_LinkedList<Naive_Handle<Shell>> &GetShells() const;
 
   Naive_DEFINE_RTTI(Region, Naive_Topol);
 

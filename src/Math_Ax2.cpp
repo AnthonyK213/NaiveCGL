@@ -60,6 +60,15 @@ Ax2 Ax2::Transformed(const Trsf3d &theTrsf) const {
   return Unset();
 }
 
+Naive_Pnt3d Ax2::ToGlobal(const Naive_Pnt3d &thePnt) const {
+  return ToGlobal(thePnt.X(), thePnt.Y(), thePnt.Z());
+}
+
+Naive_Pnt3d Ax2::ToGlobal(const Naive_Real theX, const Naive_Real theY,
+                          const Naive_Real theZ) const {
+                            // return 
+                          }
+
 const Ax2 &Ax2::Unset() {
   static Ax2 ax2{};
   return ax2;

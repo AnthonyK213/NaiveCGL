@@ -11,10 +11,14 @@ Naive_NAMESPACE_END(geometry);
 
 Naive_NAMESPACE_BEGIN(topology);
 
+class Body;
+class Shell;
 class Edge;
 class Fin;
 
 class Vertex final : public Naive_Topol {
+  friend class Body;
+  friend class Shell;
   friend class Edge;
   friend class Fin;
   friend class euler_op::MakeBodyFaceVertex;

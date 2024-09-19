@@ -5,7 +5,7 @@
 
 Naive_NAMESPACE_BEGIN(euler_op);
 
-class MakeEdgeKillLoop : Operator {
+class MakeEdgeKillLoop : public Operator {
 public:
   Naive_DEFINE_EO(MakeEdgeKillLoop);
 

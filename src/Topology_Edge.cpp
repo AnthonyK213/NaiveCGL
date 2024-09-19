@@ -86,8 +86,11 @@ void Edge::setVertex(const Handle_Naive_Vertex &theVert,
                      Naive_Bool theForward) {
   Naive_Fin *aFin = (theForward ? ForwardFin() : BackwardFin()).get();
   aFin->myVert = theVert;
-  aFin->myComp = theVert->myFin;
-  theVert->myFin = aFin;
+
+  if (theVert) {
+    aFin->myComp = theVert->myFin;
+    theVert->myFin = aFin;
+  }
 }
 
 Naive_NAMESPACE_END(topology);

@@ -28,20 +28,24 @@ Naive_Code Loop::AppendFin(Naive_Fin *theFin) {
 
   if (myFin) {
     Fin *aFinLast = myFin->myPrev;
-    if (aFinLast->GetVertex() == theFin->Twin()->GetVertex() &&
-        theFin->GetVertex() == myFin->Twin()->GetVertex()) {
-      myFin->myPrev = theFin;
-      aFinLast->myNext = theFin;
-      theFin->myPrev = aFinLast;
-      theFin->myNext = myFin;
-      return Naive_Code_ok;
-    }
-    return Naive_Code_err;
+
+    if (aFinLast->GetVertex() != theFin->Twin()->GetVertex() ||
+        theFin->GetVertex() != myFin->Twin()->GetVertex())
+      return Naive_Code_err;
+
+    myFin->myPrev = theFin;
+    aFinLast->myNext = theFin;
+    theFin->myPrev = aFinLast;
+    theFin->myNext = myFin;
+    theFin->myLoop = this;
   } else {
     myFin = theFin;
+    myFin->myPrev = myFin;
     myFin->myNext = myFin;
-    return Naive_Code_ok;
+    myFin->myLoop = this;
   }
+
+  return Naive_Code_ok;
 }
 
 Naive_Code Loop::RemoveFin(Naive_Fin *theFin) {

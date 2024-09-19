@@ -5,7 +5,7 @@
 
 Naive_NAMESPACE_BEGIN(euler_op);
 
-class MakeGenusBody : Operator {
+class MakeGenusBody : public Operator {
 public:
   Naive_DEFINE_EO(MakeGenusBody);
 

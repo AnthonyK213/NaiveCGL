@@ -34,6 +34,12 @@ public:
 
   Naive_EXPORT Ax2 Transformed(const Trsf3d &theTrsf) const;
 
+  Naive_EXPORT Naive_Pnt3d ToGlobal(const Naive_Pnt3d &thePnt) const;
+
+  Naive_EXPORT Naive_Pnt3d ToGlobal(const Naive_Real theX,
+                                    const Naive_Real theY,
+                                    const Naive_Real theZ) const;
+
   Naive_EXPORT static const Ax2 &Unset();
 
   Naive_EXPORT Naive_Bool Dump(Naive_Ax2_sf_t &theAx2) const;

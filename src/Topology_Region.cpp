@@ -16,6 +16,10 @@ Naive_Body *Region::ParentBody() const { return myBody; }
 
 void Region::GetBox(Naive_Box &theBox) {}
 
+const Naive_LinkedList<Naive_Handle<Shell>> &Region::GetShells() const {
+  return myShells;
+}
+
 void Region::SetParent(Naive_Topol *theParent) {
   myBody = dynamic_cast<Naive_Body *>(theParent);
 }

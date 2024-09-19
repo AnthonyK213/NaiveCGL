@@ -18,6 +18,7 @@ class Vertex;
 class Fin final : public Naive_Topol {
   friend class Loop;
   friend class Edge;
+  friend class euler_op::MakeFaceEdge;
   friend class euler_op::SplitEdge;
 
 public:

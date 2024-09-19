@@ -62,35 +62,64 @@ Naive_Code MakeFaceEdge::CheckParams() const {
 }
 
 Naive_Code MakeFaceEdge::PerformInternal() {
+  Naive_Face *aParentFace = myLoop->ParentFace();
+  if (!aParentFace)
+    return Naive_Code_err;
+
+  Naive_Shell *aShell = aParentFace->ParentShell();
+  if (!aShell)
+    return Naive_Code_err;
+
+  Naive_Body *aBody = dynamic_cast<Naive_Body *>(aShell->TopTopol());
+  if (!aBody)
+    return Naive_Code_err;
+
+  Handle_Naive_Edge anEdge = nullptr;
+  Handle_Naive_Face aFace = new Naive_Face;
+
   if (!myFin1 && !myFin2) {
-    Naive_Face *aParentFace = myLoop->ParentFace();
-    if (!aParentFace)
-      return Naive_Code_err;
-    Naive_Shell *aShell = aParentFace->ParentShell();
-    if (!aShell)
-      return Naive_Code_err;
     Handle_Naive_Vertex aVert = aShell->GetVertex();
     if (!aVert)
       return Naive_Code_err;
-    Naive_Body *aBody = dynamic_cast<Naive_Body *>(aShell->TopTopol());
-    if (!aBody)
+
+    anEdge = new Naive_Edge(aVert, aVert);
+    myLoop->AppendFin(anEdge->ForwardFin().get());
+    aFace->OuterLoop()->AppendFin(anEdge->BackwardFin().get());
+  } else {
+    Handle_Naive_Vertex aV1 = myFin1->GetVertex();
+    Handle_Naive_Vertex aV2 = myFin2->GetVertex();
+
+    if (!aV1 || !aV2)
       return Naive_Code_err;
 
-    Handle_Naive_Edge anEdge = new Naive_Edge(aVert, aVert);
-    Handle_Naive_Face aFace = new Naive_Face;
+    anEdge = new Naive_Edge(aV1, aV2);
 
-    myLoop->AppendFin(anEdge->ForwardFin().get());
-    aFace->myLoops.front()->AppendFin(anEdge->BackwardFin().get());
-    aFace->SetParent(aShell);
-    anEdge->SetParent(aBody);
-    aFace->myPrev = aParentFace;
-    aParentFace->myNext = anEdge;
+    Handle_Naive_Fin aFinF = anEdge->ForwardFin();
+    Handle_Naive_Fin aFinB = anEdge->BackwardFin();
+    Naive_Fin *myFin1Next = myFin1->Next();
+    Naive_Fin *myFin2Next = myFin2->Next();
 
-    myNew.resize(2);
-    MEV_F = aFace;
-    MEV_E = anEdge;
-  } else {
+    myFin1->myNext = aFinF.get();
+    aFinF->myPrev = myFin1.get();
+    aFinF->myNext = myFin2Next;
+
+    myFin2->myNext = aFinB.get();
+    aFinB->myPrev = myFin2.get();
+    aFinB->myNext = myFin1Next;
+
+    aFinF->SetParent(myLoop.get());
+    myLoop->myFin = aFinF.get();
+
+    aFinB->SetParent(aFace->OuterLoop().get());
+    aFace->OuterLoop()->myFin = aFinB.get();
   }
+
+  aBody->AppendEdge(anEdge);
+  aShell->AppendFace(aFace);
+
+  myNew.resize(2);
+  MEV_F = aFace;
+  MEV_E = anEdge;
 
   return Naive_Code_ok;
 }

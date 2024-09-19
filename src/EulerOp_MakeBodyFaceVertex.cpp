@@ -23,16 +23,16 @@ Naive_Code MakeBodyFaceVertex::PerformInternal() {
   Handle_Naive_Face aF = new Naive_Face();
   Handle_Naive_Vertex aV = new Naive_Vertex();
 
-  aB->myRegion = aR;
-  aR->myShells.push_back(aS);
-  aS->myFace = aF;
-  aS->myVertex = aV;
-
   aB->SetParent(nullptr);
+
+  aB->myRegion = aR;
   aR->SetParent(aB.get());
+
+  aR->myShells.push_back(aS);
   aS->SetParent(aR.get());
-  aF->SetParent(aS.get());
-  aV->SetParent(aS.get());
+
+  aS->AppendFace(aF);
+  aS->SetVertex(aV);
 
   myNew.resize(3);
   MBFV_B = aB;
