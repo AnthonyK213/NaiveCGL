@@ -1,6 +1,7 @@
 #ifndef _NaiveCGL_Topology_Loop_HeaderFile
 #define _NaiveCGL_Topology_Loop_HeaderFile
 
+#include "../Collection/LinkedList.h"
 #include "Topol.h"
 
 Naive_NAMESPACE_BEGIN(topology);
@@ -22,6 +23,8 @@ public:
   Naive_Loop_type Type() const { return myType; }
 
   Naive_EXPORT Naive_Bool IsTopologicalClosed() const;
+
+  Naive_EXPORT Naive_LinkedList<Naive_Handle<Fin>> GetFins() const;
 
   Naive_EXPORT Naive_Code AppendFin(Fin *theFin);
 

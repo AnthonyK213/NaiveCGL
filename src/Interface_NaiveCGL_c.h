@@ -5,6 +5,7 @@
 #include <naivecgl/Interface/NaiveCGL_c.h>
 
 #include <cstdlib>
+#include <memory>
 
 #define Naive_CHECK_CODE(Code_)                                                \
   do {                                                                         \

@@ -85,8 +85,30 @@ void Edge::init() {
 void Edge::setVertex(const Handle_Naive_Vertex &theVert,
                      Naive_Bool theForward) {
   Naive_Fin *aFin = (theForward ? ForwardFin() : BackwardFin()).get();
+
+  if (aFin->myVert == theVert)
+    return;
+
+  /* Remove aFin from aFin->myVert->myFin */
+  if (aFin->myVert) {
+    Naive_Fin *aPrev = nullptr;
+    Naive_Fin *aCurr = aFin->myVert->myFin;
+    while (aCurr) {
+      if (aFin == aCurr) {
+        if (!aPrev)
+          aFin->myVert->myFin = aCurr->Comp();
+        else
+          aPrev->myComp = aCurr->Comp();
+        break;
+      }
+      aPrev = aCurr;
+      aCurr = aCurr->Comp();
+    }
+  }
+
   aFin->myVert = theVert;
 
+  /* Add aFin to theVert->myFin */
   if (theVert) {
     aFin->myComp = theVert->myFin;
     theVert->myFin = aFin;

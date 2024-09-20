@@ -234,6 +234,41 @@ Naive_API Naive_Code_t Naive_Curve_make_wire_body(
 Naive_API Naive_Code_t Naive_Edge_ask_vertices(Naive_Edge_t edge,
                                                Naive_Vertex_t vertices[2]);
 
+/* Naive_Face */
+
+/**
+ * @brief This function returns the first loop in the given face.
+ *
+ * @param face A face.
+ * @param first_loop The first loop (possibly Naive_Object_null).
+ * @return Code.
+ */
+Naive_API Naive_Code_t
+Naive_Face_ask_first_loop(Naive_Face_t face, Naive_Loop_t *const first_loop);
+
+/* Naive_Fin */
+
+/**
+ * @brief This function returns the edge of the given fin.
+ *
+ * @param fin A fin.
+ * @param edge Owning edge.
+ * @return Code.
+ */
+Naive_API Naive_Code_t Naive_Fin_ask_edge(Naive_Fin_t fin,
+                                          Naive_Edge_t *const edge);
+
+/**
+ * @brief This function returns whether the given fin goes in the same direction
+ * as its owning edge.
+ *
+ * @param fin A fin.
+ * @param is_positive Whether fin is positive or negative.
+ * @return Code.
+ */
+Naive_API Naive_Code_t
+Naive_Fin_is_positive(Naive_Fin_t fin, Naive_Logical_t *const is_positive);
+
 /* Naive_Geom2dAPI */
 
 /**
@@ -308,6 +343,19 @@ Naive_API Naive_Code_t Naive_Line_ask(Naive_Line_t line,
  */
 Naive_API Naive_Code_t Naive_Line_create(const Naive_Line_sf_t *line_sf,
                                          Naive_Line_t *const line);
+
+/* Naive_Loop */
+
+/**
+ * @brief This function returns an ordered list of fins around the given loop.
+ *
+ * @param loop A loop.
+ * @param n_fins Number of fins (>= 0).
+ * @param fins Fins (optional).
+ * @return Code.
+ */
+Naive_API Naive_Code_t Naive_Loop_ask_fins(Naive_Loop_t loop, int *const n_fins,
+                                           Naive_Fin_t **const fins);
 
 /* Naive_Memory */
 

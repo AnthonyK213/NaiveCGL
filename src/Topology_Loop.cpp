@@ -19,6 +19,18 @@ Naive_Bool Loop::IsTopologicalClosed() const {
   return myFin && myFin->myPrev->GetVertex() == myFin->Twin()->GetVertex();
 }
 
+Naive_LinkedList<Handle_Naive_Fin> Loop::GetFins() const {
+  Naive_LinkedList<Handle_Naive_Fin> aResult{myFin};
+
+  Handle_Naive_Fin aNext = myFin->Next();
+  while (aNext != myFin) {
+    aResult.push_back(aNext);
+    aNext = aNext->Next();
+  }
+
+  return aResult;
+}
+
 Naive_Code Loop::AppendFin(Naive_Fin *theFin) {
   if (!theFin)
     return Naive_Code_null_arg_address;

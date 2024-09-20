@@ -2,6 +2,7 @@
 #include <naivecgl/Topology/Body.h>
 #include <naivecgl/Topology/Edge.h>
 #include <naivecgl/Topology/Fin.h>
+#include <naivecgl/Topology/Loop.h>
 #include <naivecgl/Topology/Vertex.h>
 
 Naive_NAMESPACE_BEGIN(euler_op);
@@ -60,10 +61,12 @@ Naive_Code SplitEdge::PerformInternal() {
     if (myForward) {
       aNew->myPrev = aOld;
       aNew->myNext = aOld->Next();
+      aOld->Next()->myPrev = aNew;
       aOld->myNext = aNew;
     } else {
       aNew->myNext = aOld;
       aNew->myPrev = aOld->Prev();
+      aOld->Prev()->myNext = aNew;
       aOld->myPrev = aNew;
     }
 
@@ -77,10 +80,12 @@ Naive_Code SplitEdge::PerformInternal() {
     if (myForward) {
       aNew->myNext = aOld;
       aNew->myPrev = aOld->Prev();
+      aOld->Prev()->myNext = aNew;
       aOld->myPrev = aNew;
     } else {
       aNew->myPrev = aOld;
       aNew->myNext = aOld->Next();
+      aOld->Next()->myPrev = aNew;
       aOld->myNext = aNew;
     }
 

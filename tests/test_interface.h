@@ -263,4 +263,11 @@ TEST(NaiveCGLTest_Interface, Body) {
   ASSERT_EQ(Naive_Code_ok,
             Naive_Body_ask_vertices(solid_block, &n_vertices, &vertices));
   ASSERT_EQ(8, n_vertices);
+
+  Naive_Loop_t loop = Naive_Object_null;
+  ASSERT_EQ(Naive_Code_ok, Naive_Face_ask_first_loop(faces[0], &loop));
+
+  int n_fins, *fins = NULL;
+  ASSERT_EQ(Naive_Code_ok, Naive_Loop_ask_fins(loop, &n_fins, &fins));
+  ASSERT_EQ(4, n_fins);
 }
