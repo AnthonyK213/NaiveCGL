@@ -1,5 +1,6 @@
 #include <naivecgl/Common/Roster.h>
 #include <naivecgl/Common/TObject.h>
+
 #include <naivecgl/Interface/NaiveCGL_c_macros.h>
 
 Naive_NAMESPACE_BEGIN(common);
@@ -10,9 +11,14 @@ TObject::TObject()
 TObject::TObject(const Handle_Naive_Object &theObj, Naive_Bool theStrong)
     : myObj(theObj.get()), myStrong(theStrong), myDeleted(Naive_False) {
   if (myObj) {
-    myObj->myTag_ = Naive_Roster::Resolve().NewTag();
-    if (myStrong)
-      myObj->IncrementRefCounter();
+    if (myObj->myTag_ == Naive_Object_null) {
+      myObj->myTag_ = Naive_Roster::Resolve().NewTag();
+
+      /* If tag is not null, then the object has already been added to the
+       * roster, so do not increase the rc. */
+      if (myStrong)
+        myObj->IncrementRefCounter();
+    }
   }
 }
 
@@ -40,10 +46,8 @@ void TObject::Delete() {
   if (IsDeleted())
     return;
 
-  if (IsStrong()) {
-    Handle_Naive_Object anObj = myObj;
-    anObj->DecrementRefCounter();
-  }
+  if (myObj && IsStrong())
+    myObj->DecrementRefCounter();
 
   myObj = nullptr;
   myDeleted = Naive_True;

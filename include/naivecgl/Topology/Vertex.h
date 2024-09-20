@@ -29,6 +29,8 @@ public:
 
   Naive_EXPORT virtual Topol *Parent() const Naive_OVERRIDE;
 
+  Naive_EXPORT const Naive_Handle<geometry::Point3d> &GetPoint() const;
+
   Naive_EXPORT Naive_Code
   AttachPoint(const Naive_Handle<geometry::Point3d> &aPoint);
 

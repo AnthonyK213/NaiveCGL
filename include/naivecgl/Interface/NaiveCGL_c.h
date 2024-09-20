@@ -222,6 +222,18 @@ Naive_API Naive_Code_t Naive_Curve_make_wire_body(
     int *const n_new_edges, Naive_Edge_t **const new_edges,
     int **const edge_index);
 
+/* Naive_Edge */
+
+/**
+ * @brief This function returns the vertices bounding the given edge.
+ *
+ * @param edge [I] An edge.
+ * @param vertices [O] Vertices (possibly both Naive_Object_null).
+ * @return Code.
+ */
+Naive_API Naive_Code_t Naive_Edge_ask_vertices(Naive_Edge_t edge,
+                                               Naive_Vertex_t vertices[2]);
+
 /* Naive_Geom2dAPI */
 
 /**
@@ -564,6 +576,17 @@ Naive_API Naive_Code_t Naive_Triangulation_create(
     Naive_Triangulation_t *const triangulation);
 
 /* Naive_Vertex */
+
+/**
+ * @brief This function returns the point at the given vertex, if one exists,
+ * otherwise Naive_Object_null.
+ *
+ * @param vertex [I] A vertex.
+ * @param point [O] Its point (possibly Naive_Object_null).
+ * @return Code.
+ */
+Naive_API Naive_Code_t Naive_Vertex_ask_point(Naive_Vertex_t vertex,
+                                              Naive_Point_t *const point);
 
 /**
  * @brief This function attaches points to vertices.

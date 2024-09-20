@@ -247,16 +247,20 @@ TEST(NaiveCGLTest_Interface, Body) {
   ASSERT_EQ(Naive_Code_ok, Naive_Body_create_solid_block(
                                10., 10., 10., &basis_set, &solid_block));
 
-  int n_faces;
-  ASSERT_EQ(Naive_Code_ok, Naive_Body_ask_faces(solid_block, &n_faces, NULL));
+  int n_faces, *faces = NULL;
+  ASSERT_EQ(Naive_Code_ok, Naive_Body_ask_faces(solid_block, &n_faces, &faces));
   ASSERT_EQ(6, n_faces);
 
-  int n_edges;
-  ASSERT_EQ(Naive_Code_ok, Naive_Body_ask_edges(solid_block, &n_edges, NULL));
+  int n_edges, *edges = NULL;
+  ASSERT_EQ(Naive_Code_ok, Naive_Body_ask_edges(solid_block, &n_edges, &edges));
   ASSERT_EQ(12, n_edges);
 
-  int n_vertices;
+  int n_vertices, *vertices = NULL;
   ASSERT_EQ(Naive_Code_ok,
-            Naive_Body_ask_vertices(solid_block, &n_vertices, NULL));
+            Naive_Body_ask_vertices(solid_block, &n_vertices, &vertices));
+  ASSERT_EQ(8, n_vertices);
+
+  ASSERT_EQ(Naive_Code_ok,
+            Naive_Body_ask_vertices(solid_block, &n_vertices, &vertices));
   ASSERT_EQ(8, n_vertices);
 }

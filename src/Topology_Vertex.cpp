@@ -12,6 +12,10 @@ Vertex::Vertex()
 
 Naive_Topol *Vertex::Parent() const { return myParent; }
 
+const Naive_Handle<geometry::Point3d> &Vertex::GetPoint() const {
+  return myPnt;
+}
+
 Naive_Code Vertex::AttachPoint(const Handle_Naive_Point3d &aPoint) {
   if (myPnt)
     return Naive_Code_geom_not_needed;

@@ -17,6 +17,13 @@ Naive_Code_t Naive_Body_ask_edges(Naive_Body_t body, int *const n_edges,
   *n_edges = static_cast<int>(anEdges.size());
 
   if (edges) {
+    Naive_unique_ptr<Naive_Edge_t> result;
+    Naive_ALLOC_ARRAY(Naive_Edge_t, *n_edges, &result);
+    int i = 0;
+    for (const Handle_Naive_Edge &edge : anEdges) {
+      Naive_ROSTER_ADD(edge, Naive_True, result.get()[i++]);
+    }
+    *edges = result.release();
   }
 
   return Naive_Code_ok;
@@ -32,6 +39,13 @@ Naive_Code_t Naive_Body_ask_faces(Naive_Body_t body, int *const n_faces,
   *n_faces = static_cast<int>(aFaces.size());
 
   if (faces) {
+    Naive_unique_ptr<Naive_Face_t> result;
+    Naive_ALLOC_ARRAY(Naive_Face_t, *n_faces, &result);
+    int i = 0;
+    for (const Handle_Naive_Face &face : aFaces) {
+      Naive_ROSTER_ADD(face, Naive_True, result.get()[i++]);
+    }
+    *faces = result.release();
   }
 
   return Naive_Code_ok;
@@ -79,6 +93,13 @@ Naive_Code_t Naive_Body_ask_vertices(Naive_Body_t body, int *const n_vertices,
   *n_vertices = static_cast<int>(aVerts.size());
 
   if (vertices) {
+    Naive_unique_ptr<Naive_Vertex_t> result;
+    Naive_ALLOC_ARRAY(Naive_Vertex_t, *n_vertices, &result);
+    int i = 0;
+    for (const Handle_Naive_Face &vertex : aVerts) {
+      Naive_ROSTER_ADD(vertex, Naive_True, result.get()[i++]);
+    }
+    *vertices = result.release();
   }
 
   return Naive_Code_ok;

@@ -2,6 +2,7 @@
 #include <naivecgl/EulerOp/MakeBodyFaceVertex.h>
 #include <naivecgl/EulerOp/MakeFaceEdge.h>
 #include <naivecgl/EulerOp/SplitEdge.h>
+#include <naivecgl/Geometry/CartesianPoint3d.h>
 #include <naivecgl/Math/Constant.h>
 #include <naivecgl/Topology/Body.h>
 #include <naivecgl/Topology/Edge.h>
@@ -30,6 +31,11 @@ void BuildSolidBlock::Init(const Naive_Ax2 &theAx2, const Naive_Real theX,
 }
 
 void BuildSolidBlock::Build() {
+  if (!myAx2.IsValid() || myX <= 0. || myY <= 0. || myZ <= 0.) {
+    SetStatus(Naive_Code_invalid_value);
+    return;
+  }
+
   Naive_List1<Handle_Naive_Vertex> aVs{};
   Naive_List1<Handle_Naive_Edge> aEs{};
   Naive_List1<Handle_Naive_Face> aFs{};
@@ -102,6 +108,19 @@ void BuildSolidBlock::Build() {
   aEs.push_back(aMFE.NewEdge());
 
   /* TODO: Attach geometry. */
+
+  Naive_Real aHX = myX / 2., aHY = myY / 2.;
+
+  Naive_Pnt3dList1 aPnts{
+      {aHX, -aHY, myZ}, {aHX, -aHY, 0.}, {-aHX, -aHY, 0.}, {-aHX, -aHY, myZ},
+      {-aHX, aHY, myZ}, {-aHX, aHY, 0.}, {aHX, aHY, 0.},   {aHX, aHY, myZ},
+  };
+
+  for (Naive_Integer i = 0; i < 8; ++i) {
+    Naive_Pnt3d aPnt = myAx2.ToGlobal(aPnts[i]);
+    Handle_Naive_CartesianPoint3d aGeom = new Naive_CartesianPoint3d(aPnt);
+    aVs[i]->AttachPoint(aGeom);
+  }
 
   Done();
 }

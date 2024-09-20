@@ -1,5 +1,7 @@
 #include <naivecgl/Common/Roster.h>
 
+#include <naivecgl/Interface/NaiveCGL_c_macros.h>
+
 Naive_NAMESPACE_BEGIN(common);
 
 Roster &Roster::Resolve() {
@@ -11,11 +13,14 @@ Naive_Tag Roster::NewTag() { return ++myTail; }
 
 Naive_Code Roster::Insert(const TObject &theObj) {
   Naive_Tag aTag = theObj.Tag();
-  auto anIter = myTable.find(aTag);
-  if (anIter != myTable.cend())
+
+  if (aTag == Naive_Object_null)
     return Naive_Code_err;
 
-  myTable.insert(::std::make_pair(aTag, theObj));
+  auto anIter = myTable.find(aTag);
+  if (anIter == myTable.cend())
+    myTable.insert(::std::make_pair(aTag, theObj));
+
   return Naive_Code_ok;
 }
 

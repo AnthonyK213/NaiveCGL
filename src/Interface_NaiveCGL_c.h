@@ -27,9 +27,13 @@
 
 #define Naive_ROSTER_ADD(Obj_, Strong_, Tag_)                                  \
   do {                                                                         \
-    Naive_TObject __tobj__{(Obj_), (Strong_)};                                 \
-    Naive_CHECK_CODE(Naive_Roster::Resolve().Insert(__tobj__));                \
-    (Tag_) = __tobj__.Tag();                                                   \
+    if (Obj_) {                                                                \
+      Naive_TObject __tobj__{(Obj_), (Strong_)};                               \
+      Naive_CHECK_CODE(Naive_Roster::Resolve().Insert(__tobj__));              \
+      (Tag_) = __tobj__.Tag();                                                 \
+    } else {                                                                   \
+      (Tag_) = Naive_Object_null;                                              \
+    }                                                                          \
   } while (0)
 
 #define Naive_ALLOC_ARRAY(Tp_, Size_, Var_)                                    \
@@ -47,11 +51,11 @@
 
 const ::naivecgl::common::MemHandler &Naive_default_mem_handler();
 
-// template <class T> struct Naive_Default_delete {
-//   void operator()(T *ptr) const noexcept { Naive_Memory_free(ptr); }
-// };
+template <class T> struct Naive_Default_delete {
+  void operator()(T *ptr) const noexcept { Naive_Memory_free(ptr); }
+};
 
-// template <class T>
-// using Naive_unique_ptr = ::std::unique_ptr<T, Naive_Default_delete<T>>;
+template <class T>
+using Naive_unique_ptr = ::std::unique_ptr<T, Naive_Default_delete<T>>;
 
 #endif

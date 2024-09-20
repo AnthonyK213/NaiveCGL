@@ -10,7 +10,7 @@ Naive_IMPLEMENT_RTTI(CartesianPoint3d);
 CartesianPoint3d::CartesianPoint3d() : myPnt() {}
 
 CartesianPoint3d::CartesianPoint3d(const Naive_Real theX, const Naive_Real theY,
-                               const Naive_Real theZ)
+                                   const Naive_Real theZ)
     : myPnt(theX, theY, theZ) {}
 
 CartesianPoint3d::CartesianPoint3d(const Naive_Pnt3d &thePnt) : myPnt(thePnt) {}
